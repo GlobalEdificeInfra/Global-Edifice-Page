@@ -1,0 +1,67 @@
+--- src/routes/index.tsx
++++ src/routes/index.tsx
+@@ -298,39 +298,42 @@
+     { icon: iconValue, label: "Long-Term Value" },
+   ];
+   return (
+-    <section id="about" className="bg-background py-24">
+-      <div className="mx-auto grid max-w-7xl gap-16 px-6 lg:grid-cols-2 lg:gap-20">
++    <section id="about" className="bg-[#fcfaf7] py-24">
++      <div className="mx-auto grid max-w-7xl gap-16 px-6 lg:grid-cols-2 lg:gap-24 lg:px-8">
+         <div>
+           <div className="flex items-center gap-3">
+-            <span className="eyebrow">Our Story</span>
+-            <span className="h-px w-10 bg-gold/60" />
++            <span className="text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-[#a58d66]">Our Story</span>
++            <span className="h-px w-10 bg-[#a58d66]/50" />
+           </div>
+-          <h2 className="mt-4 font-display text-4xl text-primary md:text-5xl">
++          <h2 className="mt-4 font-display text-[2.8rem] leading-none text-[#0b3b4f] md:text-[3.8rem] lg:text-[4.2rem]">
+             The Global Edifice Promise
+           </h2>
+-          <p className="eyebrow mt-8">Building Legacies, Not Just Homes</p>
+-          <div className="mt-5 space-y-5 text-sm leading-relaxed text-muted-foreground md:text-[15px]">
++          <p className="mt-10 text-[0.85rem] font-semibold uppercase tracking-[0.2em] text-[#a58d66] max-w-[200px] leading-relaxed">
++            Building Legacies,<br/>Not Just Homes
++          </p>
++          <div className="mt-6 space-y-6 text-[0.9rem] lg:text-[0.95rem] leading-[1.8] text-[#4a5568]">
+             <p>
+               Global Edifice was founded on a singular belief — that a home is the most
+               important investment a family will ever make. Since our inception, we have
+               delivered thoughtfully designed residential communities across Bangalore's
+               most sought-after corridors.
+             </p>
+             <p>
+               From compact apartments built for young professionals in Chandapura to spacious
+               villas designed for multi-generational families in HSR Layout, every Global
+               Edifice home reflects our uncompromising commitment to structural integrity,
+               aesthetic excellence, and on-time delivery.
+             </p>
+           </div>
+-          <div className="mt-10 grid grid-cols-2 gap-y-8 sm:grid-cols-4">
++          <div className="mt-12 grid grid-cols-2 gap-y-10 sm:grid-cols-4">
+             {pillars.map(({ icon, label }) => (
+               <div key={label} className="flex flex-col items-start gap-3">
+-                <img src={icon} alt={label} className="h-11 w-11 object-contain" />
+-                <span className="border-l border-gold/40 pl-3 text-xs leading-tight text-primary">
+-                  {label}
+-                </span>
++                <img src={icon} alt={label} className="h-10 w-10 object-contain" />
++                <div className="flex pl-1">
++                  <span className="h-8 w-px bg-[#a58d66]/40 block mr-3" />
++                  <span className="text-[0.7rem] font-normal leading-snug text-[#4a5568] max-w-[80px]">
++                    {label.split(' ')[0]}<br/>{label.split(' ').slice(1).join(' ')}
++                  </span>
++                </div>
+               </div>
+             ))}
+           </div>
+         </div>
+         <div className="relative">
+           <img
+             src={promiseBalcony}
+             alt="Premium balcony view"
+-            className="h-full max-h-[560px] w-full rounded-sm object-cover"
++            className="h-full w-full rounded-md md:rounded-lg object-cover object-center lg:min-h-[600px]"
+           />
+         </div>

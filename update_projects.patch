@@ -1,0 +1,102 @@
+--- src/routes/index.tsx
++++ src/routes/index.tsx
+@@ -194,56 +194,76 @@
+   return (
+     <section id="projects" className="bg-[#fcfaf7] py-24">
+       <div className="mx-auto max-w-7xl px-6 lg:px-8">
+-        <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
++        <div className="flex flex-col items-start justify-between gap-8 md:flex-row md:items-end">
+           <div>
+             <div className="flex items-center gap-3">
+-              <span className="eyebrow">Portfolio</span>
+-              <span className="h-px w-10 bg-gold/60" />
++              <span className="text-xs font-medium uppercase tracking-[0.2em] text-[#a58d66]">Portfolio</span>
++              <span className="h-px w-12 bg-[#a58d66]/40" />
+             </div>
+-            <h2 className="mt-3 font-display text-4xl text-primary md:text-5xl">
++            <h2 className="mt-4 font-display text-5xl text-[#0b3b4f] md:text-7xl">
+               Our Projects
+             </h2>
+           </div>
+-          <div className="flex items-center gap-2 text-xs tracking-[0.2em] text-primary/70">
++          <div className="flex items-center justify-between border-y border-[#a58d66]/30 text-sm tracking-[0.2em] text-[#a58d66] md:min-w-[32rem]">
+             {["ALL", "ONGOING", "COMPLETED"].map((t, i) => (
+-              <span key={t} className="flex items-center gap-2">
++              <span key={t} className="flex items-center w-full justify-center">
+                 <button
+-                  className={`px-2 py-1 ${i === 0 ? "border-b border-gold text-primary" : ""}`}
++                  className={`w-full py-4 text-center transition hover:text-[#0b3b4f] ${
++                    i === 0 ? "font-semibold text-[#0b3b4f]" : ""
++                  }`}
+                 >
+                   {t}
+                 </button>
+-                {i < 2 && <span className="text-border">|</span>}
++                {i < 2 && <span className="h-8 w-px bg-[#a58d66]/30"></span>}
+               </span>
+             ))}
+           </div>
+         </div>
+ 
+         <div className="mt-12 grid gap-8 md:grid-cols-3">
+           {projects.map((p) => (
+             <article
+               key={p.name}
+-              className="group overflow-hidden rounded-sm border border-border bg-card shadow-sm transition hover:shadow-xl"
++              className="group overflow-hidden rounded-xl border border-[#a58d66]/30 bg-white transition hover:shadow-lg"
+             >
+               <div className="overflow-hidden">
+                 <img
+                   src={p.img}
+                   alt={p.name}
+-                  className="h-56 w-full object-cover transition duration-700 group-hover:scale-105"
++                  className="h-[15rem] w-full object-cover transition duration-700 group-hover:scale-105"
+                 />
+               </div>
+-              <div className="p-6">
+-                <div className="flex items-start justify-between gap-4">
+-                  <div>
+-                    <h3 className="text-sm font-semibold tracking-[0.12em] text-primary">
+-                      {p.name}
++              <div className="p-6 md:p-8">
++                <div className="flex items-start justify-between gap-2">
++                  <div className="w-[60%]">
++                    <h3 className="text-base font-semibold tracking-[0.05em] text-[#0b3b4f]">
++                      {p.name.split(' ').slice(0, 2).join(' ')}<br />
++                      {p.name.split(' ').slice(2).join(' ')}
+                     </h3>
+-                    <p className="mt-3 text-[11px] tracking-wider text-muted-foreground">
++                    <p className="mt-4 text-[0.65rem] md:text-[0.7rem] font-medium tracking-wider text-[#a58d66]">
+                       {p.location}
+                     </p>
+                   </div>
+-                  <p className="shrink-0 text-right text-[10px] tracking-[0.18em] text-gold">
+-                    {p.price}
+-                  </p>
++                  <div className="shrink-0 text-right w-[40%]">
++                    <p className="text-[0.65rem] font-medium tracking-[0.05em] text-[#a58d66]">
++                      {p.price.split(' ').slice(0, 2).join(' ')}
++                    </p>
++                    <p className="mt-1 text-sm font-semibold tracking-[0.05em] text-[#a58d66]">
++                      {p.price.split(' ').slice(2).join(' ')}
++                    </p>
++                  </div>
+                 </div>
+-                <div className="my-5 h-px bg-border" />
+-                <p className="text-[11px] tracking-[0.18em] text-muted-foreground">{p.type}</p>
+-                <div className="mt-5 flex gap-2">
+-                  <button className="flex-1 rounded-full bg-gold px-4 py-2.5 text-[10px] tracking-[0.18em] text-primary transition hover:bg-gold-soft">
+-                    BOOK A SITE VISIT
++                <div className="mt-8 mb-6 flex items-center justify-between gap-4">
++                  <p className="text-[0.65rem] font-bold tracking-[0.05em] text-[#4a5568] whitespace-nowrap">{p.type}</p>
++                  <div className="h-px flex-grow bg-[#a58d66]/30"></div>
++                </div>
++                <div className="flex gap-4">
++                  <button className="flex-1 rounded-full bg-[#a58d66] px-2 py-3 text-[0.65rem] font-bold tracking-[0.05em] text-white transition hover:bg-[#8e7855]">
++                    BOOK A SITE VISIT
+                   </button>
+-                  <button className="flex-1 rounded-full border border-primary/20 px-4 py-2.5 text-[10px] tracking-[0.18em] text-primary transition hover:bg-primary hover:text-primary-foreground">
++                  <button className="flex-1 rounded-full border border-[#a58d66] bg-transparent px-2 py-3 text-[0.65rem] font-bold tracking-[0.05em] text-[#0b3b4f] transition hover:bg-[#a58d66]/10">
+                     KNOW MORE
+                   </button>
+                 </div>
