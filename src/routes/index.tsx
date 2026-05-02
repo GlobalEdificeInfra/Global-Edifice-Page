@@ -7,7 +7,11 @@ import projectLegacy from "@/assets/project-legacy.jpg";
 import amenityGardens from "@/assets/amenity-gardens.jpg";
 import amenityJogging from "@/assets/amenity-jogging.jpg";
 import amenityYoga from "@/assets/amenity-yoga.jpg";
-import { Building2, Clock, ShieldCheck, Gem } from "lucide-react";
+import geLogo from "@/assets/ge-logo.png";
+import iconIntegrity from "@/assets/icon-integrity.png";
+import iconDelivery from "@/assets/icon-delivery.png";
+import iconRera from "@/assets/icon-rera.png";
+import iconValue from "@/assets/icon-value.png";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -28,20 +32,10 @@ function Nav() {
   return (
     <header className="absolute top-0 left-0 right-0 z-50">
       <div className="bg-primary">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
-          <div className="flex items-center gap-3 text-primary-foreground">
-            <div className="flex h-10 w-10 items-center justify-center rounded-sm border border-gold/60">
-              <Building2 className="h-5 w-5 text-gold" strokeWidth={1.5} />
-            </div>
-            <div className="leading-tight">
-              <div className="font-display text-lg tracking-wide">
-                GLOBAL <span className="text-gold">EDIFICE</span>
-              </div>
-              <div className="text-[9px] tracking-[0.3em] text-primary-foreground/60">
-                THE FOUNDATION OF TRUST
-              </div>
-            </div>
-          </div>
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+          <a href="#" className="flex items-center">
+            <img src={geLogo} alt="Global Edifice — The Foundation of Trust" className="h-12 w-auto brightness-110" />
+          </a>
           <nav className="hidden items-center gap-1 rounded-full bg-primary-foreground/5 px-2 py-1.5 backdrop-blur md:flex">
             {links.map((l, i) => (
               <a
@@ -117,10 +111,10 @@ function Hero() {
 
 function Promise() {
   const pillars = [
-    { icon: ShieldCheck, label: "Architectural Integrity" },
-    { icon: Clock, label: "On-Time Delivery" },
-    { icon: Building2, label: "RERA Compliance" },
-    { icon: Gem, label: "Long-Term Value" },
+    { icon: iconIntegrity, label: "Architectural Integrity" },
+    { icon: iconDelivery, label: "On-Time Delivery" },
+    { icon: iconRera, label: "RERA Compliance" },
+    { icon: iconValue, label: "Long-Term Value" },
   ];
   return (
     <section className="bg-background py-24">
@@ -148,10 +142,10 @@ function Promise() {
               aesthetic excellence, and on-time delivery.
             </p>
           </div>
-          <div className="mt-10 grid grid-cols-2 gap-y-6 sm:grid-cols-4">
-            {pillars.map(({ icon: Icon, label }) => (
+          <div className="mt-10 grid grid-cols-2 gap-y-8 sm:grid-cols-4">
+            {pillars.map(({ icon, label }) => (
               <div key={label} className="flex flex-col items-start gap-3">
-                <Icon className="h-7 w-7 text-gold" strokeWidth={1.4} />
+                <img src={icon} alt={label} className="h-11 w-11 object-contain" />
                 <span className="border-l border-gold/40 pl-3 text-xs leading-tight text-primary">
                   {label}
                 </span>
