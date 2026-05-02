@@ -67,40 +67,46 @@ function Hero() {
   return (
     <section className="relative">
       <Nav />
-      <div className="relative h-[88vh] min-h-[640px] w-full overflow-hidden">
+      <div className="relative h-[92vh] min-h-[680px] w-full overflow-hidden">
         <img
           src={heroPool}
           alt="Premium poolside residence"
           className="absolute inset-0 h-full w-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-primary/20 via-primary/10 to-primary/40" />
+        {/* Cinematic gradient: dark on right where text sits, transparent on left to show pool */}
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-primary/30 to-primary/85" />
+        <div className="absolute inset-0 bg-gradient-to-t from-primary/70 via-transparent to-primary/30" />
 
-        <div className="relative mx-auto flex h-full max-w-7xl items-end px-6 pb-20 pt-40">
+        <div className="relative mx-auto flex h-full max-w-7xl items-end px-6 pb-24 pt-40">
           <div className="w-full">
             <div className="ml-auto max-w-2xl text-right text-white">
-              <h1 className="font-display text-5xl leading-[1.05] md:text-7xl">
+              <div className="ml-auto mb-5 flex items-center justify-end gap-3">
+                <span className="h-px w-14 bg-gold" />
+                <span className="text-[10px] tracking-[0.35em] text-gold">PREMIUM RESIDENCES · BANGALORE</span>
+              </div>
+              <h1 className="font-display text-5xl leading-[1.02] md:text-[5.5rem]">
                 We don't just build,
                 <br />
                 <em className="not-italic text-gold-soft">we redefine</em> living
               </h1>
-              <p className="ml-auto mt-6 max-w-md text-sm font-light leading-relaxed text-white/85 md:text-base">
+              <p className="ml-auto mt-7 max-w-md text-sm font-light leading-relaxed text-white/85 md:text-base">
                 A boutique studio of architects and craftsmen, sculpting premium mid-rise
                 residences where every detail is deliberate, and every home endures.
               </p>
-            </div>
-            <div className="mt-10 flex flex-wrap gap-3">
-              <a
-                href="#projects"
-                className="rounded-full bg-gold px-7 py-3 text-xs tracking-[0.2em] text-primary transition hover:bg-gold-soft"
-              >
-                EXPLORE RESIDENCES
-              </a>
-              <a
-                href="#contact"
-                className="rounded-full border border-white/40 bg-white/5 px-7 py-3 text-xs tracking-[0.2em] text-white backdrop-blur transition hover:bg-white/15"
-              >
-                SCHEDULE A SITE VISIT
-              </a>
+              <div className="mt-9 flex flex-wrap justify-end gap-3">
+                <a
+                  href="#projects"
+                  className="rounded-full bg-gold px-7 py-3.5 text-[11px] tracking-[0.22em] text-primary shadow-lg shadow-primary/20 transition hover:bg-gold-soft"
+                >
+                  EXPLORE RESIDENCES
+                </a>
+                <a
+                  href="#contact"
+                  className="rounded-full border border-white/50 bg-white/5 px-7 py-3.5 text-[11px] tracking-[0.22em] text-white backdrop-blur transition hover:bg-white/15"
+                >
+                  SCHEDULE A SITE VISIT
+                </a>
+              </div>
             </div>
           </div>
         </div>
