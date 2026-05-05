@@ -210,3 +210,45 @@
     font-weight: 500;
   }
 }
+
+@layer components {
+  .testimonial-track {
+    animation: testimonial-marquee 38s linear infinite;
+  }
+
+  .testimonial-track-reverse {
+    animation: testimonial-marquee-reverse 42s linear infinite;
+  }
+
+  .testimonial-track:hover,
+  .testimonial-track-reverse:hover {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes testimonial-marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(calc(-50% - 0.5rem));
+  }
+}
+
+@keyframes testimonial-marquee-reverse {
+  from {
+    transform: translateX(calc(-50% - 0.5rem));
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .testimonial-track,
+  .testimonial-track-reverse {
+    animation: none;
+  }
+}
