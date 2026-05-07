@@ -11,6 +11,8 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ProjectsRouteImport } from './routes/projects'
+import { Route as ProjectsTheClanRouteImport } from './routes/projects.the-clan'
 
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
@@ -24,30 +26,50 @@ const IndexRoute = IndexRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 
+const ProjectsRoute = ProjectsRouteImport.update({
+  id: '/projects',
+  path: '/projects',
+  getParentRoute: () => rootRouteImport,
+} as any)
+
+const ProjectsTheClanRoute = ProjectsTheClanRouteImport.update({
+  id: '/projects/the-clan',
+  path: '/projects/the-clan',
+  getParentRoute: () => rootRouteImport,
+} as any)
+
 export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/': typeof IndexRoute
+  '/projects': typeof ProjectsRoute
+  '/projects/the-clan': typeof ProjectsTheClanRoute
 }
 export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/': typeof IndexRoute
+  '/projects': typeof ProjectsRoute
+  '/projects/the-clan': typeof ProjectsTheClanRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/about': typeof AboutRoute
   '/': typeof IndexRoute
+  '/projects': typeof ProjectsRoute
+  '/projects/the-clan': typeof ProjectsTheClanRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/about' | '/'
+  fullPaths: '/about' | '/' | '/projects' | '/projects/the-clan'
   fileRoutesByTo: FileRoutesByTo
-  to: '/about' | '/'
-  id: '__root__' | '/about' | '/'
+  to: '/about' | '/' | '/projects' | '/projects/the-clan'
+  id: '__root__' | '/about' | '/' | '/projects' | '/projects/the-clan'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   IndexRoute: typeof IndexRoute
+  ProjectsRoute: typeof ProjectsRoute
+  ProjectsTheClanRoute: typeof ProjectsTheClanRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -66,12 +88,28 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/projects': {
+      id: '/projects'
+      path: '/projects'
+      fullPath: '/projects'
+      preLoaderRoute: typeof ProjectsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/projects/the-clan': {
+      id: '/projects/the-clan'
+      path: '/projects/the-clan'
+      fullPath: '/projects/the-clan'
+      preLoaderRoute: typeof ProjectsTheClanRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   IndexRoute: IndexRoute,
+  ProjectsRoute: ProjectsRoute,
+  ProjectsTheClanRoute: ProjectsTheClanRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -27,7 +27,7 @@ const pageContainerClass = `mx-auto max-w-7xl ${pageGutterClass}`;
 const aboutNav = [
   { label: "HOME", kind: "route", to: "/" as const },
   { label: "ABOUT US", kind: "anchor", href: "#about" },
-  { label: "PROJECTS", kind: "routeHash", to: "/" as const, hash: "projects" },
+  { label: "PROJECTS", kind: "route", to: "/projects" as const },
   { label: "RESOURCES", kind: "anchor", href: "#values" },
   { label: "TIMELINE", kind: "anchor", href: "#timeline" },
 ] as const;
@@ -95,7 +95,6 @@ function AboutNavigationLink({
   className?: string;
   onClick?: () => void;
 }) {
-
   if (item.kind === "anchor") {
     return (
       <a href={item.href} className={className} onClick={onClick}>

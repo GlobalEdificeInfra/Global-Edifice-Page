@@ -46,7 +46,7 @@ export const Route = createFileRoute("/")({
 const navLinks = [
   { label: "HOME", href: "/#home" },
   { label: "ABOUT US", href: "/about" },
-  { label: "PROJECTS", href: "/#projects" },
+  { label: "PROJECTS", href: "/projects" },
   { label: "RESOURCES", href: "/#amenities" },
   { label: "CONTACT", href: "/#contact" },
 ];
@@ -66,6 +66,7 @@ const portfolioProjects = [
     unitLabel: "2BHK RESIDENCES",
     image: projectOrlean,
     alt: "Global Edifice Orlean",
+    detailHref: "/projects",
   },
   {
     name: "GLOBAL EDIFICE THE CLAN",
@@ -74,6 +75,7 @@ const portfolioProjects = [
     unitLabel: "2BHK RESIDENCES",
     image: geProjectRender,
     alt: "Global Edifice The Clan",
+    detailHref: "/projects/the-clan",
   },
   {
     name: "GLOBAL EDIFICE LEGACY",
@@ -82,6 +84,7 @@ const portfolioProjects = [
     unitLabel: "2BHK RESIDENCES",
     image: projectLegacy,
     alt: "Global Edifice Legacy",
+    detailHref: "/projects",
   },
 ];
 
@@ -289,7 +292,7 @@ function Hero() {
         <div className="grid gap-5 pt-6 lg:-translate-y-[3rem] xl:-translate-y-[3.35rem] lg:grid-cols-[auto_31rem] xl:grid-cols-[auto_34rem] lg:items-start lg:justify-between">
           <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-4">
             <a
-              href="/#projects"
+              href="/projects"
               className="inline-flex w-full items-center justify-center rounded-full bg-[#0a2735] px-6 py-3.5 text-[0.92rem] text-white shadow-[0_15px_35px_-25px_rgba(0,0,0,0.8)] transition hover:bg-[#0f3344] sm:w-auto sm:px-7 sm:text-[0.95rem]"
             >
               Explore residences
@@ -459,7 +462,7 @@ function Projects() {
                     Book A Site Visit
                   </a>
                   <a
-                    href="/#contact"
+                    href={project.detailHref}
                     className="inline-flex items-center justify-center rounded-full border border-[#eadfcc] px-4 py-3 text-[0.62rem] font-medium uppercase tracking-[0.08em] text-[#4f5960] transition hover:border-[#d6c3a3] hover:text-[#123a4c]"
                   >
                     Know More
