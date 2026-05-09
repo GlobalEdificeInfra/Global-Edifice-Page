@@ -10,13 +10,22 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as ChandapuraBangaloreRouteImport } from './routes/chandapura-bangalore'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as MuthanallurOffSarjapuraBangaloreRouteImport } from './routes/muthanallur-off-sarjapura-bangalore'
 import { Route as ProjectsRouteImport } from './routes/projects'
+import { Route as ProjectsOrleanRouteImport } from './routes/projects.orlean'
 import { Route as ProjectsTheClanRouteImport } from './routes/projects.the-clan'
 
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+
+const ChandapuraBangaloreRoute = ChandapuraBangaloreRouteImport.update({
+  id: '/chandapura-bangalore',
+  path: '/chandapura-bangalore',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -26,9 +35,21 @@ const IndexRoute = IndexRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 
+const MuthanallurOffSarjapuraBangaloreRoute = MuthanallurOffSarjapuraBangaloreRouteImport.update({
+  id: '/muthanallur-off-sarjapura-bangalore',
+  path: '/muthanallur-off-sarjapura-bangalore',
+  getParentRoute: () => rootRouteImport,
+} as any)
+
 const ProjectsRoute = ProjectsRouteImport.update({
   id: '/projects',
   path: '/projects',
+  getParentRoute: () => rootRouteImport,
+} as any)
+
+const ProjectsOrleanRoute = ProjectsOrleanRouteImport.update({
+  id: '/projects/orlean',
+  path: '/projects/orlean',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -40,35 +61,69 @@ const ProjectsTheClanRoute = ProjectsTheClanRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
+  '/chandapura-bangalore': typeof ChandapuraBangaloreRoute
   '/': typeof IndexRoute
+  '/muthanallur-off-sarjapura-bangalore': typeof MuthanallurOffSarjapuraBangaloreRoute
   '/projects': typeof ProjectsRoute
+  '/projects/orlean': typeof ProjectsOrleanRoute
   '/projects/the-clan': typeof ProjectsTheClanRoute
 }
 export interface FileRoutesByTo {
   '/about': typeof AboutRoute
+  '/chandapura-bangalore': typeof ChandapuraBangaloreRoute
   '/': typeof IndexRoute
+  '/muthanallur-off-sarjapura-bangalore': typeof MuthanallurOffSarjapuraBangaloreRoute
   '/projects': typeof ProjectsRoute
+  '/projects/orlean': typeof ProjectsOrleanRoute
   '/projects/the-clan': typeof ProjectsTheClanRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/about': typeof AboutRoute
+  '/chandapura-bangalore': typeof ChandapuraBangaloreRoute
   '/': typeof IndexRoute
+  '/muthanallur-off-sarjapura-bangalore': typeof MuthanallurOffSarjapuraBangaloreRoute
   '/projects': typeof ProjectsRoute
+  '/projects/orlean': typeof ProjectsOrleanRoute
   '/projects/the-clan': typeof ProjectsTheClanRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/about' | '/' | '/projects' | '/projects/the-clan'
+  fullPaths:
+    | '/about'
+    | '/chandapura-bangalore'
+    | '/'
+    | '/muthanallur-off-sarjapura-bangalore'
+    | '/projects'
+    | '/projects/orlean'
+    | '/projects/the-clan'
   fileRoutesByTo: FileRoutesByTo
-  to: '/about' | '/' | '/projects' | '/projects/the-clan'
-  id: '__root__' | '/about' | '/' | '/projects' | '/projects/the-clan'
+  to:
+    | '/about'
+    | '/chandapura-bangalore'
+    | '/'
+    | '/muthanallur-off-sarjapura-bangalore'
+    | '/projects'
+    | '/projects/orlean'
+    | '/projects/the-clan'
+  id:
+    | '__root__'
+    | '/about'
+    | '/chandapura-bangalore'
+    | '/'
+    | '/muthanallur-off-sarjapura-bangalore'
+    | '/projects'
+    | '/projects/orlean'
+    | '/projects/the-clan'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
+  ChandapuraBangaloreRoute: typeof ChandapuraBangaloreRoute
   IndexRoute: typeof IndexRoute
+  MuthanallurOffSarjapuraBangaloreRoute: typeof MuthanallurOffSarjapuraBangaloreRoute
   ProjectsRoute: typeof ProjectsRoute
+  ProjectsOrleanRoute: typeof ProjectsOrleanRoute
   ProjectsTheClanRoute: typeof ProjectsTheClanRoute
 }
 
@@ -81,6 +136,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/chandapura-bangalore': {
+      id: '/chandapura-bangalore'
+      path: '/chandapura-bangalore'
+      fullPath: '/chandapura-bangalore'
+      preLoaderRoute: typeof ChandapuraBangaloreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -88,11 +150,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/muthanallur-off-sarjapura-bangalore': {
+      id: '/muthanallur-off-sarjapura-bangalore'
+      path: '/muthanallur-off-sarjapura-bangalore'
+      fullPath: '/muthanallur-off-sarjapura-bangalore'
+      preLoaderRoute: typeof MuthanallurOffSarjapuraBangaloreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/projects': {
       id: '/projects'
       path: '/projects'
       fullPath: '/projects'
       preLoaderRoute: typeof ProjectsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/projects/orlean': {
+      id: '/projects/orlean'
+      path: '/projects/orlean'
+      fullPath: '/projects/orlean'
+      preLoaderRoute: typeof ProjectsOrleanRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/projects/the-clan': {
@@ -107,8 +183,11 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
+  ChandapuraBangaloreRoute: ChandapuraBangaloreRoute,
   IndexRoute: IndexRoute,
+  MuthanallurOffSarjapuraBangaloreRoute: MuthanallurOffSarjapuraBangaloreRoute,
   ProjectsRoute: ProjectsRoute,
+  ProjectsOrleanRoute: ProjectsOrleanRoute,
   ProjectsTheClanRoute: ProjectsTheClanRoute,
 }
 export const routeTree = rootRouteImport

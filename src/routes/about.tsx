@@ -1,13 +1,19 @@
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Link, createFileRoute } from "@tanstack/react-router";
-import aboutHero from "@/assets/about-hero.png";
-import geContactInterior from "@/assets/ge-contact-interior.jpg";
-import geLogo from "@/assets/ge-logo.png";
-import geProjectRender from "@/assets/ge-project-render.jpg";
-import projectLifestyle from "@/assets/ge-project-lifestyle.png";
-import directorJyothish from "@/assets/director-jyothish.jpg";
-import directorRakesh from "@/assets/director-rakesh.jpg";
+import aboutHero from "@/assets/about/about-hero.png";
+import geContactInterior from "@/assets/about/ge-contact-interior.jpg";
+import geLogo from "@/assets/shared/ge-logo.png";
+import geProjectRender from "@/assets/shared/ge-project-render.jpg";
+import projectLifestyle from "@/assets/about/ge-project-lifestyle.png";
+import directorJyothish from "@/assets/about/director-jyothish.jpg";
+import directorRakesh from "@/assets/about/director-rakesh.jpg";
+import {
+  MobileSiteProjectLinks,
+  MobileSiteResourceLinks,
+  SiteProjectsMenu,
+  SiteResourceMenu,
+} from "@/components/site-resource-menu";
 import { SiteFooter } from "@/components/site-footer";
 
 const ABOUT_TITLE = "About Global Edifice - Building Beyond Expectations";
@@ -27,8 +33,8 @@ const pageContainerClass = `mx-auto max-w-7xl ${pageGutterClass}`;
 const aboutNav = [
   { label: "HOME", kind: "route", to: "/" as const },
   { label: "ABOUT US", kind: "anchor", href: "#about" },
-  { label: "PROJECTS", kind: "route", to: "/projects" as const },
-  { label: "RESOURCES", kind: "anchor", href: "#values" },
+  { label: "PROJECTS", kind: "projects-menu" },
+  { label: "RESOURCES", kind: "resources-menu" },
   { label: "TIMELINE", kind: "anchor", href: "#timeline" },
 ] as const;
 
@@ -78,7 +84,7 @@ function SectionLabel({ children }: { children: string }) {
 
 function DiamondDivider() {
   return (
-    <div className="mt-14 flex items-center gap-6 text-[#bea578]/45">
+    <div className="mt-14 flex items-center gap-6 text-[#a8762b]/55">
       <span className="h-px flex-1 bg-current" />
       <span className="h-3.5 w-3.5 rotate-45 border border-current bg-[#f5ecde]" />
       <span className="h-px flex-1 bg-current" />
@@ -95,6 +101,14 @@ function AboutNavigationLink({
   className?: string;
   onClick?: () => void;
 }) {
+  if (item.kind === "projects-menu") {
+    return <SiteProjectsMenu className={className} />;
+  }
+
+  if (item.kind === "resources-menu") {
+    return <SiteResourceMenu className={className} />;
+  }
+
   if (item.kind === "anchor") {
     return (
       <a href={item.href} className={className} onClick={onClick}>
@@ -120,22 +134,48 @@ function AboutNavigationLink({
 
 function AboutNavigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const updateScrollState = () => {
+      setIsScrolled(window.scrollY > 48);
+    };
+
+    updateScrollState();
+    window.addEventListener("scroll", updateScrollState, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", updateScrollState);
+    };
+  }, []);
 
   return (
-    <header className="absolute inset-x-0 top-0 z-30">
+    <header className="fixed inset-x-0 top-0 z-50">
       <div
-        className={`mx-auto flex max-w-7xl items-center justify-between gap-4 ${pageGutterClass} py-4 md:gap-6 md:py-7`}
+        className={`mx-auto flex max-w-7xl items-center justify-between gap-4 ${pageGutterClass} transition-all duration-300 md:gap-6 ${
+          isScrolled
+            ? "mt-2 rounded-[1.75rem] border border-white/18 bg-[linear-gradient(180deg,rgba(15,30,26,0.42)_0%,rgba(15,30,26,0.24)_100%)] py-2 shadow-[0_22px_48px_-30px_rgba(7,14,18,0.42)] backdrop-blur-[24px] md:py-2.5"
+            : "py-4 md:py-7"
+        }`}
       >
         <Link to="/" className="shrink-0">
           <img
             src={geLogo}
             alt="Global Edifice - The Foundation of Trust"
-            className="w-[112px] [filter:brightness(0)_invert(1)] md:w-[160px]"
+            className={`[filter:brightness(0)_invert(1)] transition-all duration-300 ${
+              isScrolled ? "w-[96px] md:w-[132px]" : "w-[112px] md:w-[160px]"
+            }`}
           />
         </Link>
 
         <div className="hidden items-center md:flex">
-          <nav className="flex items-center gap-9 rounded-full bg-white/96 px-7 py-3 text-[0.7rem] font-medium tracking-[0.13em] text-[#b79a69] shadow-[0_18px_45px_-28px_rgba(0,0,0,0.45)] backdrop-blur-sm">
+          <nav
+            className={`flex items-center rounded-full font-semibold text-[#996317] shadow-[0_18px_45px_-28px_rgba(0,0,0,0.45)] backdrop-blur-sm transition-all duration-300 ${
+              isScrolled
+                ? "gap-6 border border-white/70 bg-white/84 px-5 py-2 text-[0.68rem] tracking-[0.14em] lg:text-[0.72rem]"
+                : "gap-9 bg-white/96 px-7 py-3 text-[0.72rem] tracking-[0.13em] lg:text-[0.76rem]"
+            }`}
+          >
             {aboutNav.map((item) => (
               <AboutNavigationLink key={item.label} item={item} />
             ))}
@@ -153,7 +193,7 @@ function AboutNavigation() {
           <Link
             to="/"
             hash="contact"
-            className="rounded-full border border-white/40 bg-white/10 px-3.5 py-2 text-[0.62rem] tracking-[0.16em] text-white backdrop-blur sm:px-4 sm:text-[0.68rem]"
+            className="rounded-full border border-white/40 bg-white/10 px-3.5 py-2 text-[0.68rem] tracking-[0.16em] text-white backdrop-blur sm:px-4 sm:text-[0.74rem]"
           >
             ENQUIRE
           </Link>
@@ -173,19 +213,38 @@ function AboutNavigation() {
 
       <div className={`${pageGutterClass} pb-2 md:hidden`}>
         <div
-          className={`overflow-hidden rounded-[1.15rem] bg-white/94 shadow-[0_18px_40px_-28px_rgba(0,0,0,0.45)] backdrop-blur-sm transition-all duration-300 ${
-            isMobileMenuOpen ? "max-h-80 opacity-100" : "pointer-events-none max-h-0 opacity-0"
+          className={`overflow-hidden rounded-[1.15rem] shadow-[0_18px_40px_-28px_rgba(0,0,0,0.45)] backdrop-blur-sm transition-all duration-300 ${
+            isScrolled
+              ? "border border-white/18 bg-[linear-gradient(180deg,rgba(15,30,26,0.48)_0%,rgba(15,30,26,0.32)_100%)]"
+              : "bg-white/94"
+          } ${isMobileMenuOpen ? "max-h-[34rem] opacity-100" : "pointer-events-none max-h-0 opacity-0"}
           }`}
         >
           <nav id="about-mobile-nav" className="flex flex-col gap-1 px-2 py-2">
-            {aboutNav.map((item) => (
-              <AboutNavigationLink
-                key={item.label}
-                item={item}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="block rounded-[0.95rem] px-4 py-3 text-[0.72rem] font-medium tracking-[0.16em] text-[#b79a69] transition hover:bg-[#f6f1e8] hover:text-[#123a4c]"
-              />
-            ))}
+            {aboutNav.map((item) =>
+              item.kind === "projects-menu" ? (
+                <MobileSiteProjectLinks
+                  key={item.label}
+                  onNavigate={() => setIsMobileMenuOpen(false)}
+                />
+              ) : item.kind === "resources-menu" ? (
+                <MobileSiteResourceLinks
+                  key={item.label}
+                  onNavigate={() => setIsMobileMenuOpen(false)}
+                />
+              ) : (
+                <AboutNavigationLink
+                  key={item.label}
+                  item={item}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={`block rounded-[0.95rem] px-4 py-3 text-[0.8rem] font-medium tracking-[0.16em] transition ${
+                    isScrolled
+                      ? "text-white hover:bg-white/10 hover:text-white"
+                      : "text-[#996317] hover:bg-[#f6f1e8] hover:text-[#123a4c]"
+                  }`}
+                />
+              ),
+            )}
           </nav>
         </div>
       </div>
@@ -233,6 +292,7 @@ function AboutPage() {
   return (
     <>
       <main className="bg-[#f7f2eb] text-[#163849]">
+        <AboutNavigation />
         <section className="relative isolate h-[68svh] min-h-[30rem] overflow-hidden bg-[#1e1712] text-white sm:min-h-[34rem] md:h-[74svh] md:min-h-[42rem]">
           <img
             src={aboutHero}
@@ -241,8 +301,6 @@ function AboutPage() {
           />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_14%_22%,rgba(255,255,255,0.1),transparent_26%),linear-gradient(90deg,rgba(20,14,11,0.16)_0%,rgba(20,14,11,0.08)_26%,rgba(20,14,11,0.5)_58%,rgba(20,14,11,0.72)_100%)]" />
           <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,15,22,0.12)_0%,rgba(8,15,22,0.02)_34%,rgba(8,15,22,0.66)_100%)]" />
-
-          <AboutNavigation />
 
           <div
             className={`relative mx-auto flex h-full max-w-7xl items-center justify-start ${pageGutterClass} pb-8 pt-28 sm:pt-32 md:justify-end md:pb-10 md:pt-28 lg:pt-30`}
@@ -288,7 +346,7 @@ function AboutPage() {
           <div className="grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-0">
             <div className="px-[1.125rem] pt-4 md:px-[1.8rem] md:pt-10 lg:pr-12 lg:pl-[max(1.8rem,calc((100vw-80rem)/2+1.8rem))]">
               <div className="lg:max-w-[31rem]">
-                <h2 className="font-display text-[2.45rem] leading-[0.98] text-[#bea578] md:text-[4.2rem]">
+                <h2 className="font-display text-[2.45rem] leading-[0.98] text-[#a8762b] md:text-[4.2rem]">
                   About US
                 </h2>
 
@@ -327,7 +385,7 @@ function AboutPage() {
             <div className="relative overflow-hidden bg-[linear-gradient(180deg,#143f54_0%,#123a4c_100%)] px-8 py-14 text-white md:px-12 md:py-18 lg:flex lg:min-h-[44rem] lg:items-center lg:px-18 xl:px-20">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_0%_0%,rgba(190,165,120,0.12),transparent_30%),repeating-radial-gradient(circle_at_-10%_50%,rgba(255,255,255,0.05)_0,rgba(255,255,255,0.05)_1px,transparent_1px,transparent_22px)] opacity-45" />
               <div className="relative max-w-[29rem]">
-                <h2 className="font-display text-[2.45rem] leading-[0.98] text-[#bea578] md:text-[4rem]">
+                <h2 className="font-display text-[2.45rem] leading-[0.98] text-[#a8762b] md:text-[4rem]">
                   Who We Are
                 </h2>
                 <p className="mt-10 text-[1.08rem] leading-[1.85] text-white/88 md:text-[1.2rem] md:leading-[1.9]">
@@ -347,7 +405,7 @@ function AboutPage() {
               <div className="mx-auto max-w-[64rem]">
                 <DiamondDivider />
               </div>
-              <h2 className="mt-8 font-display text-[2.45rem] leading-[0.98] text-[#bea578] md:text-[4rem]">
+              <h2 className="mt-8 font-display text-[2.45rem] leading-[0.98] text-[#a8762b] md:text-[4rem]">
                 Board of Directors
               </h2>
               <p className="mt-4 text-[1.1rem] leading-[1.7] text-[#4e4a44] md:text-[1.28rem]">
@@ -475,7 +533,7 @@ function AboutPage() {
             className={`${pageContainerClass} grid gap-12 lg:grid-cols-[minmax(0,1fr)_1px_minmax(0,1fr)] lg:gap-14`}
           >
             <article className="max-w-[31rem] lg:justify-self-start lg:pr-8">
-              <h2 className="font-display text-[2.45rem] leading-[0.96] text-[#bea578] md:text-[4rem]">
+              <h2 className="font-display text-[2.45rem] leading-[0.96] text-[#a8762b] md:text-[4rem]">
                 {missionVisionItems[0].title}
               </h2>
               <p className="mt-5 text-[1.08rem] leading-tight text-[#443f39] md:text-[1.7rem]">
@@ -492,7 +550,7 @@ function AboutPage() {
             <div className="hidden bg-[#d8c8ac] lg:block" />
 
             <article className="max-w-[31rem] border-t border-[#d8c8ac] pt-12 lg:justify-self-end lg:border-t-0 lg:pl-8 lg:pt-0">
-              <h2 className="font-display text-[2.45rem] leading-[0.96] text-[#bea578] md:text-[4rem]">
+              <h2 className="font-display text-[2.45rem] leading-[0.96] text-[#a8762b] md:text-[4rem]">
                 {missionVisionItems[1].title}
               </h2>
               <p className="mt-5 text-[1.08rem] leading-tight text-[#443f39] md:text-[1.7rem]">

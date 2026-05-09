@@ -105,15 +105,15 @@
   --secondary-foreground: #073a4f;
   --muted: #efe7db;
   --muted-foreground: #556773;
-  --accent: #a58d66;
+  --accent: #a8762b;
   --accent-foreground: #fffdf9;
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.984 0.003 247.858);
   --border: #ddd2bf;
   --input: #ddd2bf;
   --ring: #a58d66;
-  --gold: #a58d66;
-  --gold-soft: #c4b08a;
+  --gold: #a8762b;
+  --gold-soft: #c59a56;
   --cream: #f3ede2;
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
@@ -207,7 +207,7 @@
     letter-spacing: 0.25em;
     text-transform: uppercase;
     color: var(--gold);
-    font-weight: 500;
+    font-weight: 600;
   }
 }
 

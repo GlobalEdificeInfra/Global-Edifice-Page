@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import {
   ArrowRight,
@@ -13,20 +13,26 @@ import {
   Star,
   X,
 } from "lucide-react";
-import geHero from "@/assets/ge-hero.png";
-import geStoryBalcony from "@/assets/ge-story-balcony.jpg";
-import geAmenityGardens from "@/assets/ge-amenity-gardens.jpg";
-import geAmenityJogging from "@/assets/ge-amenity-jogging.png";
-import geAmenityYoga from "@/assets/ge-amenity-yoga.png";
-import geProjectRender from "@/assets/ge-project-render.jpg";
-import projectOrlean from "@/assets/project-orlean-layer10.jpg";
-import projectLegacy from "@/assets/project-legacy.jpg";
-import geContactLounge from "@/assets/ge-contact-lounge.jpg";
-import geLogo from "@/assets/ge-logo.png";
-import iconIntegrity from "@/assets/icon-integrity.png";
-import iconDelivery from "@/assets/icon-delivery.png";
-import iconRera from "@/assets/icon-rera.png";
-import iconValue from "@/assets/icon-value.png";
+import geHero from "@/assets/home/ge-hero.png";
+import geStoryBalcony from "@/assets/home/ge-story-balcony.jpg";
+import geAmenityGardens from "@/assets/home/ge-amenity-gardens.jpg";
+import geAmenityJogging from "@/assets/home/ge-amenity-jogging.png";
+import geAmenityYoga from "@/assets/home/ge-amenity-yoga.png";
+import geProjectRender from "@/assets/shared/ge-project-render.jpg";
+import projectOrlean from "@/assets/projects/orlean/project-orlean-layer10.jpg";
+import projectLegacy from "@/assets/projects/legacy/project-legacy.jpg";
+import geContactLounge from "@/assets/shared/ge-contact-lounge.jpg";
+import geLogo from "@/assets/shared/ge-logo.png";
+import iconIntegrity from "@/assets/home/icon-integrity.png";
+import iconDelivery from "@/assets/home/icon-delivery.png";
+import iconRera from "@/assets/home/icon-rera.png";
+import iconValue from "@/assets/home/icon-value.png";
+import {
+  MobileSiteProjectLinks,
+  MobileSiteResourceLinks,
+  SiteProjectsMenu,
+  SiteResourceMenu,
+} from "@/components/site-resource-menu";
 import { SiteFooter } from "@/components/site-footer";
 
 export const Route = createFileRoute("/")({
@@ -44,12 +50,14 @@ export const Route = createFileRoute("/")({
 });
 
 const navLinks = [
-  { label: "HOME", href: "/#home" },
-  { label: "ABOUT US", href: "/about" },
-  { label: "PROJECTS", href: "/projects" },
-  { label: "RESOURCES", href: "/#amenities" },
-  { label: "CONTACT", href: "/#contact" },
+  { label: "HOME", kind: "href", href: "/#home" },
+  { label: "ABOUT US", kind: "href", href: "/about" },
+  { label: "PROJECTS", kind: "projects-menu" },
+  { label: "RESOURCES", kind: "resources-menu" },
+  { label: "CONTACT", kind: "href", href: "/#contact" },
 ];
+
+type HomeNavItem = (typeof navLinks)[number];
 
 const promiseItems = [
   { icon: iconIntegrity, label: "Architectural Integrity", lines: ["Architectural", "Integrity"] },
@@ -66,7 +74,7 @@ const portfolioProjects = [
     unitLabel: "2BHK RESIDENCES",
     image: projectOrlean,
     alt: "Global Edifice Orlean",
-    detailHref: "/projects",
+    detailHref: "/projects/orlean",
   },
   {
     name: "GLOBAL EDIFICE THE CLAN",
@@ -167,7 +175,7 @@ function SectionHeading({
   return (
     <div>
       <div className="flex items-center gap-4">
-        <span className="text-[0.72rem] font-medium uppercase tracking-[0.28em] text-[#b79a69]">
+        <span className="text-[0.72rem] font-semibold uppercase tracking-[0.28em] text-[#a8762b]">
           {eyebrow}
         </span>
         <span className="h-px w-8 bg-[#dbc9a7]/70" />
@@ -183,27 +191,67 @@ function SectionHeading({
 
 function Nav() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const updateScrollState = () => {
+      setIsScrolled(window.scrollY > 48);
+    };
+
+    updateScrollState();
+    window.addEventListener("scroll", updateScrollState, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", updateScrollState);
+    };
+  }, []);
+
+  const itemClassName = "transition hover:text-[#123a4c]";
+
+  const renderDesktopNavItem = (item: HomeNavItem) => {
+    if (item.kind === "projects-menu") {
+      return <SiteProjectsMenu key={item.label} className={itemClassName} />;
+    }
+
+    if (item.kind === "resources-menu") {
+      return <SiteResourceMenu key={item.label} className={itemClassName} />;
+    }
+
+    return (
+      <a key={item.label} href={item.href} className={itemClassName}>
+        {item.label}
+      </a>
+    );
+  };
 
   return (
-    <header className="absolute inset-x-0 top-0 z-30">
+    <header className="fixed inset-x-0 top-0 z-50">
       <div
-        className={`mx-auto flex max-w-7xl items-center justify-between gap-4 ${pageGutterClass} py-4 md:gap-6 md:py-7`}
+        className={`mx-auto flex max-w-7xl items-center justify-between gap-4 ${pageGutterClass} transition-all duration-300 md:gap-6 ${
+          isScrolled
+            ? "mt-2 rounded-[1.75rem] border border-white/18 bg-[linear-gradient(180deg,rgba(15,30,26,0.42)_0%,rgba(15,30,26,0.24)_100%)] py-2 shadow-[0_22px_48px_-30px_rgba(7,14,18,0.42)] backdrop-blur-[24px] md:py-2.5"
+            : "py-4 md:py-7"
+        }`}
       >
         <a href="/#home" className="shrink-0">
           <img
             src={geLogo}
             alt="Global Edifice - The Foundation of Trust"
-            className="w-[112px] [filter:brightness(0)_invert(1)] md:w-[160px]"
+            className={`[filter:brightness(0)_invert(1)] transition-all duration-300 ${
+              isScrolled ? "w-[96px] md:w-[132px]" : "w-[112px] md:w-[160px]"
+            }`}
           />
         </a>
 
         <div className="hidden items-center md:flex">
-          <nav className="flex items-center gap-9 rounded-full bg-white/96 px-7 py-3 text-[0.7rem] font-medium tracking-[0.13em] text-[#b79a69] shadow-[0_18px_45px_-28px_rgba(0,0,0,0.45)] backdrop-blur-sm">
-            {navLinks.map((link) => (
-              <a key={link.label} href={link.href} className="transition hover:text-[#123a4c]">
-                {link.label}
-              </a>
-            ))}
+          <nav
+            className={`flex items-center rounded-full font-semibold text-[#996317] shadow-[0_18px_45px_-28px_rgba(0,0,0,0.45)] backdrop-blur-sm transition-all duration-300 ${
+              isScrolled
+                ? "gap-6 border border-white/70 bg-white/84 px-5 py-2 text-[0.68rem] tracking-[0.14em] lg:text-[0.72rem]"
+                : "gap-9 bg-white/96 px-7 py-3 text-[0.72rem] tracking-[0.13em] lg:text-[0.76rem]"
+            }`}
+          >
+            {navLinks.map(renderDesktopNavItem)}
             <a
               href="/#contact"
               className="rounded-full bg-[#b49a6c] px-5 py-2 text-white transition hover:bg-[#9f8658]"
@@ -216,7 +264,7 @@ function Nav() {
         <div className="flex items-center gap-2 md:hidden">
           <a
             href="/#contact"
-            className="rounded-full border border-white/40 bg-white/10 px-3.5 py-2 text-[0.62rem] tracking-[0.16em] text-white backdrop-blur sm:px-4 sm:text-[0.68rem]"
+            className="rounded-full border border-white/40 bg-white/10 px-3.5 py-2 text-[0.68rem] tracking-[0.16em] text-white backdrop-blur sm:px-4 sm:text-[0.74rem]"
           >
             ENQUIRE
           </a>
@@ -236,21 +284,40 @@ function Nav() {
 
       <div className={`${pageGutterClass} pb-2 md:hidden`}>
         <div
-          className={`overflow-hidden rounded-[1.15rem] bg-white/94 shadow-[0_18px_40px_-28px_rgba(0,0,0,0.45)] backdrop-blur-sm transition-all duration-300 ${
-            isMobileMenuOpen ? "max-h-80 opacity-100" : "pointer-events-none max-h-0 opacity-0"
+          className={`overflow-hidden rounded-[1.15rem] shadow-[0_18px_40px_-28px_rgba(0,0,0,0.45)] backdrop-blur-sm transition-all duration-300 ${
+            isScrolled
+              ? "border border-white/18 bg-[linear-gradient(180deg,rgba(15,30,26,0.48)_0%,rgba(15,30,26,0.32)_100%)]"
+              : "bg-white/94"
+          } ${isMobileMenuOpen ? "max-h-[34rem] opacity-100" : "pointer-events-none max-h-0 opacity-0"}
           }`}
         >
           <nav id="index-mobile-nav" className="flex flex-col gap-1 px-2 py-2">
-            {navLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="rounded-[0.95rem] px-4 py-3 text-[0.72rem] font-medium tracking-[0.16em] text-[#b79a69] transition hover:bg-[#f6f1e8] hover:text-[#123a4c]"
-              >
-                {link.label}
-              </a>
-            ))}
+            {navLinks.map((item) =>
+              item.kind === "projects-menu" ? (
+                <MobileSiteProjectLinks
+                  key={item.label}
+                  onNavigate={() => setIsMobileMenuOpen(false)}
+                />
+              ) : item.kind === "resources-menu" ? (
+                <MobileSiteResourceLinks
+                  key={item.label}
+                  onNavigate={() => setIsMobileMenuOpen(false)}
+                />
+              ) : (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={`rounded-[0.95rem] px-4 py-3 text-[0.8rem] font-medium tracking-[0.16em] transition ${
+                    isScrolled
+                      ? "text-white hover:bg-white/10 hover:text-white"
+                      : "text-[#996317] hover:bg-[#f6f1e8] hover:text-[#123a4c]"
+                  }`}
+                >
+                  {item.label}
+                </a>
+              ),
+            )}
           </nav>
         </div>
       </div>
@@ -271,8 +338,6 @@ function Hero() {
       />
       <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(12,28,38,0.18)_0%,rgba(14,29,37,0.16)_30%,rgba(16,23,28,0.54)_68%,rgba(13,17,20,0.72)_100%)]" />
       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,15,22,0.28)_0%,rgba(8,15,22,0.02)_38%,rgba(8,15,22,0.64)_100%)]" />
-
-      <Nav />
 
       <div
         className={`relative mx-auto grid min-h-[44rem] max-w-7xl grid-rows-[1fr_auto] ${pageGutterClass} pb-12 pt-28 sm:pb-14 sm:pt-32 md:min-h-screen md:pb-18 md:pt-40 lg:pt-44`}
@@ -398,7 +463,7 @@ function Projects() {
         <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,29rem)] lg:items-end">
           <div>
             <div className="flex items-center gap-4">
-              <span className="text-[0.72rem] font-medium uppercase tracking-[0.28em] text-[#b79a69]">
+              <span className="text-[0.72rem] font-semibold uppercase tracking-[0.28em] text-[#a8762b]">
                 Portfolio
               </span>
               <span className="h-px w-8 bg-[#dbc9a7]/70" />
@@ -409,7 +474,7 @@ function Projects() {
           </div>
 
           <div className="border-y border-[#eadfcc] px-3 py-4 md:px-8">
-            <div className="flex flex-wrap items-center justify-start gap-4 text-[0.9rem] uppercase tracking-[0.22em] text-[#b79a69] md:justify-center md:gap-7">
+            <div className="flex flex-wrap items-center justify-start gap-4 text-[0.9rem] font-semibold uppercase tracking-[0.22em] text-[#a8762b] md:justify-center md:gap-7">
               <span>All</span>
               <span className="text-[#dbc9a7]">|</span>
               <span>Ongoing</span>
@@ -437,9 +502,11 @@ function Projects() {
                     {project.name}
                   </h3>
 
-                  <div className="pt-1 text-right text-[#b79a69]">
-                    <p className="text-[0.52rem] uppercase tracking-[0.14em]">Starting From</p>
-                    <p className="mt-1 text-[0.72rem] uppercase tracking-[0.02em]">
+                  <div className="pt-1 text-right text-[#a8762b]">
+                    <p className="text-[0.52rem] font-semibold uppercase tracking-[0.14em] text-[#b48b50]">
+                      Starting From
+                    </p>
+                    <p className="mt-1 text-[0.72rem] font-semibold uppercase tracking-[0.02em]">
                       {project.price}
                     </p>
                   </div>
@@ -539,7 +606,7 @@ function Testimonials() {
               key={item.name}
               className="relative flex h-full flex-col rounded-[1.55rem] border border-[#eadcca] bg-[#fcfaf7] px-6 py-7 shadow-[0_18px_42px_-40px_rgba(48,37,18,0.2)] md:px-7 md:py-8"
             >
-              <div className="flex items-center gap-1 text-[#b79a69]">
+              <div className="flex items-center gap-1 text-[#a8762b]">
                 {Array.from({ length: 5 }).map((_, index) => (
                   <Star key={index} className="h-4 w-4 fill-current" />
                 ))}
@@ -551,7 +618,7 @@ function Testimonials() {
                 {item.quote}
               </p>
               <div className="mt-auto pt-7">
-                <h3 className="font-display text-[1.3rem] leading-none text-[#c09d69] md:text-[1.38rem]">
+                <h3 className="font-display text-[1.3rem] leading-none text-[#a8762b] md:text-[1.38rem]">
                   {item.name}
                 </h3>
                 <p className="mt-2 text-[0.92rem] italic text-[#8b8377]">{item.role}</p>
@@ -589,7 +656,7 @@ function Contact() {
         >
           <div className="max-w-[36rem] pt-2 text-white">
             <div className="flex items-center gap-4">
-              <span className="text-[0.72rem] uppercase tracking-[0.28em] text-[#b79a69]">
+              <span className="text-[0.72rem] font-semibold uppercase tracking-[0.28em] text-[#a8762b]">
                 Get In Touch
               </span>
               <span className="h-px w-8 bg-[#dbc9a7]/60" />
@@ -659,11 +726,11 @@ function Contact() {
             </h3>
 
             <div className="mt-8 border-b border-[#ece2d4] pb-6">
-              <h4 className="font-display text-[1.45rem] leading-none text-[#c09d69] md:text-[1.6rem]">
+              <h4 className="font-display text-[1.45rem] leading-none text-[#a8762b] md:text-[1.6rem]">
                 {officeContact.eyebrow}
               </h4>
               <div className="mt-5 grid grid-cols-[2.6rem_1fr] gap-4">
-                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#b79a69]/14 text-[#a88b5a]">
+                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#b79a69]/14 text-[#a8762b]">
                   <OfficeIcon className="h-[1.18rem] w-[1.18rem] stroke-[2.25]" />
                 </span>
                 <p className="text-[1rem] leading-[1.75] text-[#6b655d]">{officeContact.body}</p>
@@ -671,11 +738,11 @@ function Contact() {
             </div>
 
             <div className="grid grid-cols-[2.6rem_1fr] gap-4 border-b border-[#ece2d4] py-6">
-              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#b79a69]/14 text-[#a88b5a]">
+              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#b79a69]/14 text-[#a8762b]">
                 <PhoneIcon className="h-5 w-5 stroke-[2.2]" />
               </span>
               <div>
-                <p className="text-[0.72rem] uppercase tracking-[0.24em] text-[#d0b78b]">
+                <p className="text-[0.72rem] font-semibold uppercase tracking-[0.24em] text-[#b48b50]">
                   {phoneContact.eyebrow}
                 </p>
                 <p className="mt-3 text-[1rem] leading-[1.65] text-[#6b655d]">
@@ -685,11 +752,11 @@ function Contact() {
             </div>
 
             <div className="grid grid-cols-[2.6rem_1fr] gap-4 border-b border-[#ece2d4] py-6">
-              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#b79a69]/14 text-[#a88b5a]">
+              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#b79a69]/14 text-[#a8762b]">
                 <EmailIcon className="h-[1.12rem] w-[1.12rem] stroke-[2.15]" />
               </span>
               <div>
-                <p className="text-[0.72rem] uppercase tracking-[0.24em] text-[#d0b78b]">
+                <p className="text-[0.72rem] font-semibold uppercase tracking-[0.24em] text-[#b48b50]">
                   {emailContact.eyebrow}
                 </p>
                 <p className="mt-3 text-[1rem] leading-[1.65] text-[#6b655d]">
@@ -699,28 +766,28 @@ function Contact() {
             </div>
 
             <div className="pt-6">
-              <h4 className="font-display text-[1.75rem] leading-none text-[#c09d69]">
+              <h4 className="font-display text-[1.75rem] leading-none text-[#a8762b]">
                 Follow Our Journey
               </h4>
-              <div className="mt-5 flex items-center gap-3 text-[#b79a69]">
+              <div className="mt-5 flex items-center gap-3 text-[#a8762b]">
                 <a
                   href="#"
                   aria-label="Facebook"
-                  className="flex h-10 w-10 items-center justify-center rounded-full bg-[#b79a69]/14 text-[#a88b5a] transition hover:bg-[#0f4157] hover:text-white"
+                  className="flex h-10 w-10 items-center justify-center rounded-full bg-[#b79a69]/14 text-[#a8762b] transition hover:bg-[#0f4157] hover:text-white"
                 >
                   <Facebook className="h-4.5 w-4.5 fill-current stroke-0" />
                 </a>
                 <a
                   href="#"
                   aria-label="Instagram"
-                  className="flex h-10 w-10 items-center justify-center rounded-full bg-[#b79a69]/14 text-[#a88b5a] transition hover:bg-[#0f4157] hover:text-white"
+                  className="flex h-10 w-10 items-center justify-center rounded-full bg-[#b79a69]/14 text-[#a8762b] transition hover:bg-[#0f4157] hover:text-white"
                 >
                   <Instagram className="h-4.5 w-4.5 stroke-[2.1]" />
                 </a>
                 <a
                   href="#"
                   aria-label="LinkedIn"
-                  className="flex h-10 w-10 items-center justify-center rounded-full bg-[#b79a69]/14 text-[#a88b5a] transition hover:bg-[#0f4157] hover:text-white"
+                  className="flex h-10 w-10 items-center justify-center rounded-full bg-[#b79a69]/14 text-[#a8762b] transition hover:bg-[#0f4157] hover:text-white"
                 >
                   <Linkedin className="h-4.5 w-4.5 fill-current stroke-0" />
                 </a>
@@ -736,6 +803,7 @@ function Contact() {
 function Index() {
   return (
     <main className="min-h-screen bg-[#fbf8f4]">
+      <Nav />
       <Hero />
       <Story />
       <Projects />

@@ -1,4 +1,4 @@
-import geLogoGold from "@/assets/ge-logo-gold.png";
+import geLogoGold from "@/assets/shared/ge-logo-gold.png";
 
 const pageGutterClass = "px-[1.125rem] md:px-[1.8rem]";
 const pageContainerClass = `mx-auto max-w-7xl ${pageGutterClass}`;
@@ -42,7 +42,7 @@ export function SiteFooter() {
 
           {footerLinks.map((column) => (
             <div key={column.title}>
-              <h3 className="text-[0.78rem] uppercase tracking-[0.2em] text-[#c4a36b]">
+              <h3 className="text-[0.78rem] font-semibold uppercase tracking-[0.2em] text-[#c4a36b]">
                 {column.title}
               </h3>
               <ul className="mt-7 space-y-4 text-[1rem] text-white/84">

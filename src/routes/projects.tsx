@@ -11,13 +11,19 @@ import {
   X,
 } from "lucide-react";
 import { Link, createFileRoute } from "@tanstack/react-router";
-import geContactLounge from "@/assets/ge-contact-lounge.jpg";
-import geLogo from "@/assets/ge-logo.png";
-import geProjectRender from "@/assets/ge-project-render.jpg";
-import projectsHero from "@/assets/project-banner.png";
-import projectClan from "@/assets/project-clan.jpg";
-import projectLegacy from "@/assets/project-legacy.jpg";
-import projectOrlean from "@/assets/project-orlean-layer10.jpg";
+import geContactLounge from "@/assets/shared/ge-contact-lounge.jpg";
+import geLogo from "@/assets/shared/ge-logo.png";
+import geProjectRender from "@/assets/shared/ge-project-render.jpg";
+import projectsHero from "@/assets/projects/shared/project-banner.png";
+import projectClan from "@/assets/projects/the-clan/project-clan.jpg";
+import projectLegacy from "@/assets/projects/legacy/project-legacy.jpg";
+import projectOrlean from "@/assets/projects/orlean/project-orlean-layer10.jpg";
+import {
+  MobileSiteProjectLinks,
+  MobileSiteResourceLinks,
+  SiteProjectsMenu,
+  SiteResourceMenu,
+} from "@/components/site-resource-menu";
 import { SiteFooter } from "@/components/site-footer";
 
 const PROJECTS_TITLE = "Our Projects - Global Edifice";
@@ -37,8 +43,8 @@ const pageContainerClass = `mx-auto max-w-7xl ${pageGutterClass}`;
 const projectNav = [
   { label: "HOME", kind: "route", to: "/" as const },
   { label: "ABOUT US", kind: "route", to: "/about" as const },
-  { label: "PROJECTS", kind: "anchor", href: "#portfolio" },
-  { label: "RESOURCES", kind: "routeHash", to: "/" as const, hash: "amenities" },
+  { label: "PROJECTS", kind: "projects-menu" },
+  { label: "RESOURCES", kind: "resources-menu" },
   { label: "CONTACT", kind: "anchor", href: "#contact" },
 ] as const;
 
@@ -79,6 +85,7 @@ const projects: Array<{
     unitLabel: "2BHK RESIDENCES",
     image: projectOrlean,
     alt: "Global Edifice Orlean",
+    detailHref: "/projects/orlean",
   },
   {
     status: "ongoing",
@@ -160,19 +167,19 @@ function ProjectsNavigationLink({
   className?: string;
   onClick?: () => void;
 }) {
+  if (item.kind === "projects-menu") {
+    return <SiteProjectsMenu className={className} />;
+  }
+
+  if (item.kind === "resources-menu") {
+    return <SiteResourceMenu className={className} />;
+  }
+
   if (item.kind === "anchor") {
     return (
       <a href={item.href} className={className} onClick={onClick}>
         {item.label}
       </a>
-    );
-  }
-
-  if (item.kind === "routeHash") {
-    return (
-      <Link to={item.to} hash={item.hash} className={className} onClick={onClick}>
-        {item.label}
-      </Link>
     );
   }
 
@@ -185,22 +192,48 @@ function ProjectsNavigationLink({
 
 function ProjectsNavigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const updateScrollState = () => {
+      setIsScrolled(window.scrollY > 48);
+    };
+
+    updateScrollState();
+    window.addEventListener("scroll", updateScrollState, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", updateScrollState);
+    };
+  }, []);
 
   return (
-    <header className="absolute inset-x-0 top-0 z-30">
+    <header className="fixed inset-x-0 top-0 z-50">
       <div
-        className={`mx-auto flex max-w-7xl items-center justify-between gap-4 ${pageGutterClass} py-4 md:gap-6 md:py-7`}
+        className={`mx-auto flex max-w-7xl items-center justify-between gap-4 ${pageGutterClass} transition-all duration-300 md:gap-6 ${
+          isScrolled
+            ? "mt-2 rounded-[1.75rem] border border-white/18 bg-[linear-gradient(180deg,rgba(15,30,26,0.42)_0%,rgba(15,30,26,0.24)_100%)] py-2 shadow-[0_22px_48px_-30px_rgba(7,14,18,0.42)] backdrop-blur-[24px] md:py-2.5"
+            : "py-4 md:py-7"
+        }`}
       >
         <Link to="/" className="shrink-0">
           <img
             src={geLogo}
             alt="Global Edifice - The Foundation of Trust"
-            className="w-[112px] [filter:brightness(0)_invert(1)] md:w-[160px]"
+            className={`[filter:brightness(0)_invert(1)] transition-all duration-300 ${
+              isScrolled ? "w-[96px] md:w-[132px]" : "w-[112px] md:w-[160px]"
+            }`}
           />
         </Link>
 
         <div className="hidden items-center md:flex">
-          <nav className="flex items-center gap-7 rounded-full bg-white/96 px-6 py-2.5 text-[0.62rem] font-medium tracking-[0.14em] text-[#b79a69] shadow-[0_18px_45px_-28px_rgba(0,0,0,0.45)] backdrop-blur-sm">
+          <nav
+            className={`flex items-center rounded-full font-semibold tracking-[0.14em] text-[#996317] shadow-[0_18px_45px_-28px_rgba(0,0,0,0.45)] backdrop-blur-sm transition-all duration-300 ${
+              isScrolled
+                ? "gap-6 border border-white/70 bg-white/84 px-5 py-2 text-[0.68rem]"
+                : "gap-7 bg-white/96 px-6 py-2.5 text-[0.7rem] lg:text-[0.72rem]"
+            }`}
+          >
             {projectNav.map((item) => (
               <ProjectsNavigationLink key={item.label} item={item} />
             ))}
@@ -216,7 +249,7 @@ function ProjectsNavigation() {
         <div className="flex items-center gap-2 md:hidden">
           <a
             href="#contact"
-            className="rounded-full border border-white/40 bg-white/10 px-3.5 py-2 text-[0.62rem] tracking-[0.16em] text-white backdrop-blur sm:px-4 sm:text-[0.68rem]"
+            className="rounded-full border border-white/40 bg-white/10 px-3.5 py-2 text-[0.68rem] tracking-[0.16em] text-white backdrop-blur sm:px-4 sm:text-[0.74rem]"
           >
             ENQUIRE
           </a>
@@ -236,19 +269,38 @@ function ProjectsNavigation() {
 
       <div className={`${pageGutterClass} pb-2 md:hidden`}>
         <div
-          className={`overflow-hidden rounded-[1.15rem] bg-white/94 shadow-[0_18px_40px_-28px_rgba(0,0,0,0.45)] backdrop-blur-sm transition-all duration-300 ${
-            isMobileMenuOpen ? "max-h-80 opacity-100" : "pointer-events-none max-h-0 opacity-0"
+          className={`overflow-hidden rounded-[1.15rem] shadow-[0_18px_40px_-28px_rgba(0,0,0,0.45)] backdrop-blur-sm transition-all duration-300 ${
+            isScrolled
+              ? "border border-white/18 bg-[linear-gradient(180deg,rgba(15,30,26,0.48)_0%,rgba(15,30,26,0.32)_100%)]"
+              : "bg-white/94"
+          } ${isMobileMenuOpen ? "max-h-[34rem] opacity-100" : "pointer-events-none max-h-0 opacity-0"}
           }`}
         >
           <nav id="projects-mobile-nav" className="flex flex-col gap-1 px-2 py-2">
-            {projectNav.map((item) => (
-              <ProjectsNavigationLink
-                key={item.label}
-                item={item}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="block rounded-[0.95rem] px-4 py-3 text-[0.72rem] font-medium tracking-[0.16em] text-[#b79a69] transition hover:bg-[#f6f1e8] hover:text-[#123a4c]"
-              />
-            ))}
+            {projectNav.map((item) =>
+              item.kind === "projects-menu" ? (
+                <MobileSiteProjectLinks
+                  key={item.label}
+                  onNavigate={() => setIsMobileMenuOpen(false)}
+                />
+              ) : item.kind === "resources-menu" ? (
+                <MobileSiteResourceLinks
+                  key={item.label}
+                  onNavigate={() => setIsMobileMenuOpen(false)}
+                />
+              ) : (
+                <ProjectsNavigationLink
+                  key={item.label}
+                  item={item}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={`block rounded-[0.95rem] px-4 py-3 text-[0.8rem] font-medium tracking-[0.16em] transition ${
+                    isScrolled
+                      ? "text-white hover:bg-white/10 hover:text-white"
+                      : "text-[#996317] hover:bg-[#f6f1e8] hover:text-[#123a4c]"
+                  }`}
+                />
+              ),
+            )}
           </nav>
         </div>
       </div>
@@ -301,8 +353,6 @@ function ProjectsHero() {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_14%_26%,rgba(255,255,255,0.06),transparent_26%),linear-gradient(90deg,rgba(7,14,19,0.36)_0%,rgba(7,14,19,0.18)_28%,rgba(7,14,19,0.58)_68%,rgba(7,14,19,0.78)_100%)]" />
       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,15,22,0.18)_0%,rgba(8,15,22,0.08)_30%,rgba(8,15,22,0.68)_100%)]" />
 
-      <ProjectsNavigation />
-
       <div
         className={`relative mx-auto flex h-full max-w-7xl items-center justify-start ${pageGutterClass} pb-10 pt-26 sm:pt-30 md:justify-end md:pb-14 md:pt-30`}
       >
@@ -325,7 +375,8 @@ function ProjectPortfolio() {
       <div className={pageContainerClass}>
         <div className="mx-auto max-w-[40rem] text-center">
           <div className="flex items-center justify-center gap-4">
-            <span className="text-[0.72rem] font-medium uppercase tracking-[0.3em] text-[#b79a69]">
+            <span className="h-px w-10 bg-[#dbc9a7]/80" />
+            <span className="text-[0.72rem] font-semibold uppercase tracking-[0.3em] text-[#a8762b]">
               Portfolio
             </span>
             <span className="h-px w-10 bg-[#dbc9a7]/80" />
@@ -336,7 +387,7 @@ function ProjectPortfolio() {
         </div>
 
         <div className="mx-auto mt-10 max-w-[30rem] border-y border-[#e4d8c4] px-2 py-3 md:max-w-[32rem]">
-          <div className="flex items-center justify-center text-[0.88rem] uppercase tracking-[0.24em] text-[#b79a69]">
+          <div className="flex items-center justify-center text-[0.88rem] font-semibold uppercase tracking-[0.24em] text-[#a8762b]">
             {projectFilters.map((filter, index) => (
               <div key={filter.id} className="flex items-center">
                 <button
@@ -344,8 +395,8 @@ function ProjectPortfolio() {
                   onClick={() => setActiveFilter(filter.id)}
                   className={`px-5 py-2 transition md:px-6 ${
                     activeFilter === filter.id
-                      ? "text-[#9d7d48]"
-                      : "text-[#c5b18e] hover:text-[#123a4c]"
+                      ? "font-bold text-[#8f611d]"
+                      : "text-[#b48b50] hover:text-[#123a4c]"
                   }`}
                 >
                   {filter.label}
@@ -376,35 +427,37 @@ function ProjectPortfolio() {
                     {project.name}
                   </h3>
 
-                  <div className="pt-1 text-right text-[#b79a69]">
-                    <p className="text-[0.5rem] uppercase tracking-[0.14em] text-[#c3ab84]">
+                  <div className="pt-1 text-right text-[#a8762b]">
+                    <p className="text-[0.5rem] font-semibold uppercase tracking-[0.14em] text-[#b48b50]">
                       Starting From
                     </p>
-                    <p className="mt-1 text-[0.7rem] uppercase tracking-[0.02em]">
+                    <p className="mt-1 text-[0.7rem] font-semibold uppercase tracking-[0.02em]">
                       {project.price}
                     </p>
                   </div>
                 </div>
 
-                <p className="mt-4 text-[0.58rem] uppercase tracking-[0.08em] text-[#b59d78]">
+                <p className="mt-4 text-[0.58rem] font-medium uppercase tracking-[0.08em] text-[#b48b50]">
                   {project.location}
                 </p>
 
-                <div className="mt-8 flex items-center gap-3 text-[0.62rem] uppercase tracking-[0.08em] text-[#4b4741]">
-                  <span>{project.unitLabel}</span>
-                  <span className="h-px flex-1 bg-[#e4d8c4]" />
+                <div className="relative mt-8 text-[0.62rem] uppercase tracking-[0.08em] text-[#4b4741]">
+                  <span className="absolute inset-x-0 top-1/2 h-px -translate-y-1/2 bg-[#e4d8c4]" />
+                  <span className="relative inline-block bg-[#fffdfa] pr-3">
+                    {project.unitLabel}
+                  </span>
                 </div>
 
                 <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
                   <a
                     href="#contact"
-                    className="inline-flex items-center justify-center gap-2 rounded-full bg-[#b49a6c] px-4 py-3 text-[0.58rem] font-medium uppercase tracking-[0.08em] text-white transition hover:bg-[#9f8658]"
+                    className="inline-flex items-center justify-center gap-2 rounded-full bg-[#b49a6c] px-4 py-3 text-[0.58rem] font-semibold uppercase tracking-[0.08em] text-[#1f1d1a] transition hover:bg-[#9f8658] hover:text-[#1f1d1a]"
                   >
                     Book A Site Visit
                   </a>
                   <a
                     href={project.detailHref ?? "#contact"}
-                    className="inline-flex items-center justify-center rounded-full border border-[#d8c7a8] px-4 py-3 text-[0.58rem] font-medium uppercase tracking-[0.08em] text-[#4f5960] transition hover:border-[#c7b08a] hover:text-[#123a4c]"
+                    className="inline-flex items-center justify-center rounded-full border border-[#d8c7a8] px-4 py-3 text-[0.58rem] font-semibold uppercase tracking-[0.08em] text-[#1f1d1a] transition hover:border-[#c7b08a] hover:text-[#1f1d1a]"
                   >
                     Know More
                   </a>
@@ -443,7 +496,7 @@ function ContactPanel() {
         >
           <div className="max-w-[37rem] pt-2 text-white">
             <div className="flex items-center gap-4">
-              <span className="text-[0.72rem] uppercase tracking-[0.28em] text-[#b79a69]">
+              <span className="text-[0.72rem] font-semibold uppercase tracking-[0.28em] text-[#a8762b]">
                 Get In Touch
               </span>
               <span className="h-px w-8 bg-[#dbc9a7]/60" />
@@ -509,11 +562,11 @@ function ContactPanel() {
 
             <div className="mt-8 space-y-5">
               <div className="flex items-start gap-4 border-b border-[#ece2d4] pb-5">
-                <div className="mt-1 rounded-full bg-[#f2eadc] p-2 text-[#b79a69]">
+                <div className="mt-1 rounded-full bg-[#f2eadc] p-2 text-[#a8762b]">
                   <OfficeIcon className="h-4 w-4" />
                 </div>
                 <div>
-                  <p className="text-[0.75rem] uppercase tracking-[0.2em] text-[#b79a69]">
+                  <p className="text-[0.75rem] font-semibold uppercase tracking-[0.2em] text-[#a8762b]">
                     {officeContact.eyebrow}
                   </p>
                   <p className="mt-2 text-[0.95rem] leading-[1.8] text-[#6b655d]">
@@ -523,11 +576,11 @@ function ContactPanel() {
               </div>
 
               <div className="flex items-start gap-4 border-b border-[#ece2d4] pb-5">
-                <div className="mt-1 rounded-full bg-[#f2eadc] p-2 text-[#b79a69]">
+                <div className="mt-1 rounded-full bg-[#f2eadc] p-2 text-[#a8762b]">
                   <PhoneIcon className="h-4 w-4" />
                 </div>
                 <div>
-                  <p className="text-[0.75rem] uppercase tracking-[0.2em] text-[#b79a69]">
+                  <p className="text-[0.75rem] font-semibold uppercase tracking-[0.2em] text-[#a8762b]">
                     {phoneContact.eyebrow}
                   </p>
                   <p className="mt-2 text-[0.95rem] leading-[1.8] text-[#6b655d]">
@@ -537,11 +590,11 @@ function ContactPanel() {
               </div>
 
               <div className="flex items-start gap-4 pb-2">
-                <div className="mt-1 rounded-full bg-[#f2eadc] p-2 text-[#b79a69]">
+                <div className="mt-1 rounded-full bg-[#f2eadc] p-2 text-[#a8762b]">
                   <EmailIcon className="h-4 w-4" />
                 </div>
                 <div>
-                  <p className="text-[0.75rem] uppercase tracking-[0.2em] text-[#b79a69]">
+                  <p className="text-[0.75rem] font-semibold uppercase tracking-[0.2em] text-[#a8762b]">
                     {emailContact.eyebrow}
                   </p>
                   <p className="mt-2 text-[0.95rem] leading-[1.8] text-[#6b655d]">
@@ -552,10 +605,10 @@ function ContactPanel() {
             </div>
 
             <div className="mt-10 border-t border-[#ece2d4] pt-6">
-              <p className="text-[0.82rem] uppercase tracking-[0.22em] text-[#b79a69]">
+              <p className="text-[0.82rem] font-semibold uppercase tracking-[0.22em] text-[#a8762b]">
                 Follow Our Journey
               </p>
-              <div className="mt-4 flex items-center gap-4 text-[#b79a69]">
+              <div className="mt-4 flex items-center gap-4 text-[#a8762b]">
                 {socialLinks.map((item) => {
                   const Icon = item.icon;
 
@@ -585,6 +638,7 @@ function ProjectsPage() {
   return (
     <>
       <main className="bg-[#f7f2eb] text-[#163849]">
+        <ProjectsNavigation />
         <ProjectsHero />
         <ProjectPortfolio />
         <ContactPanel />
