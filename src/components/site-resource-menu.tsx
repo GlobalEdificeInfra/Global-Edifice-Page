@@ -51,6 +51,8 @@ function SiteNavMenu({
   links: readonly SiteNavMenuLink[];
   className?: string;
 }) {
+  const navigate = useNavigate();
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -73,13 +75,13 @@ function SiteNavMenu({
           <DropdownMenuItem
             key={item.to}
             className="rounded-[0.85rem] px-3 py-3 focus:bg-[#f6efe3] focus:text-[#173748] cursor-pointer"
+            onSelect={() => {
+              void navigate({ to: item.to });
+            }}
           >
-            <Link
-              to={item.to}
-              className="block w-full whitespace-normal text-[0.78rem] font-medium uppercase tracking-[0.14em] text-[#173748]"
-            >
+            <span className="block w-full whitespace-normal text-[0.78rem] font-medium uppercase tracking-[0.14em] text-[#173748]">
               {item.label}
-            </Link>
+            </span>
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>
