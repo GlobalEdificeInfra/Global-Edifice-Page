@@ -10,10 +10,7 @@ import directorRakesh from "@/assets/about/director-rakesh.jpg";
 import projectLegacy from "@/assets/projects/legacy/project-legacy.jpg";
 import projectOrlean from "@/assets/projects/orlean/project-orlean.jpg";
 import projectClan from "@/assets/projects/the-clan/project-clan.jpg";
-import {
-  MobileSiteProjectLinks,
-  SiteProjectsMenu,
-} from "@/components/site-resource-menu";
+import { MobileSiteProjectLinks, SiteProjectsMenu } from "@/components/site-resource-menu";
 import { SiteFooter } from "@/components/site-footer";
 
 const ABOUT_TITLE = "About Global Edifice - Building Beyond Expectations";
@@ -35,7 +32,7 @@ const aboutNav = [
   { label: "ABOUT US", kind: "anchor", href: "#about" },
   { label: "PROJECTS", kind: "projects-menu" },
   { label: "BLOGS", kind: "route", to: "/blogs" as const },
-  { label: "TIMELINE", kind: "anchor", href: "#timeline" },
+  { label: "CONTACT", kind: "route", to: "/contact" as const },
 ] as const;
 
 const leaderCards = [
@@ -213,7 +210,6 @@ function AboutNavigationLink({
     return <SiteProjectsMenu className={className} />;
   }
 
-
   if (item.kind === "anchor") {
     return (
       <a href={item.href} className={className} onClick={onClick}>
@@ -284,24 +280,17 @@ function AboutNavigation() {
             {aboutNav.map((item) => (
               <AboutNavigationLink key={item.label} item={item} />
             ))}
-            <Link
-              to="/"
-              hash="contact"
-              className="rounded-full bg-[#b49a6c] px-5 py-2 text-white transition hover:bg-[#9f8658]"
-            >
+            <a href="tel:+918065480222" className="hidden sm:inline-flex items-center gap-1.5 transition text-[#996317] hover:text-[#123a4c] mx-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-phone h-[1.1rem] w-[1.1rem]"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span className="font-semibold tracking-[0.05em]">+91 806 548 0222</span></a>
+            <button onClick={() => window.dispatchEvent(new CustomEvent("open-enquiry-popup"))} className="rounded-full bg-[#b49a6c] px-5 py-2 text-white transition hover:bg-[#9f8658]">
               ENQUIRE
-            </Link>
+            </button>
           </nav>
         </div>
 
         <div className="flex items-center gap-2 md:hidden">
-          <Link
-            to="/"
-            hash="contact"
-            className="rounded-full border border-white/40 bg-white/10 px-3.5 py-2 text-[0.68rem] tracking-[0.16em] text-white backdrop-blur sm:px-4 sm:text-[0.74rem]"
-          >
+          <button onClick={() => window.dispatchEvent(new CustomEvent("open-enquiry-popup"))} className="rounded-full border border-white/40 bg-white/10 px-3.5 py-2 text-[0.68rem] tracking-[0.16em] text-white backdrop-blur sm:px-4 sm:text-[0.74rem]">
             ENQUIRE
-          </Link>
+          </button>
 
           <button
             type="button"
@@ -564,8 +553,8 @@ function AboutPage() {
         </section>
 
         <section id="timeline" className="bg-[#f7f2eb] pb-0">
-          <div className="grid overflow-hidden bg-[#123f54] text-white lg:grid-cols-2">
-            <div className="relative py-10 pr-6 pl-[1.125rem] md:py-16 md:pr-12 md:pl-[1.8rem] lg:py-18 lg:pr-16 lg:pl-[max(1.8rem,calc((100vw-80rem)/2+1.8rem))]">
+          <div className="grid overflow-hidden bg-[#123f54] text-white lg:grid-cols-2 lg:h-[45rem]">
+            <div className="relative overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:none] py-10 pr-6 pl-[1.125rem] md:py-16 md:pr-12 md:pl-[1.8rem] lg:py-18 lg:pr-16 lg:pl-[max(1.8rem,calc((100vw-80rem)/2+1.8rem))]">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_0%_0%,rgba(190,165,120,0.12),transparent_30%),repeating-radial-gradient(circle_at_-10%_50%,rgba(255,255,255,0.045)_0,rgba(255,255,255,0.045)_1px,transparent_1px,transparent_24px)] opacity-45" />
 
               <div className="relative">
@@ -589,7 +578,9 @@ function AboutPage() {
                           type="button"
                           onClick={() => setActiveMilestoneYear(milestone.year)}
                           className={`flex items-center gap-3 text-left text-[1.02rem] transition md:text-[1.1rem] ${
-                            isActive ? "font-semibold text-white" : "text-white/58 hover:text-white/82"
+                            isActive
+                              ? "font-semibold text-white"
+                              : "text-white/58 hover:text-white/82"
                           }`}
                         >
                           <span>{milestone.year}</span>
@@ -605,7 +596,10 @@ function AboutPage() {
 
                   <div className="max-w-[34rem] space-y-8">
                     {activeMilestone.entries.map((entry) => (
-                      <article key={`${activeMilestone.year}-${entry.title}`} className="border-b border-white/12 pb-8 last:border-b-0 last:pb-0">
+                      <article
+                        key={`${activeMilestone.year}-${entry.title}`}
+                        className="border-b border-white/12 pb-8 last:border-b-0 last:pb-0"
+                      >
                         <h3 className="font-display text-[1.9rem] leading-[1] text-white md:text-[2.5rem]">
                           {entry.title}
                         </h3>
@@ -630,7 +624,7 @@ function AboutPage() {
               </div>
             </div>
 
-            <div className="min-h-[18rem] lg:min-h-[48rem]">
+            <div className="h-[24rem] lg:h-full lg:min-h-0">
               <img
                 src={activeMilestone.image}
                 alt={activeMilestone.imageAlt}

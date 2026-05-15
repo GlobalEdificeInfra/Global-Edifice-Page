@@ -1,3 +1,4 @@
+import { GlobalOverlay } from "@/components/global-overlay";
 import { Outlet, Link, createRootRoute } from "@tanstack/react-router";
 
 function NotFoundComponent() {
@@ -42,5 +43,8 @@ export const Route = createRootRoute({
 });
 
 function RootComponent() {
-  return <Outlet />;
+  return <>
+      <Outlet />
+      <GlobalOverlay />
+    </>;
 }

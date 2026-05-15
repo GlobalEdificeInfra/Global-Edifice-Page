@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { Menu, X } from "lucide-react";
+import { Menu, Phone, X } from "lucide-react";
 import geContactLounge from "@/assets/shared/ge-contact-lounge.jpg";
 import geLogo from "@/assets/shared/ge-logo.png";
 import {
@@ -17,7 +17,7 @@ const landingNav = [
   { label: "ABOUT US", kind: "route", to: "/about" as const },
   { label: "PROJECTS", kind: "projects-menu" },
   { label: "BLOGS", kind: "route", to: "/blogs" as const },
-  { label: "CONTACT", kind: "anchor", href: "#contact" },
+  { label: "CONTACT", kind: "route", to: "/contact" as const },
 ] as const;
 
 type LandingNavItem = (typeof landingNav)[number];
@@ -94,38 +94,47 @@ function LandingNavigation() {
             src={geLogo}
             alt="Global Edifice - The Foundation of Trust"
             className={`[filter:brightness(0)_invert(1)] transition-all duration-300 ${
-              isScrolled ? "w-[104px] md:w-[138px]" : "w-[124px] md:w-[168px]"
+              isScrolled ? "w-[96px] md:w-[132px]" : "w-[112px] md:w-[160px]"
             }`}
           />
         </Link>
 
         <div className="hidden items-center md:flex">
           <nav
-            className={`flex items-center rounded-full font-semibold tracking-[0.14em] text-[#996317] shadow-[0_18px_45px_-28px_rgba(0,0,0,0.45)] backdrop-blur-sm transition-all duration-300 ${
+            className={`flex items-center rounded-full font-semibold text-[#996317] shadow-[0_18px_45px_-28px_rgba(0,0,0,0.45)] backdrop-blur-sm transition-all duration-300 ${
               isScrolled
-                ? "gap-6 border border-white/70 bg-white/84 px-5 py-2 text-[0.68rem]"
-                : "gap-7 bg-white/96 px-6 py-2.5 text-[0.7rem] lg:text-[0.72rem]"
+                ? "gap-6 border border-white/70 bg-white/84 px-5 py-2 text-[0.68rem] tracking-[0.14em] lg:text-[0.72rem]"
+                : "gap-9 bg-white/96 px-7 py-3 text-[0.72rem] tracking-[0.13em] lg:text-[0.76rem]"
             }`}
           >
             {landingNav.map((item) => (
               <LandingNavigationLink key={item.label} item={item} />
             ))}
             <a
-              href="#contact"
-              className="rounded-full bg-[#b49a6c] px-4 py-1.5 text-white transition hover:bg-[#9f8658]"
+              href="tel:+918065480222"
+              className="hidden sm:inline-flex items-center gap-1.5 text-[#996317] transition hover:text-[#123a4c]"
+            >
+              <Phone className="h-[1.1rem] w-[1.1rem]" />
+              <span className="font-semibold tracking-[0.05em]">+91 806 548 0222</span>
+            </a>
+            <button
+              type="button"
+              onClick={() => window.dispatchEvent(new CustomEvent("open-enquiry-popup"))}
+              className="rounded-full bg-[#b49a6c] px-5 py-2 text-white transition hover:bg-[#9f8658]"
             >
               ENQUIRE
-            </a>
+            </button>
           </nav>
         </div>
 
         <div className="flex items-center gap-2 md:hidden">
-          <a
-            href="#contact"
+          <button
+            type="button"
+            onClick={() => window.dispatchEvent(new CustomEvent("open-enquiry-popup"))}
             className="rounded-full border border-white/40 bg-white/10 px-3.5 py-2 text-[0.68rem] tracking-[0.16em] text-white backdrop-blur sm:px-4 sm:text-[0.74rem]"
           >
             ENQUIRE
-          </a>
+          </button>
 
           <button
             type="button"

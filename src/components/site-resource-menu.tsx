@@ -1,5 +1,5 @@
 import { ChevronDown } from "lucide-react";
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -72,8 +72,7 @@ function SiteNavMenu({
         {links.map((item) => (
           <DropdownMenuItem
             key={item.to}
-            asChild
-            className="rounded-[0.85rem] px-3 py-3 focus:bg-[#f6efe3] focus:text-[#173748]"
+            className="rounded-[0.85rem] px-3 py-3 focus:bg-[#f6efe3] focus:text-[#173748] cursor-pointer"
           >
             <Link
               to={item.to}

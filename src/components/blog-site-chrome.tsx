@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { Menu, X } from "lucide-react";
+import { Menu, Phone, X } from "lucide-react";
 import geLogo from "@/assets/shared/ge-logo.png";
 import { MobileSiteProjectLinks, SiteProjectsMenu } from "@/components/site-resource-menu";
 
@@ -12,7 +12,7 @@ const navItems = [
   { label: "ABOUT US", kind: "route", to: "/about" as const },
   { label: "PROJECTS", kind: "projects-menu" },
   { label: "BLOGS", kind: "route", to: "/blogs" as const },
-  { label: "CONTACT", kind: "anchor", href: "/#contact" },
+  { label: "CONTACT", kind: "route", to: "/contact" as const },
 ] as const;
 
 type BlogNavItem = (typeof navItems)[number];
@@ -87,7 +87,7 @@ export function BlogSiteHeader({ activeLabel = "BLOGS" }: { activeLabel?: Active
             className={`flex items-center rounded-full font-semibold text-[#996317] shadow-[0_18px_45px_-28px_rgba(0,0,0,0.45)] backdrop-blur-sm transition-all duration-300 ${
               isScrolled
                 ? "gap-5 border border-white/70 bg-white/84 px-5 py-2 text-[0.68rem] tracking-[0.14em] lg:text-[0.72rem]"
-                : "gap-7 bg-white/96 px-6 py-2.5 text-[0.7rem] tracking-[0.13em] lg:text-[0.72rem]"
+                : "gap-9 bg-white/96 px-7 py-3 text-[0.72rem] tracking-[0.13em] lg:text-[0.76rem]"
             }`}
           >
             {navItems.map((item) => (
@@ -102,21 +102,30 @@ export function BlogSiteHeader({ activeLabel = "BLOGS" }: { activeLabel?: Active
               />
             ))}
             <a
-              href="/#contact"
-              className="rounded-full bg-[#b49a6c] px-4 py-1.5 text-white transition hover:bg-[#9f8658]"
+              href="tel:+918065480222"
+              className="hidden sm:inline-flex items-center gap-1.5 text-[#996317] transition hover:text-[#123a4c]"
+            >
+              <Phone className="h-[1.1rem] w-[1.1rem]" />
+              <span className="font-semibold tracking-[0.05em]">+91 806 548 0222</span>
+            </a>
+            <button
+              type="button"
+              onClick={() => window.dispatchEvent(new CustomEvent("open-enquiry-popup"))}
+              className="rounded-full bg-[#b49a6c] px-5 py-2 text-white transition hover:bg-[#9f8658]"
             >
               ENQUIRE
-            </a>
+            </button>
           </nav>
         </div>
 
         <div className="flex items-center gap-2 md:hidden">
-          <a
-            href="/#contact"
+          <button
+            type="button"
+            onClick={() => window.dispatchEvent(new CustomEvent("open-enquiry-popup"))}
             className="rounded-full border border-white/40 bg-white/10 px-3.5 py-2 text-[0.68rem] tracking-[0.16em] text-white backdrop-blur sm:px-4 sm:text-[0.74rem]"
           >
             ENQUIRE
-          </a>
+          </button>
 
           <button
             type="button"

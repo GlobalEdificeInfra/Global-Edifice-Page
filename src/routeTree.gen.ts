@@ -9,220 +9,190 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as AboutRouteImport } from './routes/about'
-import { Route as BlogsRouteImport } from './routes/blogs'
-import { Route as BlogsSlugRouteImport } from './routes/blogs.$slug'
-import { Route as ChandapuraBangaloreRouteImport } from './routes/chandapura-bangalore'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as MuthanallurOffSarjapuraBangaloreRouteImport } from './routes/muthanallur-off-sarjapura-bangalore'
-import { Route as ProjectsRouteImport } from './routes/projects'
-import { Route as ProjectsOrleanRouteImport } from './routes/projects.orlean'
-import { Route as ProjectsTheClanRouteImport } from './routes/projects.the-clan'
 import { Route as TermsandconditionsRouteImport } from './routes/termsandconditions'
+import { Route as ProjectsRouteImport } from './routes/projects'
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
-
-const AboutRoute = AboutRouteImport.update({
-  id: '/about',
-  path: '/about',
-  getParentRoute: () => rootRouteImport,
-} as any)
-
-const BlogsRoute = BlogsRouteImport.update({
-  id: '/blogs',
-  path: '/blogs',
-  getParentRoute: () => rootRouteImport,
-} as any)
-
-const BlogsSlugRoute = BlogsSlugRouteImport.update({
-  id: '/blogs/$slug',
-  path: '/blogs/$slug',
-  getParentRoute: () => rootRouteImport,
-} as any)
-
-const ChandapuraBangaloreRoute = ChandapuraBangaloreRouteImport.update({
-  id: '/chandapura-bangalore',
-  path: '/chandapura-bangalore',
-  getParentRoute: () => rootRouteImport,
-} as any)
-
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-
-const MuthanallurOffSarjapuraBangaloreRoute = MuthanallurOffSarjapuraBangaloreRouteImport.update({
-  id: '/muthanallur-off-sarjapura-bangalore',
-  path: '/muthanallur-off-sarjapura-bangalore',
-  getParentRoute: () => rootRouteImport,
-} as any)
-
-const ProjectsRoute = ProjectsRouteImport.update({
-  id: '/projects',
-  path: '/projects',
-  getParentRoute: () => rootRouteImport,
-} as any)
-
-const ProjectsOrleanRoute = ProjectsOrleanRouteImport.update({
-  id: '/projects/orlean',
-  path: '/projects/orlean',
-  getParentRoute: () => rootRouteImport,
-} as any)
-
-const ProjectsTheClanRoute = ProjectsTheClanRouteImport.update({
-  id: '/projects/the-clan',
-  path: '/projects/the-clan',
-  getParentRoute: () => rootRouteImport,
-} as any)
+import { Route as MuthanallurOffSarjapuraBangaloreRouteImport } from './routes/muthanallur-off-sarjapura-bangalore'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as ChandapuraBangaloreRouteImport } from './routes/chandapura-bangalore'
+import { Route as BlogsRouteImport } from './routes/blogs'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as IndexRouteImport } from './routes/index'
+import { Route as ProjectsTheClanRouteImport } from './routes/projects_.the-clan'
+import { Route as ProjectsOrleanRouteImport } from './routes/projects_.orlean'
+import { Route as BlogsSlugRouteImport } from './routes/blogs.$slug'
 
 const TermsandconditionsRoute = TermsandconditionsRouteImport.update({
   id: '/termsandconditions',
   path: '/termsandconditions',
   getParentRoute: () => rootRouteImport,
 } as any)
-
+const ProjectsRoute = ProjectsRouteImport.update({
+  id: '/projects',
+  path: '/projects',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
   id: '/privacy-policy',
   path: '/privacy-policy',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MuthanallurOffSarjapuraBangaloreRoute =
+  MuthanallurOffSarjapuraBangaloreRouteImport.update({
+    id: '/muthanallur-off-sarjapura-bangalore',
+    path: '/muthanallur-off-sarjapura-bangalore',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ChandapuraBangaloreRoute = ChandapuraBangaloreRouteImport.update({
+  id: '/chandapura-bangalore',
+  path: '/chandapura-bangalore',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogsRoute = BlogsRouteImport.update({
+  id: '/blogs',
+  path: '/blogs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProjectsTheClanRoute = ProjectsTheClanRouteImport.update({
+  id: '/projects_/the-clan',
+  path: '/projects/the-clan',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProjectsOrleanRoute = ProjectsOrleanRouteImport.update({
+  id: '/projects_/orlean',
+  path: '/projects/orlean',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogsSlugRoute = BlogsSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => BlogsRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
-  '/about': typeof AboutRoute
-  '/blogs': typeof BlogsRoute
-  '/blogs/$slug': typeof BlogsSlugRoute
-  '/chandapura-bangalore': typeof ChandapuraBangaloreRoute
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/blogs': typeof BlogsRouteWithChildren
+  '/chandapura-bangalore': typeof ChandapuraBangaloreRoute
+  '/contact': typeof ContactRoute
   '/muthanallur-off-sarjapura-bangalore': typeof MuthanallurOffSarjapuraBangaloreRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
   '/projects': typeof ProjectsRoute
+  '/termsandconditions': typeof TermsandconditionsRoute
+  '/blogs/$slug': typeof BlogsSlugRoute
   '/projects/orlean': typeof ProjectsOrleanRoute
   '/projects/the-clan': typeof ProjectsTheClanRoute
-  '/termsandconditions': typeof TermsandconditionsRoute
-  '/privacy-policy': typeof PrivacyPolicyRoute
 }
 export interface FileRoutesByTo {
-  '/about': typeof AboutRoute
-  '/blogs': typeof BlogsRoute
-  '/blogs/$slug': typeof BlogsSlugRoute
-  '/chandapura-bangalore': typeof ChandapuraBangaloreRoute
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/blogs': typeof BlogsRouteWithChildren
+  '/chandapura-bangalore': typeof ChandapuraBangaloreRoute
+  '/contact': typeof ContactRoute
   '/muthanallur-off-sarjapura-bangalore': typeof MuthanallurOffSarjapuraBangaloreRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
   '/projects': typeof ProjectsRoute
+  '/termsandconditions': typeof TermsandconditionsRoute
+  '/blogs/$slug': typeof BlogsSlugRoute
   '/projects/orlean': typeof ProjectsOrleanRoute
   '/projects/the-clan': typeof ProjectsTheClanRoute
-  '/termsandconditions': typeof TermsandconditionsRoute
-  '/privacy-policy': typeof PrivacyPolicyRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/about': typeof AboutRoute
-  '/blogs': typeof BlogsRoute
-  '/blogs/$slug': typeof BlogsSlugRoute
-  '/chandapura-bangalore': typeof ChandapuraBangaloreRoute
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/blogs': typeof BlogsRouteWithChildren
+  '/chandapura-bangalore': typeof ChandapuraBangaloreRoute
+  '/contact': typeof ContactRoute
   '/muthanallur-off-sarjapura-bangalore': typeof MuthanallurOffSarjapuraBangaloreRoute
-  '/projects': typeof ProjectsRoute
-  '/projects/orlean': typeof ProjectsOrleanRoute
-  '/projects/the-clan': typeof ProjectsTheClanRoute
-  '/termsandconditions': typeof TermsandconditionsRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
+  '/projects': typeof ProjectsRoute
+  '/termsandconditions': typeof TermsandconditionsRoute
+  '/blogs/$slug': typeof BlogsSlugRoute
+  '/projects_/orlean': typeof ProjectsOrleanRoute
+  '/projects_/the-clan': typeof ProjectsTheClanRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
+    | '/'
     | '/about'
     | '/blogs'
-    | '/blogs/$slug'
     | '/chandapura-bangalore'
-    | '/'
+    | '/contact'
     | '/muthanallur-off-sarjapura-bangalore'
+    | '/privacy-policy'
     | '/projects'
+    | '/termsandconditions'
+    | '/blogs/$slug'
     | '/projects/orlean'
     | '/projects/the-clan'
-    | '/termsandconditions'
   fileRoutesByTo: FileRoutesByTo
   to:
+    | '/'
     | '/about'
     | '/blogs'
-    | '/blogs/$slug'
     | '/chandapura-bangalore'
-    | '/'
+    | '/contact'
     | '/muthanallur-off-sarjapura-bangalore'
+    | '/privacy-policy'
     | '/projects'
+    | '/termsandconditions'
+    | '/blogs/$slug'
     | '/projects/orlean'
     | '/projects/the-clan'
-    | '/termsandconditions'
   id:
     | '__root__'
+    | '/'
     | '/about'
     | '/blogs'
-    | '/blogs/$slug'
     | '/chandapura-bangalore'
-    | '/'
+    | '/contact'
     | '/muthanallur-off-sarjapura-bangalore'
-    | '/projects'
-    | '/projects/orlean'
-    | '/projects/the-clan'
-    | '/termsandconditions'
     | '/privacy-policy'
+    | '/projects'
+    | '/termsandconditions'
+    | '/blogs/$slug'
+    | '/projects_/orlean'
+    | '/projects_/the-clan'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  AboutRoute: typeof AboutRoute
-  BlogsRoute: typeof BlogsRoute
-  BlogsSlugRoute: typeof BlogsSlugRoute
-  ChandapuraBangaloreRoute: typeof ChandapuraBangaloreRoute
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  BlogsRoute: typeof BlogsRouteWithChildren
+  ChandapuraBangaloreRoute: typeof ChandapuraBangaloreRoute
+  ContactRoute: typeof ContactRoute
   MuthanallurOffSarjapuraBangaloreRoute: typeof MuthanallurOffSarjapuraBangaloreRoute
+  PrivacyPolicyRoute: typeof PrivacyPolicyRoute
   ProjectsRoute: typeof ProjectsRoute
+  TermsandconditionsRoute: typeof TermsandconditionsRoute
   ProjectsOrleanRoute: typeof ProjectsOrleanRoute
   ProjectsTheClanRoute: typeof ProjectsTheClanRoute
-  TermsandconditionsRoute: typeof TermsandconditionsRoute
-  PrivacyPolicyRoute: typeof PrivacyPolicyRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/blogs': {
-      id: '/blogs'
-      path: '/blogs'
-      fullPath: '/blogs'
-      preLoaderRoute: typeof BlogsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/blogs/$slug': {
-      id: '/blogs/$slug'
-      path: '/blogs/$slug'
-      fullPath: '/blogs/$slug'
-      preLoaderRoute: typeof BlogsSlugRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/chandapura-bangalore': {
-      id: '/chandapura-bangalore'
-      path: '/chandapura-bangalore'
-      fullPath: '/chandapura-bangalore'
-      preLoaderRoute: typeof ChandapuraBangaloreRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/muthanallur-off-sarjapura-bangalore': {
-      id: '/muthanallur-off-sarjapura-bangalore'
-      path: '/muthanallur-off-sarjapura-bangalore'
-      fullPath: '/muthanallur-off-sarjapura-bangalore'
-      preLoaderRoute: typeof MuthanallurOffSarjapuraBangaloreRouteImport
+    '/termsandconditions': {
+      id: '/termsandconditions'
+      path: '/termsandconditions'
+      fullPath: '/termsandconditions'
+      preLoaderRoute: typeof TermsandconditionsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/projects': {
@@ -232,27 +202,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProjectsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/projects/orlean': {
-      id: '/projects/orlean'
-      path: '/projects/orlean'
-      fullPath: '/projects/orlean'
-      preLoaderRoute: typeof ProjectsOrleanRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/projects/the-clan': {
-      id: '/projects/the-clan'
-      path: '/projects/the-clan'
-      fullPath: '/projects/the-clan'
-      preLoaderRoute: typeof ProjectsTheClanRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/termsandconditions': {
-      id: '/termsandconditions'
-      path: '/termsandconditions'
-      fullPath: '/termsandconditions'
-      preLoaderRoute: typeof TermsandconditionsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/privacy-policy': {
       id: '/privacy-policy'
       path: '/privacy-policy'
@@ -260,21 +209,94 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivacyPolicyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/muthanallur-off-sarjapura-bangalore': {
+      id: '/muthanallur-off-sarjapura-bangalore'
+      path: '/muthanallur-off-sarjapura-bangalore'
+      fullPath: '/muthanallur-off-sarjapura-bangalore'
+      preLoaderRoute: typeof MuthanallurOffSarjapuraBangaloreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/chandapura-bangalore': {
+      id: '/chandapura-bangalore'
+      path: '/chandapura-bangalore'
+      fullPath: '/chandapura-bangalore'
+      preLoaderRoute: typeof ChandapuraBangaloreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blogs': {
+      id: '/blogs'
+      path: '/blogs'
+      fullPath: '/blogs'
+      preLoaderRoute: typeof BlogsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/projects_/the-clan': {
+      id: '/projects_/the-clan'
+      path: '/projects/the-clan'
+      fullPath: '/projects/the-clan'
+      preLoaderRoute: typeof ProjectsTheClanRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/projects_/orlean': {
+      id: '/projects_/orlean'
+      path: '/projects/orlean'
+      fullPath: '/projects/orlean'
+      preLoaderRoute: typeof ProjectsOrleanRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blogs/$slug': {
+      id: '/blogs/$slug'
+      path: '/$slug'
+      fullPath: '/blogs/$slug'
+      preLoaderRoute: typeof BlogsSlugRouteImport
+      parentRoute: typeof BlogsRoute
+    }
   }
 }
 
-const rootRouteChildren: RootRouteChildren = {
-  AboutRoute: AboutRoute,
-  BlogsRoute: BlogsRoute,
+interface BlogsRouteChildren {
+  BlogsSlugRoute: typeof BlogsSlugRoute
+}
+
+const BlogsRouteChildren: BlogsRouteChildren = {
   BlogsSlugRoute: BlogsSlugRoute,
-  ChandapuraBangaloreRoute: ChandapuraBangaloreRoute,
+}
+
+const BlogsRouteWithChildren = BlogsRoute._addFileChildren(BlogsRouteChildren)
+
+const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  BlogsRoute: BlogsRouteWithChildren,
+  ChandapuraBangaloreRoute: ChandapuraBangaloreRoute,
+  ContactRoute: ContactRoute,
   MuthanallurOffSarjapuraBangaloreRoute: MuthanallurOffSarjapuraBangaloreRoute,
+  PrivacyPolicyRoute: PrivacyPolicyRoute,
   ProjectsRoute: ProjectsRoute,
+  TermsandconditionsRoute: TermsandconditionsRoute,
   ProjectsOrleanRoute: ProjectsOrleanRoute,
   ProjectsTheClanRoute: ProjectsTheClanRoute,
-  TermsandconditionsRoute: TermsandconditionsRoute,
-  PrivacyPolicyRoute: PrivacyPolicyRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

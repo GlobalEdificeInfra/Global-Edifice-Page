@@ -30,7 +30,7 @@ const CLAN_TITLE = "The Clan - Global Edifice";
 const CLAN_DESCRIPTION =
   "Discover The Clan, a Global Edifice signature residence in Bagalur-Sarjapura with curated amenities, elegant planning, and community-led living.";
 
-export const Route = createFileRoute("/projects/the-clan")({
+export const Route = createFileRoute("/projects_/the-clan")({
   component: TheClanPage,
   head: () => ({
     meta: [{ title: CLAN_TITLE }, { name: "description", content: CLAN_DESCRIPTION }],
@@ -55,7 +55,7 @@ const detailNav = [
   { label: "ABOUT US", kind: "route", to: "/about" as const },
   { label: "PROJECTS", kind: "projects-menu" },
   { label: "BLOGS", kind: "route", to: "/blogs" as const },
-  { label: "CONTACT", kind: "routeHash", to: "/projects/the-clan" as const, hash: "contact" },
+  { label: "CONTACT", kind: "route", to: "/contact" as const },
 ] as const;
 
 type DetailNavItem = (typeof detailNav)[number];
@@ -324,30 +324,23 @@ function ProjectDetailNav() {
             className={`flex items-center rounded-full font-semibold tracking-[0.14em] text-[#996317] shadow-[0_18px_45px_-28px_rgba(0,0,0,0.45)] backdrop-blur-sm transition-all duration-300 ${
               isScrolled
                 ? "gap-6 border border-white/70 bg-white/84 px-5 py-2 text-[0.68rem]"
-                : "gap-8 bg-white/96 px-7 py-3 text-[0.7rem] lg:text-[0.72rem]"
+                : "gap-9 bg-white/96 px-7 py-3 text-[0.72rem] tracking-[0.13em] lg:text-[0.76rem]"
             }`}
           >
             {detailNav.map((item) => (
               <DetailNavigationLink key={item.label} item={item} />
             ))}
-            <Link
-              to="/projects/the-clan"
-              hash="contact"
-              className="rounded-full bg-[#b49a6c] px-4 py-1.5 text-white transition hover:bg-[#9f8658]"
-            >
+            <a href="tel:+918065480222" className="hidden sm:inline-flex items-center gap-1.5 transition text-[#996317] hover:text-[#123a4c] mx-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-phone h-[1.1rem] w-[1.1rem]"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span className="font-semibold tracking-[0.05em]">+91 806 548 0222</span></a>
+            <button onClick={() => window.dispatchEvent(new CustomEvent("open-enquiry-popup"))} className="rounded-full bg-[#b49a6c] px-4 py-1.5 text-white transition hover:bg-[#9f8658]">
               ENQUIRE
-            </Link>
+            </button>
           </nav>
         </div>
 
         <div className="flex items-center gap-2 md:hidden">
-          <Link
-            to="/projects/the-clan"
-            hash="contact"
-            className="rounded-full border border-white/40 bg-white/10 px-3.5 py-2 text-[0.68rem] tracking-[0.16em] text-white backdrop-blur sm:px-4 sm:text-[0.74rem]"
-          >
+          <button onClick={() => window.dispatchEvent(new CustomEvent("open-enquiry-popup"))} className="rounded-full border border-white/40 bg-white/10 px-3.5 py-2 text-[0.68rem] tracking-[0.16em] text-white backdrop-blur sm:px-4 sm:text-[0.74rem]">
             ENQUIRE
-          </Link>
+          </button>
 
           <button
             type="button"
