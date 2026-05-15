@@ -4,15 +4,15 @@ import { Link, createFileRoute } from "@tanstack/react-router";
 import aboutHero from "@/assets/about/about-hero.png";
 import geContactInterior from "@/assets/about/ge-contact-interior.jpg";
 import geLogo from "@/assets/shared/ge-logo.png";
-import geProjectRender from "@/assets/shared/ge-project-render.jpg";
 import projectLifestyle from "@/assets/about/ge-project-lifestyle.png";
 import directorJyothish from "@/assets/about/director-jyothish.jpg";
 import directorRakesh from "@/assets/about/director-rakesh.jpg";
+import projectLegacy from "@/assets/projects/legacy/project-legacy.jpg";
+import projectOrlean from "@/assets/projects/orlean/project-orlean.jpg";
+import projectClan from "@/assets/projects/the-clan/project-clan.jpg";
 import {
   MobileSiteProjectLinks,
-  MobileSiteResourceLinks,
   SiteProjectsMenu,
-  SiteResourceMenu,
 } from "@/components/site-resource-menu";
 import { SiteFooter } from "@/components/site-footer";
 
@@ -34,7 +34,7 @@ const aboutNav = [
   { label: "HOME", kind: "route", to: "/" as const },
   { label: "ABOUT US", kind: "anchor", href: "#about" },
   { label: "PROJECTS", kind: "projects-menu" },
-  { label: "RESOURCES", kind: "resources-menu" },
+  { label: "BLOGS", kind: "route", to: "/blogs" as const },
   { label: "TIMELINE", kind: "anchor", href: "#timeline" },
 ] as const;
 
@@ -76,6 +76,114 @@ const missionVisionItems = [
   },
 ] as const;
 
+const milestoneTimeline = [
+  {
+    year: "2025",
+    image: projectClan,
+    imageAlt: "The Clan render",
+    entries: [
+      {
+        title: "The Clan",
+        landArea: "3.5 Acres",
+        units: "257",
+        paragraphs: [
+          "The Clan is a living ode to connection, design, and belonging. It's where mindful design meets meaningful living and community becomes the most beautiful form of luxury. It welcomes families, like-minded individuals and dreamers into a serene, nature-wrapped sanctuary far from the city's restless hum.",
+          "Discover our 2 & 3 Bed Signature Residences, where light, space, and comfort converge. Here every brick holds intention while every curve whispers community.",
+        ],
+      },
+    ],
+  },
+  {
+    year: "2024",
+    image: projectOrlean,
+    imageAlt: "Global Edifice Orlean render",
+    entries: [
+      {
+        title: "Orlean",
+        landArea: "1.5 Acres",
+        units: "91",
+        paragraphs: [
+          "Designed for those who appreciate fine living, Orlean is a premium residential project that seamlessly blends luxury, comfort, and functionality. Every detail is thoughtfully planned by Global Edifice to enhance your lifestyle whether it's the spacious layouts with no common walls, the ample natural light and ventilation, or the wide corridors that create an open and airy ambiance.",
+          "Strategically located, Orlean offers easy access to key hubs, ensuring you stay connected to the city's best while enjoying the tranquility of a well-planned community. Vastu-compliant architecture and impeccable craftsmanship make it a statement of refined living.",
+        ],
+      },
+      {
+        title: "Legacy",
+        landArea: "1 Acre",
+        units: "56",
+        paragraphs: [
+          "Legacy by Global Edifice is designed for families seeking a harmonious blend of nature, comfort, and modern living. Planned around open green character and practical everyday convenience, it extends our focus on homes that feel both grounded and aspirational.",
+          "With expansive layouts, Vastu-compliant homes, and premium amenities, Legacy is built for comfort, security, and a lifestyle that stands the test of time in Chandapura.",
+        ],
+      },
+    ],
+  },
+  {
+    year: "2023",
+    image: "/project-images/completed-project-images/cresent-compPorjects-img.webp",
+    imageAlt: "Global Edifice Cresent",
+    entries: [
+      {
+        title: "Cresent",
+        landArea: "1 Acre",
+        units: "64",
+        paragraphs: [
+          "Cresent marked another important step in our residential journey, expanding the Global Edifice footprint with a compact, urban apartment community tailored for comfortable everyday living.",
+          "The project reinforced our focus on reliable delivery, efficient planning, and value-led homes in the Chandapura growth corridor.",
+        ],
+      },
+    ],
+  },
+  {
+    year: "2021",
+    image: "/project-images/completed-project-images/celesta-compPorjects-img.webp",
+    imageAlt: "Global Edifice Celesta",
+    entries: [
+      {
+        title: "Celesta",
+        landArea: "3.5 Acres",
+        units: "336",
+        paragraphs: [
+          "Celesta became a defining milestone in our growth story, bringing a larger-scale apartment community to life with a strong emphasis on planning discipline and everyday practicality.",
+          "Across 336 homes, the project strengthened our delivery track record and showcased our ability to shape expansive residential communities with consistency and care.",
+        ],
+      },
+    ],
+  },
+  {
+    year: "2019",
+    image: "/project-images/completed-project-images/green-appleHikes-compPorjects-img.webp",
+    imageAlt: "Global Green Apple Hikes",
+    entries: [
+      {
+        title: "Green Apple Hikes",
+        landArea: "1/2 Acres",
+        units: "80",
+        paragraphs: [
+          "Green Apple Hikes expanded our portfolio with an affordable apartment community built around accessibility, sensible planning, and long-term value for homeowners.",
+          "It helped establish the foundation of our customer trust in South Bangalore by pairing compact scale with dependable construction quality.",
+        ],
+      },
+    ],
+  },
+  {
+    year: "2015",
+    image: "/project-images/completed-project-images/greenAppleVillas1-compPorjects-img.webp",
+    imageAlt: "Green Apple Villas",
+    entries: [
+      {
+        title: "Green Apple Villas",
+        landArea: "6.5 Acres",
+        units: "83",
+        paragraphs: [
+          "Green Apple Villas marked the early chapter of the Global Edifice journey, introducing a villa community shaped by openness, comfort, and a more personal residential experience.",
+          "This project laid the groundwork for the trust-led approach that continues to define our developments today, combining community planning with a strong sense of lifestyle value.",
+        ],
+      },
+    ],
+  },
+] as const;
+
 type AboutNavItem = (typeof aboutNav)[number];
 
 function SectionLabel({ children }: { children: string }) {
@@ -105,9 +213,6 @@ function AboutNavigationLink({
     return <SiteProjectsMenu className={className} />;
   }
 
-  if (item.kind === "resources-menu") {
-    return <SiteResourceMenu className={className} />;
-  }
 
   if (item.kind === "anchor") {
     return (
@@ -227,11 +332,6 @@ function AboutNavigation() {
                   key={item.label}
                   onNavigate={() => setIsMobileMenuOpen(false)}
                 />
-              ) : item.kind === "resources-menu" ? (
-                <MobileSiteResourceLinks
-                  key={item.label}
-                  onNavigate={() => setIsMobileMenuOpen(false)}
-                />
               ) : (
                 <AboutNavigationLink
                   key={item.label}
@@ -288,6 +388,9 @@ function useAboutMetadata() {
 
 function AboutPage() {
   useAboutMetadata();
+  const [activeMilestoneYear, setActiveMilestoneYear] = useState<string>(milestoneTimeline[0].year);
+  const activeMilestone =
+    milestoneTimeline.find((item) => item.year === activeMilestoneYear) ?? milestoneTimeline[0];
 
   return (
     <>
@@ -475,43 +578,53 @@ function AboutPage() {
                   Our Milestones
                 </h2>
 
-                <div className="mt-12 grid gap-10 md:grid-cols-[5.5rem_1px_minmax(0,1fr)] md:items-start">
-                  <div className="space-y-7 pt-2 text-[1.02rem] text-white/58 md:text-[1.1rem]">
-                    <p>2015</p>
-                    <p>2019</p>
-                    <p>2021</p>
-                    <p>2023</p>
-                    <p>2024</p>
-                    <div className="flex items-center gap-3 font-semibold text-white">
-                      <span>2025</span>
-                      <span className="h-0 w-0 border-y-[8px] border-y-transparent border-l-[12px] border-l-[#c4a26a]" />
-                    </div>
+                <div className="mt-12 grid gap-10 md:grid-cols-[6.2rem_1px_minmax(0,1fr)] md:items-start lg:gap-12">
+                  <div className="space-y-5 pt-2">
+                    {milestoneTimeline.map((milestone) => {
+                      const isActive = milestone.year === activeMilestoneYear;
+
+                      return (
+                        <button
+                          key={milestone.year}
+                          type="button"
+                          onClick={() => setActiveMilestoneYear(milestone.year)}
+                          className={`flex items-center gap-3 text-left text-[1.02rem] transition md:text-[1.1rem] ${
+                            isActive ? "font-semibold text-white" : "text-white/58 hover:text-white/82"
+                          }`}
+                        >
+                          <span>{milestone.year}</span>
+                          {isActive ? (
+                            <span className="h-0 w-0 border-y-[8px] border-y-transparent border-l-[12px] border-l-[#c4a26a]" />
+                          ) : null}
+                        </button>
+                      );
+                    })}
                   </div>
 
                   <div className="hidden h-full bg-[#bfa26f]/55 md:block" />
 
-                  <div className="max-w-[30rem]">
-                    <h3 className="font-display text-[1.9rem] leading-[1] text-white md:text-[2.7rem]">
-                      The Clan
-                    </h3>
-                    <p className="mt-3 font-display text-[2.7rem] leading-none text-[#c4a26a] md:text-[4.2rem]">
-                      2025
-                    </p>
+                  <div className="max-w-[34rem] space-y-8">
+                    {activeMilestone.entries.map((entry) => (
+                      <article key={`${activeMilestone.year}-${entry.title}`} className="border-b border-white/12 pb-8 last:border-b-0 last:pb-0">
+                        <h3 className="font-display text-[1.9rem] leading-[1] text-white md:text-[2.5rem]">
+                          {entry.title}
+                        </h3>
+                        <p className="mt-3 font-display text-[2.7rem] leading-none text-[#c4a26a] md:text-[4.2rem]">
+                          {activeMilestone.year}
+                        </p>
 
-                    <div className="mt-8 space-y-4 text-[1rem] leading-[1.95] text-white/88 md:text-[1.06rem]">
-                      <p>
-                        The Clan is a living ode to connection, design, and belonging. It&apos;s
-                        where mindful design meets meaningful living and community becomes the most
-                        beautiful form of luxury. It welcomes families, like-minded individuals and
-                        dreamers into a serene, nature-wrapped sanctuary far from the city&apos;s
-                        restless hum.
-                      </p>
-                      <p>
-                        Discover our 2 &amp; 3 Bed Signature Residences, where light, space, and
-                        comfort converge. Here every brick holds intention while every curve
-                        whispers community.
-                      </p>
-                    </div>
+                        <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-[0.78rem] font-semibold uppercase tracking-[0.18em] text-[#c4a26a] md:text-[0.82rem]">
+                          <span>Land Area - {entry.landArea}</span>
+                          <span>Units - {entry.units}</span>
+                        </div>
+
+                        <div className="mt-6 space-y-4 text-[1rem] leading-[1.95] text-white/88 md:text-[1.06rem]">
+                          {entry.paragraphs.map((paragraph) => (
+                            <p key={paragraph}>{paragraph}</p>
+                          ))}
+                        </div>
+                      </article>
+                    ))}
                   </div>
                 </div>
               </div>
@@ -519,8 +632,8 @@ function AboutPage() {
 
             <div className="min-h-[18rem] lg:min-h-[48rem]">
               <img
-                src={geProjectRender}
-                alt="Global Edifice The Clan render"
+                src={activeMilestone.image}
+                alt={activeMilestone.imageAlt}
                 className="h-full w-full object-cover object-[66%_center]"
                 loading="lazy"
               />

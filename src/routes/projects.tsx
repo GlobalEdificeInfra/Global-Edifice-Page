@@ -13,16 +13,11 @@ import {
 import { Link, createFileRoute } from "@tanstack/react-router";
 import geContactLounge from "@/assets/shared/ge-contact-lounge.jpg";
 import geLogo from "@/assets/shared/ge-logo.png";
-import geProjectRender from "@/assets/shared/ge-project-render.jpg";
 import projectsHero from "@/assets/projects/shared/project-banner.png";
 import projectClan from "@/assets/projects/the-clan/project-clan.jpg";
-import projectLegacy from "@/assets/projects/legacy/project-legacy.jpg";
-import projectOrlean from "@/assets/projects/orlean/project-orlean-layer10.jpg";
 import {
   MobileSiteProjectLinks,
-  MobileSiteResourceLinks,
   SiteProjectsMenu,
-  SiteResourceMenu,
 } from "@/components/site-resource-menu";
 import { SiteFooter } from "@/components/site-footer";
 
@@ -44,7 +39,7 @@ const projectNav = [
   { label: "HOME", kind: "route", to: "/" as const },
   { label: "ABOUT US", kind: "route", to: "/about" as const },
   { label: "PROJECTS", kind: "projects-menu" },
-  { label: "RESOURCES", kind: "resources-menu" },
+  { label: "BLOGS", kind: "route", to: "/blogs" as const },
   { label: "CONTACT", kind: "anchor", href: "#contact" },
 ] as const;
 
@@ -60,7 +55,8 @@ const projectFilters: Array<{ id: ProjectStatus; label: string }> = [
 const projects: Array<{
   status: ProjectStatus;
   name: string;
-  price: string;
+  statLabel: string;
+  statValue: string;
   location: string;
   unitLabel: string;
   image: string;
@@ -69,68 +65,97 @@ const projects: Array<{
 }> = [
   {
     status: "ongoing",
-    name: "GLOBAL EDIFICE THE CLAN",
-    price: "76 LAKHS*",
-    location: "BAGALUR - SARJAPURA, BANGALORE",
-    unitLabel: "2BHK RESIDENCES",
-    image: projectClan,
-    alt: "Global Edifice The Clan",
-    detailHref: "/projects/the-clan",
-  },
-  {
-    status: "ongoing",
     name: "GLOBAL EDIFICE ORLEAN",
-    price: "76 LAKHS*",
-    location: "OFF. CHANDAPURA ROAD, BANGALORE",
-    unitLabel: "2BHK RESIDENCES",
-    image: projectOrlean,
+    statLabel: "Starting From",
+    statValue: "76 LAKHS*",
+    location: "CHANDAPURA, BANGALORE",
+    unitLabel: "1134 - 1590 SQFT",
+    image: "/project-images/orlean-images/orlean-main2.jpg",
     alt: "Global Edifice Orlean",
     detailHref: "/projects/orlean",
   },
   {
     status: "ongoing",
-    name: "GLOBAL EDIFICE LEGACY",
-    price: "62 LAKHS*",
-    location: "OFF. CHANDAPURA ROAD, BANGALORE",
-    unitLabel: "2BHK RESIDENCES",
-    image: projectLegacy,
-    alt: "Global Edifice Legacy",
+    name: "THE CLAN",
+    statLabel: "Starting From",
+    statValue: "70 LAKHS*",
+    location: "SARJAPURA, BANGALORE",
+    unitLabel: "1131 - 1825 SQFT",
+    image: projectClan,
+    alt: "The Clan",
+    detailHref: "/projects/the-clan",
   },
   {
     status: "upcoming",
-    name: "GLOBAL EDIFICE HEIGHTS",
-    price: "Launching Soon",
-    location: "ELECTRONIC CITY EXTENSION, BANGALORE",
-    unitLabel: "SMART FAMILY APARTMENTS",
-    image: geProjectRender,
-    alt: "Global Edifice Heights preview",
+    name: "CHANDAPURA, BANGALORE",
+    statLabel: "Phase",
+    statValue: "COMING SOON",
+    location: "CHANDAPURA, BANGALORE",
+    unitLabel: "5.25 ACRE | HIGH RISE APARTMENT",
+    image: "/project-images/upcoming-project-images/Chadapura.jpg",
+    alt: "Chandapura, Bangalore upcoming project",
+    detailHref: "/chandapura-bangalore",
   },
   {
     status: "upcoming",
-    name: "GLOBAL EDIFICE PARKSIDE",
-    price: "Launching Soon",
-    location: "CHANDAPURA - ATTIBELE CORRIDOR",
-    unitLabel: "MID-RISE COMMUNITY",
-    image: projectOrlean,
-    alt: "Global Edifice Parkside preview",
+    name: "MUTHANALLUR, OFF SARJAPURA",
+    statLabel: "Phase",
+    statValue: "COMING SOON",
+    location: "MUTHANALLUR, OFF SARJAPURA ROAD",
+    unitLabel: "4 ACRE | HIGH RISE APARTMENT",
+    image: "/project-images/upcoming-project-images/Muthanallur.jpg",
+    alt: "Muthanallur, off Sarjapura upcoming project",
+    detailHref: "/muthanallur-off-sarjapura-bangalore",
   },
   {
     status: "completed",
-    name: "GLOBAL EDIFICE GREEN APPLE HIKES",
-    price: "Delivered",
-    location: "HSR LAYOUT, BANGALORE",
-    unitLabel: "DELIVERED COMMUNITY",
-    image: geProjectRender,
+    name: "GLOBAL EDIFICE CELESTA",
+    statLabel: "Status",
+    statValue: "SOLD OUT",
+    location: "OFF CHANDAPURA ROAD, BANGALORE",
+    unitLabel: "4 ACRE | 340 UNITS",
+    image: "/project-images/completed-project-images/celesta-compPorjects-img.webp",
+    alt: "Global Edifice Celesta",
+  },
+  {
+    status: "completed",
+    name: "GLOBAL EDIFICE CRESENT",
+    statLabel: "Status",
+    statValue: "SOLD OUT",
+    location: "CHANDAPURA MAIN ROAD, BANGALORE",
+    unitLabel: "1 ACRE | 61 UNITS",
+    image: "/project-images/completed-project-images/cresent-compPorjects-img.webp",
+    alt: "Global Edifice Cresent",
+  },
+  {
+    status: "completed",
+    name: "GLOBAL GREEN APPLE HIKES",
+    statLabel: "Status",
+    statValue: "SOLD OUT",
+    location: "CHANDAPURA MAIN ROAD, BANGALORE",
+    unitLabel: "2 ACRE | 80 UNITS",
+    image: "/project-images/completed-project-images/green-appleHikes-compPorjects-img.webp",
     alt: "Global Edifice Green Apple Hikes",
   },
   {
     status: "completed",
-    name: "GLOBAL EDIFICE RESIDENCY",
-    price: "Delivered",
-    location: "SOUTH BANGALORE",
-    unitLabel: "DELIVERED HOMES",
-    image: projectLegacy,
-    alt: "Global Edifice Residency",
+    name: "GREEN APPLE VILLAS PHASE 1",
+    statLabel: "Status",
+    statValue: "SOLD OUT",
+    location: "CHANDAPURA, BANGALORE",
+    unitLabel: "7 ACRE | 80 VILLAS",
+    image: "/project-images/completed-project-images/greenAppleVillas1-compPorjects-img.webp",
+    alt: "Green Apple Villas Phase 1",
+  },
+  {
+    status: "completed",
+    name: "GREEN APPLE VILLAS PHASE 2",
+    statLabel: "Status",
+    statValue: "SOLD OUT",
+    location: "CHANDAPURA, BANGALORE",
+    unitLabel: "7 ACRE | 80 VILLAS",
+    image: "/project-images/completed-project-images/greenAppleVillas2-compPorjects-img.webp",
+    alt: "Green Apple Villas Phase 2",
   },
 ];
 
@@ -171,9 +196,6 @@ function ProjectsNavigationLink({
     return <SiteProjectsMenu className={className} />;
   }
 
-  if (item.kind === "resources-menu") {
-    return <SiteResourceMenu className={className} />;
-  }
 
   if (item.kind === "anchor") {
     return (
@@ -280,11 +302,6 @@ function ProjectsNavigation() {
             {projectNav.map((item) =>
               item.kind === "projects-menu" ? (
                 <MobileSiteProjectLinks
-                  key={item.label}
-                  onNavigate={() => setIsMobileMenuOpen(false)}
-                />
-              ) : item.kind === "resources-menu" ? (
-                <MobileSiteResourceLinks
                   key={item.label}
                   onNavigate={() => setIsMobileMenuOpen(false)}
                 />
@@ -429,10 +446,10 @@ function ProjectPortfolio() {
 
                   <div className="pt-1 text-right text-[#a8762b]">
                     <p className="text-[0.5rem] font-semibold uppercase tracking-[0.14em] text-[#b48b50]">
-                      Starting From
+                      {project.statLabel}
                     </p>
                     <p className="mt-1 text-[0.7rem] font-semibold uppercase tracking-[0.02em]">
-                      {project.price}
+                      {project.statValue}
                     </p>
                   </div>
                 </div>
@@ -448,20 +465,31 @@ function ProjectPortfolio() {
                   </span>
                 </div>
 
-                <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
-                  <a
-                    href="#contact"
-                    className="inline-flex items-center justify-center gap-2 rounded-full bg-[#b49a6c] px-4 py-3 text-[0.58rem] font-semibold uppercase tracking-[0.08em] text-[#1f1d1a] transition hover:bg-[#9f8658] hover:text-[#1f1d1a]"
-                  >
-                    Book A Site Visit
-                  </a>
-                  <a
-                    href={project.detailHref ?? "#contact"}
-                    className="inline-flex items-center justify-center rounded-full border border-[#d8c7a8] px-4 py-3 text-[0.58rem] font-semibold uppercase tracking-[0.08em] text-[#1f1d1a] transition hover:border-[#c7b08a] hover:text-[#1f1d1a]"
-                  >
-                    Know More
-                  </a>
-                </div>
+                {project.status === "completed" ? (
+                  <div className="mt-5 rounded-[0.9rem] border border-[#e4d8c4] bg-[#f8f1e6] px-4 py-3 text-center">
+                    <p className="text-[0.58rem] font-semibold uppercase tracking-[0.14em] text-[#b48b50]">
+                      Completed Project
+                    </p>
+                    <p className="mt-1 text-[0.74rem] font-medium uppercase tracking-[0.06em] text-[#4b4741]">
+                      Sold out inventory
+                    </p>
+                  </div>
+                ) : (
+                  <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
+                    <a
+                      href="#contact"
+                      className="inline-flex items-center justify-center gap-2 rounded-full bg-[#b49a6c] px-4 py-3 text-[0.58rem] font-semibold uppercase tracking-[0.08em] text-[#1f1d1a] transition hover:bg-[#9f8658] hover:text-[#1f1d1a]"
+                    >
+                      Book A Site Visit
+                    </a>
+                    <a
+                      href={project.detailHref ?? "#contact"}
+                      className="inline-flex items-center justify-center rounded-full border border-[#d8c7a8] px-4 py-3 text-[0.58rem] font-semibold uppercase tracking-[0.08em] text-[#1f1d1a] transition hover:border-[#c7b08a] hover:text-[#1f1d1a]"
+                    >
+                      Know More
+                    </a>
+                  </div>
+                )}
               </div>
             </article>
           ))}

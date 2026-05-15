@@ -1,26 +1,16 @@
 import { useEffect, useState } from "react";
-import { ArrowRight, Download, Menu, X } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight, Download, Menu, X } from "lucide-react";
 import { Link, createFileRoute } from "@tanstack/react-router";
 import geContactLounge from "@/assets/shared/ge-contact-lounge.jpg";
 import geLogo from "@/assets/shared/ge-logo.png";
-import orleanCyclingGarden from "@/assets/projects/orlean/orlean-cycling-garden.png";
 import orleanAboutImage from "@/assets/projects/orlean/orlean-about.jpg";
-import orleanFitness from "@/assets/projects/orlean/orlean-fitness.png";
-import orleanGardenLounge from "@/assets/projects/orlean/orlean-garden-lounge.png";
 import orleanBrandLogo from "@/assets/projects/orlean/orlean-brand-logo.png";
 import orleanBrochureCover from "@/assets/projects/orlean/orlean-brochure-cover.jpg";
 import orleanLocationMapLight from "@/assets/projects/orlean/orlean-location-map-light.jpg";
 import orleanElevationCutout from "@/assets/projects/orlean/Orlean_Elevation.png";
-import orleanPlayground from "@/assets/projects/orlean/orlean-playground.png";
-import orleanPoolCourtyard from "@/assets/projects/orlean/orlean-pool-courtyard.png";
-import orleanRooftopDeck from "@/assets/projects/orlean/orlean-rooftop-deck.png";
-import orleanTennisCourt from "@/assets/projects/orlean/orlean-tennis-court.png";
-import projectBannerImage from "@/assets/projects/shared/project-banner.png";
 import {
   MobileSiteProjectLinks,
-  MobileSiteResourceLinks,
   SiteProjectsMenu,
-  SiteResourceMenu,
 } from "@/components/site-resource-menu";
 import { SiteFooter } from "@/components/site-footer";
 
@@ -42,12 +32,13 @@ const detailNav = [
   { label: "HOME", kind: "route", to: "/" as const },
   { label: "ABOUT US", kind: "route", to: "/about" as const },
   { label: "PROJECTS", kind: "projects-menu" },
-  { label: "RESOURCES", kind: "resources-menu" },
+  { label: "BLOGS", kind: "route", to: "/blogs" as const },
   { label: "CONTACT", kind: "anchor", href: "#contact" },
 ] as const;
 
 type DetailNavItem = (typeof detailNav)[number];
 type PlanMode = "masterplan" | "floorplan";
+type LayoutMode = "2bhk" | "3bhk";
 
 const heroStats = [
   { label: "Typology", value: "2 & 3 BHK", detail: "Spacious residences" },
@@ -75,127 +66,259 @@ const overviewStats = [
   },
 ] as const;
 
-const amenityCards = [
+const overviewCopy = [
+  "Designed for those who appreciate fine living, Orlean is a premium residential project that seamlessly blends luxury, comfort, and functionality. Every detail is thoughtfully planned by Global Edifice to enhance your lifestyle whether it is the spacious layouts with no common walls, the ample natural light and ventilation, or the wide corridors that create an open and airy ambiance.",
+  "Strategically located, Orlean offers easy access to key hubs, ensuring you stay connected to the city's best while enjoying the tranquility of a well-planned community. Vastu-compliant architecture, top-notch amenities, and impeccable craftsmanship make Orlean more than just a home, it is a statement of refined living at Global Edifice.",
+] as const;
+
+const amenityItems = [
+  "Gym",
+  "Walking Track",
+  "Multipurpose Court",
+  "Swimming Pool",
+  "Half Basketball Court",
+  "Gazebo",
+  "Cricket Pitch",
+  "24/7 Security",
+  "Kids Pool",
+  "Kids Play Area",
+] as const;
+
+const amenitySlides = [
   {
-    title: "Club Pool Courtyard",
-    description:
-      "A resort-style pool edge with shaded lounge zones, planted courts, and family-friendly spill-out space.",
-    image: orleanPoolCourtyard,
-    alt: "Global Edifice Orlean pool courtyard",
+    title: "Club Lounge",
+    image: "/project-images/orlean-images/1.jpg",
+    alt: "Global Edifice Orlean club lounge",
+  },
+  {
+    title: "Dining Experience",
+    image: "/project-images/orlean-images/2.jpg",
+    alt: "Global Edifice Orlean dining space",
   },
   {
     title: "Fitness Studio",
-    description:
-      "A bright gym setting with cardio, strength, and garden-facing glazing that keeps workouts feeling lighter.",
-    image: orleanFitness,
+    image: "/project-images/orlean-images/3.jpg",
     alt: "Global Edifice Orlean fitness studio",
-  },
-  {
-    title: "Family Play Zone",
-    description:
-      "Colorful play equipment, soft-surface flooring, and parent seating pockets shape a better everyday family commons.",
-    image: orleanPlayground,
-    alt: "Global Edifice Orlean children's play area",
-  },
-  {
-    title: "Tennis Court",
-    description:
-      "An outdoor court for active evenings, weekend practice, and community recreation without leaving the property.",
-    image: orleanTennisCourt,
-    alt: "Global Edifice Orlean tennis court",
-  },
-  {
-    title: "Open Greens & Cycling",
-    description:
-      "Internal greens and looping outdoor movement encourage slower walks, children's cycling, and more time outdoors.",
-    image: orleanCyclingGarden,
-    alt: "Global Edifice Orlean cycling garden",
-  },
-  {
-    title: "Terrace Social Edge",
-    description:
-      "A planted upper-level gathering space designed for smaller conversations, sunset pauses, and informal community time.",
-    image: orleanGardenLounge,
-    alt: "Global Edifice Orlean garden lounge",
   },
 ] as const;
 
-const connectivityGroups = [
+const planAssets = {
+  masterplan: {
+    src: "/project-images/orlean-masterplan.webp",
+    alt: "Global Edifice Orlean master plan",
+    label: "Master Plan",
+  },
+  floorplan: {
+    src: "/project-images/orlean-floorplan.webp",
+    alt: "Global Edifice Orlean floor plan",
+    label: "Floor Plan",
+  },
+} as const;
+
+const layoutCollections = [
   {
-    id: "institutes",
-    label: "Institutes",
+    id: "2bhk",
+    label: "2 BHK Floor Plans",
     items: [
-      "Azim Premji University (3 km)",
-      "Endeavour International School (5 km)",
-      "Champion International School (5 km)",
-      "Wellsprings Academy (5 km)",
-      "Vartika Montessori School (5 km)",
-      "Cambridge Innovative School (5 km)",
-      "Greenwood High Sarjapur (8 km)",
-      "TISB Academy School (9 km)",
-      "Oakridge International School (9 km)",
-      "Delhi Public School - DPS (10 km)",
-      "Christ College of Science and Management (15 km)",
+      {
+        title: "1134 sq. ft.",
+        src: "/project-images/orlean-images/1134sq-2bhk-anchor.webp",
+      },
+      {
+        title: "1220 sq. ft.",
+        src: "/project-images/orlean-images/1220sqt-2bhk-anchor.webp",
+      },
     ],
   },
   {
-    id: "it-companies",
-    label: "IT Companies",
-    items: ["Biocon", "SABIC R&D Centre", "Electronic City Phase 2", "Upcoming Infosys Campus"],
+    id: "3bhk",
+    label: "3 BHK Floor Plans",
+    items: [
+      {
+        title: "1395 sq. ft.",
+        src: "/project-images/orlean-images/1395sqt-3bhk-anchor-ne.webp",
+      },
+      {
+        title: "1399 sq. ft.",
+        src: "/project-images/orlean-images/1399sqt-3bhk-anchor-ne.webp",
+      },
+      {
+        title: "1400 sq. ft.",
+        src: "/project-images/orlean-images/1400sqt-3bhk-anchor-new.webp",
+      },
+      {
+        title: "1423 sq. ft.",
+        src: "/project-images/orlean-images/1423sqt-3bhk-anchor.webp",
+      },
+      {
+        title: "1499 sq. ft.",
+        src: "/project-images/orlean-images/1499sqt-3bhk-anchor-new.webp",
+      },
+      {
+        title: "1563 sq. ft.",
+        src: "/project-images/orlean-images/1563sqt-3bhk-anchor001.webp",
+      },
+      {
+        title: "1563 sq. ft. Alt",
+        src: "/project-images/orlean-images/1563sqt-3bhk-anchor-new.webp",
+      },
+      {
+        title: "1590 sq. ft.",
+        src: "/project-images/orlean-images/1590sqt-3bhk-anchor.webp",
+      },
+    ],
+  },
+] as const;
+
+const galleryImages = [
+  "/project-images/orlean-images/1.jpg",
+  "/project-images/orlean-images/2.jpg",
+  "/project-images/orlean-images/3.jpg",
+  "/project-images/orlean-images/4.jpg",
+  "/project-images/orlean-images/5.jpg",
+  "/project-images/orlean-images/gallery2.6.webp",
+  "/project-images/orlean-images/extra-gallery-orlean-1.webp",
+  "/project-images/orlean-images/extra-gallery-orlean-2.webp",
+  "/project-images/orlean-images/extra-gallery-orlean-3.webp",
+  "/project-images/orlean-images/extra-gallery-orlean-4.webp",
+  "/project-images/orlean-images/extra-gallery-orlean-5.webp",
+].map((image, index) => ({
+  title: `Gallery ${String(index + 1).padStart(2, "0")}`,
+  image,
+  alt: `Global Edifice Orlean gallery image ${index + 1}`,
+})) as const;
+
+function getGalleryOffset(index: number, activeIndex: number, total: number) {
+  const half = Math.floor(total / 2);
+  let offset = index - activeIndex;
+
+  if (offset > half) {
+    offset -= total;
+  }
+
+  if (offset < -half) {
+    offset += total;
+  }
+
+  return offset;
+}
+
+function getGallerySlotStyles(offset: number) {
+  switch (offset) {
+    case -2:
+      return {
+        container: "hidden md:block md:top-0 md:bottom-0 md:left-0 md:w-[19.2%]",
+        frame: "opacity-40",
+        image: "blur-[3px] saturate-[0.82]",
+      };
+    case -1:
+      return {
+        container: "hidden md:block md:top-0 md:bottom-0 md:left-[20.2%] md:w-[19.2%]",
+        frame: "opacity-100",
+        image: "blur-0 saturate-100",
+      };
+    case 0:
+      return {
+        container: "left-0 top-0 bottom-0 w-full md:left-[40.4%] md:w-[19.2%]",
+        frame: "opacity-100",
+        image: "blur-0 saturate-100",
+      };
+    case 1:
+      return {
+        container: "hidden md:block md:top-0 md:bottom-0 md:left-[60.6%] md:w-[19.2%]",
+        frame: "opacity-100",
+        image: "blur-0 saturate-100",
+      };
+    case 2:
+      return {
+        container: "hidden md:block md:top-0 md:bottom-0 md:left-[80.8%] md:w-[19.2%]",
+        frame: "opacity-40",
+        image: "blur-[3px] saturate-[0.82]",
+      };
+    default:
+      return null;
+  }
+}
+
+const connectivityGroups = [
+  {
+    id: "educational-institutions",
+    label: "Educational Institutions",
+    items: [
+      "Sri Chaitanya School",
+      "SFS Academy",
+      "National Public School",
+      "D-Sales Academy",
+      "Swami Vivekanada College",
+      "Alliance University",
+      "Spoorthi Institute",
+    ],
   },
   {
     id: "hospitals",
     label: "Hospitals",
-    items: [
-      "Narayana Hrudayalaya",
-      "VMS Specialty Hospital",
-      "Sathya Sai Hospital",
-      "Manipal Cure & Care",
-    ],
+    items: ["Narayana Institution", "Oxford Medical Institute", "Best Hospital", "Athreya Hospital", "Sparsh Hospital"],
   },
   {
-    id: "shopping",
-    label: "Shopping",
-    items: ["Forum Value Mall", "D-Mart", "Total Mall", "Decathlon"],
+    id: "corporate-hubs",
+    label: "Corporate Hubs",
+    items: ["Infosys", "Biocon", "Tech Machindra", "TCS", "Siemens", "Wipro"],
+  },
+  {
+    id: "retail-entertainment",
+    label: "Retail & Entertainment",
+    items: ["M5", "Royal Mart", "D Mart", "Metro Cash and Carry"],
   },
 ] as const;
 
 const faqItems = [
   {
     id: "faq-1",
-    question: "What kind of homes does Orlean offer?",
+    question: "What is the starting price for Global Edifice Legacy and Orlean projects?",
     answer:
-      "Orlean is positioned around practical 2 BHK residences designed for everyday comfort, stronger natural light, and better usable living space.",
+      "Global Edifice brings you premium residential projects with modern amenities and strategic locations. Our flagship projects Global Edifice Legacy start from INR 73 lakhs*, while our luxury project Orlean offers premium living spaces starting from INR 76 lakhs*.",
   },
   {
     id: "faq-2",
-    question: "Where is Global Edifice Orlean located?",
+    question: "What is Global Edifice's history, mission and vision?",
     answer:
-      "The project is located off Chandapura Road in South Bangalore, with access toward Attibele, Electronic City, Sarjapura Road, and the proposed metro network.",
+      "With over 10 years of excellence in the real estate market, Global Edifice has established itself as one of the top builders in Bangalore. Our mission is to transform dreams into reality for every homebuyer by developing gated communities and affordable flats that offer more than just living spaces. Our vision encompasses creating vibrant hubs that offer comfort, foster relationships, and stand as assets to be proud of, while making Bangalore's real estate market more dynamic for future generations.",
   },
   {
     id: "faq-3",
-    question: "What amenities are highlighted within the community?",
+    question: "How is Global Edifice committed to sustainability and innovation?",
     answer:
-      "The current concept presentation highlights a club pool courtyard, fitness studio, outdoor play areas, tennis, landscaped greens, and elevated social spaces.",
+      "At Global Edifice, we believe in creating sustainable communities that harmonize with the environment. Our projects incorporate rainwater harvesting systems, solar panels for common areas, energy-efficient lighting, and extensive green spaces. We use eco-friendly construction materials wherever possible and ensure our developments have a minimal carbon footprint. Our innovative designs balance modern aesthetics with environmental responsibility, creating spaces that are not just beautiful but also sustainable for generations to come.",
   },
   {
     id: "faq-4",
-    question: "What is the starting price shown for Orlean?",
+    question: "Where are Global Edifice projects located in Bangalore?",
     answer:
-      "The current project communication shows pricing from 76 lakhs*. Final pricing and availability vary by inventory, floor, and unit selection.",
+      "Global Edifice has strategically positioned projects across Bangalore's most promising locations. Our developments can be found in high-growth areas such as Electronic City, South Bangalore, Bommasandra, Thirumagondanahalli, and Sarjapura. Each location is chosen based on connectivity, infrastructure development potential, and quality of life factors. Contact us at (+91 80 4376 0152) or email (info@globaledifice.in) to learn more about our project locations.",
   },
   {
     id: "faq-5",
-    question: "Can I request a brochure or a guided site visit?",
+    question: "Can we book a site visit for your projects?",
     answer:
-      "Yes. The sales team can share the brochure, current availability, and help schedule a guided walkthrough based on your preferred timing.",
+      "Absolutely. We encourage potential homebuyers to visit our projects before making their decision. Our team conducts guided site visits where you can experience the quality of construction, amenities, and neighborhood firsthand. You can schedule a site visit by calling our customer care at (+91 80 4376 0152) or by filling out the site visit request form on our website. Our representatives will arrange a visit at your convenience and answer all your questions about the property.",
   },
   {
     id: "faq-6",
-    question: "Who is Orlean suited for?",
+    question: "What is the process for purchasing a home with Global Edifice?",
     answer:
-      "The positioning works well for first-home buyers, growing families, and buyers looking for a calmer residential setting without giving up practical city connectivity.",
+      "At Global Edifice, we have simplified the home-buying journey into a seamless 5-step process. It begins with a personalized consultation to understand your requirements and budget preferences. Next, we help you select the perfect property from our portfolio that aligns with your needs. After arranging a comprehensive site visit, our team assists with all financial aspects including loan arrangements and payment plans. Finally, we handle all legal documentation and registration procedures, ensuring a hassle-free purchase experience. Our customer relationship team remains available even after purchase to assist with any queries or support you might need.",
+  },
+  {
+    id: "faq-7",
+    question: "What amenities do Global Edifice projects offer?",
+    answer:
+      "Global Edifice projects are designed with a comprehensive suite of amenities to enhance your lifestyle. Our residential complexes feature state-of-the-art clubhouses, swimming pools, fully-equipped gymnasiums, landscaped gardens, children's play areas, indoor games rooms, multipurpose halls, and dedicated senior citizen corners. Security is paramount with 24/7 surveillance, intercom facilities, and trained security personnel. Additionally, most of our projects offer smart home features, power backup, covered parking, and visitor parking spaces. We believe in creating self-sufficient communities where everything you need is within reach.",
+  },
+  {
+    id: "faq-8",
+    question: "Does Global Edifice offer any post-handover services?",
+    answer:
+      "Yes, our commitment to excellence extends beyond project completion. Global Edifice provides comprehensive post-handover services including a dedicated maintenance team, regular property inspections, and prompt resolution of any construction-related issues during the warranty period. We also assist with utility connections, interior design recommendations, and rental management services if required. Our customer service department remains accessible to address any concerns, ensuring your home ownership experience remains pleasant and worry-free for years to come.",
   },
 ] as const;
 
@@ -212,9 +335,6 @@ function DetailNavigationLink({
     return <SiteProjectsMenu className={className} />;
   }
 
-  if (item.kind === "resources-menu") {
-    return <SiteResourceMenu className={className} />;
-  }
 
   if (item.kind === "anchor") {
     return (
@@ -320,11 +440,6 @@ function OrleanDetailNav() {
             {detailNav.map((item) =>
               item.kind === "projects-menu" ? (
                 <MobileSiteProjectLinks
-                  key={item.label}
-                  onNavigate={() => setIsMobileMenuOpen(false)}
-                />
-              ) : item.kind === "resources-menu" ? (
-                <MobileSiteResourceLinks
                   key={item.label}
                   onNavigate={() => setIsMobileMenuOpen(false)}
                 />
@@ -465,16 +580,9 @@ function OverviewSection() {
                 <span className="block whitespace-nowrap">Meets Everyday Living</span>
               </h2>
               <div className="mt-6 space-y-4 text-[0.96rem] leading-[1.9] text-[#6b6358] md:text-[1rem]">
-                <p>
-                  Orlean by Global Edifice offers a premium residential experience that seamlessly
-                  blends luxury and comfort. Residents enjoy spacious, naturally lit layouts with no
-                  common walls, ensuring ultimate privacy and an airy atmosphere.
-                </p>
-                <p>
-                  Strategically located near key hubs, Orlean perfectly balances urban connectivity
-                  with peaceful community living. Featuring Vastu-compliant design and top-tier
-                  amenities, it stands as a true statement of refined living.
-                </p>
+                {overviewCopy.map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
+                ))}
               </div>
 
               <a
@@ -514,112 +622,72 @@ function OverviewSection() {
 }
 
 function AmenitiesSection() {
-  const amenitySlides = [amenityCards[3], amenityCards[0], amenityCards[2]] as const;
-  const [activeAmenityIndex, setActiveAmenityIndex] = useState(0);
-  const currentSlide = amenitySlides[activeAmenityIndex];
+  const [activeAmenity, setActiveAmenity] = useState(0);
+  const currentSlide = amenitySlides[activeAmenity];
 
   useEffect(() => {
-    setActiveAmenityIndex(0);
+    const intervalId = window.setInterval(() => {
+      setActiveAmenity((current) => (current + 1) % amenitySlides.length);
+    }, 4500);
+
+    return () => {
+      window.clearInterval(intervalId);
+    };
   }, []);
 
   return (
-    <section id="amenities" className="bg-[#f0e8db] py-18 md:py-22">
+    <section id="amenities" className="bg-[#fbf8f3] pb-10 pt-20 md:pb-12 md:pt-24">
       <div className={pageContainerClass}>
-        <div className="max-w-[34rem] md:max-w-[42rem]">
+        <div className="max-w-[58rem]">
           <div className="flex items-center gap-4">
             <p className="eyebrow">Project Highlights</p>
-            <span className="hidden h-px w-10 bg-[#d9c7aa] md:block" />
+            <span className="h-px w-8 bg-[#dccdb3]/80" />
           </div>
-          <h2 className="mt-4 font-display text-[2rem] uppercase leading-[0.98] tracking-[-0.02em] text-[#2d2721] sm:text-[2.2rem] md:text-[2.3rem] lg:text-[2.45rem]">
-            <span className="block md:whitespace-nowrap">Luxury amenities designed</span>
-            <span className="block md:whitespace-nowrap">around everyday comfort</span>
+          <h2 className="mt-4 max-w-[58rem] font-display text-[2.35rem] leading-[0.96] text-[#21201d] md:text-[3.5rem] lg:text-[3.7rem]">
+            <span className="block md:whitespace-nowrap">Elevate Your Everyday With</span>
+            <span className="block md:whitespace-nowrap">World-Class Amenities</span>
           </h2>
         </div>
 
         <div className="mx-auto mt-10 max-w-6xl lg:max-w-[78rem]">
-          <article className="relative overflow-hidden rounded-[0.3rem] bg-white shadow-[0_24px_50px_-42px_rgba(0,0,0,0.28)]">
+          <div className="relative overflow-hidden rounded-[0.3rem] bg-white shadow-[0_24px_50px_-42px_rgba(0,0,0,0.28)]">
             <img
               src={currentSlide.image}
               alt={currentSlide.alt}
               className="h-[20rem] w-full object-cover object-center md:h-[37rem] lg:h-[40rem]"
             />
-          </article>
-        </div>
+            <div className="absolute inset-x-0 bottom-0 bg-[linear-gradient(180deg,rgba(0,0,0,0)_0%,rgba(0,0,0,0.62)_100%)] px-5 pb-5 pt-10 md:px-7 md:pb-6">
+              <p className="font-display text-[1.05rem] leading-none text-white md:text-[1.18rem]">
+                {currentSlide.title}
+              </p>
+            </div>
+          </div>
 
-        <div className="mt-5 flex items-center justify-center gap-3">
-          {amenitySlides.map((item, index) => (
-            <button
-              key={item.title}
-              type="button"
-              aria-label={`Show amenity image ${index + 1}`}
-              onClick={() => setActiveAmenityIndex(index)}
-              className={`rounded-full transition ${
-                index === activeAmenityIndex
-                  ? "h-4 w-4 bg-[#b49a6c]"
-                  : "h-3 w-3 bg-[#d7c8ae] hover:bg-[#c9b18a]"
-              }`}
-            />
-          ))}
+          <div className="mt-4 flex items-center justify-center gap-3">
+            {amenitySlides.map((slide, index) => (
+              <button
+                key={slide.title}
+                type="button"
+                aria-label={`Show ${slide.title}`}
+                onClick={() => setActiveAmenity(index)}
+                className={`h-2.5 w-2.5 rounded-full transition ${
+                  activeAmenity === index ? "bg-[#b79a69]" : "bg-[#d7cab4] hover:bg-[#c6b18a]"
+                }`}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>
   );
 }
 
-function MasterplanDiagram() {
-  return (
-    <div className="relative h-[14rem] overflow-hidden bg-transparent sm:h-[16rem] md:h-[18rem] lg:h-[20rem] xl:h-[21rem]">
-      <img
-        src={projectBannerImage}
-        alt="Global Edifice Orlean masterplan overview"
-        className="absolute inset-0 h-full w-full object-cover object-center"
-      />
-    </div>
-  );
-}
-
-function FloorplanDiagram() {
-  return (
-    <div className="flex min-h-[14rem] items-center justify-center px-5 py-6 sm:min-h-[16rem] md:min-h-[18rem] md:px-8 md:py-8 lg:min-h-[20rem]">
-      <div className="w-full max-w-[34rem] rounded-[1.25rem] border border-[#e6d9c2] bg-white/94 px-6 py-8 text-center shadow-[0_24px_48px_-40px_rgba(74,55,22,0.28)] md:px-8 md:py-10">
-        <p className="text-[0.66rem] font-semibold uppercase tracking-[0.24em] text-[#a8762b] md:text-[0.7rem]">
-          2 BHK Layout Planning
-        </p>
-        <h3 className="mt-3 font-display text-[1.65rem] leading-[1.02] text-[#2d2721] md:text-[2rem]">
-          Detailed floor plans are available on request.
-        </h3>
-        <p className="mt-4 text-[0.94rem] leading-[1.8] text-[#6b6358] md:text-[1rem]">
-          Speak with the Orlean sales team to receive the latest residence layouts, stack
-          availability, and unit-specific planning details.
-        </p>
-
-        <div className="mt-6 grid gap-3 text-left md:grid-cols-[1.35fr_1fr]">
-          <div className="rounded-[0.95rem] border border-[#efe4d2] bg-[#fbf7f0] px-4 py-4">
-            <p className="text-[0.62rem] font-semibold uppercase tracking-[0.22em] text-[#a8762b]">
-              What you can request
-            </p>
-            <ul className="mt-3 space-y-2 text-[0.9rem] leading-[1.65] text-[#4d463f]">
-              <li>2 BHK unit layouts</li>
-              <li>Stack-wise positioning</li>
-              <li>Balcony and utility details</li>
-            </ul>
-          </div>
-          <div className="grid gap-3">
-            <div className="rounded-[0.95rem] border border-[#efe4d2] bg-[#fffdfa] px-4 py-4 text-center text-[0.84rem] font-medium text-[#6b6358]">
-              Smart room sequencing
-            </div>
-            <div className="rounded-[0.95rem] border border-[#efe4d2] bg-[#fffdfa] px-4 py-4 text-center text-[0.84rem] font-medium text-[#6b6358]">
-              Efficient daylight planning
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 function PlanSection() {
   const [planMode, setPlanMode] = useState<PlanMode>("masterplan");
+  const [layoutMode, setLayoutMode] = useState<LayoutMode>("2bhk");
+  const activeLayoutCollection =
+    layoutCollections.find((collection) => collection.id === layoutMode) ?? layoutCollections[0];
+  const activePlanAsset = planAssets[planMode];
 
   return (
     <section className="bg-[#fbf7f0] pb-18 pt-4 md:pb-22 md:pt-6">
@@ -658,16 +726,16 @@ function PlanSection() {
         </div>
 
         <div className="mx-auto mt-6 max-w-[70rem] overflow-hidden rounded-[1.45rem] border border-[#e4d7c5] bg-[#fcfaf6] shadow-[0_24px_48px_-40px_rgba(74,55,22,0.3)] md:mt-8">
-          {planMode === "masterplan" ? <MasterplanDiagram /> : <FloorplanDiagram />}
+          <img
+            src={activePlanAsset.src}
+            alt={activePlanAsset.alt}
+            className="w-full object-cover"
+          />
 
           <div className="flex flex-col gap-4 border-t border-[#ebe0d1] px-5 py-5 text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-[#a8762b] md:flex-row md:items-center md:justify-between md:px-8 md:py-6">
             <div className="flex items-center justify-between gap-4 md:gap-8">
-              <span>
-                {planMode === "masterplan"
-                  ? "Site planning overview"
-                  : "Detailed layouts on request"}
-              </span>
-              <span>{planMode === "masterplan" ? "Master Plan" : "2 BHK Floor Plan"}</span>
+              <span>{planMode === "masterplan" ? "Site planning overview" : "Overall floor planning overview"}</span>
+              <span>{activePlanAsset.label}</span>
             </div>
 
             <a
@@ -681,54 +749,143 @@ function PlanSection() {
             </a>
           </div>
         </div>
+
+        <div className="mx-auto mt-10 max-w-[76rem]">
+          <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+            <div className="max-w-[40rem]">
+              <p className="eyebrow">Detailed layouts</p>
+              <h3 className="mt-4 font-display text-[1.8rem] leading-[1] text-[#21201d] md:text-[2.2rem]">
+                View the detailed layout of your space.
+              </h3>
+            </div>
+
+            <div className="flex flex-wrap gap-4">
+              {layoutCollections.map((collection) => (
+                <button
+                  key={collection.id}
+                  type="button"
+                  onClick={() => setLayoutMode(collection.id as LayoutMode)}
+                  className={`border-b pb-2 text-[0.72rem] font-medium uppercase tracking-[0.2em] transition ${
+                    layoutMode === collection.id
+                      ? "border-[#dcc9a7] text-[#b48b4d]"
+                      : "border-[#eadfcf] text-[#c4aa7d] hover:border-[#dcc9a7] hover:text-[#123a4c]"
+                  }`}
+                >
+                  {collection.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="mt-8 grid gap-8 lg:grid-cols-2 lg:gap-10">
+            {activeLayoutCollection.items.map((item) => (
+              <figure key={item.src} className="space-y-3">
+                <div className="flex items-center justify-between gap-4 text-[#a8762b]">
+                  <p className="text-[0.7rem] font-semibold uppercase tracking-[0.22em]">
+                    {activeLayoutCollection.label}
+                  </p>
+                  <figcaption className="font-display text-[1.05rem] text-[#2d2721] md:text-[1.15rem]">
+                    {item.title}
+                  </figcaption>
+                </div>
+
+                <img
+                  src={item.src}
+                  alt={`Global Edifice Orlean ${item.title} layout`}
+                  className="w-full rounded-[0.3rem] border border-[#e6dac7] bg-white object-cover shadow-[0_18px_40px_-34px_rgba(51,38,18,0.24)]"
+                />
+              </figure>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );
 }
 
 function GallerySection() {
-  const galleryCards = [amenityCards[1], amenityCards[0], amenityCards[2]] as const;
+  const [activeGalleryIndex, setActiveGalleryIndex] = useState(galleryImages.length > 4 ? 2 : 0);
+
+  useEffect(() => {
+    if (galleryImages.length < 2) {
+      return undefined;
+    }
+
+    const intervalId = window.setInterval(() => {
+      setActiveGalleryIndex((current) => (current + 1) % galleryImages.length);
+    }, 2000);
+
+    return () => {
+      window.clearInterval(intervalId);
+    };
+  }, []);
+
+  const showPreviousGalleryImage = () => {
+    setActiveGalleryIndex((current) => (current - 1 + galleryImages.length) % galleryImages.length);
+  };
+
+  const showNextGalleryImage = () => {
+    setActiveGalleryIndex((current) => (current + 1) % galleryImages.length);
+  };
 
   return (
-    <section className="bg-[#fbf7f0] py-18 md:py-22">
+    <section className="bg-[#fbf8f3] py-18 md:py-22">
       <div className={pageContainerClass}>
-        <div className="max-w-[42rem]">
+        <div className="max-w-[28rem]">
           <p className="eyebrow">Gallery</p>
-          <h2 className="mt-4 font-display text-[2.2rem] leading-[1.05] text-[#173748] sm:text-[2.55rem] md:text-[2.9rem]">
-            Where leisure, wellness & community connect.
+          <h2 className="mt-3 font-display text-[2.35rem] leading-[0.98] text-[#21201d] md:text-[3rem]">
+            The Heartbeat Of Community Living
           </h2>
         </div>
 
-        <div className="mt-10 grid gap-5 md:grid-cols-3">
-          {galleryCards.map((item) => (
-            <article
-              key={item.title}
-              className="overflow-hidden rounded-[0.35rem] bg-white shadow-[0_24px_50px_-42px_rgba(40,29,14,0.32)]"
-            >
-              <img
-                src={item.image}
-                alt={item.alt}
-                className="h-[14rem] w-full object-cover md:h-[17rem]"
-              />
-            </article>
-          ))}
-        </div>
+        <div className="relative left-1/2 mt-8 w-screen -translate-x-1/2">
+          <div className="relative h-[14rem] w-full overflow-hidden sm:h-[16rem] md:h-[18rem] lg:h-[19rem] xl:h-[20rem]">
+            {galleryImages.map((item, index) => {
+              const slotStyles = getGallerySlotStyles(
+                getGalleryOffset(index, activeGalleryIndex, galleryImages.length),
+              );
 
-        <div className="mt-6 flex items-center justify-center gap-4">
-          <button
-            type="button"
-            aria-label="Previous gallery image"
-            className="flex h-11 w-11 items-center justify-center rounded-full border border-[#ccb88f] text-[#a8762b]"
-          >
-            <span className="text-lg leading-none">&larr;</span>
-          </button>
-          <button
-            type="button"
-            aria-label="Next gallery image"
-            className="flex h-11 w-11 items-center justify-center rounded-full border border-[#ccb88f] text-[#a8762b]"
-          >
-            <span className="text-lg leading-none">&rarr;</span>
-          </button>
+              if (!slotStyles) {
+                return null;
+              }
+
+              return (
+                <div
+                  key={item.title}
+                  className={`absolute transition-all duration-700 ease-out ${slotStyles.container}`}
+                >
+                  <div
+                    className={`h-full overflow-hidden rounded-[0.35rem] bg-white shadow-[0_18px_40px_-34px_rgba(51,38,18,0.34)] transition-all duration-700 ease-out ${slotStyles.frame}`}
+                  >
+                    <img
+                      src={item.image}
+                      alt={item.alt}
+                      className={`h-full w-full object-cover transition-all duration-700 ease-out ${slotStyles.image}`}
+                    />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          <div className="mt-7 flex items-center justify-center gap-4">
+            <button
+              type="button"
+              onClick={showPreviousGalleryImage}
+              aria-label="Show previous gallery image"
+              className="flex h-12 w-12 items-center justify-center rounded-full border border-[#b6a184] text-[#a1865a] transition hover:border-[#8f7343] hover:text-[#8f7343]"
+            >
+              <ChevronLeft className="h-5 w-5" />
+            </button>
+            <button
+              type="button"
+              onClick={showNextGalleryImage}
+              aria-label="Show next gallery image"
+              className="flex h-12 w-12 items-center justify-center rounded-full border border-[#b6a184] text-[#a1865a] transition hover:border-[#8f7343] hover:text-[#8f7343]"
+            >
+              <ChevronRight className="h-5 w-5" />
+            </button>
+          </div>
         </div>
       </div>
     </section>
@@ -749,8 +906,8 @@ function LocationSection() {
             <span className="hidden h-px w-10 bg-[#dccdb3] md:block" />
           </div>
           <h2 className="mt-4 font-display text-[1.9rem] uppercase leading-[0.97] tracking-[-0.02em] text-[#b49a6c] sm:text-[2.2rem] md:text-[2.45rem] lg:text-[2.7rem]">
-            <span className="block md:whitespace-nowrap">Well connected for</span>
-            <span className="block md:whitespace-nowrap">effortless everyday living</span>
+            <span className="block md:whitespace-nowrap">Ease of access &</span>
+            <span className="block md:whitespace-nowrap">prime landmarks</span>
           </h2>
         </div>
 

@@ -5,9 +5,7 @@ import geContactLounge from "@/assets/shared/ge-contact-lounge.jpg";
 import geLogo from "@/assets/shared/ge-logo.png";
 import {
   MobileSiteProjectLinks,
-  MobileSiteResourceLinks,
   SiteProjectsMenu,
-  SiteResourceMenu,
 } from "@/components/site-resource-menu";
 import { SiteFooter } from "@/components/site-footer";
 
@@ -18,7 +16,7 @@ const landingNav = [
   { label: "HOME", kind: "route", to: "/" as const },
   { label: "ABOUT US", kind: "route", to: "/about" as const },
   { label: "PROJECTS", kind: "projects-menu" },
-  { label: "RESOURCES", kind: "resources-menu" },
+  { label: "BLOGS", kind: "route", to: "/blogs" as const },
   { label: "CONTACT", kind: "anchor", href: "#contact" },
 ] as const;
 
@@ -49,9 +47,6 @@ function LandingNavigationLink({
     return <SiteProjectsMenu className={className} />;
   }
 
-  if (item.kind === "resources-menu") {
-    return <SiteResourceMenu className={className} />;
-  }
 
   if (item.kind === "anchor") {
     return (
@@ -158,11 +153,6 @@ function LandingNavigation() {
             {landingNav.map((item) =>
               item.kind === "projects-menu" ? (
                 <MobileSiteProjectLinks
-                  key={item.label}
-                  onNavigate={() => setIsMobileMenuOpen(false)}
-                />
-              ) : item.kind === "resources-menu" ? (
-                <MobileSiteResourceLinks
                   key={item.label}
                   onNavigate={() => setIsMobileMenuOpen(false)}
                 />

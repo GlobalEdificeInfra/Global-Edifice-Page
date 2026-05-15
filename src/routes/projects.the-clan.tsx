@@ -16,9 +16,7 @@ import masterPlanImage from "@/assets/projects/the-clan/master-plan.png";
 import theClanHall from "@/assets/projects/the-clan/the-clan-hall.png";
 import {
   MobileSiteProjectLinks,
-  MobileSiteResourceLinks,
   SiteProjectsMenu,
-  SiteResourceMenu,
 } from "@/components/site-resource-menu";
 import { SiteFooter } from "@/components/site-footer";
 import {
@@ -56,7 +54,7 @@ const detailNav = [
   { label: "HOME", kind: "route", to: "/" as const },
   { label: "ABOUT US", kind: "route", to: "/about" as const },
   { label: "PROJECTS", kind: "projects-menu" },
-  { label: "RESOURCES", kind: "resources-menu" },
+  { label: "BLOGS", kind: "route", to: "/blogs" as const },
   { label: "CONTACT", kind: "routeHash", to: "/projects/the-clan" as const, hash: "contact" },
 ] as const;
 
@@ -269,9 +267,6 @@ function DetailNavigationLink({
     return <SiteProjectsMenu className={className} />;
   }
 
-  if (item.kind === "resources-menu") {
-    return <SiteResourceMenu className={className} />;
-  }
 
   if (item.kind === "routeHash") {
     return (
@@ -380,11 +375,6 @@ function ProjectDetailNav() {
             {detailNav.map((item) =>
               item.kind === "projects-menu" ? (
                 <MobileSiteProjectLinks
-                  key={item.label}
-                  onNavigate={() => setIsMobileMenuOpen(false)}
-                />
-              ) : item.kind === "resources-menu" ? (
-                <MobileSiteResourceLinks
                   key={item.label}
                   onNavigate={() => setIsMobileMenuOpen(false)}
                 />

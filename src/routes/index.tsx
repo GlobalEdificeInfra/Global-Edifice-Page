@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   ArrowRight,
   ChevronDown,
@@ -29,9 +29,7 @@ import iconRera from "@/assets/home/icon-rera.png";
 import iconValue from "@/assets/home/icon-value.png";
 import {
   MobileSiteProjectLinks,
-  MobileSiteResourceLinks,
   SiteProjectsMenu,
-  SiteResourceMenu,
 } from "@/components/site-resource-menu";
 import { SiteFooter } from "@/components/site-footer";
 
@@ -53,7 +51,7 @@ const navLinks = [
   { label: "HOME", kind: "href", href: "/#home" },
   { label: "ABOUT US", kind: "href", href: "/about" },
   { label: "PROJECTS", kind: "projects-menu" },
-  { label: "RESOURCES", kind: "resources-menu" },
+  { label: "BLOGS", kind: "route", to: "/blogs" as const },
   { label: "CONTACT", kind: "href", href: "/#contact" },
 ];
 
@@ -75,6 +73,7 @@ const portfolioProjects = [
     image: projectOrlean,
     alt: "Global Edifice Orlean",
     detailHref: "/projects/orlean",
+    status: "Ongoing",
   },
   {
     name: "GLOBAL EDIFICE THE CLAN",
@@ -84,6 +83,7 @@ const portfolioProjects = [
     image: geProjectRender,
     alt: "Global Edifice The Clan",
     detailHref: "/projects/the-clan",
+    status: "Ongoing",
   },
   {
     name: "GLOBAL EDIFICE LEGACY",
@@ -93,6 +93,37 @@ const portfolioProjects = [
     image: projectLegacy,
     alt: "Global Edifice Legacy",
     detailHref: "/projects",
+    status: "Ongoing",
+  },
+  {
+    name: "GLOBAL EDIFICE CELESTA",
+    price: "SOLD OUT",
+    location: "BANGALORE",
+    unitLabel: "PREMIUM RESIDENCES",
+    image: "/project-images/completed-project-images/celesta-compPorjects-img2.jpg",
+    alt: "Global Edifice Celesta",
+    detailHref: "/projects",
+    status: "Completed",
+  },
+  {
+    name: "GLOBAL EDIFICE CRESCENT",
+    price: "SOLD OUT",
+    location: "BANGALORE",
+    unitLabel: "PREMIUM RESIDENCES",
+    image: "/project-images/completed-project-images/cresent-compPorjects-img.webp",
+    alt: "Global Edifice Crecent",
+    detailHref: "/projects",
+    status: "Completed",
+  },
+  {
+    name: "GREEN APPLE HIKES",
+    price: "SOLD OUT",
+    location: "BANGALORE",
+    unitLabel: "PREMIUM RESIDENCES",
+    image: "/project-images/completed-project-images/green-appleHikes-compPorjects-img.webp",
+    alt: "Global Green Apple Hikes",
+    detailHref: "/projects",
+    status: "Completed",
   },
 ];
 
@@ -213,8 +244,13 @@ function Nav() {
       return <SiteProjectsMenu key={item.label} className={itemClassName} />;
     }
 
-    if (item.kind === "resources-menu") {
-      return <SiteResourceMenu key={item.label} className={itemClassName} />;
+
+    if (item.kind === "route") {
+      return (
+        <Link key={item.label} to={item.to} className={itemClassName}>
+          {item.label}
+        </Link>
+      );
     }
 
     return (
@@ -298,11 +334,19 @@ function Nav() {
                   key={item.label}
                   onNavigate={() => setIsMobileMenuOpen(false)}
                 />
-              ) : item.kind === "resources-menu" ? (
-                <MobileSiteResourceLinks
+              ) : item.kind === "route" ? (
+                <Link
                   key={item.label}
-                  onNavigate={() => setIsMobileMenuOpen(false)}
-                />
+                  to={item.to}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={`block rounded-[0.95rem] px-4 py-3 text-[0.8rem] font-medium tracking-[0.16em] transition ${
+                    isScrolled
+                      ? "text-white hover:bg-white/10 hover:text-white"
+                      : "text-[#996317] hover:bg-[#f6f1e8] hover:text-[#123a4c]"
+                  }`}
+                >
+                  {item.label}
+                </Link>
               ) : (
                 <a
                   key={item.label}
@@ -457,6 +501,12 @@ function Story() {
 }
 
 function Projects() {
+  const [activeTab, setActiveTab] = useState<"All" | "Ongoing" | "Completed">("All");
+
+  const filteredProjects = portfolioProjects.filter((project) =>
+    activeTab === "All" ? true : project.status === activeTab
+  );
+
   return (
     <section id="projects" className="bg-[#fffdfa] py-20 md:py-24">
       <div className={pageContainerClass}>
@@ -475,17 +525,32 @@ function Projects() {
 
           <div className="border-y border-[#eadfcc] px-3 py-4 md:px-8">
             <div className="flex flex-wrap items-center justify-start gap-4 text-[0.9rem] font-semibold uppercase tracking-[0.22em] text-[#a8762b] md:justify-center md:gap-7">
-              <span>All</span>
+              <button
+                onClick={() => setActiveTab("All")}
+                className={`transition-colors ${activeTab === "All" ? "text-[#a8762b]" : "text-[#dbc9a7] hover:text-[#a8762b]"}`}
+              >
+                All
+              </button>
               <span className="text-[#dbc9a7]">|</span>
-              <span>Ongoing</span>
+              <button
+                onClick={() => setActiveTab("Ongoing")}
+                className={`transition-colors ${activeTab === "Ongoing" ? "text-[#a8762b]" : "text-[#dbc9a7] hover:text-[#a8762b]"}`}
+              >
+                Ongoing
+              </button>
               <span className="text-[#dbc9a7]">|</span>
-              <span>Completed</span>
+              <button
+                onClick={() => setActiveTab("Completed")}
+                className={`transition-colors ${activeTab === "Completed" ? "text-[#a8762b]" : "text-[#dbc9a7] hover:text-[#a8762b]"}`}
+              >
+                Completed
+              </button>
             </div>
           </div>
         </div>
 
         <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {portfolioProjects.map((project) => (
+          {filteredProjects.map((project) => (
             <article
               key={project.name}
               className="overflow-hidden rounded-[1.2rem] border border-[#eadfcc] bg-[#fffdfa] shadow-[0_22px_40px_-34px_rgba(40,32,23,0.26)]"

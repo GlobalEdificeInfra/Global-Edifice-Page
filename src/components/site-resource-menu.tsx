@@ -20,9 +20,6 @@ const projectRedirectLinks = [
     label: "ORLEAN",
     to: "/projects/orlean" as const,
   },
-] as const;
-
-const resourceRedirectLinks = [
   {
     label: "CHANDAPURA, BANGALORE",
     to: "/chandapura-bangalore" as const,
@@ -30,6 +27,13 @@ const resourceRedirectLinks = [
   {
     label: "MUTHANALLUR, OFF SARJAPURA",
     to: "/muthanallur-off-sarjapura-bangalore" as const,
+  },
+] as const;
+
+const resourceRedirectLinks = [
+  {
+    label: "BLOGS",
+    to: "/blogs" as const,
   },
 ] as const;
 

@@ -1,3 +1,5 @@
+import { Link } from "@tanstack/react-router";
+import { Facebook, Twitter, Youtube, Instagram, Linkedin } from "lucide-react";
 import geLogoGold from "@/assets/shared/ge-logo-gold.png";
 
 const pageGutterClass = "px-[1.125rem] md:px-[1.8rem]";
@@ -10,22 +12,52 @@ const tealContourBackgroundStyle = {
 const footerLinks = [
   {
     title: "Navigation",
-    items: ["Home", "About Us", "Projects", "Resources"],
+    items: [
+      { label: "Home", kind: "route", to: "/" as const },
+      { label: "About Us", kind: "route", to: "/about" as const },
+      { label: "Projects", kind: "route", to: "/projects" as const },
+      { label: "Blogs", kind: "route", to: "/blogs" as const },
+    ],
   },
   {
     title: "Projects",
-    items: ["Global Heights", "Edifice Villas", "Global Residency", "Completed Portfolio"],
+    items: [
+      { label: "Global Heights" },
+      { label: "Edifice Villas" },
+      { label: "Global Residency" },
+      { label: "Completed Portfolio" },
+    ],
   },
   {
     title: "Contact",
     items: [
-      "+91 80 2678 1234",
-      "hello@globaledifice.com",
-      "Chandapura, Bangalore",
-      "Schedule a Visit",
+      { label: "+91 80 2678 1234", kind: "anchor", href: "tel:+918026781234" },
+      { label: "hello@globaledifice.com", kind: "anchor", href: "mailto:hello@globaledifice.com" },
+      { label: "Chandapura, Bangalore" },
+      { label: "Schedule a Visit", kind: "anchor", href: "/#contact" },
     ],
   },
-];
+] as const;
+
+function FooterLinkItem({ item }: { item: (typeof footerLinks)[number]["items"][number] }) {
+  if ("to" in item) {
+    return (
+      <Link to={item.to} className="transition hover:text-white">
+        {item.label}
+      </Link>
+    );
+  }
+
+  if ("href" in item) {
+    return (
+      <a href={item.href} className="transition hover:text-white">
+        {item.label}
+      </a>
+    );
+  }
+
+  return <span>{item.label}</span>;
+}
 
 export function SiteFooter() {
   return (
@@ -38,6 +70,48 @@ export function SiteFooter() {
               Leaders in luxury residential development. Shifting the paradigm of modern living with
               innovation and integrity.
             </p>
+            <div className="mt-8 flex items-center gap-4 text-white/78">
+              <a
+                href="https://www.facebook.com/Globaledifce/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="transition hover:text-white"
+              >
+                <Facebook className="h-5 w-5" />
+              </a>
+              <a
+                href="https://twitter.com/globaledifice"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="transition hover:text-white"
+              >
+                <Twitter className="h-5 w-5 fill-current" />
+              </a>
+              <a
+                href="https://www.youtube.com/@Globaledifice/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="transition hover:text-white"
+              >
+                <Youtube className="h-6 w-6" />
+              </a>
+              <a
+                href="https://www.instagram.com/globaledifice/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="transition hover:text-white"
+              >
+                <Instagram className="h-5 w-5" />
+              </a>
+              <a
+                href="https://www.linkedin.com/company/global-edifice-top-construction-company-in-bangalore/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="transition hover:text-white"
+              >
+                <Linkedin className="h-5 w-5 fill-current" />
+              </a>
+            </div>
           </div>
 
           {footerLinks.map((column) => (
@@ -47,7 +121,9 @@ export function SiteFooter() {
               </h3>
               <ul className="mt-7 space-y-4 text-[1rem] text-white/84">
                 {column.items.map((item) => (
-                  <li key={item}>{item}</li>
+                  <li key={item.label}>
+                    <FooterLinkItem item={item} />
+                  </li>
                 ))}
               </ul>
             </div>
@@ -57,8 +133,8 @@ export function SiteFooter() {
         <div className="mt-14 flex flex-col gap-5 border-t border-white/14 pt-7 text-[0.92rem] text-white/72 md:flex-row md:items-center md:justify-between">
           <p>© 2025 Global Edifice. All rights reserved. RERA Approved Developer.</p>
           <div className="flex flex-wrap gap-7">
-            <a href="#">Privacy Policy</a>
-            <a href="#">Terms of Use</a>
+            <Link to="/privacy-policy">Privacy Policy</Link>
+            <Link to="/termsandconditions">Terms of Use</Link>
             <a href="#">RERA Disclosures</a>
           </div>
         </div>
