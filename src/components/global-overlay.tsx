@@ -1,8 +1,6 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { X, Phone } from "lucide-react";
 import geLogoGold from "@/assets/shared/ge-logo-gold.png";
-import iconWhatsapp from "@/assets/home/icon-whatsapp.svg"; // Fallback, let's use Lucide or an svg
-import React from "react";
 
 const ENQUIRY_SESSION_KEY = "ge-enquiry-popup-shown";
 
@@ -33,6 +31,7 @@ export const useEnquiryPopup = () => {
 export function GlobalOverlay() {
   const [isOpen, setIsOpen] = useState(false);
   const [hasAutoOpened, setHasAutoOpened] = useState(() => hasSeenEnquiryPopup());
+  const [isMobileMenuExpanded, setIsMobileMenuExpanded] = useState(false);
 
   const openPopup = () => {
     markEnquiryPopupSeen();
@@ -82,6 +81,36 @@ export function GlobalOverlay() {
     };
   }, [hasAutoOpened]);
 
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      return undefined;
+    }
+
+    const syncMobileMenuState = () => {
+      const hasExpandedMobileMenu =
+        window.innerWidth < 768 &&
+        Boolean(document.querySelector('[aria-controls$="mobile-nav"][aria-expanded="true"]'));
+
+      setIsMobileMenuExpanded(hasExpandedMobileMenu);
+    };
+
+    syncMobileMenuState();
+
+    const observer = new MutationObserver(syncMobileMenuState);
+    observer.observe(document.body, {
+      subtree: true,
+      attributes: true,
+      attributeFilter: ["aria-expanded"],
+    });
+
+    window.addEventListener("resize", syncMobileMenuState);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", syncMobileMenuState);
+    };
+  }, []);
+
   return (
     <>
       {/* Right side sticky Enquire button */}
@@ -93,15 +122,12 @@ export function GlobalOverlay() {
         Enquire
       </button>
 
-      <button
-        onClick={openPopup}
-        className="fixed bottom-5 left-1/2 z-40 flex -translate-x-1/2 items-center justify-center rounded-full bg-[#123a4c] px-6 py-3 text-[0.72rem] font-semibold uppercase tracking-[0.22em] text-white shadow-[0_16px_34px_-20px_rgba(7,14,18,0.6)] transition hover:bg-[#0c2836] lg:hidden"
-      >
-        Enquire
-      </button>
-
       {/* Floating Action Buttons */}
-      <div className="fixed bottom-5 left-4 z-40 sm:bottom-6 sm:left-6 lg:bottom-6 lg:left-6">
+      <div
+        className={`fixed bottom-5 left-4 z-40 transition-opacity duration-200 sm:bottom-6 sm:left-6 lg:bottom-6 lg:left-6 ${
+          isMobileMenuExpanded ? "pointer-events-none opacity-0" : "opacity-100"
+        }`}
+      >
         <a
           href="tel:+918065480222"
           className="group flex items-center rounded-full bg-[#0a203b] p-3 text-white shadow-lg transition-all duration-300"
@@ -111,7 +137,11 @@ export function GlobalOverlay() {
         </a>
       </div>
       
-      <div className="fixed bottom-22 left-4 z-40 sm:bottom-24 sm:left-6 md:left-auto md:right-6 lg:bottom-24 lg:right-6">
+      <div
+        className={`fixed bottom-22 left-4 z-40 transition-opacity duration-200 sm:bottom-24 sm:left-6 md:left-auto md:right-6 lg:bottom-24 lg:right-6 ${
+          isMobileMenuExpanded ? "pointer-events-none opacity-0" : "opacity-100"
+        }`}
+      >
         <a
           href="https://wa.me/918043760152"
           target="_blank"
