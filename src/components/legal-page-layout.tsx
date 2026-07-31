@@ -5,7 +5,7 @@ import { SiteFooter } from "@/components/site-footer";
 export function LegalPageLayout({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div className="min-h-screen bg-white text-[#1f1d1a]">
-      <BlogSiteHeader activeLabel={null} />
+      <BlogSiteHeader />
 
       <section className="bg-[#0f4157]">
         <div className={`${pageContainerClass} flex justify-center pb-0 pt-28 md:pt-36`}>
@@ -20,7 +20,7 @@ export function LegalPageLayout({ title, children }: { title: string; children: 
       <section className="pb-20 pt-16 md:pb-24 md:pt-20">
         <div className={`${pageContainerClass}`}>
           <article className="mx-auto max-w-5xl">
-            <h2 className="text-[1rem] font-semibold tracking-wide text-[#125841] md:text-[1.1rem]">
+            <h2 className="text-[1rem] font-semibold tracking-wide text-[#0f4157] md:text-[1.1rem]">
               WELCOME TO GLOBAL EDIFICE - PLEASE READ THESE {title.toUpperCase()} CAREFULLY BEFORE
               USING THIS SITE.
             </h2>

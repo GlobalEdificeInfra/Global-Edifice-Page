@@ -9,15 +9,11 @@ import clanGallerySculptureCourt from "@/assets/projects/the-clan/clan-gallery-s
 import theClanLogoGreen from "@/assets/projects/the-clan/Clan-Logo-Green.png";
 import theClanBanner from "@/assets/projects/the-clan/The-clan-project.png";
 import clanFloorplan205Image from "@/assets/projects/the-clan/clan-floorplan-205.png";
-import creamBackgroundImage from "@/assets/projects/the-clan/Cream BG.png";
 import connectivityMapImage from "@/assets/projects/the-clan/map.png";
 import greenBackgroundImage from "@/assets/projects/the-clan/Green BG.jpg";
 import masterPlanImage from "@/assets/projects/the-clan/master-plan.png";
 import theClanHall from "@/assets/projects/the-clan/the-clan-hall.png";
-import {
-  MobileSiteProjectLinks,
-  SiteProjectsMenu,
-} from "@/components/site-resource-menu";
+import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import {
   Accordion,
@@ -39,21 +35,13 @@ export const Route = createFileRoute("/projects_/the-clan")({
 
 const pageGutterClass = "px-[1.125rem] md:px-[1.8rem]";
 const pageContainerClass = `mx-auto max-w-7xl ${pageGutterClass}`;
-
-const galleryImageModules = import.meta.glob(
-  "../assets/projects/the-clan/gallery/*.{jpg,jpeg,png,JPG,JPEG,PNG}",
-  {
-    eager: true,
-    import: "default",
-  },
-) as Record<string, string>;
-
-const duplicateGalleryFiles = new Set(["10-gallery-10.jpg", "26-gallery-26.jpg"]);
+const sectionPadClass = "py-16 md:py-20";
+const sectionInnerClass = "mx-auto max-w-6xl";
 
 const detailNav = [
   { label: "HOME", kind: "route", to: "/" as const },
   { label: "ABOUT US", kind: "route", to: "/about" as const },
-  { label: "PROJECTS", kind: "projects-menu" },
+  { label: "PROJECTS", kind: "route", to: "/projects" as const },
   { label: "BLOGS", kind: "route", to: "/blogs" as const },
   { label: "CONTACT", kind: "route", to: "/contact" as const },
 ] as const;
@@ -62,20 +50,19 @@ type DetailNavItem = (typeof detailNav)[number];
 type PlanMode = "masterplan" | "floorplan";
 
 const heroStats = [
-  { label: "Typology", value: "2 & 3 Bed", detail: "Signature residences" },
-  { label: "Price", value: "Starting", detail: "From 76 Lakhs*" },
-  { label: "Location", value: "Bagalur-Sarjapura,", detail: "Bangalore" },
+  { label: "Typology", lines: ["2 & 3 Bed", "signature residences"] },
+  { label: "Price", lines: ["Starting"] },
+  { label: "Location", lines: ["Bagalur, Sarjapura,", "Bangalore"] },
   {
     label: "RERA",
-    value: "RERA NO.: PRM/KA/RERA/1251/308/PR/071221/007275",
-    detail: "",
+    lines: ["RERA NO.:", "PRM/KA/RERA/1251/308/PR/071224/007275"],
   },
 ] as const;
 
 const metrics = [
   { value: "257", label: "Signature Residences" },
   { value: "3.5 Acres", label: "Land Area" },
-  { value: "G+9", label: "Floor Structure" },
+  { value: "G+9 Floor", label: "Structure" },
 ] as const;
 
 const amenitySlides = [
@@ -102,67 +89,64 @@ const amenitySlides = [
   },
 ] as const;
 
-const galleryImages = Object.entries(galleryImageModules)
-  .sort(([leftPath], [rightPath]) =>
-    leftPath.localeCompare(rightPath, undefined, { numeric: true }),
-  )
-  .filter(([filePath]) => !duplicateGalleryFiles.has(filePath.split("/").pop() ?? ""))
-  .map(([, image], index) => ({
-    title: `Gallery ${String(index + 1).padStart(2, "0")}`,
-    image,
-    alt: `The Clan gallery image ${index + 1}`,
-  }));
+const galleryImageModules = import.meta.glob(
+  "../assets/projects/the-clan/gallery/*.{jpg,jpeg,png,JPG,JPEG,PNG}",
+  {
+    eager: true,
+    import: "default",
+  },
+) as Record<string, string>;
 
-function getGalleryOffset(index: number, activeIndex: number, total: number) {
-  const half = Math.floor(total / 2);
-  let offset = index - activeIndex;
+const duplicateGalleryFiles = new Set(["10-gallery-10.jpg", "26-gallery-26.jpg"]);
 
-  if (offset > half) {
-    offset -= total;
+/** Default visible trio matches the Gallery design reference. */
+const featuredGalleryImages = [
+  {
+    title: "Pergola Walkway",
+    image: clanGalleryPergolaWalkway,
+    alt: "The Clan pergola walkway",
+  },
+  {
+    title: "Pool Court",
+    image: clanGalleryPoolCourt,
+    alt: "The Clan pool court",
+  },
+  {
+    title: "Sculpture Court",
+    image: clanGallerySculptureCourt,
+    alt: "The Clan sculpture court",
+  },
+] as const;
+
+const galleryImages = [
+  ...featuredGalleryImages,
+  ...Object.entries(galleryImageModules)
+    .sort(([leftPath], [rightPath]) =>
+      leftPath.localeCompare(rightPath, undefined, { numeric: true }),
+    )
+    .filter(([filePath]) => !duplicateGalleryFiles.has(filePath.split("/").pop() ?? ""))
+    .map(([, image], index) => ({
+      title: `Gallery ${String(index + 1).padStart(2, "0")}`,
+      image,
+      alt: `The Clan gallery image ${index + 1}`,
+    }))
+    .filter(
+      (item) =>
+        !featuredGalleryImages.some((featured) => featured.image === item.image),
+    ),
+];
+
+function getVisibleGalleryImages(activeIndex: number) {
+  if (galleryImages.length === 0) {
+    return [];
   }
 
-  if (offset < -half) {
-    offset += total;
-  }
+  const count = Math.min(3, galleryImages.length);
 
-  return offset;
-}
-
-function getGallerySlotStyles(offset: number) {
-  switch (offset) {
-    case -2:
-      return {
-        container: "hidden md:block md:top-0 md:bottom-0 md:left-0 md:w-[19.2%]",
-        frame: "opacity-40",
-        image: "blur-[3px] saturate-[0.82]",
-      };
-    case -1:
-      return {
-        container: "hidden md:block md:top-0 md:bottom-0 md:left-[20.2%] md:w-[19.2%]",
-        frame: "opacity-100",
-        image: "blur-0 saturate-100",
-      };
-    case 0:
-      return {
-        container: "left-0 top-0 bottom-0 w-full md:left-[40.4%] md:w-[19.2%]",
-        frame: "opacity-100",
-        image: "blur-0 saturate-100",
-      };
-    case 1:
-      return {
-        container: "hidden md:block md:top-0 md:bottom-0 md:left-[60.6%] md:w-[19.2%]",
-        frame: "opacity-100",
-        image: "blur-0 saturate-100",
-      };
-    case 2:
-      return {
-        container: "hidden md:block md:top-0 md:bottom-0 md:left-[80.8%] md:w-[19.2%]",
-        frame: "opacity-40",
-        image: "blur-[3px] saturate-[0.82]",
-      };
-    default:
-      return null;
-  }
+  return Array.from({ length: count }, (_, offset) => {
+    const index = (activeIndex + offset) % galleryImages.length;
+    return galleryImages[index];
+  });
 }
 
 const connectivityGroups = [
@@ -220,7 +204,7 @@ const faqItems = [
     id: "faq-1",
     question: "What is the starting price for homes at The Clan?",
     answer:
-      "The Clan starts from 76 lakhs* for its signature residences. Final pricing varies by unit configuration, floor, and current inventory.",
+      "The Clan starts from 70 lakhs* for its signature residences. Final pricing varies by unit configuration, floor, and current inventory.",
   },
   {
     id: "faq-2",
@@ -263,11 +247,6 @@ function DetailNavigationLink({
   className?: string;
   onClick?: () => void;
 }) {
-  if (item.kind === "projects-menu") {
-    return <SiteProjectsMenu className={className} />;
-  }
-
-
   if (item.kind === "routeHash") {
     return (
       <Link to={item.to} hash={item.hash} className={className} onClick={onClick}>
@@ -314,7 +293,7 @@ function ProjectDetailNav() {
             src={geLogo}
             alt="Global Edifice - The Foundation of Trust"
             className={`[filter:brightness(0)_invert(1)] transition-all duration-300 ${
-              isScrolled ? "w-[96px] md:w-[132px]" : "w-[112px] md:w-[160px]"
+              isScrolled ? "w-[128px] md:w-[180px]" : "w-[148px] md:w-[210px]"
             }`}
           />
         </Link>
@@ -330,7 +309,6 @@ function ProjectDetailNav() {
             {detailNav.map((item) => (
               <DetailNavigationLink key={item.label} item={item} />
             ))}
-            <a href="tel:+918065480222" className="hidden sm:inline-flex items-center gap-1.5 transition text-[#996317] hover:text-[#123a4c] mx-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-phone h-[1.1rem] w-[1.1rem]"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span className="font-semibold tracking-[0.05em]">+91 806 548 0222</span></a>
             <button onClick={() => window.dispatchEvent(new CustomEvent("open-enquiry-popup"))} className="rounded-full bg-[#b49a6c] px-4 py-1.5 text-white transition hover:bg-[#9f8658]">
               ENQUIRE
             </button>
@@ -365,25 +343,18 @@ function ProjectDetailNav() {
           }`}
         >
           <nav id="clan-mobile-nav" className="flex flex-col gap-1 px-2 py-2">
-            {detailNav.map((item) =>
-              item.kind === "projects-menu" ? (
-                <MobileSiteProjectLinks
-                  key={item.label}
-                  onNavigate={() => setIsMobileMenuOpen(false)}
-                />
-              ) : (
-                <DetailNavigationLink
-                  key={item.label}
-                  item={item}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className={`block rounded-[0.95rem] px-4 py-3 text-[0.8rem] font-medium tracking-[0.16em] transition ${
-                    isScrolled
-                      ? "text-white hover:bg-white/10 hover:text-white"
-                      : "text-[#996317] hover:bg-[#f6f1e8] hover:text-[#123a4c]"
-                  }`}
-                />
-              ),
-            )}
+            {detailNav.map((item) => (
+              <DetailNavigationLink
+                key={item.label}
+                item={item}
+                onClick={() => setIsMobileMenuOpen(false)}
+                className={`block rounded-[0.95rem] px-4 py-3 text-[0.8rem] font-medium tracking-[0.16em] transition ${
+                  isScrolled
+                    ? "text-white hover:bg-white/10 hover:text-white"
+                    : "text-[#996317] hover:bg-[#f6f1e8] hover:text-[#123a4c]"
+                }`}
+              />
+            ))}
           </nav>
         </div>
       </div>
@@ -437,20 +408,19 @@ function ClanWordmark() {
 
 function HeroSection() {
   return (
-    <section className="relative isolate min-h-[44rem] overflow-hidden bg-[#1b2530] text-white md:min-h-screen">
+    <section className="relative isolate min-h-[40rem] overflow-hidden bg-[#1b2530] text-white md:min-h-[48rem] lg:min-h-[54rem]">
       <img
         src={theClanBanner}
         alt="The Clan hero residence"
         className="absolute inset-0 h-full w-full object-cover object-[48%_34%]"
       />
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(9,15,22,0.12)_0%,rgba(9,15,22,0.08)_34%,rgba(9,15,22,0.76)_100%)]" />
-      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(9,15,22,0.04)_0%,rgba(9,15,22,0.02)_30%,rgba(9,15,22,0.3)_68%,rgba(9,15,22,0.48)_100%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(9,15,22,0.16)_0%,rgba(9,15,22,0.22)_36%,rgba(9,15,22,0.72)_100%)]" />
 
       <div
-        className={`relative mx-auto flex min-h-[44rem] max-w-7xl items-end justify-center ${pageGutterClass} pb-[10rem] pt-24 md:min-h-screen md:pb-[12.5rem] md:pt-32 lg:pb-[13rem]`}
+        className={`relative mx-auto flex min-h-[40rem] max-w-7xl items-end justify-center ${pageGutterClass} pb-[7.5rem] pt-28 md:min-h-[48rem] md:pb-[8.5rem] md:pt-32 lg:min-h-[54rem] lg:pb-[9rem]`}
       >
-        <div className="mx-auto max-w-[46rem] text-center md:max-w-[56rem] lg:max-w-[60rem]">
-          <h1 className="font-display font-normal uppercase [font-synthesis:none] text-[1.95rem] leading-[0.94] tracking-[0.015em] text-white sm:text-[2.25rem] md:text-[2.65rem] lg:text-[2.85rem] xl:text-[3.05rem]">
+        <div className="mx-auto mb-2 max-w-[52rem] text-center md:mb-3 md:max-w-[62rem]">
+          <h1 className="font-display font-normal uppercase [font-synthesis:none] text-[1.9rem] leading-[1.08] tracking-[0.04em] text-white sm:text-[2.35rem] md:text-[2.8rem] lg:text-[3.15rem]">
             <span className="block">Step Into A World Where</span>
             <span className="block">Luxury Feels Like Belonging.</span>
           </h1>
@@ -462,30 +432,32 @@ function HeroSection() {
 
 function HeroStatStrip() {
   return (
-    <section className="relative z-10 -mt-26 bg-transparent md:-mt-48">
+    <section className="relative z-20 -mt-[3.6rem] bg-transparent md:-mt-[3.75rem]">
       <div className={pageContainerClass}>
-        <div className="mx-auto grid max-w-6xl gap-px overflow-hidden rounded-[0.8rem] border border-[#e8dbc6] bg-[#e8dbc6] shadow-[0_24px_42px_-36px_rgba(51,38,18,0.35)] md:grid-cols-[1fr_0.78fr_1.08fr_1.9fr]">
-          {heroStats.map((item) => (
-            <div key={item.label} className="bg-[#fbf7f0] px-5 py-4 text-center md:px-6 md:py-5">
-              <p className="text-[1.05rem] font-semibold uppercase tracking-[0.28em] text-[#a8762b] md:text-[1.1rem]">
+        <div className="mx-auto grid max-w-6xl overflow-hidden rounded-[1.75rem] bg-[#fcfaf7] shadow-[0_22px_44px_-28px_rgba(40,30,16,0.4)] md:grid-cols-4">
+          {heroStats.map((item, index) => (
+            <div
+              key={item.label}
+              className={`flex flex-col items-center justify-center px-3 py-6 text-center md:min-h-[7.5rem] md:px-5 md:py-7 ${
+                index > 0 ? "border-t border-[#ebe4d8] md:border-t-0 md:border-l" : ""
+              }`}
+            >
+              <p className="text-[0.66rem] font-semibold uppercase tracking-[0.28em] text-[#b08d57] md:text-[0.7rem]">
                 {item.label}
               </p>
-              <p
-                className={`mt-4 font-medium text-[#292521] ${
+              <div
+                className={`mt-3 text-[#1a1a1a] ${
                   item.label === "RERA"
-                    ? "text-[0.68rem] leading-[1.55] md:text-[0.76rem]"
-                    : item.label === "Location"
-                      ? "text-[0.92rem] leading-[1.3] md:text-[1rem]"
-                      : "text-[1.02rem] md:text-[1.12rem]"
+                    ? "max-w-[17rem] text-[0.9rem] leading-[1.45] font-medium md:text-[0.98rem]"
+                    : "font-display text-[0.95rem] leading-[1.35] md:text-[1.08rem]"
                 }`}
               >
-                {item.value}
-              </p>
-              {item.detail ? (
-                <p className="mt-1 text-[0.76rem] leading-[1.4] text-[#7b7469] md:text-[0.8rem]">
-                  {item.detail}
-                </p>
-              ) : null}
+                {item.lines.map((line) => (
+                  <span key={line} className="block">
+                    {line}
+                  </span>
+                ))}
+              </div>
             </div>
           ))}
         </div>
@@ -496,68 +468,49 @@ function HeroStatStrip() {
 
 function OverviewSection() {
   return (
-    <section className="bg-[#fbf8f3] pb-18 pt-18 md:pb-22 md:pt-20">
-      <div
-        className={`${pageContainerClass} grid gap-8 lg:grid-cols-[minmax(0,1.06fr)_minmax(20rem,0.94fr)] lg:items-start`}
-      >
-        <div className="-mx-[1.125rem] overflow-hidden rounded-[0.3rem] shadow-[0_24px_45px_-38px_rgba(0,0,0,0.28)] md:-mx-[1.8rem] lg:mx-0 lg:h-[38.5rem] lg:-ml-[1.8rem] xl:h-[39rem] xl:-ml-[calc((100vw-80rem)/2+1.8rem)]">
+    <section className="relative z-0 bg-[#fcfaf7] pb-0 pt-12 md:pt-14">
+      <div className="grid lg:grid-cols-2 lg:items-stretch">
+        <div className="min-h-0 overflow-hidden lg:h-auto">
           <img
             src={theClanHall}
             alt="The Clan living hall interior"
-            className="h-[22rem] w-full object-cover object-center md:h-[28rem] lg:h-full"
+            className="h-[22rem] w-full object-cover object-center md:h-[28rem] lg:h-full lg:min-h-[36rem]"
           />
         </div>
 
-        <div className="max-w-[31rem] lg:justify-self-end lg:pt-3">
-          <ClanWordmark />
+        <div
+          className={`flex min-h-0 items-center bg-[#fcfaf7] py-10 ${pageGutterClass} lg:min-h-[36rem] lg:px-12 xl:px-16`}
+        >
+          <div className="mx-auto w-full max-w-[32rem] lg:mx-0 lg:max-w-none">
+            <ClanWordmark />
 
-          <h2 className="mt-7 max-w-[30rem] font-display text-[1.95rem] leading-[1.06] tracking-[-0.01em] text-[#d2b88a] md:text-[2.2rem] lg:text-[2.35rem]">
-            <span className="block lg:whitespace-nowrap">A tapestry of timeless</span>
-            <span className="block lg:whitespace-nowrap">architecture & belonging</span>
-          </h2>
+            <h2 className="mt-7 max-w-[30rem] font-display text-[1.65rem] leading-[1.18] tracking-[0.02em] text-[#b59a6d] uppercase md:text-[1.9rem] lg:text-[2.05rem]">
+              <span className="block">A Tapestry Of Timeless</span>
+              <span className="block">Architecture & Belonging</span>
+            </h2>
 
-          <div className="mt-7 space-y-5 text-[0.98rem] leading-[1.92] text-[#867e72] md:text-[1rem]">
-            <p>
-              Beyond its skyline, The Clan reflects something far more exquisite, capturing the
-              rhythm of togetherness and the quiet comfort of belonging among neighbors who feel
-              like family.
-            </p>
-            <p>
-              Its 2 &amp; 3 Bed signature residences blend contemporary elegance with a timeless
-              sense of community, creating a seamless harmony between luxury and life.
-            </p>
-            <p>
-              Here, community becomes not just an address, but a way of living that feels warm,
-              layered, and deeply personal.
-            </p>
-          </div>
-
-          <Link
-            to="/projects/the-clan"
-            hash="contact"
-            className="mt-9 inline-flex items-center gap-3 border border-[#ddcdb1] bg-white px-6 py-3 text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-[#996317] transition hover:border-[#a8762b] hover:text-[#123a4c]"
-          >
-            Download Brochure
-            <Download className="h-4 w-4" />
-          </Link>
-        </div>
-      </div>
-
-      <div className={`${pageContainerClass} mt-7`}>
-        <div className="mx-auto grid max-w-[55rem] overflow-hidden rounded-[0.55rem] bg-[#b79a69] text-white shadow-[0_24px_48px_-38px_rgba(94,68,25,0.45)] md:grid-cols-3">
-          {metrics.map((item, index) => (
-            <div
-              key={item.label}
-              className={`px-6 py-6 text-center md:px-8 md:py-7 ${index < metrics.length - 1 ? "border-b border-white/18 md:border-b-0 md:border-r" : ""}`}
-            >
-              <p className="text-[1.75rem] font-medium tracking-[0.14em] md:text-[2rem]">
-                {item.value}
+            <div className="mt-5 max-w-[32rem] space-y-4 text-[0.94rem] leading-[1.85] text-[#5c564d] md:text-[0.97rem]">
+              <p>
+                Beyond its skyline, The Clan reflects something far more exquisite, capturing the
+                rhythm of togetherness, and the quiet comfort of belonging among neighbours who feel
+                like family.
               </p>
-              <p className="mt-2 text-[0.62rem] uppercase tracking-[0.28em] text-white/82 md:text-[0.66rem]">
-                {item.label}
+              <p>
+                Its 2 &amp; 3 Bed signature residences blend contemporary elegance with the timeless
+                comfort of community, creating a seamless harmony between luxury and life.
               </p>
+              <p>Here, community becomes an experience not just an address.</p>
             </div>
-          ))}
+
+            <Link
+              to="/projects/the-clan"
+              hash="contact"
+              className="mt-7 inline-flex w-fit items-center gap-3 rounded-[0.3rem] border border-[#c9b08a] bg-transparent px-6 py-3.5 text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-[#a8762b] transition hover:border-[#a8762b] hover:text-[#123a4c]"
+            >
+              Download Brochure
+              <Download className="h-4 w-4" />
+            </Link>
+          </div>
         </div>
       </div>
     </section>
@@ -579,25 +532,47 @@ function AmenitiesSection() {
   }, []);
 
   return (
-    <section id="amenities" className="bg-[#fbf8f3] pb-10 pt-20 md:pb-12 md:pt-24">
+    <section id="amenities" className={`bg-[#fcfaf7] ${sectionPadClass}`}>
       <div className={pageContainerClass}>
-        <div className="max-w-[58rem]">
+        <div className={`${sectionInnerClass} grid overflow-hidden rounded-[0.75rem] bg-[#b49a6c] text-white md:grid-cols-3`}>
+          {metrics.map((item, index) => (
+            <div
+              key={item.label}
+              className={`px-5 py-6 text-center md:px-6 md:py-7 ${
+                index < metrics.length - 1
+                  ? "border-b border-white/30 md:border-b-0 md:border-r"
+                  : ""
+              }`}
+            >
+              <p className="text-[1.55rem] font-semibold tracking-[0.06em] md:text-[1.75rem]">
+                {item.value}
+              </p>
+              <p className="mt-2 text-[0.6rem] uppercase tracking-[0.26em] text-white/90 md:text-[0.64rem]">
+                {item.label}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        <div className={`${sectionInnerClass} mt-14 md:mt-16`}>
           <div className="flex items-center gap-4">
-            <p className="eyebrow">Project Highlights</p>
-            <span className="h-px w-8 bg-[#dccdb3]/80" />
+            <p className="text-[0.72rem] font-semibold uppercase tracking-[0.28em] text-[#b49a6c]">
+              Project Highlights
+            </p>
+            <span className="h-px w-10 bg-[#b49a6c]/75" />
           </div>
-          <h2 className="mt-4 max-w-[58rem] font-display text-[2.35rem] leading-[0.96] text-[#21201d] md:text-[3.5rem] lg:text-[3.7rem]">
+          <h2 className="mt-4 max-w-[58rem] font-display text-[2.2rem] leading-[0.98] tracking-[0.01em] text-[#21201d] uppercase md:text-[3.1rem] lg:text-[3.4rem]">
             <span className="block md:whitespace-nowrap">Elevate Your Everyday With</span>
             <span className="block md:whitespace-nowrap">World-Class Amenities</span>
           </h2>
         </div>
 
-        <div className="mx-auto mt-10 max-w-6xl lg:max-w-[78rem]">
+        <div className={`${sectionInnerClass} mt-8 md:mt-10`}>
           <div className="relative overflow-hidden rounded-[0.3rem] bg-white shadow-[0_24px_50px_-42px_rgba(0,0,0,0.28)]">
             <img
               src={currentSlide.image}
               alt={currentSlide.alt}
-              className="h-[20rem] w-full object-cover object-center md:h-[37rem] lg:h-[40rem]"
+              className="h-[20rem] w-full object-cover object-center md:h-[34rem] lg:h-[38rem]"
             />
             <div className="absolute inset-x-0 bottom-0 bg-[linear-gradient(180deg,rgba(0,0,0,0)_0%,rgba(0,0,0,0.62)_100%)] px-5 pb-5 pt-10 md:px-7 md:pb-6">
               <p className="font-display text-[1.05rem] leading-none text-white md:text-[1.18rem]">
@@ -627,11 +602,11 @@ function AmenitiesSection() {
 
 function MasterplanDiagram() {
   return (
-    <div className="relative h-[13rem] overflow-hidden bg-transparent sm:h-[15rem] md:h-[17rem] lg:h-[18.5rem] xl:h-[19.5rem]">
+    <div className="overflow-hidden bg-[#f7f2ea]">
       <img
         src={masterPlanImage}
         alt="The Clan masterplan"
-        className="absolute inset-0 h-full w-full object-cover object-[center_40%] [transform:scale(1.46)] drop-shadow-[0_24px_34px_rgba(66,50,21,0.08)] md:object-[center_40%] md:[transform:scale(1.52)] lg:object-[center_40%] lg:[transform:scale(1.56)]"
+        className="block h-[10.5rem] w-full origin-center scale-[1.55] object-cover object-[center_38%] sm:h-[12rem] md:h-[13.5rem] md:scale-[1.62] lg:h-[15rem] lg:scale-[1.68]"
       />
     </div>
   );
@@ -639,11 +614,11 @@ function MasterplanDiagram() {
 
 function FloorplanDiagram() {
   return (
-    <div className="flex min-h-[24rem] items-center justify-center px-5 pb-3 pt-5 sm:min-h-[27rem] sm:px-6 md:min-h-[29rem] md:px-8 md:pb-5 md:pt-7 lg:min-h-[31rem]">
+    <div className="flex items-center justify-center bg-[#fcfaf6] px-4 py-4 md:px-6 md:py-5">
       <img
         src={clanFloorplan205Image}
         alt="The Clan floor plan for unit 205-905"
-        className="mx-auto h-auto w-full max-w-[34rem] object-contain sm:max-w-[36rem] lg:max-w-[38rem]"
+        className="mx-auto h-auto max-h-[20rem] w-full max-w-[42rem] object-contain md:max-h-[24rem]"
       />
     </div>
   );
@@ -653,62 +628,59 @@ function PlanSection() {
   const [planMode, setPlanMode] = useState<PlanMode>("masterplan");
 
   return (
-    <section className="pb-18 pt-12 md:pb-22 md:pt-16">
+    <section className="bg-[#fcfaf7] pb-10 pt-16 md:pb-12 md:pt-20">
       <div className={pageContainerClass}>
-        <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between md:gap-8">
-          <div className="max-w-[46rem]">
-            <div className="flex items-center gap-4">
-              <p className="eyebrow">Architectural plans</p>
-              <span className="hidden h-px w-10 bg-[#dccdb3] md:block" />
+        <div className={sectionInnerClass}>
+          <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between md:gap-8">
+            <div className="max-w-[46rem]">
+              <div className="flex items-center gap-4">
+                <p className="text-[0.72rem] font-semibold uppercase tracking-[0.28em] text-[#b49a6c]">
+                  Architectural Plans
+                </p>
+                <span className="h-px w-10 bg-[#b49a6c]/75" />
+              </div>
+              <h2 className="mt-4 max-w-[40rem] font-display text-[2rem] leading-[0.98] tracking-[0.01em] text-[#21201d] uppercase md:text-[2.5rem] lg:text-[2.9rem]">
+                <span className="block md:whitespace-nowrap">Beyond Brick And Beam,</span>
+                <span className="block md:whitespace-nowrap">Lies Intention</span>
+              </h2>
             </div>
-            <h2 className="mt-4 max-w-[40rem] font-display text-[2rem] leading-[0.94] tracking-[-0.015em] text-[#21201d] md:text-[2.5rem] lg:text-[2.9rem]">
-              <span className="block md:whitespace-nowrap">Beyond Brick And Beam,</span>
-              <span className="block md:whitespace-nowrap">Lies Intention</span>
-            </h2>
+
+            <div className="flex items-center gap-6 md:shrink-0 md:gap-8">
+              {[
+                { id: "masterplan", label: "Master Plan" },
+                { id: "floorplan", label: "Floor Plan" },
+              ].map((tab) => (
+                <button
+                  key={tab.id}
+                  type="button"
+                  onClick={() => setPlanMode(tab.id as PlanMode)}
+                  className={`border-b pb-2 text-[0.72rem] font-medium uppercase tracking-[0.2em] transition ${
+                    planMode === tab.id
+                      ? "border-[#b49a6c] text-[#b49a6c]"
+                      : "border-transparent text-[#c4aa7d] hover:text-[#a8762b]"
+                  }`}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </div>
           </div>
 
-          <div className="flex items-center gap-6 md:shrink-0 md:gap-8">
-            {[
-              { id: "masterplan", label: "Masterplan" },
-              { id: "floorplan", label: "Floor Plan" },
-            ].map((tab) => (
-              <button
-                key={tab.id}
-                type="button"
-                onClick={() => setPlanMode(tab.id as PlanMode)}
-                className={`border-b pb-2 text-[0.72rem] font-medium uppercase tracking-[0.2em] transition ${
-                  planMode === tab.id
-                    ? "border-[#dcc9a7] text-[#b48b4d]"
-                    : "border-[#eadfcf] text-[#c4aa7d] hover:border-[#dcc9a7] hover:text-[#123a4c]"
-                }`}
+          <div className="mt-8 overflow-hidden rounded-[1.15rem] border border-[#e4d7c5] bg-[#fcfaf6] shadow-[0_24px_48px_-40px_rgba(74,55,22,0.3)] md:mt-10">
+            {planMode === "masterplan" ? <MasterplanDiagram /> : <FloorplanDiagram />}
+
+            <div className="flex justify-end border-t border-[#ebe0d1] px-5 py-3 md:px-8 md:py-3.5">
+              <Link
+                to="/projects/the-clan"
+                hash="contact"
+                className="inline-flex items-center gap-3 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-[#4e4b44] transition hover:text-[#123a4c]"
               >
-                {tab.label}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <div className="mx-auto mt-6 max-w-[70rem] overflow-hidden rounded-[1.45rem] border border-[#e4d7c5] bg-[#fcfaf6] shadow-[0_24px_48px_-40px_rgba(74,55,22,0.3)] md:mt-8">
-          {planMode === "masterplan" ? <MasterplanDiagram /> : <FloorplanDiagram />}
-
-          <div className="flex flex-col gap-4 border-t border-[#ebe0d1] px-5 py-5 text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-[#a8762b] md:flex-row md:items-center md:justify-between md:px-8 md:py-6">
-            <div className="flex items-center justify-between gap-4 md:gap-8">
-              <span>
-                {planMode === "masterplan" ? "Curated site circulation" : "2 bed signature layout"}
-              </span>
-              <span>{planMode === "masterplan" ? "Masterplan" : "Unit 205-905"}</span>
+                <span>Request Plan</span>
+                <span className="flex h-9 w-9 items-center justify-center rounded-full border border-current">
+                  <ArrowRight className="h-4 w-4" />
+                </span>
+              </Link>
             </div>
-
-            <Link
-              to="/projects/the-clan"
-              hash="contact"
-              className="inline-flex items-center gap-3 self-start text-[#4e4b44] transition hover:text-[#123a4c] md:self-auto"
-            >
-              <span>Request Plan</span>
-              <span className="flex h-9 w-9 items-center justify-center rounded-full border border-current">
-                <ArrowRight className="h-4 w-4" />
-              </span>
-            </Link>
           </div>
         </div>
       </div>
@@ -717,21 +689,8 @@ function PlanSection() {
 }
 
 function GallerySection() {
-  const [activeGalleryIndex, setActiveGalleryIndex] = useState(galleryImages.length > 4 ? 2 : 0);
-
-  useEffect(() => {
-    if (galleryImages.length < 2) {
-      return undefined;
-    }
-
-    const intervalId = window.setInterval(() => {
-      setActiveGalleryIndex((current) => (current + 1) % galleryImages.length);
-    }, 2000);
-
-    return () => {
-      window.clearInterval(intervalId);
-    };
-  }, []);
+  const [activeGalleryIndex, setActiveGalleryIndex] = useState(0);
+  const visibleImages = getVisibleGalleryImages(activeGalleryIndex);
 
   const showPreviousGalleryImage = () => {
     setActiveGalleryIndex((current) => (current - 1 + galleryImages.length) % galleryImages.length);
@@ -742,64 +701,52 @@ function GallerySection() {
   };
 
   return (
-    <section className="bg-[#fbf8f3] py-18 md:py-22">
+    <section className="bg-white pb-10 pt-10 md:pb-12 md:pt-12">
       <div className={pageContainerClass}>
-        <div className="max-w-[28rem]">
-          <p className="eyebrow">Gallery</p>
-          <h2 className="mt-3 font-display text-[2.35rem] leading-[0.98] text-[#21201d] md:text-[3rem]">
-            The Heartbeat Of Community Living
+        <div className={sectionInnerClass}>
+          <div className="flex items-center gap-4">
+            <p className="text-[0.72rem] font-semibold uppercase tracking-[0.28em] text-[#b49a6c]">
+              Gallery
+            </p>
+            <span className="h-px w-10 bg-[#b49a6c]/75" />
+          </div>
+
+          <h2 className="mt-4 max-w-[42rem] font-display text-[2rem] leading-[0.98] tracking-[0.01em] text-[#21201d] uppercase md:text-[2.5rem] lg:text-[2.9rem]">
+            <span className="block">The Heartbeat</span>
+            <span className="block">Of Community Living</span>
           </h2>
         </div>
+      </div>
 
-        <div className="relative left-1/2 mt-8 w-screen -translate-x-1/2">
-          <div className="relative h-[14rem] w-full overflow-hidden sm:h-[16rem] md:h-[18rem] lg:h-[19rem] xl:h-[20rem]">
-            {galleryImages.map((item, index) => {
-              const slotStyles = getGallerySlotStyles(
-                getGalleryOffset(index, activeGalleryIndex, galleryImages.length),
-              );
-
-              if (!slotStyles) {
-                return null;
-              }
-
-              return (
-                <div
-                  key={item.title}
-                  className={`absolute transition-all duration-700 ease-out ${slotStyles.container}`}
-                >
-                  <div
-                    className={`h-full overflow-hidden rounded-[0.35rem] bg-white shadow-[0_18px_40px_-34px_rgba(51,38,18,0.34)] transition-all duration-700 ease-out ${slotStyles.frame}`}
-                  >
-                    <img
-                      src={item.image}
-                      alt={item.alt}
-                      className={`h-full w-full object-cover transition-all duration-700 ease-out ${slotStyles.image}`}
-                    />
-                  </div>
-                </div>
-              );
-            })}
+      <div className="mt-8 grid w-full grid-cols-1 gap-[0.45rem] sm:grid-cols-3 md:mt-10">
+        {visibleImages.map((item) => (
+          <div key={`${item.title}-${item.image}`} className="overflow-hidden bg-[#f3eee6]">
+            <img
+              src={item.image}
+              alt={item.alt}
+              className="aspect-[4/3] h-auto w-full object-cover object-center"
+            />
           </div>
+        ))}
+      </div>
 
-          <div className="mt-7 flex items-center justify-center gap-4">
-            <button
-              type="button"
-              onClick={showPreviousGalleryImage}
-              aria-label="Show previous gallery image"
-              className="flex h-12 w-12 items-center justify-center rounded-full border border-[#b6a184] text-[#a1865a] transition hover:border-[#8f7343] hover:text-[#8f7343]"
-            >
-              <ChevronLeft className="h-5 w-5" />
-            </button>
-            <button
-              type="button"
-              onClick={showNextGalleryImage}
-              aria-label="Show next gallery image"
-              className="flex h-12 w-12 items-center justify-center rounded-full border border-[#b6a184] text-[#a1865a] transition hover:border-[#8f7343] hover:text-[#8f7343]"
-            >
-              <ChevronRight className="h-5 w-5" />
-            </button>
-          </div>
-        </div>
+      <div className="mt-7 flex items-center justify-center gap-3.5">
+        <button
+          type="button"
+          onClick={showPreviousGalleryImage}
+          aria-label="Show previous gallery image"
+          className="flex h-11 w-11 items-center justify-center rounded-full border border-[#b6a184] bg-white text-[#a1865a] transition hover:border-[#8f7343] hover:text-[#8f7343]"
+        >
+          <ChevronLeft className="h-5 w-5" />
+        </button>
+        <button
+          type="button"
+          onClick={showNextGalleryImage}
+          aria-label="Show next gallery image"
+          className="flex h-11 w-11 items-center justify-center rounded-full border border-[#b6a184] bg-white text-[#a1865a] transition hover:border-[#8f7343] hover:text-[#8f7343]"
+        >
+          <ChevronRight className="h-5 w-5" />
+        </button>
       </div>
     </section>
   );
@@ -820,7 +767,7 @@ function ConnectivityMap() {
 function ConnectivitySection() {
   return (
     <section
-      className="overflow-hidden bg-[#0e6a44] pb-18 pt-14 text-white md:pb-24 md:pt-18"
+      className={`overflow-hidden bg-[#0e6a44] text-white ${sectionPadClass}`}
       style={{
         backgroundImage: `linear-gradient(180deg, rgba(5, 65, 47, 0.2), rgba(5, 65, 47, 0.24)), url(${greenBackgroundImage})`,
         backgroundSize: "cover",
@@ -830,8 +777,13 @@ function ConnectivitySection() {
       <div className={pageContainerClass}>
         <div className="mx-auto grid max-w-[78rem] gap-x-12 gap-y-5 lg:grid-cols-[minmax(0,1.06fr)_minmax(22rem,0.72fr)] lg:grid-rows-[auto_auto] lg:items-start">
           <div className="max-w-[34rem] lg:col-start-1 lg:row-start-1">
-            <p className="eyebrow text-[#efcf8d]">Connectivity</p>
-            <h2 className="mt-2 max-w-[32rem] font-display text-[2.35rem] leading-[0.9] text-[#efcf8d] md:text-[3rem] lg:text-[3.15rem]">
+            <div className="flex items-center gap-4">
+              <p className="text-[0.72rem] font-semibold uppercase tracking-[0.28em] text-[#efcf8d]">
+                Connectivity
+              </p>
+              <span className="h-px w-10 bg-[#efcf8d]/75" />
+            </div>
+            <h2 className="mt-3 max-w-[32rem] font-display text-[2.35rem] leading-[0.9] text-[#efcf8d] uppercase md:text-[3rem] lg:text-[3.15rem]">
               <span className="block md:whitespace-nowrap">At the crossroads of</span>
               <span className="block md:whitespace-nowrap">growth and convenience.</span>
             </h2>
@@ -882,40 +834,60 @@ function ConnectivitySection() {
 }
 
 function FaqSection() {
-  return (
-    <section
-      id="faq"
-      className="overflow-hidden py-24 md:py-28 lg:py-32"
-      style={{
-        backgroundImage: `url(${creamBackgroundImage})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
-    >
-      <div className={pageContainerClass}>
-        <div className="mx-auto max-w-[64rem] text-center">
-          <h2 className="font-display text-[2.2rem] leading-[0.98] tracking-[-0.02em] md:text-[3rem] lg:text-[3.2rem]">
-            <span className="text-[#1d6c49]">Your Queries, </span>
-            <span className="text-[#d6b15e]">Gracefully Answered</span>
-          </h2>
-        </div>
+  const [openFaqId, setOpenFaqId] = useState<string | null>(faqItems[0].id);
 
-        <Accordion type="single" collapsible className="mx-auto mt-12 w-full lg:mt-14">
-          {faqItems.map((item) => (
-            <AccordionItem
-              key={item.id}
-              value={item.id}
-              className="border-0 border-b border-[#e9dfcc]/85"
-            >
-              <AccordionTrigger className="py-6 pl-0 pr-1 text-left font-display text-[1.02rem] leading-[1.38] text-[#173d2f] hover:no-underline [&>svg]:h-5 [&>svg]:w-5 [&>svg]:shrink-0 [&>svg]:text-[#173d2f] md:py-7 md:pr-2 md:text-[1.16rem] lg:py-8 lg:text-[1.24rem]">
-                {item.question}
-              </AccordionTrigger>
-              <AccordionContent className="max-w-[64rem] pb-7 pl-0 pr-8 pt-0 text-[0.96rem] leading-[1.85] text-[#4f5f53] md:pr-10 md:text-[1rem] lg:pb-8 lg:pr-14">
-                {item.answer}
-              </AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
+  return (
+    <section id="faq" className={`bg-white ${sectionPadClass}`}>
+      <div className={pageContainerClass}>
+        <div className={sectionInnerClass}>
+          <div className="max-w-[48rem]">
+            <div className="flex items-center gap-4">
+              <p className="text-[0.72rem] font-semibold uppercase tracking-[0.28em] text-[#b49a6c]">
+                Get To Know
+              </p>
+              <span className="h-px w-10 bg-[#b49a6c]/75" />
+            </div>
+            <h2 className="mt-4 font-display text-[2.1rem] leading-[1.02] text-[#2b2621] sm:text-[2.5rem] md:text-[2.9rem]">
+              Frequently Asked Questions
+            </h2>
+          </div>
+
+          <div className="mt-10 border-t border-[#eadfce]">
+            {faqItems.map((item) => {
+              const isOpen = openFaqId === item.id;
+
+              return (
+                <article key={item.id} className="border-b border-[#eadfce]">
+                  <button
+                    type="button"
+                    aria-expanded={isOpen}
+                    aria-controls={`faq-panel-${item.id}`}
+                    onClick={() =>
+                      setOpenFaqId((current) => (current === item.id ? null : item.id))
+                    }
+                    className="flex w-full items-start justify-between gap-6 py-6 text-left md:py-7"
+                  >
+                    <span className="pr-6 text-[0.98rem] font-medium leading-[1.65] text-[#5c564d] md:text-[1.02rem]">
+                      {item.question}
+                    </span>
+                    <span className="mt-0.5 shrink-0 text-[1.8rem] leading-none text-[#b49a6c]">
+                      {isOpen ? "−" : "+"}
+                    </span>
+                  </button>
+
+                  {isOpen ? (
+                    <div
+                      id={`faq-panel-${item.id}`}
+                      className="max-w-[48rem] pb-7 pr-12 text-[0.95rem] leading-[1.85] text-[#5f574d] md:pb-8 md:pr-16"
+                    >
+                      {item.answer}
+                    </div>
+                  ) : null}
+                </article>
+              );
+            })}
+          </div>
+        </div>
       </div>
     </section>
   );
@@ -938,11 +910,11 @@ function ContactSection() {
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(10,10,10,0.84)_0%,rgba(10,10,10,0.72)_42%,rgba(10,10,10,0.42)_100%)]" />
 
         <div
-          className={`relative mx-auto grid max-w-7xl items-center gap-10 ${pageGutterClass} py-18 md:py-24 lg:grid-cols-[minmax(0,1fr)_31rem] lg:gap-14`}
+          className={`relative mx-auto grid max-w-7xl items-center gap-10 ${pageGutterClass} py-18 md:py-24 lg:grid-cols-[minmax(0,1fr)_31rem] lg:gap-16`}
         >
-          <div className="max-w-[30rem] text-white lg:pl-10">
-            <h2 className="font-display text-[2.4rem] leading-[1.02] md:text-[3rem]">
-              GET IN TOUCH
+          <div className="max-w-[30rem] text-white lg:pl-6">
+            <h2 className="font-display text-[2.4rem] leading-[1.02] uppercase md:text-[3rem]">
+              Get In Touch
             </h2>
             <p className="mt-3 text-[0.98rem] leading-[1.8] text-white/76">
               We would love to hear from you
@@ -968,7 +940,11 @@ function ContactSection() {
 
               <label className="block">
                 <span className={labelClassName}>Email address*</span>
-                <input type="email" placeholder="yourname@example.com" className={inputClassName} />
+                <input
+                  type="email"
+                  placeholder="you.email@example.com"
+                  className={inputClassName}
+                />
               </label>
 
               <label className="block">
@@ -985,21 +961,21 @@ function ContactSection() {
                 />
               </label>
 
-              <label className="flex items-start gap-2 text-[0.76rem] font-medium leading-[1.7] text-[#8a7e70]">
+              <label className="flex items-start gap-2 text-[0.72rem] font-medium leading-[1.7] text-[#8a7e70]">
                 <input type="checkbox" className="mt-0.5 h-3.5 w-3.5 rounded border-[#dbcdae]" />
                 <span>
-                  By submitting my details, I acknowledge that I am providing my information to
-                  Global Edifice and consent to receiving relevant communication regarding my
-                  enquiry and project updates.
+                  By submitting my details, I acknowledge that I am overriding my National Do Not
+                  Call (NDNC) registration and authorize Global Edifice to contact me regarding my
+                  enquiry and project updates via call, SMS, email, or WhatsApp.
                 </span>
               </label>
             </div>
 
             <button
               type="submit"
-              className="mt-6 inline-flex items-center justify-center rounded-[0.4rem] bg-[#c7a05d] px-7 py-3.5 text-[0.78rem] font-semibold uppercase tracking-[0.2em] text-white transition hover:bg-[#b78d46]"
+              className="mt-6 inline-flex items-center justify-center rounded-[0.35rem] border border-[#d5c4a8] bg-white px-7 py-3.5 text-[0.74rem] font-semibold uppercase tracking-[0.2em] text-[#6f6558] transition hover:border-[#b49a6c] hover:text-[#123a4c]"
             >
-              SEND MESSAGE
+              Send Message
             </button>
           </form>
         </div>
@@ -1008,13 +984,15 @@ function ContactSection() {
   );
 }
 
+
+
 function TheClanPage() {
   useClanMetadata();
 
   return (
     <>
       <main className="bg-[#fbf8f3] text-[#163849]">
-        <ProjectDetailNav />
+        <SiteHeader />
         <HeroSection />
         <HeroStatStrip />
         <OverviewSection />

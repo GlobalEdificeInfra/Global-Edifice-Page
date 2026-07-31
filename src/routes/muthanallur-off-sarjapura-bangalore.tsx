@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import muthanallurArrivalGate from "@/assets/projects/orlean/orlean-garden-lounge.png";
-import muthanallurTennisCourt from "@/assets/projects/orlean/orlean-rooftop-deck.png";
+import locationHeroTerrace from "@/assets/locations/chandapura/chandapura-hero-terrace.png";
+import muthanallurWelcomeHome from "@/assets/locations/muthanallur/muthanallur-welcome-home.png";
 import { LocationLandingPage } from "@/components/location-landing-page";
 
 const PAGE_TITLE = "Muthanallur, Off Sarjapura, Bangalore | Global Edifice";
@@ -55,16 +55,17 @@ function MuthanallurSarjapuraPage() {
   return (
     <LocationLandingPage
       titleLines={["MUTHANALLUR, OFF SARJAPURA,", "BANGALORE"]}
-      heroImage={muthanallurTennisCourt}
-      heroImageAlt="Muthanallur, off Sarjapura, Bangalore tennis court"
+      heroImage={locationHeroTerrace}
+      heroImageAlt="Muthanallur, off Sarjapura, Bangalore rooftop terrace"
       introHeading="EXPERIENCE MODERN LIVING IN A THRIVING DESTINATION"
       introParagraphs={[
         "Strategically located in one of Bangalore's rapidly developing corridors, this address offers the perfect blend of connectivity, convenience, and modern urban living. Surrounded by evolving infrastructure and key growth zones, it creates an environment designed for both present comfort and future value.",
         "With easy access to major IT hubs, reputed educational institutions, healthcare centers, and lifestyle destinations, everyday living becomes seamless and well connected. The thoughtfully chosen location ensures that everything essential remains just minutes away, enhancing both convenience and quality of life.",
         "Designed to complement contemporary lifestyles, the project brings together peaceful surroundings, modern infrastructure, and a vibrant community atmosphere. It is a destination where comfort, accessibility, and aspirational living come together effortlessly.",
       ]}
-      introImage={muthanallurArrivalGate}
-      introImageAlt="Muthanallur, off Sarjapura, Bangalore arrival court"
+      introImage={muthanallurWelcomeHome}
+      introImageAlt="Muthanallur, off Sarjapura, Bangalore welcome home entrance"
+      introImageFlushRight
     />
   );
 }

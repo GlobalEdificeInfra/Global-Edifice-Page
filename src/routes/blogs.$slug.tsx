@@ -159,9 +159,9 @@ function BlogDetailPage() {
       <main className="bg-[#f8f4ed] pb-20">
         <section className="relative isolate overflow-hidden bg-[#0f4157] text-white">
           <img
-            src={post.heroImage}
+            src={post.cardImage}
             alt={post.imageAlt}
-            className="h-[20rem] w-full object-cover object-top sm:h-[26rem] md:h-[40rem] lg:h-[48rem]"
+            className="h-[20rem] w-full object-cover object-center sm:h-[26rem] md:h-[40rem] lg:h-[48rem]"
           />
           <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(15,65,87,0.22)_0%,rgba(15,65,87,0.46)_48%,rgba(15,65,87,0.72)_100%)]" />
 

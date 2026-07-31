@@ -45,24 +45,12 @@ export function GlobalOverlay() {
   };
 
   useEffect(() => {
-    if (hasSeenEnquiryPopup()) {
-      setHasAutoOpened(true);
-      return undefined;
-    }
-
-    // Auto open once per session on desktop only.
-    const timer = setTimeout(() => {
-      if (!hasAutoOpened && window.innerWidth >= 1024) {
-        openPopup();
-      }
-    }, 3000);
-
     const handleOpen = () => openPopup();
     window.addEventListener("open-enquiry-popup", handleOpen);
 
     // Global listener to catch generic ENQUIRE links/buttons that do not wire the popup directly.
     const handleGlobalClick = (e: MouseEvent) => {
-      const target = (e.target as HTMLElement).closest("a, button, Link");
+      const target = (e.target as HTMLElement).closest("a, button");
       if (target) {
         const title = target.textContent?.trim().toUpperCase();
 
@@ -73,6 +61,21 @@ export function GlobalOverlay() {
       }
     };
     document.addEventListener("click", handleGlobalClick);
+
+    if (hasSeenEnquiryPopup()) {
+      setHasAutoOpened(true);
+      return () => {
+        window.removeEventListener("open-enquiry-popup", handleOpen);
+        document.removeEventListener("click", handleGlobalClick);
+      };
+    }
+
+    // Auto open once per session on desktop only.
+    const timer = setTimeout(() => {
+      if (!hasAutoOpened && window.innerWidth >= 1024) {
+        openPopup();
+      }
+    }, 3000);
 
     return () => {
       clearTimeout(timer);

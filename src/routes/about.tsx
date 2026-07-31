@@ -9,8 +9,8 @@ import directorJyothish from "@/assets/about/director-jyothish.jpg";
 import directorRakesh from "@/assets/about/director-rakesh.jpg";
 import projectLegacy from "@/assets/projects/legacy/project-legacy.jpg";
 import projectOrlean from "@/assets/projects/orlean/project-orlean.jpg";
-import projectClan from "@/assets/projects/the-clan/project-clan.jpg";
-import { MobileSiteProjectLinks, SiteProjectsMenu } from "@/components/site-resource-menu";
+import projectClan from "@/assets/projects/the-clan/The-clan-project.png";
+import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 
 const ABOUT_TITLE = "About Global Edifice - Building Beyond Expectations";
@@ -30,7 +30,7 @@ const pageContainerClass = `mx-auto max-w-7xl ${pageGutterClass}`;
 const aboutNav = [
   { label: "HOME", kind: "route", to: "/" as const },
   { label: "ABOUT US", kind: "anchor", href: "#about" },
-  { label: "PROJECTS", kind: "projects-menu" },
+  { label: "PROJECTS", kind: "route", to: "/projects" as const },
   { label: "BLOGS", kind: "route", to: "/blogs" as const },
   { label: "CONTACT", kind: "route", to: "/contact" as const },
 ] as const;
@@ -187,12 +187,24 @@ function SectionLabel({ children }: { children: string }) {
   return <span className="eyebrow">{children}</span>;
 }
 
-function DiamondDivider() {
+function DiamondDivider({
+  className = "mt-14",
+  starClassName = "bg-white",
+}: {
+  className?: string;
+  starClassName?: string;
+}) {
   return (
-    <div className="mt-14 flex items-center gap-6 text-[#a8762b]/55">
-      <span className="h-px flex-1 bg-current" />
-      <span className="h-3.5 w-3.5 rotate-45 border border-current bg-[#f5ecde]" />
-      <span className="h-px flex-1 bg-current" />
+    <div className={`relative flex w-full items-center justify-center text-[#b59661] ${className}`}>
+      <span className="absolute inset-x-0 top-1/2 h-px -translate-y-1/2 bg-[#b59661]" />
+      <svg
+        aria-hidden
+        viewBox="0 0 24 24"
+        className={`relative z-10 h-5 w-5 shrink-0 md:h-6 md:w-6 ${starClassName}`}
+        fill="currentColor"
+      >
+        <path d="M12 1 L15.2 8.8 L23 12 L15.2 15.2 L12 23 L8.8 15.2 L1 12 L8.8 8.8 Z" />
+      </svg>
     </div>
   );
 }
@@ -206,10 +218,6 @@ function AboutNavigationLink({
   className?: string;
   onClick?: () => void;
 }) {
-  if (item.kind === "projects-menu") {
-    return <SiteProjectsMenu className={className} />;
-  }
-
   if (item.kind === "anchor") {
     return (
       <a href={item.href} className={className} onClick={onClick}>
@@ -264,7 +272,7 @@ function AboutNavigation() {
             src={geLogo}
             alt="Global Edifice - The Foundation of Trust"
             className={`[filter:brightness(0)_invert(1)] transition-all duration-300 ${
-              isScrolled ? "w-[96px] md:w-[132px]" : "w-[112px] md:w-[160px]"
+              isScrolled ? "w-[128px] md:w-[180px]" : "w-[148px] md:w-[210px]"
             }`}
           />
         </Link>
@@ -280,7 +288,6 @@ function AboutNavigation() {
             {aboutNav.map((item) => (
               <AboutNavigationLink key={item.label} item={item} />
             ))}
-            <a href="tel:+918065480222" className="hidden sm:inline-flex items-center gap-1.5 transition text-[#996317] hover:text-[#123a4c] mx-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-phone h-[1.1rem] w-[1.1rem]"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span className="font-semibold tracking-[0.05em]">+91 806 548 0222</span></a>
             <button onClick={() => window.dispatchEvent(new CustomEvent("open-enquiry-popup"))} className="rounded-full bg-[#b49a6c] px-5 py-2 text-white transition hover:bg-[#9f8658]">
               ENQUIRE
             </button>
@@ -315,25 +322,18 @@ function AboutNavigation() {
           }`}
         >
           <nav id="about-mobile-nav" className="flex flex-col gap-1 px-2 py-2">
-            {aboutNav.map((item) =>
-              item.kind === "projects-menu" ? (
-                <MobileSiteProjectLinks
-                  key={item.label}
-                  onNavigate={() => setIsMobileMenuOpen(false)}
-                />
-              ) : (
-                <AboutNavigationLink
-                  key={item.label}
-                  item={item}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className={`block rounded-[0.95rem] px-4 py-3 text-[0.8rem] font-medium tracking-[0.16em] transition ${
-                    isScrolled
-                      ? "text-white hover:bg-white/10 hover:text-white"
-                      : "text-[#996317] hover:bg-[#f6f1e8] hover:text-[#123a4c]"
-                  }`}
-                />
-              ),
-            )}
+            {aboutNav.map((item) => (
+              <AboutNavigationLink
+                key={item.label}
+                item={item}
+                onClick={() => setIsMobileMenuOpen(false)}
+                className={`block rounded-[0.95rem] px-4 py-3 text-[0.8rem] font-medium tracking-[0.16em] transition ${
+                  isScrolled
+                    ? "text-white hover:bg-white/10 hover:text-white"
+                    : "text-[#996317] hover:bg-[#f6f1e8] hover:text-[#123a4c]"
+                }`}
+              />
+            ))}
           </nav>
         </div>
       </div>
@@ -384,7 +384,7 @@ function AboutPage() {
   return (
     <>
       <main className="bg-[#f7f2eb] text-[#163849]">
-        <AboutNavigation />
+        <SiteHeader />
         <section className="relative isolate h-[68svh] min-h-[30rem] overflow-hidden bg-[#1e1712] text-white sm:min-h-[34rem] md:h-[74svh] md:min-h-[42rem]">
           <img
             src={aboutHero}
@@ -406,54 +406,64 @@ function AboutPage() {
           </div>
         </section>
 
-        <section id="story" className="bg-[#fbf8f2] pt-24 pb-20 md:pt-32 md:pb-28">
-          <div className="mx-auto max-w-6xl px-[1.125rem] text-center md:px-[1.8rem]">
-            <p className="mx-auto max-w-[76rem] font-display text-[1.28rem] leading-[1.34] tracking-[-0.01em] text-[#b59661] [text-wrap:balance] md:text-[1.56rem] md:leading-[1.26] lg:text-[1.64rem]">
-              Global Edifice has been a trusted name in the real estate industry for over ten years,
-              being the forefront of upcoming projects in Bangalore, establishing ourselves among
-              the top builders in Bangalore with some of the finest architects, engineers, sales
-              force in the Silicon Valley of India.
+        <section id="story" className="bg-white pt-24 pb-10 md:pt-32 md:pb-12">
+          <div className="mx-auto max-w-[70rem] px-[1.125rem] text-center md:px-[1.8rem]">
+            <p className="mx-auto max-w-[66rem] text-center font-display text-[1.18rem] leading-[1.5] tracking-[-0.01em] text-[#b59661] md:text-[1.38rem] md:leading-[1.45] lg:text-[1.48rem] lg:leading-[1.42]">
+              <span className="md:whitespace-nowrap">
+                Global Edifice has been a trusted name in the real estate industry for over ten
+                years,
+              </span>
+              <br className="hidden md:block" />
+              <span className="md:whitespace-nowrap">
+                being the forefront of upcoming projects in Bangalore, establishing ourselves among
+              </span>
+              <br className="hidden md:block" />
+              <span className="md:whitespace-nowrap">
+                the top builders in Bangalore with some of the finest architects, engineers, sales
+              </span>
+              <br className="hidden md:block" />
+              <span className="md:whitespace-nowrap">
+                force in the Silicon Valley of India.
+              </span>
             </p>
 
-            <div className="mt-12 space-y-9 text-[#2d3438]">
-              <p className="mx-auto max-w-[72rem] text-[1.12rem] font-semibold leading-[1.7] md:text-[1.26rem] md:leading-[1.72]">
+            <div className="mx-auto mt-10 max-w-[54rem] space-y-7 text-center text-[#1f1d1a] md:mt-12 md:space-y-8">
+              <p className="text-[0.98rem] font-normal leading-[1.8] md:text-[1.06rem] md:leading-[1.85]">
                 Our journey was built on the pillars of quality and customer centricity, thus making
                 us one of the most sought-after real estate developers in Bangalore. Our commitment
                 to timely delivery and uncompromising quality has earned us the trust of hundreds of
                 satisfied customers.
               </p>
-              <p className="mx-auto max-w-[68rem] text-[1.1rem] font-semibold leading-[1.72] md:text-[1.24rem] md:leading-[1.76]">
+              <p className="text-[0.98rem] font-normal leading-[1.8] md:text-[1.06rem] md:leading-[1.85]">
                 At Global Edifice, we don&apos;t just build homes for you but create lifestyles that
                 reflect elegance, security, and ofcourse a sense of community.
               </p>
             </div>
-
-            <div className="mx-auto max-w-[60rem]">
-              <DiamondDivider />
-            </div>
           </div>
         </section>
 
-        <section id="about" className="bg-[#fbf8f2] pb-22 md:pb-32">
-          <div className="grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-0">
-            <div className="px-[1.125rem] pt-4 md:px-[1.8rem] md:pt-10 lg:pr-12 lg:pl-[max(1.8rem,calc((100vw-80rem)/2+1.8rem))]">
-              <div className="lg:max-w-[31rem]">
-                <h2 className="font-display text-[2.45rem] leading-[0.98] text-[#a8762b] md:text-[4.2rem]">
+        <section id="about" className="bg-white pt-10 pb-12 md:pt-14 md:pb-16 lg:pt-16 lg:pb-20">
+          <div className={`${pageContainerClass}`}>
+            <DiamondDivider className="mt-0" />
+          </div>
+
+          <div className="mt-12 grid md:mt-16 lg:mt-20 lg:grid-cols-2 lg:items-stretch">
+            <div className="flex items-center px-[1.125rem] py-14 text-left md:px-[1.8rem] md:py-18 lg:py-24 lg:pr-12 lg:pl-[max(1.8rem,calc((100vw-80rem)/2+1.8rem))] xl:pr-16">
+              <div className="w-full max-w-[34rem]">
+                <h2 className="font-display text-[2.1rem] leading-[0.98] text-[#b59661] md:text-[2.75rem] lg:text-[3rem]">
                   About US
                 </h2>
 
-                <div className="mt-8 space-y-6 text-[1.02rem] leading-[1.95] text-[#2b3940]/88 md:text-[1.12rem]">
-                  <p>
-                    Global Edifice was founded with a clear vision to redefine urban living through
-                    thoughtfully designed homes built on trust, quality, and long-term value. Guided
-                    by strong leadership and a passion for excellence, the company has steadily
-                    grown into a trusted name in Bangalore&apos;s residential real estate space.
-                  </p>
-                </div>
+                <p className="mt-6 text-[0.98rem] font-normal leading-[1.9] text-[#2a2a2a] md:mt-8 md:text-[1.05rem] md:leading-[1.95]">
+                  Global Edifice was founded with a clear vision—to redefine urban living through
+                  thoughtfully designed homes built on trust, quality, and long-term value. Guided
+                  by strong leadership and a passion for excellence, the company has steadily
+                  grown into a trusted name in Bangalore&apos;s residential real estate space.
+                </p>
               </div>
             </div>
 
-            <div className="w-full overflow-hidden bg-[#e9decd] shadow-[0_38px_84px_-56px_rgba(18,58,76,0.42)] lg:h-[44rem] xl:h-[48rem]">
+            <div className="w-full overflow-hidden lg:min-h-[40rem] xl:min-h-[44rem]">
               <img
                 src={projectLifestyle}
                 alt="Global Edifice lifestyle amenities"
@@ -463,25 +473,25 @@ function AboutPage() {
           </div>
         </section>
 
-        <section id="values" className="bg-[#f7f2eb]">
-          <div className="grid overflow-hidden lg:grid-cols-2">
-            <div className="min-h-[22rem] bg-[#efe6d8] lg:min-h-[44rem]">
+        <section id="values" className="bg-white pb-6 md:pb-8">
+          <div className="grid overflow-hidden lg:grid-cols-2 lg:items-stretch">
+            <div className="w-full overflow-hidden lg:min-h-[40rem] xl:min-h-[44rem]">
               <img
                 src={geContactInterior}
                 alt="Global Edifice interior living space"
-                className="h-full w-full object-cover object-center [transform:scaleX(-1)]"
+                className="h-full min-h-[30rem] w-full object-cover object-center md:min-h-[36rem] [transform:scaleX(-1)]"
                 loading="lazy"
               />
             </div>
 
-            <div className="relative overflow-hidden bg-[linear-gradient(180deg,#143f54_0%,#123a4c_100%)] px-8 py-14 text-white md:px-12 md:py-18 lg:flex lg:min-h-[44rem] lg:items-center lg:px-18 xl:px-20">
+            <div className="relative flex items-center overflow-hidden bg-[linear-gradient(180deg,#143f54_0%,#123a4c_100%)] px-8 py-16 text-white md:px-12 md:py-20 lg:min-h-[40rem] lg:px-14 lg:py-24 xl:min-h-[44rem] xl:px-18">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_0%_0%,rgba(190,165,120,0.12),transparent_30%),repeating-radial-gradient(circle_at_-10%_50%,rgba(255,255,255,0.05)_0,rgba(255,255,255,0.05)_1px,transparent_1px,transparent_22px)] opacity-45" />
-              <div className="relative max-w-[29rem]">
-                <h2 className="font-display text-[2.45rem] leading-[0.98] text-[#a8762b] md:text-[4rem]">
+              <div className="relative w-full max-w-[34rem] text-left">
+                <h2 className="font-display text-[2.1rem] leading-[0.98] text-[#b59661] md:text-[2.75rem] lg:text-[3rem]">
                   Who We Are
                 </h2>
-                <p className="mt-10 text-[1.08rem] leading-[1.85] text-white/88 md:text-[1.2rem] md:leading-[1.9]">
-                  At Global Edifice, we go beyond construction. We create living spaces that reflect
+                <p className="mt-6 text-[0.95rem] leading-[1.85] text-white/90 md:mt-8 md:text-[1.05rem] md:leading-[1.9] lg:text-[1.1rem] lg:leading-[1.88]">
+                  At Global Edifice, we go beyond construction—we create living spaces that reflect
                   aspirations and elevate everyday life. Backed by a team of experienced architects,
                   engineers, and professionals, we focus on delivering homes that seamlessly blend
                   modern design with practical functionality.
@@ -491,20 +501,20 @@ function AboutPage() {
           </div>
         </section>
 
-        <section id="leadership" className="bg-[#f7f2eb] py-20 md:py-24">
+        <section id="leadership" className="bg-white pt-6 pb-10 md:pt-8 md:pb-14">
           <div className={pageContainerClass}>
             <div className="mx-auto max-w-[60rem] text-center">
-              <div className="mx-auto max-w-[64rem]">
-                <DiamondDivider />
+              <div className="mx-auto max-w-[48rem]">
+                <DiamondDivider className="mt-0" starClassName="bg-white" />
               </div>
-              <h2 className="mt-8 font-display text-[2.45rem] leading-[0.98] text-[#a8762b] md:text-[4rem]">
+              <h2 className="mt-4 font-display text-[2.1rem] leading-[0.98] text-[#b59661] md:mt-5 md:text-[2.75rem] lg:text-[3rem]">
                 Board of Directors
               </h2>
-              <p className="mt-4 text-[1.1rem] leading-[1.7] text-[#4e4a44] md:text-[1.28rem]">
+              <p className="mt-2 text-[1rem] leading-[1.6] text-[#4e4a44] md:text-[1.12rem]">
                 Visionaries Behind Our Success
               </p>
 
-              <div className="mt-12 space-y-8 text-[1.02rem] leading-[1.9] text-[#4c4843] md:text-[1.08rem] md:leading-[1.95]">
+              <div className="mt-6 space-y-5 text-[0.98rem] leading-[1.85] text-[#4c4843] md:mt-7 md:space-y-6 md:text-[1.04rem] md:leading-[1.9]">
                 <p>
                   At the helm of Global Edifice Infra stand our distinguished Managing Directors,
                   Mr. Rakesh Reddy and Mr. Jyothish Reddy - seasoned industry veterans whose
@@ -523,7 +533,7 @@ function AboutPage() {
               </div>
             </div>
 
-            <div className="mx-auto mt-14 grid max-w-[64rem] gap-5 md:grid-cols-2 md:gap-4 lg:gap-5">
+            <div className="mx-auto mt-[4.2rem] grid max-w-[64rem] gap-5 md:mt-20 md:grid-cols-2 md:gap-4 lg:gap-5">
               {leaderCards.map((leader) => (
                 <article
                   key={leader.name}
@@ -536,12 +546,12 @@ function AboutPage() {
                       className="h-full w-full object-cover object-center"
                       loading="lazy"
                     />
-                    <div className="absolute inset-x-0 bottom-0 h-[38%] bg-[linear-gradient(180deg,rgba(0,0,0,0)_0%,rgba(0,0,0,0.84)_100%)]" />
-                    <div className="absolute inset-x-0 bottom-0 p-7 md:p-8">
-                      <h3 className="font-display text-[2.25rem] leading-[1.02] text-[#caa96c] md:text-[2.5rem]">
+                    <div className="absolute inset-x-0 bottom-0 h-[42%] bg-[linear-gradient(180deg,rgba(0,0,0,0)_0%,rgba(0,0,0,0.82)_100%)]" />
+                    <div className="absolute inset-x-0 bottom-0 p-7 text-left md:p-8">
+                      <h3 className="font-display text-[1.55rem] leading-[1.05] text-[#caa96c] md:text-[1.75rem] lg:text-[1.9rem]">
                         {leader.name}
                       </h3>
-                      <p className="mt-3 text-[1rem] font-semibold uppercase tracking-[0.06em] text-white md:text-[1.06rem]">
+                      <p className="mt-2 text-[0.85rem] font-semibold uppercase tracking-[0.08em] text-white md:text-[0.92rem]">
                         {leader.role}
                       </p>
                     </div>
@@ -552,79 +562,75 @@ function AboutPage() {
           </div>
         </section>
 
-        <section id="timeline" className="bg-[#f7f2eb] pb-0">
-          <div className="grid overflow-hidden bg-[#123f54] text-white lg:grid-cols-2 lg:h-[45rem]">
-            <div className="relative overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:none] py-10 pr-6 pl-[1.125rem] md:py-16 md:pr-12 md:pl-[1.8rem] lg:py-18 lg:pr-16 lg:pl-[max(1.8rem,calc((100vw-80rem)/2+1.8rem))]">
+        <section id="timeline" className="bg-[#123f54]">
+          <div className="grid overflow-hidden text-white lg:grid-cols-2 lg:min-h-[45rem]">
+            <div className="relative flex flex-col justify-center py-12 pr-6 pl-[1.125rem] md:py-16 md:pr-12 md:pl-[1.8rem] lg:py-18 lg:pr-14 lg:pl-[max(1.8rem,calc((100vw-80rem)/2+1.8rem))]">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_0%_0%,rgba(190,165,120,0.12),transparent_30%),repeating-radial-gradient(circle_at_-10%_50%,rgba(255,255,255,0.045)_0,rgba(255,255,255,0.045)_1px,transparent_1px,transparent_24px)] opacity-45" />
 
-              <div className="relative">
-                <div className="flex items-center gap-3 text-[0.8rem] uppercase tracking-[0.28em] text-[#bfa26f]">
+              <div className="relative max-w-[40rem]">
+                <div className="flex items-center gap-3 text-[0.78rem] uppercase tracking-[0.28em] text-[#bfa26f]">
                   <span>TIMELINE</span>
                   <span className="h-px w-8 bg-current" />
                 </div>
 
-                <h2 className="mt-4 font-display text-[2.45rem] leading-[0.96] text-[#c4a26a] md:text-[4rem]">
+                <h2 className="mt-4 font-display text-[2.1rem] leading-[0.96] text-[#c4a26a] md:text-[2.75rem] lg:text-[3rem]">
                   Our Milestones
                 </h2>
 
-                <div className="mt-12 grid gap-10 md:grid-cols-[6.2rem_1px_minmax(0,1fr)] md:items-start lg:gap-12">
-                  <div className="space-y-5 pt-2">
-                    {milestoneTimeline.map((milestone) => {
-                      const isActive = milestone.year === activeMilestoneYear;
+                <div className="mt-10 md:mt-12">
+                  <div className="relative">
+                    <div className="flex items-end justify-between gap-2 pb-4">
+                      {[...milestoneTimeline].reverse().map((milestone) => {
+                        const isActive = milestone.year === activeMilestoneYear;
 
-                      return (
-                        <button
-                          key={milestone.year}
-                          type="button"
-                          onClick={() => setActiveMilestoneYear(milestone.year)}
-                          className={`flex items-center gap-3 text-left text-[1.02rem] transition md:text-[1.1rem] ${
-                            isActive
-                              ? "font-semibold text-white"
-                              : "text-white/58 hover:text-white/82"
-                          }`}
-                        >
-                          <span>{milestone.year}</span>
-                          {isActive ? (
-                            <span className="h-0 w-0 border-y-[8px] border-y-transparent border-l-[12px] border-l-[#c4a26a]" />
-                          ) : null}
-                        </button>
-                      );
-                    })}
+                        return (
+                          <button
+                            key={milestone.year}
+                            type="button"
+                            onClick={() => setActiveMilestoneYear(milestone.year)}
+                            className={`relative flex-1 text-center text-[0.92rem] transition md:text-[1.05rem] ${
+                              isActive
+                                ? "font-semibold text-white"
+                                : "text-white/55 hover:text-white/80"
+                            }`}
+                          >
+                            {milestone.year}
+                            {isActive ? (
+                              <span className="absolute left-1/2 top-full mt-2 h-0 w-0 -translate-x-1/2 border-x-[7px] border-b-[9px] border-x-transparent border-b-[#c4a26a]" />
+                            ) : null}
+                          </button>
+                        );
+                      })}
+                    </div>
+                    <div className="h-px w-full bg-white/35" />
                   </div>
+                </div>
 
-                  <div className="hidden h-full bg-[#bfa26f]/55 md:block" />
+                <div className="mt-10 max-w-[34rem] space-y-8 md:mt-12">
+                  {activeMilestone.entries.map((entry) => (
+                    <article
+                      key={`${activeMilestone.year}-${entry.title}`}
+                      className="border-b border-white/12 pb-8 last:border-b-0 last:pb-0"
+                    >
+                      <h3 className="font-display text-[1.7rem] leading-[1] text-[#c4a26a] md:text-[2.1rem]">
+                        {entry.title}
+                      </h3>
+                      <p className="mt-3 font-display text-[2.4rem] leading-none text-[#c4a26a] md:text-[3.4rem]">
+                        {activeMilestone.year}
+                      </p>
 
-                  <div className="max-w-[34rem] space-y-8">
-                    {activeMilestone.entries.map((entry) => (
-                      <article
-                        key={`${activeMilestone.year}-${entry.title}`}
-                        className="border-b border-white/12 pb-8 last:border-b-0 last:pb-0"
-                      >
-                        <h3 className="font-display text-[1.9rem] leading-[1] text-white md:text-[2.5rem]">
-                          {entry.title}
-                        </h3>
-                        <p className="mt-3 font-display text-[2.7rem] leading-none text-[#c4a26a] md:text-[4.2rem]">
-                          {activeMilestone.year}
-                        </p>
-
-                        <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-[0.78rem] font-semibold uppercase tracking-[0.18em] text-[#c4a26a] md:text-[0.82rem]">
-                          <span>Land Area - {entry.landArea}</span>
-                          <span>Units - {entry.units}</span>
-                        </div>
-
-                        <div className="mt-6 space-y-4 text-[1rem] leading-[1.95] text-white/88 md:text-[1.06rem]">
-                          {entry.paragraphs.map((paragraph) => (
-                            <p key={paragraph}>{paragraph}</p>
-                          ))}
-                        </div>
-                      </article>
-                    ))}
-                  </div>
+                      <div className="mt-5 space-y-4 text-[0.98rem] leading-[1.9] text-white/90 md:text-[1.05rem] md:leading-[1.95]">
+                        {entry.paragraphs.map((paragraph) => (
+                          <p key={paragraph}>{paragraph}</p>
+                        ))}
+                      </div>
+                    </article>
+                  ))}
                 </div>
               </div>
             </div>
 
-            <div className="h-[24rem] lg:h-full lg:min-h-0">
+            <div className="h-[24rem] lg:h-auto lg:min-h-full">
               <img
                 src={activeMilestone.image}
                 alt={activeMilestone.imageAlt}
@@ -635,19 +641,19 @@ function AboutPage() {
           </div>
         </section>
 
-        <section id="mission-vision" className="bg-[#fbf8f2] py-20 md:py-28">
+        <section id="mission-vision" className="bg-[#fbf8f2] py-16 md:py-20 lg:py-24">
           <div
             className={`${pageContainerClass} grid gap-12 lg:grid-cols-[minmax(0,1fr)_1px_minmax(0,1fr)] lg:gap-14`}
           >
-            <article className="max-w-[31rem] lg:justify-self-start lg:pr-8">
-              <h2 className="font-display text-[2.45rem] leading-[0.96] text-[#a8762b] md:text-[4rem]">
+            <article className="max-w-[34rem] lg:justify-self-start lg:pr-8">
+              <h2 className="font-display text-[2.1rem] leading-[0.98] text-[#b59661] md:text-[2.75rem] lg:text-[3rem]">
                 {missionVisionItems[0].title}
               </h2>
-              <p className="mt-5 text-[1.08rem] leading-tight text-[#443f39] md:text-[1.7rem]">
+              <p className="mt-4 text-[1.05rem] leading-[1.35] text-[#2a2a2a] md:mt-5 md:text-[1.2rem]">
                 {missionVisionItems[0].subtitle}
               </p>
 
-              <div className="mt-11 space-y-9 text-[1.02rem] leading-[1.95] text-[#4e4a45] md:text-[1.09rem] md:leading-[2]">
+              <div className="mt-8 space-y-6 text-justify text-[0.98rem] leading-[1.9] text-[#3a3a3a] md:mt-9 md:space-y-7 md:text-[1.02rem] md:leading-[1.95]">
                 {missionVisionItems[0].paragraphs.map((paragraph) => (
                   <p key={paragraph}>{paragraph}</p>
                 ))}
@@ -656,15 +662,15 @@ function AboutPage() {
 
             <div className="hidden bg-[#d8c8ac] lg:block" />
 
-            <article className="max-w-[31rem] border-t border-[#d8c8ac] pt-12 lg:justify-self-end lg:border-t-0 lg:pl-8 lg:pt-0">
-              <h2 className="font-display text-[2.45rem] leading-[0.96] text-[#a8762b] md:text-[4rem]">
+            <article className="max-w-[34rem] border-t border-[#d8c8ac] pt-12 lg:justify-self-end lg:border-t-0 lg:pl-8 lg:pt-0">
+              <h2 className="font-display text-[2.1rem] leading-[0.98] text-[#b59661] md:text-[2.75rem] lg:text-[3rem]">
                 {missionVisionItems[1].title}
               </h2>
-              <p className="mt-5 text-[1.08rem] leading-tight text-[#443f39] md:text-[1.7rem]">
+              <p className="mt-4 text-[1.05rem] leading-[1.35] text-[#2a2a2a] md:mt-5 md:text-[1.2rem]">
                 {missionVisionItems[1].subtitle}
               </p>
 
-              <div className="mt-11 space-y-9 text-[1.02rem] leading-[1.95] text-[#4e4a45] md:text-[1.09rem] md:leading-[2]">
+              <div className="mt-8 space-y-6 text-justify text-[0.98rem] leading-[1.9] text-[#3a3a3a] md:mt-9 md:space-y-7 md:text-[1.02rem] md:leading-[1.95]">
                 {missionVisionItems[1].paragraphs.map((paragraph) => (
                   <p key={paragraph}>{paragraph}</p>
                 ))}

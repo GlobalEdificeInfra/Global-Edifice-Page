@@ -1,24 +1,12 @@
 import { useEffect, useState } from "react";
-import {
-  ArrowRight,
-  Facebook,
-  Instagram,
-  Linkedin,
-  Mail,
-  MapPin,
-  Menu,
-  Phone,
-  X,
-} from "lucide-react";
+import { ArrowRight, Menu, X } from "lucide-react";
 import { Link, createFileRoute, Outlet, useMatchRoute } from "@tanstack/react-router";
-import geContactLounge from "@/assets/shared/ge-contact-lounge.jpg";
 import geLogo from "@/assets/shared/ge-logo.png";
 import projectsHero from "@/assets/projects/shared/project-banner.png";
-import projectClan from "@/assets/projects/the-clan/project-clan.jpg";
-import {
-  MobileSiteProjectLinks,
-  SiteProjectsMenu,
-} from "@/components/site-resource-menu";
+import projectClan from "@/assets/projects/the-clan/The-clan-project.png";
+import projectLegacy from "@/assets/projects/legacy/project-legacy.jpg";
+import { SiteHeader } from "@/components/site-header";
+import { SiteGetInTouch } from "@/components/site-get-in-touch";
 import { SiteFooter } from "@/components/site-footer";
 
 const PROJECTS_TITLE = "Our Projects - Global Edifice";
@@ -38,7 +26,7 @@ const pageContainerClass = `mx-auto max-w-7xl ${pageGutterClass}`;
 const projectNav = [
   { label: "HOME", kind: "route", to: "/" as const },
   { label: "ABOUT US", kind: "route", to: "/about" as const },
-  { label: "PROJECTS", kind: "projects-menu" },
+  { label: "PROJECTS", kind: "route", to: "/projects" as const },
   { label: "BLOGS", kind: "route", to: "/blogs" as const },
   { label: "CONTACT", kind: "anchor", href: "/contact" },
 ] as const;
@@ -76,14 +64,25 @@ const projects: Array<{
   },
   {
     status: "ongoing",
-    name: "THE CLAN",
+    name: "GLOBAL EDIFICE THE CLAN",
     statLabel: "Starting From",
     statValue: "70 LAKHS*",
-    location: "SARJAPURA, BANGALORE",
+    location: "BAGALUR - SARJAPURA, BANGALORE",
     unitLabel: "1131 - 1825 SQFT",
     image: projectClan,
-    alt: "The Clan",
+    alt: "Global Edifice The Clan",
     detailHref: "/projects/the-clan",
+  },
+  {
+    status: "ongoing",
+    name: "GLOBAL EDIFICE LEGACY",
+    statLabel: "Starting From",
+    statValue: "62 LAKHS*",
+    location: "CHANDAPURA, BANGALORE",
+    unitLabel: "2BHK RESIDENCES",
+    image: projectLegacy,
+    alt: "Global Edifice Legacy",
+    detailHref: "/projects",
   },
   {
     status: "upcoming",
@@ -159,29 +158,6 @@ const projects: Array<{
   },
 ];
 
-const contactDetails = [
-  {
-    icon: MapPin,
-    eyebrow: "Corporate Office",
-    body: "Address: 966, 3rd Floor, 27th Main, 8th Cross Rd, 1st Sector, HSR Layout, Bangalore, Karnataka 560102",
-  },
-  {
-    icon: Phone,
-    eyebrow: "Give Us A Call",
-    body: "+91 806 548 0222",
-  },
-  {
-    icon: Mail,
-    eyebrow: "Send An Email",
-    body: "sales@globaledifice.in",
-  },
-] as const;
-
-const socialLinks = [
-  { label: "Facebook", icon: Facebook, href: "#" },
-  { label: "Instagram", icon: Instagram, href: "#" },
-  { label: "LinkedIn", icon: Linkedin, href: "#" },
-] as const;
 
 function ProjectsNavigationLink({
   item,
@@ -192,11 +168,6 @@ function ProjectsNavigationLink({
   className?: string;
   onClick?: () => void;
 }) {
-  if (item.kind === "projects-menu") {
-    return <SiteProjectsMenu className={className} />;
-  }
-
-
   if (item.kind === "anchor") {
     return (
       <a href={item.href} className={className} onClick={onClick}>
@@ -243,7 +214,7 @@ function ProjectsNavigation() {
             src={geLogo}
             alt="Global Edifice - The Foundation of Trust"
             className={`[filter:brightness(0)_invert(1)] transition-all duration-300 ${
-              isScrolled ? "w-[96px] md:w-[132px]" : "w-[112px] md:w-[160px]"
+              isScrolled ? "w-[128px] md:w-[180px]" : "w-[148px] md:w-[210px]"
             }`}
           />
         </Link>
@@ -259,7 +230,6 @@ function ProjectsNavigation() {
             {projectNav.map((item) => (
               <ProjectsNavigationLink key={item.label} item={item} />
             ))}
-            <a href="tel:+918065480222" className="hidden sm:inline-flex items-center gap-1.5 transition text-[#996317] hover:text-[#123a4c] mx-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-phone h-[1.1rem] w-[1.1rem]"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span className="font-semibold tracking-[0.05em]">+91 806 548 0222</span></a>
             <button onClick={() => window.dispatchEvent(new CustomEvent("open-enquiry-popup"))} className="rounded-full bg-[#b49a6c] px-4 py-1.5 text-white transition hover:bg-[#9f8658]"
             >
               ENQUIRE</button>
@@ -294,25 +264,18 @@ function ProjectsNavigation() {
           }`}
         >
           <nav id="projects-mobile-nav" className="flex flex-col gap-1 px-2 py-2">
-            {projectNav.map((item) =>
-              item.kind === "projects-menu" ? (
-                <MobileSiteProjectLinks
-                  key={item.label}
-                  onNavigate={() => setIsMobileMenuOpen(false)}
-                />
-              ) : (
-                <ProjectsNavigationLink
-                  key={item.label}
-                  item={item}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className={`block rounded-[0.95rem] px-4 py-3 text-[0.8rem] font-medium tracking-[0.16em] transition ${
-                    isScrolled
-                      ? "text-white hover:bg-white/10 hover:text-white"
-                      : "text-[#996317] hover:bg-[#f6f1e8] hover:text-[#123a4c]"
-                  }`}
-                />
-              ),
-            )}
+            {projectNav.map((item) => (
+              <ProjectsNavigationLink
+                key={item.label}
+                item={item}
+                onClick={() => setIsMobileMenuOpen(false)}
+                className={`block rounded-[0.95rem] px-4 py-3 text-[0.8rem] font-medium tracking-[0.16em] transition ${
+                  isScrolled
+                    ? "text-white hover:bg-white/10 hover:text-white"
+                    : "text-[#996317] hover:bg-[#f6f1e8] hover:text-[#123a4c]"
+                }`}
+              />
+            ))}
           </nav>
         </div>
       </div>
@@ -430,30 +393,30 @@ function ProjectPortfolio() {
               <img
                 src={project.image}
                 alt={project.alt}
-                className="h-[10.5rem] w-full object-cover object-center md:h-[11rem]"
+                className="h-[14rem] w-full object-cover object-center md:h-[15.5rem]"
               />
 
-              <div className="flex h-full flex-col p-4 md:p-5">
+              <div className="flex h-full flex-col p-5 md:p-6">
                 <div className="flex items-start justify-between gap-4">
-                  <h3 className="max-w-[11rem] text-[1.02rem] font-medium uppercase leading-[1.1] text-[#34302b] md:text-[1.14rem]">
+                  <h3 className="max-w-[12.5rem] text-[1.02rem] font-semibold uppercase leading-[1.15] text-[#1f1d1a] md:text-[1.12rem]">
                     {project.name}
                   </h3>
 
-                  <div className="pt-1 text-right text-[#a8762b]">
-                    <p className="text-[0.5rem] font-semibold uppercase tracking-[0.14em] text-[#b48b50]">
+                  <div className="shrink-0 pt-0.5 text-right text-[#a8762b]">
+                    <p className="text-[0.52rem] font-semibold uppercase tracking-[0.14em] text-[#b48b50]">
                       {project.statLabel}
                     </p>
-                    <p className="mt-1 text-[0.7rem] font-semibold uppercase tracking-[0.02em]">
+                    <p className="mt-1 text-[0.78rem] font-semibold uppercase tracking-[0.02em]">
                       {project.statValue}
                     </p>
                   </div>
                 </div>
 
-                <p className="mt-4 text-[0.58rem] font-medium uppercase tracking-[0.08em] text-[#b48b50]">
+                <p className="mt-4 text-[0.62rem] font-medium uppercase tracking-[0.06em] text-[#b48b50]">
                   {project.location}
                 </p>
 
-                <div className="relative mt-8 text-[0.62rem] uppercase tracking-[0.08em] text-[#4b4741]">
+                <div className="relative mt-8 text-[0.68rem] font-medium uppercase tracking-[0.06em] text-[#4b4741]">
                   <span className="absolute inset-x-0 top-1/2 h-px -translate-y-1/2 bg-[#e4d8c4]" />
                   <span className="relative inline-block bg-[#fffdfa] pr-3">
                     {project.unitLabel}
@@ -473,12 +436,16 @@ function ProjectPortfolio() {
                   <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
                     <a
                       href="#contact"
-                      className="inline-flex items-center justify-center gap-2 rounded-full bg-[#b49a6c] px-4 py-3 text-[0.58rem] font-semibold uppercase tracking-[0.08em] text-[#1f1d1a] transition hover:bg-[#9f8658] hover:text-[#1f1d1a]"
+                      className="inline-flex items-center justify-center gap-2 rounded-full bg-[#b49a6c] px-4 py-3 text-[0.58rem] font-semibold uppercase tracking-[0.08em] text-white transition hover:bg-[#9f8658]"
                     >
                       Book A Site Visit
                     </a>
-                    <Link to={project.detailHref as any} className="inline-flex items-center justify-center rounded-full border border-[#d8c7a8] px-4 py-3 text-[0.58rem] font-semibold uppercase tracking-[0.08em] text-[#1f1d1a] transition hover:border-[#c7b08a] hover:text-[#1f1d1a]"
-                    >Know More</Link>
+                    <Link
+                      to={project.detailHref as any}
+                      className="inline-flex items-center justify-center rounded-full border border-[#d8c7a8] bg-white px-4 py-3 text-[0.58rem] font-semibold uppercase tracking-[0.08em] text-[#1f1d1a] transition hover:border-[#c7b08a] hover:bg-[#faf7f2]"
+                    >
+                      Know More
+                    </Link>
                   </div>
                 )}
               </div>
@@ -490,166 +457,7 @@ function ProjectPortfolio() {
   );
 }
 
-function ContactPanel() {
-  const [officeContact, phoneContact, emailContact] = contactDetails;
-  const OfficeIcon = officeContact.icon;
-  const PhoneIcon = phoneContact.icon;
-  const EmailIcon = emailContact.icon;
-  const inputLabelClassName =
-    "text-[0.72rem] font-semibold uppercase tracking-[0.24em] text-white/84";
-  const inputFieldClassName =
-    "mt-4 w-full border-b border-white/18 bg-transparent pb-4 text-[1.02rem] text-white/88 outline-none placeholder:text-white/42";
 
-  return (
-    <section id="contact" className="bg-[#fbf8f4] pb-0">
-      <div className="relative overflow-hidden bg-[#171717]">
-        <img
-          src={geContactLounge}
-          alt="Global Edifice contact lounge"
-          className="absolute inset-0 h-full w-full object-cover object-center"
-        />
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(11,10,10,0.8)_0%,rgba(11,10,10,0.7)_38%,rgba(11,10,10,0.36)_100%)]" />
-
-        <div
-          className={`relative mx-auto grid max-w-7xl items-start gap-10 ${pageGutterClass} py-18 md:py-24 lg:grid-cols-[minmax(0,1fr)_31rem] lg:gap-14 xl:grid-cols-[minmax(0,1fr)_32rem]`}
-        >
-          <div className="max-w-[37rem] pt-2 text-white">
-            <div className="flex items-center gap-4">
-              <span className="text-[0.72rem] font-semibold uppercase tracking-[0.28em] text-[#a8762b]">
-                Get In Touch
-              </span>
-              <span className="h-px w-8 bg-[#dbc9a7]/60" />
-            </div>
-            <h2 className="mt-3 max-w-[36rem] font-display text-[2.7rem] leading-[0.94] md:text-[3.1rem] lg:text-[3.3rem]">
-              Start Your Journey
-            </h2>
-
-            <form
-              className="mt-10 grid max-w-[33rem] gap-6"
-              onSubmit={(event) => event.preventDefault()}
-            >
-              <div className="grid gap-6 md:grid-cols-2">
-                <label className="block">
-                  <span className={inputLabelClassName}>Name</span>
-                  <input type="text" placeholder="John Doe" className={inputFieldClassName} />
-                </label>
-                <label className="block">
-                  <span className={inputLabelClassName}>Phone Number</span>
-                  <input type="tel" placeholder="+91 97979 79797" className={inputFieldClassName} />
-                </label>
-              </div>
-
-              <label className="block">
-                <span className={inputLabelClassName}>Email Address</span>
-                <input type="email" placeholder="Email Address" className={inputFieldClassName} />
-              </label>
-
-              <label className="block">
-                <span className={inputLabelClassName}>Project Of Interest</span>
-                <input
-                  type="text"
-                  placeholder="Global Edifice Orlean"
-                  className={inputFieldClassName}
-                />
-              </label>
-
-              <label className="block">
-                <span className={inputLabelClassName}>Your Message</span>
-                <textarea
-                  placeholder="Tell us about your dream home"
-                  rows={3}
-                  className={`${inputFieldClassName} resize-none`}
-                />
-              </label>
-
-              <div>
-                <button
-                  type="submit"
-                  className="inline-flex items-center justify-center gap-2 rounded-[0.8rem] bg-[#0d4c71] px-8 py-4 text-[0.72rem] font-medium uppercase tracking-[0.24em] text-white transition hover:bg-[#12608d]"
-                >
-                  Enquiry
-                  <ArrowRight className="h-4 w-4" />
-                </button>
-              </div>
-            </form>
-          </div>
-
-          <div className="rounded-[1.45rem] bg-[#fffdfa] p-7 text-[#1f1d1a] shadow-[0_28px_60px_-42px_rgba(0,0,0,0.55)] md:p-8 lg:mt-3">
-            <h3 className="font-display text-[2rem] leading-none text-[#1f1d1a] md:text-[2.2rem]">
-              Contact Us
-            </h3>
-
-            <div className="mt-8 space-y-5">
-              <div className="flex items-start gap-4 border-b border-[#ece2d4] pb-5">
-                <div className="mt-1 rounded-full bg-[#f2eadc] p-2 text-[#a8762b]">
-                  <OfficeIcon className="h-4 w-4" />
-                </div>
-                <div>
-                  <p className="text-[0.75rem] font-semibold uppercase tracking-[0.2em] text-[#a8762b]">
-                    {officeContact.eyebrow}
-                  </p>
-                  <p className="mt-2 text-[0.95rem] leading-[1.8] text-[#6b655d]">
-                    {officeContact.body}
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4 border-b border-[#ece2d4] pb-5">
-                <div className="mt-1 rounded-full bg-[#f2eadc] p-2 text-[#a8762b]">
-                  <PhoneIcon className="h-4 w-4" />
-                </div>
-                <div>
-                  <p className="text-[0.75rem] font-semibold uppercase tracking-[0.2em] text-[#a8762b]">
-                    {phoneContact.eyebrow}
-                  </p>
-                  <p className="mt-2 text-[0.95rem] leading-[1.8] text-[#6b655d]">
-                    {phoneContact.body}
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4 pb-2">
-                <div className="mt-1 rounded-full bg-[#f2eadc] p-2 text-[#a8762b]">
-                  <EmailIcon className="h-4 w-4" />
-                </div>
-                <div>
-                  <p className="text-[0.75rem] font-semibold uppercase tracking-[0.2em] text-[#a8762b]">
-                    {emailContact.eyebrow}
-                  </p>
-                  <p className="mt-2 text-[0.95rem] leading-[1.8] text-[#6b655d]">
-                    {emailContact.body}
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-10 border-t border-[#ece2d4] pt-6">
-              <p className="text-[0.82rem] font-semibold uppercase tracking-[0.22em] text-[#a8762b]">
-                Follow Our Journey
-              </p>
-              <div className="mt-4 flex items-center gap-4 text-[#a8762b]">
-                {socialLinks.map((item) => {
-                  const Icon = item.icon;
-
-                  return (
-                    <a
-                      key={item.label}
-                      href={item.href}
-                      aria-label={item.label}
-                      className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[#eadfcc] transition hover:border-[#c9b08a] hover:text-[#123a4c]"
-                    >
-                      <Icon className="h-4 w-4" />
-                    </a>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
 
 function ProjectsPage() {
   useProjectsMetadata();
@@ -664,10 +472,10 @@ function ProjectsPage() {
   return (
     <>
       <main className="bg-[#f7f2eb] text-[#163849]">
-        <ProjectsNavigation />
+        <SiteHeader />
         <ProjectsHero />
         <ProjectPortfolio />
-        <ContactPanel />
+        <SiteGetInTouch />
       </main>
       <SiteFooter />
     </>

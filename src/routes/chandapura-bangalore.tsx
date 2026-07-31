@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { createFileRoute } from "@tanstack/react-router";
+import chandapuraHeroCourtyard from "@/assets/locations/chandapura/chandapura-hero-courtyard.png";
 import orleanCyclingGarden from "@/assets/projects/orlean/orlean-cycling-garden.png";
-import orleanGardenLounge from "@/assets/projects/orlean/orlean-garden-lounge.png";
 import { LocationLandingPage } from "@/components/location-landing-page";
 
 const PAGE_TITLE = "Chandapura, Bangalore | Global Edifice";
@@ -55,8 +55,8 @@ function ChandapuraBangalorePage() {
   return (
     <LocationLandingPage
       titleLines={["CHANDAPURA, BANGALORE"]}
-      heroImage={orleanGardenLounge}
-      heroImageAlt="Chandapura, Bangalore landscaped community"
+      heroImage={chandapuraHeroCourtyard}
+      heroImageAlt="Chandapura, Bangalore community courtyard"
       introHeading="A LANDMARK ADDRESS IN BANGALORE'S RISING CORRIDOR"
       introParagraphs={[
         "Thoughtfully positioned in one of Bangalore's rapidly evolving residential corridors, this address brings together the perfect balance of connectivity, convenience, and contemporary living. Surrounded by growing infrastructure and key urban developments, it offers a location designed for both present comfort and future value.",
@@ -65,6 +65,7 @@ function ChandapuraBangalorePage() {
       ]}
       introImage={orleanCyclingGarden}
       introImageAlt="Chandapura, Bangalore lifestyle greens"
+      introImageFlushRight
     />
   );
 }
