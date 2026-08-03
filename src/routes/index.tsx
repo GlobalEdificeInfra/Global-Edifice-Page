@@ -168,18 +168,46 @@ function Hero() {
       <img
         src={geHero}
         alt="Luxury Global Edifice residence"
-        className="absolute inset-0 h-full w-full -scale-x-100 object-cover object-center"
+        className="absolute inset-0 h-full w-full -scale-x-100 object-cover object-[center_45%]"
       />
-      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(8,14,20,0.28)_0%,transparent_38%,transparent_55%,rgba(10,18,26,0.32)_78%,rgba(8,14,20,0.48)_100%)]" />
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,15,22,0.2)_0%,transparent_28%,transparent_55%,rgba(8,15,22,0.45)_100%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(90deg,transparent_0%,transparent_42%,rgba(6,12,18,0.35)_68%,rgba(6,12,18,0.62)_100%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,15,22,0.22)_0%,transparent_30%,transparent_58%,rgba(8,15,22,0.5)_100%)]" />
 
       <div
-        className={`relative mx-auto flex min-h-[44rem] max-w-7xl items-end ${pageGutterClass} pb-16 pt-28 sm:pb-20 sm:pt-32 md:min-h-screen md:pb-24 lg:pb-28`}
+        className={`relative mx-auto flex min-h-[44rem] max-w-7xl items-end ${pageGutterClass} pb-[calc(4rem+5vh)] pt-28 sm:pb-[calc(5rem+5vh)] md:min-h-screen md:pb-[calc(6rem+5vh)] lg:pb-[calc(7rem+5vh)]`}
       >
-        <h1 className="ml-auto w-full max-w-[20rem] text-left font-display font-normal [font-synthesis:none] text-[2.4rem] leading-[0.98] tracking-[-0.02em] text-white [text-shadow:0_2px_28px_rgba(0,0,0,0.4)] sm:max-w-[28rem] sm:text-[3.2rem] md:max-w-[34rem] md:text-right md:text-[4.1rem] lg:max-w-[38rem] lg:text-[4.6rem] xl:text-[5rem]">
-          <span className="block">Building Beyond</span>
-          <span className="block">Expectations</span>
-        </h1>
+        <div className="grid w-full grid-cols-1 items-end gap-8 md:grid-cols-[1fr_minmax(18rem,28rem)] md:gap-10">
+          {/* Left: buttons — bottom aligns with subtitle last line */}
+          <div className="order-2 flex flex-wrap items-center gap-3 sm:gap-4 md:order-1">
+            <Link
+              to="/projects"
+              className="inline-flex items-center justify-center rounded-full bg-[#0f1319]/90 px-6 py-3.5 text-[0.82rem] font-medium text-white backdrop-blur-[2px] transition hover:bg-black sm:px-7 sm:text-[0.88rem]"
+            >
+              Explore residences
+            </Link>
+            <Link
+              to="/contact"
+              className="inline-flex items-center justify-center rounded-full border border-white/85 bg-transparent px-6 py-3.5 text-[0.82rem] font-medium text-white transition hover:bg-white/10 sm:px-7 sm:text-[0.88rem]"
+            >
+              Schedule a site visit
+            </Link>
+          </div>
+
+          {/* Right: 4-line title + 3-line subtitle */}
+          <div className="order-1 text-right md:order-2">
+            <h1 className="font-display text-[2.15rem] font-normal uppercase leading-[1] tracking-[-0.02em] text-white [font-synthesis:none] [text-shadow:0_2px_28px_rgba(0,0,0,0.45)] sm:text-[3rem] md:text-[3.55rem] lg:text-[4rem] xl:text-[4.35rem]">
+              <span className="block whitespace-nowrap">We Don&apos;t</span>
+              <span className="block whitespace-nowrap">Just Build,</span>
+              <span className="block whitespace-nowrap">We Redefine</span>
+              <span className="block whitespace-nowrap">Living</span>
+            </h1>
+            <p className="mt-6 text-[0.88rem] leading-[1.65] text-white/92 [text-shadow:0_1px_16px_rgba(0,0,0,0.35)] sm:text-[0.96rem] md:text-[1rem] md:leading-[1.7]">
+              <span className="block">A boutique studio of architects and craftsmen, sculpting</span>
+              <span className="block">premium mid-rise residences where every detail is</span>
+              <span className="block">deliberate, and every home endures.</span>
+            </p>
+          </div>
+        </div>
       </div>
     </section>
   );
