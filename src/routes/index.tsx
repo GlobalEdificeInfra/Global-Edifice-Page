@@ -168,9 +168,9 @@ function Hero() {
       <img
         src={geHero}
         alt="Luxury Global Edifice residence"
-        className="absolute inset-0 h-full w-full object-cover object-center"
+        className="absolute inset-0 h-full w-full -scale-x-100 object-cover object-center"
       />
-      <div className="absolute inset-0 bg-[linear-gradient(90deg,transparent_0%,transparent_45%,rgba(10,18,26,0.35)_70%,rgba(8,14,20,0.55)_100%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(8,14,20,0.28)_0%,transparent_38%,transparent_55%,rgba(10,18,26,0.32)_78%,rgba(8,14,20,0.48)_100%)]" />
       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,15,22,0.2)_0%,transparent_28%,transparent_55%,rgba(8,15,22,0.45)_100%)]" />
 
       <div
