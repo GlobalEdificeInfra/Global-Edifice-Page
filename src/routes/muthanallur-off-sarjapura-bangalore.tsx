@@ -57,11 +57,15 @@ function MuthanallurSarjapuraPage() {
       titleLines={["MUTHANALLUR, OFF SARJAPURA,", "BANGALORE"]}
       heroImage={locationHeroTerrace}
       heroImageAlt="Muthanallur, off Sarjapura, Bangalore rooftop terrace"
-      introHeading="EXPERIENCE MODERN LIVING IN A THRIVING DESTINATION"
+      introHeading="Where Tomorrow Begins Today."
       introParagraphs={[
-        "Strategically located in one of Bangalore's rapidly developing corridors, this address offers the perfect blend of connectivity, convenience, and modern urban living. Surrounded by evolving infrastructure and key growth zones, it creates an environment designed for both present comfort and future value.",
-        "With easy access to major IT hubs, reputed educational institutions, healthcare centers, and lifestyle destinations, everyday living becomes seamless and well connected. The thoughtfully chosen location ensures that everything essential remains just minutes away, enhancing both convenience and quality of life.",
-        "Designed to complement contemporary lifestyles, the project brings together peaceful surroundings, modern infrastructure, and a vibrant community atmosphere. It is a destination where comfort, accessibility, and aspirational living come together effortlessly.",
+        "A New Address in Bengaluru's Emerging Growth Corridor.",
+        "Growth creates opportunity.",
+        "That's exactly what makes Muthanallur one of the most promising locations off Sarjapur Road.",
+        "Its proximity to major IT hubs, expanding infrastructure, educational institutions, and healthcare facilities makes it an ideal destination for families looking to build their future in a well-connected neighbourhood.",
+        "Our upcoming community will reflect everything Global Edifice stands for—thoughtful planning, quality construction, and homes designed around the way people live today.",
+        "The location is growing.",
+        "So is the opportunity to be part of it.",
       ]}
       introImage={muthanallurWelcomeHome}
       introImageAlt="Muthanallur, off Sarjapura, Bangalore welcome home entrance"

@@ -229,27 +229,27 @@ function Story() {
               <span className="h-px w-11 bg-[#e6dbc8]" />
             </div>
 
-            <h2 className="mt-5 font-display text-[2.2rem] leading-[0.98] tracking-[-0.018em] text-[#1f1d1a] sm:text-[2.95rem] md:text-[3.05rem] lg:text-[2.6rem] lg:whitespace-nowrap xl:text-[2.72rem]">
-              The Global Edifice Promise
+            <h2 className="mt-5 font-display text-[2.1rem] leading-[0.98] tracking-[-0.018em] text-[#1f1d1a] sm:text-[2.7rem] md:text-[3.05rem] lg:text-[2.55rem] xl:text-[2.72rem]">
+              Built on Trust.
+              <span className="block">Driven by Purpose.</span>
             </h2>
 
-            <h3 className="mt-10 text-[1.16rem] font-medium uppercase leading-[1.32] tracking-[0.12em] text-[#c0a56e] sm:text-[1.3rem] md:text-[1.56rem] lg:mt-10 lg:text-[1.64rem] xl:text-[1.72rem]">
-              <span className="block sm:whitespace-nowrap">Building Legacies,</span>
-              <span className="block sm:whitespace-nowrap">Not Just Homes</span>
+            <h3 className="mt-8 text-[1.05rem] font-medium uppercase leading-[1.35] tracking-[0.1em] text-[#c0a56e] sm:text-[1.18rem] md:mt-10 md:text-[1.4rem] lg:text-[1.5rem]">
+              <span className="block">Every Home Begins</span>
+              <span className="block">With a Promise</span>
             </h3>
 
-            <div className="mt-9 max-w-[32.5rem] space-y-5 text-[0.97rem] leading-[1.8] text-[#7a756e] md:text-[1rem] lg:mt-8 lg:max-w-[33.5rem]">
+            <div className="mt-8 max-w-[32.5rem] space-y-5 text-[0.95rem] leading-[1.8] text-[#7a756e] md:mt-9 md:text-[1rem] lg:max-w-[33.5rem]">
               <p>
-                Global Edifice was founded on a singular belief - that a home is the most important
-                investment a family will ever make. Since our inception, we have delivered
-                thoughtfully designed residential communities across Bangalore's most sought-after
-                corridors.
+                Global Edifice was founded with a simple belief: homes should make life better. As
+                Bangalore grew into one of India&apos;s most dynamic cities, so did the expectations
+                of its homebuyers.
               </p>
               <p>
-                From compact apartments built for young professionals in Chandapura to spacious
-                villas designed for multi-generational families in HSR Layout, every Global Edifice
-                home reflects our uncompromising commitment to structural integrity, aesthetic
-                excellence, and on-time delivery.
+                From selecting the right locations to designing every home with care, our focus has
+                always been on creating developments that combine thoughtful planning, quality
+                construction, and lasting value. More than a decade later, that purpose remains
+                unchanged.
               </p>
             </div>
 

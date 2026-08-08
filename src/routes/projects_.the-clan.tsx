@@ -484,22 +484,28 @@ function OverviewSection() {
           <div className="mx-auto w-full max-w-[32rem] lg:mx-0 lg:max-w-none">
             <ClanWordmark />
 
-            <h2 className="mt-7 max-w-[30rem] font-display text-[1.65rem] leading-[1.18] tracking-[0.02em] text-[#b59a6d] uppercase md:text-[1.9rem] lg:text-[2.05rem]">
-              <span className="block">A Tapestry Of Timeless</span>
-              <span className="block">Architecture & Belonging</span>
+            <h2 className="mt-7 max-w-[30rem] font-display text-[1.55rem] leading-[1.18] tracking-[0.02em] text-[#b59a6d] uppercase md:text-[1.9rem] lg:text-[2.05rem]">
+              <span className="block">Where Life Feels</span>
+              <span className="block">More Connected.</span>
             </h2>
+            <p className="mt-3 text-[0.92rem] leading-[1.45] text-[#8a7a62] md:text-[1rem]">
+              Designed Around People. Inspired by Community.
+            </p>
 
             <div className="mt-5 max-w-[32rem] space-y-4 text-[0.94rem] leading-[1.85] text-[#5c564d] md:text-[0.97rem]">
+              <p>Some places impress with architecture.</p>
+              <p>The Clan goes a little further.</p>
+              <p>It creates a neighbourhood where people naturally come together.</p>
               <p>
-                Beyond its skyline, The Clan reflects something far more exquisite, capturing the
-                rhythm of togetherness, and the quiet comfort of belonging among neighbours who feel
-                like family.
+                Surrounded by greenery and thoughtfully planned open spaces, every home is filled
+                with natural light, fresh air, and a sense of openness that&apos;s becoming
+                increasingly rare in city living.
               </p>
               <p>
-                Its 2 &amp; 3 Bed signature residences blend contemporary elegance with the timeless
-                comfort of community, creating a seamless harmony between luxury and life.
+                Located off Sarjapur Road, The Clan brings together contemporary design, lifestyle
+                amenities, and a welcoming community—creating a place where families don&apos;t just
+                live, they belong.
               </p>
-              <p>Here, community becomes an experience not just an address.</p>
             </div>
 
             <Link

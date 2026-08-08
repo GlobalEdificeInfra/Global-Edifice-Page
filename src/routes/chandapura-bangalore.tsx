@@ -57,11 +57,12 @@ function ChandapuraBangalorePage() {
       titleLines={["CHANDAPURA, BANGALORE"]}
       heroImage={chandapuraHeroCourtyard}
       heroImageAlt="Chandapura, Bangalore community courtyard"
-      introHeading="A LANDMARK ADDRESS IN BANGALORE'S RISING CORRIDOR"
+      introHeading="The Future Is Taking Shape."
       introParagraphs={[
-        "Thoughtfully positioned in one of Bangalore's rapidly evolving residential corridors, this address brings together the perfect balance of connectivity, convenience, and contemporary living. Surrounded by growing infrastructure and key urban developments, it offers a location designed for both present comfort and future value.",
-        "With seamless access to major IT hubs, reputed educational institutions, healthcare centers, and lifestyle destinations, everyday living becomes effortlessly connected. The strategic location ensures that everything essential remains just minutes away, enhancing both productivity and quality of life.",
-        "Crafted for modern urban lifestyles, the project combines accessibility with a peaceful residential environment, creating a community where comfort, convenience, and long-term growth come together seamlessly.",
+        "A New Community in One of Bengaluru's Fastest-Growing Neighbourhoods.",
+        "Every growing city has places that quietly become tomorrow's most sought-after addresses. Chandapura is one of them.",
+        "With excellent connectivity to Electronic City, Bommasandra, upcoming infrastructure, reputed schools, healthcare, and everyday conveniences, it's steadily becoming a preferred destination for families and professionals alike.",
+        "Our upcoming development is being planned with the same attention to detail that defines every Global Edifice community—bringing together well-designed homes, open spaces, and amenities that support modern living.",
       ]}
       introImage={orleanCyclingGarden}
       introImageAlt="Chandapura, Bangalore lifestyle greens"

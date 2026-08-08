@@ -7,15 +7,14 @@ import geLogo from "@/assets/shared/ge-logo.png";
 import projectLifestyle from "@/assets/about/ge-project-lifestyle.png";
 import directorJyothish from "@/assets/about/director-jyothish.jpg";
 import directorRakesh from "@/assets/about/director-rakesh.jpg";
-import projectLegacy from "@/assets/projects/legacy/project-legacy.jpg";
 import projectOrlean from "@/assets/projects/orlean/project-orlean.jpg";
 import projectClan from "@/assets/projects/the-clan/The-clan-project.png";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 
-const ABOUT_TITLE = "About Global Edifice - Building Beyond Expectations";
+const ABOUT_TITLE = "About Global Edifice - Before Every Home, There Is a Story";
 const ABOUT_DESCRIPTION =
-  "Discover Global Edifice's story, leadership, and design philosophy behind its premium residential developments in Bangalore.";
+  "Discover Global Edifice's story, leadership, and promise behind thoughtfully planned homes and lasting communities in Bangalore.";
 
 export const Route = createFileRoute("/about")({
   component: AboutPage,
@@ -41,34 +40,35 @@ const leaderCards = [
     role: "Managing Director",
     image: directorRakesh,
     alt: "Portrait of Mr. Rakesh Reddy",
-    description:
-      "Known for grounded execution and long-view decision making, he helps shape communities that feel elevated, practical, and enduring.",
+    quote: "Every home begins with a dream, but it is trust that turns that dream into reality.",
   },
   {
     name: "Mr. Jyothish Reddy",
     role: "Managing Director",
     image: directorJyothish,
     alt: "Portrait of Mr. Jyothish Reddy",
-    description:
-      "His focus on thoughtful planning and customer-centric delivery continues to guide the brand's reputation for trust-led growth.",
+    quote:
+      "Building a home is a responsibility that extends far beyond construction. It is about creating places where families can build their future with confidence.",
   },
 ];
 
 const missionVisionItems = [
   {
     title: "Our Vision",
-    subtitle: "To Enable, Enhance & Excel",
+    subtitle: "To Shape Communities That Stand the Test of Time.",
     paragraphs: [
-      "We envision a future where aspirations take architectural form. As one of Bangalore's premier developers, we transform homeownership dreams into tangible realities. Our commitment extends beyond constructing living spaces-we craft vibrant ecosystems that seamlessly blend comfort, community, and legacy.",
-      "Each gated community and thoughtfully designed residence we deliver serves as more than shelter; it becomes a catalyst for meaningful connections, a foundation for generational wealth, and a testament to discerning taste. Through every project, we're reshaping Bangalore's real estate landscape, creating dynamic opportunities for generations to come.",
+      "We envision a future where every Global Edifice development becomes a benchmark for thoughtful urban living.",
+      "A future where design serves people, communities encourage belonging, and every home continues to create value for families and investors alike.",
+      "Our aspiration is simple—to build places that people are proud to own today and even prouder to pass on tomorrow.",
     ],
   },
   {
     title: "Our Mission",
-    subtitle: "Build a Legacy of Trust",
+    subtitle: "Building Homes. Creating Legacies.",
     paragraphs: [
-      "Our track record speaks volumes-multiple successful gated communities across Bangalore, featuring elegant villas and thoughtfully designed low-rise to mid-rise residences that residents genuinely cherish. In a city brimming with developers, our distinction lies in our unwavering commitment to integrity and reliability, ensuring every homebuyer enjoys a seamless, rewarding experience from initial inquiry to key handover.",
-      "Specializing in accessible housing solutions alongside premium developments in sought-after locations like Chandapura and Electronic City, we cater to diverse aspirations and investment capacities. Excellence isn't merely our tagline-it's embedded in our organizational DNA.",
+      "Our mission is to create thoughtfully planned homes through quality craftsmanship, transparent relationships, and an unwavering commitment to excellence.",
+      "From land selection to project delivery, every decision is guided by one purpose—to build homes that improve everyday living and communities that people are proud to be part of.",
+      "Because the true value of a home isn't measured on the day it's delivered. It's measured by the life that's lived within it.",
     ],
   },
 ] as const;
@@ -81,11 +81,12 @@ const milestoneTimeline = [
     entries: [
       {
         title: "The Clan",
-        landArea: "3.5 Acres",
-        units: "257",
         paragraphs: [
-          "The Clan is a living ode to connection, design, and belonging. It's where mindful design meets meaningful living and community becomes the most beautiful form of luxury. It welcomes families, like-minded individuals and dreamers into a serene, nature-wrapped sanctuary far from the city's restless hum.",
-          "Discover our 2 & 3 Bed Signature Residences, where light, space, and comfort converge. Here every brick holds intention while every curve whispers community.",
+          "Every journey looks ahead.",
+          "The Clan represents the next chapter in the Global Edifice story—one that places equal importance on architecture, nature, and the people who bring a community to life.",
+          "Designed around open spaces, contemporary homes, and meaningful shared experiences, it reflects how our philosophy has evolved over the years.",
+          "Because building homes has always been part of our work.",
+          "Building places where people truly belong—that's what continues to inspire us.",
         ],
       },
     ],
@@ -96,21 +97,19 @@ const milestoneTimeline = [
     imageAlt: "Global Edifice Orlean render",
     entries: [
       {
-        title: "Orlean",
-        landArea: "1.5 Acres",
-        units: "91",
+        title: "Legacy",
         paragraphs: [
-          "Designed for those who appreciate fine living, Orlean is a premium residential project that seamlessly blends luxury, comfort, and functionality. Every detail is thoughtfully planned by Global Edifice to enhance your lifestyle whether it's the spacious layouts with no common walls, the ample natural light and ventilation, or the wide corridors that create an open and airy ambiance.",
-          "Strategically located, Orlean offers easy access to key hubs, ensuring you stay connected to the city's best while enjoying the tranquility of a well-planned community. Vastu-compliant architecture and impeccable craftsmanship make it a statement of refined living.",
+          "The way families live continues to evolve. So do the homes they choose.",
+          "Legacy was designed around that idea. More open spaces. Better layouts. Everyday convenience. A stronger connection with nature.",
+          "From Vastu-compliant homes to thoughtfully planned amenities, every element reflects our continued focus on building communities that remain relevant for years—not just at launch.",
         ],
       },
       {
-        title: "Legacy",
-        landArea: "1 Acre",
-        units: "56",
+        title: "Orlean",
         paragraphs: [
-          "Legacy by Global Edifice is designed for families seeking a harmonious blend of nature, comfort, and modern living. Planned around open green character and practical everyday convenience, it extends our focus on homes that feel both grounded and aspirational.",
-          "With expansive layouts, Vastu-compliant homes, and premium amenities, Legacy is built for comfort, security, and a lifestyle that stands the test of time in Chandapura.",
+          "With Orlean, we explored a more refined expression of modern living.",
+          "Spacious residences without common walls, abundant natural light, generous ventilation, and carefully planned interiors come together to create homes that feel open, comfortable, and timeless.",
+          "Located in one of South Bengaluru's emerging residential destinations, Orlean reflects our commitment to thoughtful design, lasting construction quality, and homes that continue to reward homeowners long after they move in.",
         ],
       },
     ],
@@ -122,11 +121,10 @@ const milestoneTimeline = [
     entries: [
       {
         title: "Cresent",
-        landArea: "1 Acre",
-        units: "64",
         paragraphs: [
-          "Cresent marked another important step in our residential journey, expanding the Global Edifice footprint with a compact, urban apartment community tailored for comfortable everyday living.",
-          "The project reinforced our focus on reliable delivery, efficient planning, and value-led homes in the Chandapura growth corridor.",
+          "Every new neighbourhood teaches us something.",
+          "Cresent expanded our presence in the rapidly developing Chandapura corridor, bringing together practical planning, everyday convenience, and homes designed for modern families.",
+          "The project reaffirmed something we've believed from the beginning: good construction earns appreciation, but consistent delivery earns trust.",
         ],
       },
     ],
@@ -138,11 +136,10 @@ const milestoneTimeline = [
     entries: [
       {
         title: "Celesta",
-        landArea: "3.5 Acres",
-        units: "336",
         paragraphs: [
-          "Celesta became a defining milestone in our growth story, bringing a larger-scale apartment community to life with a strong emphasis on planning discipline and everyday practicality.",
-          "Across 336 homes, the project strengthened our delivery track record and showcased our ability to shape expansive residential communities with consistency and care.",
+          "Growth brought new possibilities.",
+          "Celesta marked an important turning point for Global Edifice. With 336 thoughtfully designed homes, it demonstrated our ability to deliver larger residential communities while maintaining the same discipline, quality, and attention to detail that defined our earliest developments.",
+          "It wasn't simply our biggest project at the time—it reflected how far we had come.",
         ],
       },
     ],
@@ -154,11 +151,10 @@ const milestoneTimeline = [
     entries: [
       {
         title: "Green Apple Hikes",
-        landArea: "1/2 Acres",
-        units: "80",
         paragraphs: [
-          "Green Apple Hikes expanded our portfolio with an affordable apartment community built around accessibility, sensible planning, and long-term value for homeowners.",
-          "It helped establish the foundation of our customer trust in South Bangalore by pairing compact scale with dependable construction quality.",
+          "Four years later, we reached a wider audience.",
+          "Green Apple Hikes was developed to make well-planned homes more accessible without compromising on quality or everyday comfort. The project strengthened our presence in South Bengaluru and, more importantly, strengthened the confidence our customers placed in us.",
+          "With every successful handover, our promise became stronger.",
         ],
       },
     ],
@@ -170,11 +166,10 @@ const milestoneTimeline = [
     entries: [
       {
         title: "Green Apple Villas",
-        landArea: "6.5 Acres",
-        units: "83",
         paragraphs: [
-          "Green Apple Villas marked the early chapter of the Global Edifice journey, introducing a villa community shaped by openness, comfort, and a more personal residential experience.",
-          "This project laid the groundwork for the trust-led approach that continues to define our developments today, combining community planning with a strong sense of lifestyle value.",
+          "Every company has a beginning. Ours started with Green Apple Villas.",
+          "It was here that we introduced our first villa community—designed around open spaces, comfortable living, and the belief that a home should feel personal from the very first day.",
+          "More than our first project, it established the principles that continue to guide us today: thoughtful planning, dependable quality, and putting homeowners first.",
         ],
       },
     ],
@@ -397,46 +392,44 @@ function AboutPage() {
           <div
             className={`relative mx-auto flex h-full max-w-7xl items-center justify-start ${pageGutterClass} pb-8 pt-28 sm:pt-32 md:justify-end md:pb-10 md:pt-28 lg:pt-30`}
           >
-            <div className="max-w-[18rem] text-left sm:max-w-[24rem] md:max-w-[36rem] md:text-right">
-              <h1 className="font-display text-[2.35rem] leading-[0.93] tracking-[-0.03em] text-white sm:text-[3.1rem] md:text-[4.55rem] lg:text-[5.1rem]">
-                <span className="block sm:whitespace-nowrap">Building Beyond</span>
-                <span className="block sm:whitespace-nowrap">Expectations</span>
+            <div className="max-w-[20rem] text-left sm:max-w-[28rem] md:max-w-[40rem] md:text-right lg:max-w-[46rem]">
+              <p className="mb-4 text-[0.72rem] font-medium uppercase tracking-[0.28em] text-white/80 sm:text-[0.78rem] md:mb-5">
+                Every Home Begins With a Promise
+              </p>
+              <h1 className="font-display text-[2.05rem] leading-[0.96] tracking-[-0.03em] text-white sm:text-[2.85rem] md:text-[3.85rem] lg:text-[4.45rem]">
+                <span className="block">Before Every Home,</span>
+                <span className="block">There Is a Story.</span>
               </h1>
+              <p className="mt-4 text-[0.88rem] leading-[1.55] text-white/88 sm:text-[0.96rem] md:mt-5 md:text-[1.05rem]">
+                Built on Trust. Designed for Life.
+              </p>
             </div>
           </div>
         </section>
 
-        <section id="story" className="bg-white pt-24 pb-10 md:pt-32 md:pb-12">
+        <section id="story" className="bg-white pt-20 pb-10 md:pt-28 md:pb-12">
           <div className="mx-auto max-w-[70rem] px-[1.125rem] text-center md:px-[1.8rem]">
-            <p className="mx-auto max-w-[66rem] text-center font-display text-[1.18rem] leading-[1.5] tracking-[-0.01em] text-[#b59661] md:text-[1.38rem] md:leading-[1.45] lg:text-[1.48rem] lg:leading-[1.42]">
-              <span className="md:whitespace-nowrap">
-                Global Edifice has been a trusted name in the real estate industry for over ten
-                years,
-              </span>
-              <br className="hidden md:block" />
-              <span className="md:whitespace-nowrap">
-                being the forefront of upcoming projects in Bangalore, establishing ourselves among
-              </span>
-              <br className="hidden md:block" />
-              <span className="md:whitespace-nowrap">
-                the top builders in Bangalore with some of the finest architects, engineers, sales
-              </span>
-              <br className="hidden md:block" />
-              <span className="md:whitespace-nowrap">
-                force in the Silicon Valley of India.
-              </span>
+            <p className="mx-auto max-w-[58rem] text-center font-display text-[1.12rem] leading-[1.5] tracking-[-0.01em] text-[#b59661] sm:text-[1.22rem] md:text-[1.38rem] md:leading-[1.45] lg:text-[1.48rem] lg:leading-[1.42]">
+              Every home begins long before construction starts.
+            </p>
+            <p className="mx-auto mt-4 max-w-[58rem] text-center font-display text-[1.12rem] leading-[1.5] tracking-[-0.01em] text-[#b59661] sm:text-[1.22rem] md:mt-5 md:text-[1.38rem] md:leading-[1.45] lg:text-[1.48rem] lg:leading-[1.42]">
+              It begins with a family&apos;s dream. Years of planning. Countless conversations. The
+              hope of building a better future.
             </p>
 
-            <div className="mx-auto mt-10 max-w-[54rem] space-y-7 text-center text-[#1f1d1a] md:mt-12 md:space-y-8">
-              <p className="text-[0.98rem] font-normal leading-[1.8] md:text-[1.06rem] md:leading-[1.85]">
-                Our journey was built on the pillars of quality and customer centricity, thus making
-                us one of the most sought-after real estate developers in Bangalore. Our commitment
-                to timely delivery and uncompromising quality has earned us the trust of hundreds of
-                satisfied customers.
+            <div className="mx-auto mt-10 max-w-[54rem] space-y-6 text-center text-[#1f1d1a] md:mt-12 md:space-y-7">
+              <p className="text-[0.95rem] font-normal leading-[1.8] md:text-[1.06rem] md:leading-[1.85]">
+                At Global Edifice, we understand what that journey means because buying a home
+                isn&apos;t simply a financial decision. It&apos;s one of life&apos;s most meaningful
+                milestones.
               </p>
-              <p className="text-[0.98rem] font-normal leading-[1.8] md:text-[1.06rem] md:leading-[1.85]">
-                At Global Edifice, we don&apos;t just build homes for you but create lifestyles that
-                reflect elegance, security, and ofcourse a sense of community.
+              <p className="text-[0.95rem] font-normal leading-[1.8] md:text-[1.06rem] md:leading-[1.85]">
+                That&apos;s why every project we create begins with a promise—to deliver more than
+                beautifully designed homes. We create spaces where families grow, relationships
+                flourish, and everyday life feels effortless.
+              </p>
+              <p className="text-[0.95rem] font-normal leading-[1.8] md:text-[1.06rem] md:leading-[1.85]">
+                For over a decade, that promise has guided every decision we make.
               </p>
             </div>
           </div>
@@ -448,18 +441,35 @@ function AboutPage() {
           </div>
 
           <div className="mt-12 grid md:mt-16 lg:mt-20 lg:grid-cols-2 lg:items-stretch">
-            <div className="flex items-center px-[1.125rem] py-14 text-left md:px-[1.8rem] md:py-18 lg:py-24 lg:pr-12 lg:pl-[max(1.8rem,calc((100vw-80rem)/2+1.8rem))] xl:pr-16">
-              <div className="w-full max-w-[34rem]">
-                <h2 className="font-display text-[2.1rem] leading-[0.98] text-[#b59661] md:text-[2.75rem] lg:text-[3rem]">
-                  About US
+            <div className="flex items-center px-[1.125rem] py-12 text-left md:px-[1.8rem] md:py-16 lg:py-24 lg:pr-12 lg:pl-[max(1.8rem,calc((100vw-80rem)/2+1.8rem))] xl:pr-16">
+              <div className="w-full max-w-[36rem]">
+                <p className="text-[0.72rem] font-semibold uppercase tracking-[0.28em] text-[#b59661]">
+                  Our Story
+                </p>
+                <h2 className="mt-3 font-display text-[2rem] leading-[1.02] text-[#b59661] sm:text-[2.35rem] md:text-[2.75rem] lg:text-[3rem]">
+                  Built on Trust.
+                  <span className="block">Driven by Purpose.</span>
                 </h2>
 
-                <p className="mt-6 text-[0.98rem] font-normal leading-[1.9] text-[#2a2a2a] md:mt-8 md:text-[1.05rem] md:leading-[1.95]">
-                  Global Edifice was founded with a clear vision—to redefine urban living through
-                  thoughtfully designed homes built on trust, quality, and long-term value. Guided
-                  by strong leadership and a passion for excellence, the company has steadily
-                  grown into a trusted name in Bangalore&apos;s residential real estate space.
-                </p>
+                <div className="mt-6 space-y-5 text-[0.95rem] font-normal leading-[1.9] text-[#2a2a2a] md:mt-8 md:space-y-6 md:text-[1.05rem] md:leading-[1.95]">
+                  <p>
+                    Global Edifice was founded with a simple belief: homes should make life better.
+                    As Bangalore grew into one of India&apos;s most dynamic cities, so did the
+                    expectations of its homebuyers. People were no longer searching for just an
+                    apartment. They wanted better locations, smarter planning, open spaces, and
+                    communities that would enrich their everyday lives.
+                  </p>
+                  <p>
+                    We chose to build with that vision in mind. From selecting the right locations
+                    to designing every home with care, our focus has always been on creating
+                    developments that combine thoughtful planning, quality construction, and lasting
+                    value. More than a decade later, that purpose remains unchanged.
+                  </p>
+                  <p>
+                    Every Global Edifice community is built to earn trust—not just on the day we
+                    hand over the keys, but for many years after.
+                  </p>
+                </div>
               </div>
             </div>
 
@@ -467,7 +477,7 @@ function AboutPage() {
               <img
                 src={projectLifestyle}
                 alt="Global Edifice lifestyle amenities"
-                className="h-full min-h-[30rem] w-full object-cover object-[56%_center] md:min-h-[36rem]"
+                className="h-full min-h-[24rem] w-full object-cover object-[56%_center] sm:min-h-[28rem] md:min-h-[36rem]"
               />
             </div>
           </div>
@@ -479,23 +489,39 @@ function AboutPage() {
               <img
                 src={geContactInterior}
                 alt="Global Edifice interior living space"
-                className="h-full min-h-[30rem] w-full object-cover object-center md:min-h-[36rem] [transform:scaleX(-1)]"
+                className="h-full min-h-[24rem] w-full object-cover object-center sm:min-h-[28rem] md:min-h-[36rem] [transform:scaleX(-1)]"
                 loading="lazy"
               />
             </div>
 
-            <div className="relative flex items-center overflow-hidden bg-[linear-gradient(180deg,#143f54_0%,#123a4c_100%)] px-8 py-16 text-white md:px-12 md:py-20 lg:min-h-[40rem] lg:px-14 lg:py-24 xl:min-h-[44rem] xl:px-18">
+            <div className="relative flex items-center overflow-hidden bg-[linear-gradient(180deg,#143f54_0%,#123a4c_100%)] px-6 py-14 text-white sm:px-8 md:px-12 md:py-20 lg:min-h-[40rem] lg:px-14 lg:py-24 xl:min-h-[44rem] xl:px-18">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_0%_0%,rgba(190,165,120,0.12),transparent_30%),repeating-radial-gradient(circle_at_-10%_50%,rgba(255,255,255,0.05)_0,rgba(255,255,255,0.05)_1px,transparent_1px,transparent_22px)] opacity-45" />
-              <div className="relative w-full max-w-[34rem] text-left">
-                <h2 className="font-display text-[2.1rem] leading-[0.98] text-[#b59661] md:text-[2.75rem] lg:text-[3rem]">
+              <div className="relative w-full max-w-[36rem] text-left">
+                <h2 className="font-display text-[2rem] leading-[0.98] text-[#b59661] sm:text-[2.35rem] md:text-[2.75rem] lg:text-[3rem]">
                   Who We Are
                 </h2>
-                <p className="mt-6 text-[0.95rem] leading-[1.85] text-white/90 md:mt-8 md:text-[1.05rem] md:leading-[1.9] lg:text-[1.1rem] lg:leading-[1.88]">
-                  At Global Edifice, we go beyond construction—we create living spaces that reflect
-                  aspirations and elevate everyday life. Backed by a team of experienced architects,
-                  engineers, and professionals, we focus on delivering homes that seamlessly blend
-                  modern design with practical functionality.
+                <p className="mt-3 text-[1.05rem] leading-[1.35] text-white/92 md:mt-4 md:text-[1.2rem]">
+                  More Than Builders. We Create Communities.
                 </p>
+                <div className="mt-6 space-y-5 text-[0.92rem] leading-[1.85] text-white/90 md:mt-8 md:space-y-6 md:text-[1.05rem] md:leading-[1.9] lg:text-[1.08rem] lg:leading-[1.88]">
+                  <p>
+                    Behind every Global Edifice development is a team of architects, engineers,
+                    planners, designers, and construction professionals who believe that great homes
+                    are built around people.
+                  </p>
+                  <p>
+                    Every layout, every open space, and every detail is carefully considered to make
+                    everyday living more comfortable, connected, and fulfilling.
+                  </p>
+                  <p>
+                    While buildings define skylines, communities shape lives.
+                  </p>
+                  <p>
+                    That&apos;s why we don&apos;t measure success by the number of homes we build. We
+                    measure it by the trust our customers place in us and the lives that continue to
+                    grow within the communities we create.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -507,51 +533,51 @@ function AboutPage() {
               <div className="mx-auto max-w-[48rem]">
                 <DiamondDivider className="mt-0" starClassName="bg-white" />
               </div>
-              <h2 className="mt-4 font-display text-[2.1rem] leading-[0.98] text-[#b59661] md:mt-5 md:text-[2.75rem] lg:text-[3rem]">
+              <p className="mt-4 text-[0.72rem] font-semibold uppercase tracking-[0.28em] text-[#b59661]">
+                The Minds Shaping Every Community
+              </p>
+              <h2 className="mt-3 font-display text-[2rem] leading-[0.98] text-[#b59661] sm:text-[2.35rem] md:mt-4 md:text-[2.75rem] lg:text-[3rem]">
                 Board of Directors
               </h2>
-              <p className="mt-2 text-[1rem] leading-[1.6] text-[#4e4a44] md:text-[1.12rem]">
-                Visionaries Behind Our Success
+              <p className="mt-2 text-[1rem] leading-[1.5] text-[#4e4a44] md:text-[1.12rem]">
+                Leadership Built on Vision. Guided by Values.
               </p>
 
-              <div className="mt-6 space-y-5 text-[0.98rem] leading-[1.85] text-[#4c4843] md:mt-7 md:space-y-6 md:text-[1.04rem] md:leading-[1.9]">
+              <div className="mt-6 space-y-5 text-[0.95rem] leading-[1.85] text-[#4c4843] md:mt-7 md:space-y-6 md:text-[1.04rem] md:leading-[1.9]">
                 <p>
-                  At the helm of Global Edifice Infra stand our distinguished Managing Directors,
-                  Mr. Rakesh Reddy and Mr. Jyothish Reddy - seasoned industry veterans whose
-                  combined expertise spans over a decade of transformative real estate excellence.
-                  Their strategic foresight, coupled with an unwavering commitment to hands-on
-                  leadership, has been the driving force propelling Global Edifice Infra to its
-                  coveted position among Bangalore&apos;s most respected developers.
+                  Behind every Global Edifice project is a leadership team driven by integrity,
+                  responsibility, and a long-term vision for creating exceptional communities.
                 </p>
                 <p>
-                  More than industry professionals, they are visionary architects of change who
-                  blend entrepreneurial acumen with operational excellence. Their leadership
-                  philosophy centers on innovation, integrity, and intelligent growth - principles
-                  that have consistently elevated our brand and earned the trust of countless
-                  homeowners across the city.
+                  Together, they continue to shape Global Edifice with a commitment to thoughtful
+                  development, transparent practices, and delivering lasting value to every
+                  homeowner.
                 </p>
               </div>
             </div>
 
-            <div className="mx-auto mt-[4.2rem] grid max-w-[64rem] gap-5 md:mt-20 md:grid-cols-2 md:gap-4 lg:gap-5">
+            <div className="mx-auto mt-12 grid max-w-[64rem] gap-5 sm:mt-14 md:mt-20 md:grid-cols-2 md:gap-4 lg:gap-5">
               {leaderCards.map((leader) => (
                 <article
                   key={leader.name}
-                  className="relative overflow-hidden rounded-[2.2rem] border border-[#d3ba8b] bg-[#e6d7c2] shadow-[0_28px_70px_-48px_rgba(18,58,76,0.35)]"
+                  className="relative overflow-hidden rounded-[1.6rem] border border-[#d3ba8b] bg-[#e6d7c2] shadow-[0_28px_70px_-48px_rgba(18,58,76,0.35)] sm:rounded-[2.2rem]"
                 >
-                  <div className="relative h-[26rem] md:h-[35rem] lg:h-[37rem]">
+                  <div className="relative h-[22rem] sm:h-[26rem] md:h-[35rem] lg:h-[37rem]">
                     <img
                       src={leader.image}
                       alt={leader.alt}
                       className="h-full w-full object-cover object-center"
                       loading="lazy"
                     />
-                    <div className="absolute inset-x-0 bottom-0 h-[42%] bg-[linear-gradient(180deg,rgba(0,0,0,0)_0%,rgba(0,0,0,0.82)_100%)]" />
-                    <div className="absolute inset-x-0 bottom-0 p-7 text-left md:p-8">
-                      <h3 className="font-display text-[1.55rem] leading-[1.05] text-[#caa96c] md:text-[1.75rem] lg:text-[1.9rem]">
+                    <div className="absolute inset-x-0 bottom-0 h-[52%] bg-[linear-gradient(180deg,rgba(0,0,0,0)_0%,rgba(0,0,0,0.88)_100%)] sm:h-[48%]" />
+                    <div className="absolute inset-x-0 bottom-0 p-5 text-left sm:p-7 md:p-8">
+                      <p className="text-[0.88rem] leading-[1.55] text-white/90 italic sm:text-[0.95rem] md:text-[1rem]">
+                        &ldquo;{leader.quote}&rdquo;
+                      </p>
+                      <h3 className="mt-4 font-display text-[1.35rem] leading-[1.05] text-[#caa96c] sm:text-[1.55rem] md:text-[1.75rem] lg:text-[1.9rem]">
                         {leader.name}
                       </h3>
-                      <p className="mt-2 text-[0.85rem] font-semibold uppercase tracking-[0.08em] text-white md:text-[0.92rem]">
+                      <p className="mt-1.5 text-[0.78rem] font-semibold uppercase tracking-[0.08em] text-white sm:mt-2 sm:text-[0.85rem] md:text-[0.92rem]">
                         {leader.role}
                       </p>
                     </div>
@@ -564,22 +590,39 @@ function AboutPage() {
 
         <section id="timeline" className="bg-[#123f54]">
           <div className="grid overflow-hidden text-white lg:grid-cols-2 lg:min-h-[45rem]">
-            <div className="relative flex flex-col justify-center py-12 pr-6 pl-[1.125rem] md:py-16 md:pr-12 md:pl-[1.8rem] lg:py-18 lg:pr-14 lg:pl-[max(1.8rem,calc((100vw-80rem)/2+1.8rem))]">
+            <div className="relative flex flex-col justify-center py-12 pr-5 pl-[1.125rem] sm:pr-6 md:py-16 md:pr-12 md:pl-[1.8rem] lg:py-18 lg:pr-14 lg:pl-[max(1.8rem,calc((100vw-80rem)/2+1.8rem))]">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_0%_0%,rgba(190,165,120,0.12),transparent_30%),repeating-radial-gradient(circle_at_-10%_50%,rgba(255,255,255,0.045)_0,rgba(255,255,255,0.045)_1px,transparent_1px,transparent_24px)] opacity-45" />
 
               <div className="relative max-w-[40rem]">
-                <div className="flex items-center gap-3 text-[0.78rem] uppercase tracking-[0.28em] text-[#bfa26f]">
-                  <span>TIMELINE</span>
+                <div className="flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.28em] text-[#bfa26f] sm:text-[0.78rem]">
+                  <span>OUR MILESTONES</span>
                   <span className="h-px w-8 bg-current" />
                 </div>
 
-                <h2 className="mt-4 font-display text-[2.1rem] leading-[0.96] text-[#c4a26a] md:text-[2.75rem] lg:text-[3rem]">
-                  Our Milestones
+                <h2 className="mt-4 font-display text-[1.95rem] leading-[0.98] text-[#c4a26a] sm:text-[2.25rem] md:text-[2.75rem] lg:text-[3rem]">
+                  A Decade of Building Trust
                 </h2>
+                <p className="mt-3 text-[0.98rem] leading-[1.55] text-white/85 md:text-[1.08rem]">
+                  Every milestone reflects a promise fulfilled.
+                </p>
+                <p className="mt-2 text-[0.92rem] leading-[1.5] text-[#bfa26f] md:text-[1rem]">
+                  Every Milestone Has Shaped Who We Are Today.
+                </p>
+                <div className="mt-5 max-w-[36rem] space-y-4 text-[0.9rem] leading-[1.8] text-white/80 md:mt-6 md:text-[0.98rem] md:leading-[1.85]">
+                  <p>
+                    Over the past decade, Global Edifice has grown through consistent delivery,
+                    responsible development, and the confidence of hundreds of homeowners who chose
+                    us to be part of their journey.
+                  </p>
+                  <p>
+                    As Bangalore continues to evolve, so do we—building communities that are designed
+                    for today&apos;s lifestyle while creating value for generations to come.
+                  </p>
+                </div>
 
-                <div className="mt-10 md:mt-12">
+                <div className="mt-8 md:mt-10">
                   <div className="relative">
-                    <div className="flex items-end justify-between gap-2 pb-4">
+                    <div className="flex items-end justify-between gap-1 overflow-x-auto pb-4 [-ms-overflow-style:none] [scrollbar-width:none] sm:gap-2 [&::-webkit-scrollbar]:hidden">
                       {[...milestoneTimeline].reverse().map((milestone) => {
                         const isActive = milestone.year === activeMilestoneYear;
 
@@ -588,7 +631,7 @@ function AboutPage() {
                             key={milestone.year}
                             type="button"
                             onClick={() => setActiveMilestoneYear(milestone.year)}
-                            className={`relative flex-1 text-center text-[0.92rem] transition md:text-[1.05rem] ${
+                            className={`relative min-w-[3.1rem] flex-1 text-center text-[0.82rem] transition sm:min-w-0 sm:text-[0.92rem] md:text-[1.05rem] ${
                               isActive
                                 ? "font-semibold text-white"
                                 : "text-white/55 hover:text-white/80"
@@ -612,14 +655,14 @@ function AboutPage() {
                       key={`${activeMilestone.year}-${entry.title}`}
                       className="border-b border-white/12 pb-8 last:border-b-0 last:pb-0"
                     >
-                      <h3 className="font-display text-[1.7rem] leading-[1] text-[#c4a26a] md:text-[2.1rem]">
+                      <h3 className="font-display text-[1.5rem] leading-[1] text-[#c4a26a] sm:text-[1.7rem] md:text-[2.1rem]">
                         {entry.title}
                       </h3>
-                      <p className="mt-3 font-display text-[2.4rem] leading-none text-[#c4a26a] md:text-[3.4rem]">
+                      <p className="mt-3 font-display text-[2rem] leading-none text-[#c4a26a] sm:text-[2.4rem] md:text-[3.4rem]">
                         {activeMilestone.year}
                       </p>
 
-                      <div className="mt-5 space-y-4 text-[0.98rem] leading-[1.9] text-white/90 md:text-[1.05rem] md:leading-[1.95]">
+                      <div className="mt-5 space-y-4 text-[0.92rem] leading-[1.85] text-white/90 sm:text-[0.98rem] sm:leading-[1.9] md:text-[1.05rem] md:leading-[1.95]">
                         {entry.paragraphs.map((paragraph) => (
                           <p key={paragraph}>{paragraph}</p>
                         ))}
@@ -641,19 +684,19 @@ function AboutPage() {
           </div>
         </section>
 
-        <section id="mission-vision" className="bg-[#fbf8f2] py-16 md:py-20 lg:py-24">
+        <section id="mission-vision" className="bg-[#fbf8f2] py-14 md:py-20 lg:py-24">
           <div
-            className={`${pageContainerClass} grid gap-12 lg:grid-cols-[minmax(0,1fr)_1px_minmax(0,1fr)] lg:gap-14`}
+            className={`${pageContainerClass} grid gap-10 md:gap-12 lg:grid-cols-[minmax(0,1fr)_1px_minmax(0,1fr)] lg:gap-14`}
           >
             <article className="max-w-[34rem] lg:justify-self-start lg:pr-8">
-              <h2 className="font-display text-[2.1rem] leading-[0.98] text-[#b59661] md:text-[2.75rem] lg:text-[3rem]">
+              <h2 className="font-display text-[2rem] leading-[0.98] text-[#b59661] sm:text-[2.35rem] md:text-[2.75rem] lg:text-[3rem]">
                 {missionVisionItems[0].title}
               </h2>
-              <p className="mt-4 text-[1.05rem] leading-[1.35] text-[#2a2a2a] md:mt-5 md:text-[1.2rem]">
+              <p className="mt-4 text-[1rem] leading-[1.4] text-[#2a2a2a] md:mt-5 md:text-[1.2rem]">
                 {missionVisionItems[0].subtitle}
               </p>
 
-              <div className="mt-8 space-y-6 text-justify text-[0.98rem] leading-[1.9] text-[#3a3a3a] md:mt-9 md:space-y-7 md:text-[1.02rem] md:leading-[1.95]">
+              <div className="mt-7 space-y-5 text-left text-[0.95rem] leading-[1.9] text-[#3a3a3a] md:mt-9 md:space-y-7 md:text-justify md:text-[1.02rem] md:leading-[1.95]">
                 {missionVisionItems[0].paragraphs.map((paragraph) => (
                   <p key={paragraph}>{paragraph}</p>
                 ))}
@@ -662,15 +705,15 @@ function AboutPage() {
 
             <div className="hidden bg-[#d8c8ac] lg:block" />
 
-            <article className="max-w-[34rem] border-t border-[#d8c8ac] pt-12 lg:justify-self-end lg:border-t-0 lg:pl-8 lg:pt-0">
-              <h2 className="font-display text-[2.1rem] leading-[0.98] text-[#b59661] md:text-[2.75rem] lg:text-[3rem]">
+            <article className="max-w-[34rem] border-t border-[#d8c8ac] pt-10 md:pt-12 lg:justify-self-end lg:border-t-0 lg:pl-8 lg:pt-0">
+              <h2 className="font-display text-[2rem] leading-[0.98] text-[#b59661] sm:text-[2.35rem] md:text-[2.75rem] lg:text-[3rem]">
                 {missionVisionItems[1].title}
               </h2>
-              <p className="mt-4 text-[1.05rem] leading-[1.35] text-[#2a2a2a] md:mt-5 md:text-[1.2rem]">
+              <p className="mt-4 text-[1rem] leading-[1.4] text-[#2a2a2a] md:mt-5 md:text-[1.2rem]">
                 {missionVisionItems[1].subtitle}
               </p>
 
-              <div className="mt-8 space-y-6 text-justify text-[0.98rem] leading-[1.9] text-[#3a3a3a] md:mt-9 md:space-y-7 md:text-[1.02rem] md:leading-[1.95]">
+              <div className="mt-7 space-y-5 text-left text-[0.95rem] leading-[1.9] text-[#3a3a3a] md:mt-9 md:space-y-7 md:text-justify md:text-[1.02rem] md:leading-[1.95]">
                 {missionVisionItems[1].paragraphs.map((paragraph) => (
                   <p key={paragraph}>{paragraph}</p>
                 ))}

@@ -331,9 +331,10 @@ function ProjectsHero() {
       <div
         className={`relative mx-auto flex h-full max-w-7xl items-center justify-start ${pageGutterClass} pb-10 pt-26 sm:pt-30 md:justify-end md:pb-14 md:pt-30`}
       >
-        <div className="max-w-[18rem] text-left sm:max-w-[22rem] md:max-w-[28rem] md:text-right">
-          <h1 className="font-display text-[2.45rem] leading-[0.96] tracking-[-0.02em] text-white sm:text-[3rem] md:text-[3.8rem] lg:text-[4.1rem]">
-            Our Projects
+        <div className="max-w-[20rem] text-left sm:max-w-[26rem] md:max-w-[34rem] md:text-right">
+          <h1 className="font-display text-[2.2rem] leading-[0.98] tracking-[-0.02em] text-white sm:text-[2.75rem] md:text-[3.5rem] lg:text-[3.9rem]">
+            <span className="block">Places You&apos;ll Be</span>
+            <span className="block">Proud to Call Home.</span>
           </h1>
         </div>
       </div>
@@ -348,17 +349,30 @@ function ProjectPortfolio() {
   return (
     <section id="portfolio" className="bg-[#f9f6f1] py-18 md:py-22 lg:py-24">
       <div className={pageContainerClass}>
-        <div className="mx-auto max-w-[40rem] text-center">
+        <div className="mx-auto max-w-[46rem] text-center">
           <div className="flex items-center justify-center gap-4">
             <span className="h-px w-10 bg-[#dbc9a7]/80" />
             <span className="text-[0.72rem] font-semibold uppercase tracking-[0.3em] text-[#a8762b]">
-              Portfolio
+              Our Projects
             </span>
             <span className="h-px w-10 bg-[#dbc9a7]/80" />
           </div>
-          <h2 className="mt-4 font-display text-[2.5rem] leading-[0.96] text-[#1f1d1a] md:text-[3.15rem]">
-            Our Projects
+          <h2 className="mt-4 font-display text-[2.1rem] leading-[1.02] text-[#1f1d1a] sm:text-[2.5rem] md:text-[3.15rem]">
+            Places You&apos;ll Be Proud to Call Home.
           </h2>
+          <div className="mx-auto mt-6 max-w-[40rem] space-y-4 text-[0.94rem] leading-[1.8] text-[#6b655d] md:mt-7 md:text-[1.02rem] md:leading-[1.85]">
+            <p>Every project begins with an idea.</p>
+            <p>
+              To create homes that feel right—not just on the day you move in, but for years to
+              come.
+            </p>
+            <p>
+              Some are already welcoming families. Others are preparing to shape the next chapter of
+              Bengaluru&apos;s growth. Each one reflects the same philosophy: thoughtful design,
+              honest craftsmanship, and a commitment to building communities that stand the test of
+              time.
+            </p>
+          </div>
         </div>
 
         <div className="mx-auto mt-10 max-w-[30rem] border-y border-[#e4d8c4] px-2 py-3 md:max-w-[32rem]">

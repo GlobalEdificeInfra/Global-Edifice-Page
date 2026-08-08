@@ -64,8 +64,11 @@ const overviewStats = [
 ] as const;
 
 const overviewCopy = [
-  "Designed for those who appreciate fine living, Orlean is a premium residential project that seamlessly blends luxury, comfort, and functionality. Every detail is thoughtfully planned by Global Edifice to enhance your lifestyle whether it is the spacious layouts with no common walls, the ample natural light and ventilation, or the wide corridors that create an open and airy ambiance.",
-  "Strategically located, Orlean offers easy access to key hubs, ensuring you stay connected to the city's best while enjoying the tranquility of a well-planned community. Vastu-compliant architecture, top-notch amenities, and impeccable craftsmanship make Orlean more than just a home, it is a statement of refined living at Global Edifice.",
+  "The best homes don't ask you to adjust your lifestyle. They simply fit into it.",
+  "That's the idea behind Orlean.",
+  "Every residence has been planned to maximise space, privacy, and natural light. Homes without common walls, wide corridors, generous ventilation, and Vastu-compliant layouts come together to create an environment that's calm, bright, and easy to live in.",
+  "Located in Chandapura, one of South Bengaluru's fast-growing residential corridors, Orlean keeps you close to major employment hubs while giving you the comfort of coming home to a quieter neighbourhood.",
+  "It's a home designed for everyday living—and built to stay relevant for years ahead.",
 ] as const;
 
 const amenitySlides = [
@@ -451,10 +454,13 @@ function OverviewSection() {
         >
           <div className="mx-auto w-full max-w-[32rem] lg:mx-0 lg:max-w-none">
             <img src={orleanBrandLogo} alt="Orlean" className="w-[12rem] md:w-[14rem]" />
-            <h2 className="mt-7 max-w-[30rem] font-display text-[1.65rem] leading-[1.18] tracking-[0.02em] text-[#a8762b] uppercase md:text-[1.9rem] lg:text-[2.05rem]">
-              <span className="block">Where Elegance</span>
-              <span className="block">Meets Everyday Living</span>
+            <h2 className="mt-7 max-w-[30rem] font-display text-[1.55rem] leading-[1.18] tracking-[0.02em] text-[#a8762b] uppercase md:text-[1.9rem] lg:text-[2.05rem]">
+              <span className="block">A Home That Feels Good</span>
+              <span className="block">From Day One.</span>
             </h2>
+            <p className="mt-3 text-[0.92rem] leading-[1.45] text-[#8a7a62] md:text-[1rem]">
+              Thoughtfully Designed. Naturally Comfortable.
+            </p>
             <div className="mt-5 max-w-[32rem] space-y-4 text-[0.94rem] leading-[1.85] text-[#6b6358] md:text-[0.97rem]">
               {overviewCopy.map((paragraph) => (
                 <p key={paragraph}>{paragraph}</p>
