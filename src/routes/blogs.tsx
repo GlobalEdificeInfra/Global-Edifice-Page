@@ -49,7 +49,7 @@ function BlogsHero() {
       <div
         className={`relative mx-auto flex min-h-[30rem] max-w-7xl flex-col items-center justify-center text-center ${pageGutterClass} pb-12 pt-28 md:min-h-[34rem] md:pb-16`}
       >
-        <h1 className="font-display text-[3.5rem] leading-[0.9] tracking-[-0.04em] text-white md:text-[5.5rem] lg:text-[6.5rem]">
+        <h1 className="font-display text-[2.75rem] leading-[0.9] tracking-[-0.04em] text-white sm:text-[3.5rem] md:text-[5.5rem] lg:text-[6.5rem]">
           Blogs
         </h1>
       </div>
@@ -68,7 +68,7 @@ function BlogCardGrid({ page }: { page: number }) {
 
   return (
     <section className="bg-[#f7f4ef] pb-20 pt-12 md:pb-24 md:pt-16">
-      <div className={`${pageContainerClass} max-w-[85%]`}>
+      <div className={pageContainerClass}>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-7 lg:grid-cols-3 lg:gap-8">
           {currentPosts.map((post) => (
             <Link
@@ -89,7 +89,7 @@ function BlogCardGrid({ page }: { page: number }) {
               </div>
 
               <div className="flex flex-1 flex-col px-5 pb-5 pt-5 md:px-6 md:pb-6 md:pt-5">
-                <h3 className="line-clamp-2 min-h-[3.1rem] text-[1.05rem] font-bold leading-[1.4] text-[#111111] md:text-[1.1rem]">
+                <h3 className="line-clamp-2 min-h-[3.1rem] text-[1.05rem] font-medium leading-[1.4] text-[#111111] md:text-[1.1rem]">
                   {post.title}
                 </h3>
                 <p className="mt-2 text-[0.85rem] text-[#9ca3af]">{post.publishedAt}</p>
@@ -97,7 +97,7 @@ function BlogCardGrid({ page }: { page: number }) {
                   {post.excerpt}
                 </p>
 
-                <div className="mt-5 flex items-center gap-3 text-[0.75rem] font-bold uppercase tracking-[0.14em] text-[#111111]">
+                <div className="mt-5 flex items-center gap-3 text-[0.75rem] font-medium uppercase tracking-[0.14em] text-[#111111]">
                   <span>Read Blog</span>
                   <span className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-[#d1d5db] text-[#111111] transition group-hover:border-[#0f4157] group-hover:text-[#0f4157]">
                     <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.75} />

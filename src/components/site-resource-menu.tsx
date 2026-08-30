@@ -25,6 +25,18 @@ const projectRedirectLinks = [
     to: "/chandapura-bangalore" as const,
   },
   {
+    label: "CHANDAPURA, HEELALIGE",
+    to: "/chandapura-heelalige" as const,
+  },
+  {
+    label: "CHANDAPURA NH 44",
+    to: "/chandapura-nh-44" as const,
+  },
+  {
+    label: "GUNJUR",
+    to: "/gunjur" as const,
+  },
+  {
     label: "MUTHANALLUR, OFF SARJAPURA",
     to: "/muthanallur-off-sarjapura-bangalore" as const,
   },
@@ -34,6 +46,14 @@ const resourceRedirectLinks = [
   {
     label: "BLOGS",
     to: "/blogs" as const,
+  },
+  {
+    label: "CAREERS",
+    to: "/careers" as const,
+  },
+  {
+    label: "CHANNEL PARTNER",
+    to: "/channel-partner" as const,
   },
 ] as const;
 

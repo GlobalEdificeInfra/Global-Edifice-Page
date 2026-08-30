@@ -7,17 +7,40 @@ const pageContainerClass = `mx-auto max-w-7xl ${pageGutterClass}`;
 
 export type LocationLandingPageProps = {
   titleLines: string[];
-  heroImage: string;
-  heroImageAlt: string;
+  heroSubtitle?: string;
+  /** Illustration placeholder hero (upcoming pages) vs photo hero. */
+  heroVariant?: "illustration" | "photo";
+  heroImage?: string;
+  heroImageAlt?: string;
   heroImageClassName?: string;
   introHeading: string;
-  introParagraphs: string[];
-  introImage: string;
-  introImageAlt: string;
-  introImageClassName?: string;
-  /** Flush intro image to the right viewport edge. */
-  introImageFlushRight?: boolean;
+  introParagraphs: Array<string | { title?: string; body: string }>;
+  highlightStats: Array<{ value: string; label: string }>;
 };
+
+function UpcomingHeroIllustration() {
+  return (
+    <div className="mx-auto flex h-[11rem] w-full max-w-[22rem] items-center justify-center sm:h-[12.5rem] md:h-[14rem]" aria-hidden>
+      <svg viewBox="0 0 220 118" className="h-full w-auto" fill="none">
+        <ellipse cx="110" cy="102" rx="78" ry="9" fill="#c5ced6" />
+        <rect x="38" y="68" width="42" height="28" fill="#9aafc0" />
+        <rect x="48" y="76" width="22" height="12" fill="#7e96ab" />
+        <rect x="86" y="34" width="52" height="62" fill="#9aafc0" />
+        <rect x="96" y="42" width="10" height="8" fill="#7e96ab" />
+        <rect x="118" y="42" width="10" height="8" fill="#7e96ab" />
+        <rect x="96" y="56" width="10" height="8" fill="#7e96ab" />
+        <rect x="118" y="56" width="10" height="8" fill="#7e96ab" />
+        <rect x="96" y="70" width="10" height="8" fill="#7e96ab" />
+        <rect x="118" y="70" width="10" height="8" fill="#7e96ab" />
+        <rect x="104" y="82" width="16" height="14" fill="#7e96ab" />
+        <rect x="158" y="72" width="3" height="24" fill="#9aafc0" />
+        <circle cx="159.5" cy="64" r="14" fill="#9aafc0" />
+        <rect x="180" y="80" width="2.5" height="16" fill="#9aafc0" />
+        <circle cx="181.2" cy="74" r="9" fill="#9aafc0" />
+      </svg>
+    </div>
+  );
+}
 
 function ContactSection() {
   const inputClassName =
@@ -36,7 +59,7 @@ function ContactSection() {
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(10,10,10,0.84)_0%,rgba(10,10,10,0.72)_42%,rgba(10,10,10,0.42)_100%)]" />
 
         <div
-          className={`relative mx-auto grid max-w-7xl items-center gap-10 ${pageGutterClass} py-18 md:py-24 lg:grid-cols-[minmax(0,1fr)_31rem] lg:gap-16`}
+          className={`relative mx-auto grid max-w-7xl items-center gap-10 ${pageGutterClass} py-16 md:py-24 lg:grid-cols-[minmax(0,1fr)_minmax(0,31rem)] lg:gap-16`}
         >
           <div className="max-w-[30rem] text-white lg:pl-6">
             <h2 className="font-display text-[2.4rem] leading-[1.02] uppercase md:text-[3rem]">
@@ -48,10 +71,10 @@ function ContactSection() {
           </div>
 
           <form
-            className="rounded-[1.45rem] bg-[#fffdfa] p-7 text-[#1f1d1a] shadow-[0_28px_60px_-42px_rgba(0,0,0,0.55)] md:p-8"
+            className="rounded-[1.45rem] bg-[#fffdfa] p-5 text-[#1f1d1a] shadow-[0_28px_60px_-42px_rgba(0,0,0,0.55)] sm:p-7 md:p-8"
             onSubmit={(event) => event.preventDefault()}
           >
-            <h3 className="font-display text-[2.35rem] leading-none text-[#1f1d1a] md:text-[2.5rem]">
+            <h3 className="font-display text-[1.85rem] leading-none text-[#1f1d1a] md:text-[2.5rem]">
               Contact Us
             </h3>
             <p className="mt-2 text-[0.98rem] font-medium text-[#7b7369]">
@@ -88,7 +111,7 @@ function ContactSection() {
               </label>
 
               <label className="flex items-start gap-2 text-[0.72rem] font-medium leading-[1.7] text-[#8a7e70]">
-                <input type="checkbox" className="mt-0.5 h-3.5 w-3.5 rounded border-[#dbcdae]" />
+                <input type="checkbox" className="mt-0.5 h-5 w-5 shrink-0 rounded border-[#dbcdae]" />
                 <span>
                   By submitting my details, I acknowledge that I am overriding my National Do Not
                   Call (NDNC) registration and authorize Global Edifice to contact me regarding my
@@ -99,7 +122,7 @@ function ContactSection() {
 
             <button
               type="submit"
-              className="mt-6 inline-flex items-center justify-center rounded-[0.35rem] border border-[#d5c4a8] bg-white px-7 py-3.5 text-[0.74rem] font-semibold uppercase tracking-[0.2em] text-[#6f6558] transition hover:border-[#b49a6c] hover:text-[#123a4c]"
+              className="mt-6 inline-flex items-center justify-center rounded-[0.35rem] border border-[#d5c4a8] bg-white px-7 py-3.5 text-[0.74rem] font-semibold uppercase tracking-[0.2em] text-[#6f6558] transition hover:border-[#8a6324] hover:text-[#123a4c]"
             >
               Send Message
             </button>
@@ -112,85 +135,111 @@ function ContactSection() {
 
 export function LocationLandingPage({
   titleLines,
+  heroSubtitle,
+  heroVariant = "illustration",
   heroImage,
-  heroImageAlt,
+  heroImageAlt = "",
   heroImageClassName = "object-center",
   introHeading,
   introParagraphs,
-  introImage,
-  introImageAlt,
-  introImageClassName = "object-center",
-  introImageFlushRight = false,
+  highlightStats,
 }: LocationLandingPageProps) {
+  const isPhotoHero = heroVariant === "photo" && Boolean(heroImage);
+
   return (
     <>
       <main className="bg-[#fbf8f4] text-[#163849]">
-        <SiteHeader />
-        <section className="relative isolate min-h-[44rem] overflow-hidden bg-[#181818] text-white md:min-h-screen">
-          <img
-            src={heroImage}
-            alt={heroImageAlt}
-            className={`absolute inset-0 h-full w-full object-cover ${heroImageClassName}`}
-          />
-          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(13,13,13,0.16)_0%,rgba(13,13,13,0.12)_38%,rgba(13,13,13,0.5)_100%)]" />
+        <SiteHeader appearance={isPhotoHero ? "overlay" : "solid"} />
 
-          <div
-            className={`relative mx-auto flex min-h-[44rem] max-w-7xl items-end ${pageGutterClass} pb-8 pt-24 md:min-h-screen md:pb-10 md:pt-32`}
-          >
-            <h1 className="w-full text-center font-display text-[2.15rem] leading-[1.06] tracking-[0.04em] text-white sm:text-[2.65rem] md:text-[3.25rem] lg:text-[3.8rem]">
-              {titleLines.map((line) => (
-                <span key={line} className="block">
-                  {line}
-                </span>
-              ))}
-            </h1>
-          </div>
-        </section>
+        {isPhotoHero ? (
+          <section className="relative isolate min-h-[26rem] overflow-hidden bg-[#181818] text-white sm:min-h-[30rem] md:min-h-[36rem]">
+            <img
+              src={heroImage}
+              alt={heroImageAlt}
+              className={`absolute inset-0 h-full w-full object-cover ${heroImageClassName}`}
+            />
+            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,12,14,0.28)_0%,rgba(10,12,14,0.18)_45%,rgba(10,12,14,0.42)_100%)]" />
+            <div
+              className={`relative mx-auto flex min-h-[26rem] max-w-7xl items-center justify-center ${pageGutterClass} pb-12 pt-28 sm:min-h-[30rem] md:min-h-[36rem] md:pb-14 md:pt-32`}
+            >
+              <h1 className="w-full text-center font-display text-[2.4rem] leading-[1.02] tracking-[0.04em] text-white uppercase sm:text-[3.2rem] md:text-[4.2rem] lg:text-[5rem]">
+                {titleLines.map((line) => (
+                  <span key={line} className="block">
+                    {line}
+                  </span>
+                ))}
+              </h1>
+            </div>
+          </section>
+        ) : (
+          <section className="bg-[#dce3ea] pb-14 pt-32 md:pb-16 md:pt-36">
+            <div className={pageContainerClass}>
+              <UpcomingHeroIllustration />
+              <h1 className="mt-8 w-full text-center font-display text-[1.85rem] leading-[1.08] tracking-[0.02em] text-[#123a4c] uppercase sm:text-[2.35rem] md:text-[2.9rem] lg:text-[3.25rem]">
+                {titleLines.map((line) => (
+                  <span key={line} className="block">
+                    {line}
+                  </span>
+                ))}
+              </h1>
+              {heroSubtitle ? (
+                <p className="mt-4 text-center text-[0.78rem] font-semibold uppercase tracking-[0.22em] text-[#123a4c] md:text-[0.88rem]">
+                  {heroSubtitle}
+                </p>
+              ) : null}
+            </div>
+          </section>
+        )}
 
-        <section id="overview" className="bg-white py-16 md:py-20">
+        <section id="overview" className="bg-[#fbf8f4] py-16 md:py-20">
           <div className={pageContainerClass}>
-            <h2 className="text-center font-display text-[1.5rem] leading-[1.18] text-[#a8762b] md:text-[2rem]">
-              {introHeading}
-            </h2>
-          </div>
+            <div className="mx-auto max-w-6xl">
+              <h2 className="text-center font-display text-[1.45rem] leading-[1.2] tracking-[0.02em] text-[#8a6324] uppercase md:text-[1.85rem] lg:text-[2.1rem]">
+                {introHeading}
+              </h2>
 
-          {introImageFlushRight ? (
-            <div className="mt-12 grid lg:grid-cols-2 lg:items-center">
-              <div
-                className={`${pageGutterClass} space-y-6 py-2 text-[0.96rem] leading-[2] text-[#6b655d] md:text-[1rem] lg:pl-[max(1.8rem,calc((100vw-80rem)/2+1.8rem))] lg:pr-10`}
-              >
-                {introParagraphs.map((paragraph) => (
-                  <p key={paragraph}>{paragraph}</p>
+              <div className="mt-10 space-y-6 text-[0.94rem] leading-[1.9] text-[#5c564d] md:mt-12 md:text-[1rem] md:leading-[2]">
+                {introParagraphs.map((paragraph) => {
+                  if (typeof paragraph === "string") {
+                    return <p key={paragraph}>{paragraph}</p>;
+                  }
+
+                  return (
+                    <div key={`${paragraph.title ?? ""}-${paragraph.body}`}>
+                      {paragraph.title ? (
+                        <p className="mb-2 text-[0.92rem] font-semibold text-[#2a2723] md:text-[1rem]">
+                          {paragraph.title}
+                        </p>
+                      ) : null}
+                      <p>{paragraph.body}</p>
+                    </div>
+                  );
+                })}
+              </div>
+
+              <div className="mt-12 grid overflow-hidden rounded-[0.85rem] bg-[#8a6324] text-white md:mt-14 md:grid-cols-3">
+                {highlightStats.map((stat, index) => (
+                  <div
+                    key={`${stat.value}-${stat.label}`}
+                    className={`flex flex-col items-center justify-center px-5 py-8 text-center md:min-h-[7.5rem] md:px-6 md:py-9 ${
+                      index < highlightStats.length - 1
+                        ? "border-b border-white/35 md:border-b-0 md:border-r"
+                        : ""
+                    }`}
+                  >
+                    <p className="text-[1.2rem] font-semibold uppercase tracking-[0.04em] md:text-[1.4rem]">
+                      {stat.value}
+                    </p>
+                    {stat.label ? (
+                      <p className="mt-2 text-[0.58rem] font-semibold uppercase tracking-[0.2em] text-white/90 md:text-[0.64rem]">
+                        {stat.label}
+                      </p>
+                    ) : null}
+                  </div>
                 ))}
               </div>
-
-              <div className="mt-8 overflow-hidden lg:mt-0">
-                <img
-                  src={introImage}
-                  alt={introImageAlt}
-                  className={`h-[18rem] w-full object-cover sm:h-[22rem] md:h-[28rem] lg:h-full lg:min-h-[28rem] ${introImageClassName}`}
-                />
-              </div>
             </div>
-          ) : (
-            <div className={pageContainerClass}>
-              <div className="mt-12 grid gap-10 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:items-start">
-                <div className="space-y-6 text-[0.96rem] leading-[2] text-[#6b655d] md:text-[1rem]">
-                  {introParagraphs.map((paragraph) => (
-                    <p key={paragraph}>{paragraph}</p>
-                  ))}
-                </div>
-
-                <div className="overflow-hidden rounded-[0.3rem] bg-white shadow-[0_24px_50px_-42px_rgba(41,29,14,0.26)]">
-                  <img
-                    src={introImage}
-                    alt={introImageAlt}
-                    className={`w-full object-cover ${introImageClassName}`}
-                  />
-                </div>
-              </div>
-            </div>
-          )}
+          </div>
         </section>
 
         <ContactSection />

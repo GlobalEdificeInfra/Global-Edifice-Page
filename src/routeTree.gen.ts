@@ -13,8 +13,13 @@ import { Route as TermsandconditionsRouteImport } from './routes/termsandconditi
 import { Route as ProjectsRouteImport } from './routes/projects'
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as MuthanallurOffSarjapuraBangaloreRouteImport } from './routes/muthanallur-off-sarjapura-bangalore'
+import { Route as GunjurRouteImport } from './routes/gunjur'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as ChannelPartnerRouteImport } from './routes/channel-partner'
+import { Route as ChandapuraNh44RouteImport } from './routes/chandapura-nh-44'
+import { Route as ChandapuraHeelaligeRouteImport } from './routes/chandapura-heelalige'
 import { Route as ChandapuraBangaloreRouteImport } from './routes/chandapura-bangalore'
+import { Route as CareersRouteImport } from './routes/careers'
 import { Route as BlogsRouteImport } from './routes/blogs'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
@@ -43,14 +48,39 @@ const MuthanallurOffSarjapuraBangaloreRoute =
     path: '/muthanallur-off-sarjapura-bangalore',
     getParentRoute: () => rootRouteImport,
   } as any)
+const GunjurRoute = GunjurRouteImport.update({
+  id: '/gunjur',
+  path: '/gunjur',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ChannelPartnerRoute = ChannelPartnerRouteImport.update({
+  id: '/channel-partner',
+  path: '/channel-partner',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ChandapuraNh44Route = ChandapuraNh44RouteImport.update({
+  id: '/chandapura-nh-44',
+  path: '/chandapura-nh-44',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ChandapuraHeelaligeRoute = ChandapuraHeelaligeRouteImport.update({
+  id: '/chandapura-heelalige',
+  path: '/chandapura-heelalige',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ChandapuraBangaloreRoute = ChandapuraBangaloreRouteImport.update({
   id: '/chandapura-bangalore',
   path: '/chandapura-bangalore',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CareersRoute = CareersRouteImport.update({
+  id: '/careers',
+  path: '/careers',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BlogsRoute = BlogsRouteImport.update({
@@ -89,6 +119,11 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/blogs': typeof BlogsRouteWithChildren
   '/chandapura-bangalore': typeof ChandapuraBangaloreRoute
+  '/chandapura-heelalige': typeof ChandapuraHeelaligeRoute
+  '/chandapura-nh-44': typeof ChandapuraNh44Route
+  '/channel-partner': typeof ChannelPartnerRoute
+  '/careers': typeof CareersRoute
+  '/gunjur': typeof GunjurRoute
   '/contact': typeof ContactRoute
   '/muthanallur-off-sarjapura-bangalore': typeof MuthanallurOffSarjapuraBangaloreRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
@@ -103,6 +138,11 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/blogs': typeof BlogsRouteWithChildren
   '/chandapura-bangalore': typeof ChandapuraBangaloreRoute
+  '/chandapura-heelalige': typeof ChandapuraHeelaligeRoute
+  '/chandapura-nh-44': typeof ChandapuraNh44Route
+  '/channel-partner': typeof ChannelPartnerRoute
+  '/careers': typeof CareersRoute
+  '/gunjur': typeof GunjurRoute
   '/contact': typeof ContactRoute
   '/muthanallur-off-sarjapura-bangalore': typeof MuthanallurOffSarjapuraBangaloreRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
@@ -118,6 +158,11 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/blogs': typeof BlogsRouteWithChildren
   '/chandapura-bangalore': typeof ChandapuraBangaloreRoute
+  '/chandapura-heelalige': typeof ChandapuraHeelaligeRoute
+  '/chandapura-nh-44': typeof ChandapuraNh44Route
+  '/channel-partner': typeof ChannelPartnerRoute
+  '/careers': typeof CareersRoute
+  '/gunjur': typeof GunjurRoute
   '/contact': typeof ContactRoute
   '/muthanallur-off-sarjapura-bangalore': typeof MuthanallurOffSarjapuraBangaloreRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
@@ -134,6 +179,11 @@ export interface FileRouteTypes {
     | '/about'
     | '/blogs'
     | '/chandapura-bangalore'
+    | '/chandapura-heelalige'
+    | '/chandapura-nh-44'
+    | '/channel-partner'
+    | '/careers'
+    | '/gunjur'
     | '/contact'
     | '/muthanallur-off-sarjapura-bangalore'
     | '/privacy-policy'
@@ -148,6 +198,11 @@ export interface FileRouteTypes {
     | '/about'
     | '/blogs'
     | '/chandapura-bangalore'
+    | '/chandapura-heelalige'
+    | '/chandapura-nh-44'
+    | '/channel-partner'
+    | '/careers'
+    | '/gunjur'
     | '/contact'
     | '/muthanallur-off-sarjapura-bangalore'
     | '/privacy-policy'
@@ -162,6 +217,11 @@ export interface FileRouteTypes {
     | '/about'
     | '/blogs'
     | '/chandapura-bangalore'
+    | '/chandapura-heelalige'
+    | '/chandapura-nh-44'
+    | '/channel-partner'
+    | '/careers'
+    | '/gunjur'
     | '/contact'
     | '/muthanallur-off-sarjapura-bangalore'
     | '/privacy-policy'
@@ -177,6 +237,11 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   BlogsRoute: typeof BlogsRouteWithChildren
   ChandapuraBangaloreRoute: typeof ChandapuraBangaloreRoute
+  ChandapuraHeelaligeRoute: typeof ChandapuraHeelaligeRoute
+  ChandapuraNh44Route: typeof ChandapuraNh44Route
+  ChannelPartnerRoute: typeof ChannelPartnerRoute
+  CareersRoute: typeof CareersRoute
+  GunjurRoute: typeof GunjurRoute
   ContactRoute: typeof ContactRoute
   MuthanallurOffSarjapuraBangaloreRoute: typeof MuthanallurOffSarjapuraBangaloreRoute
   PrivacyPolicyRoute: typeof PrivacyPolicyRoute
@@ -228,6 +293,41 @@ declare module '@tanstack/react-router' {
       path: '/chandapura-bangalore'
       fullPath: '/chandapura-bangalore'
       preLoaderRoute: typeof ChandapuraBangaloreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/chandapura-heelalige': {
+      id: '/chandapura-heelalige'
+      path: '/chandapura-heelalige'
+      fullPath: '/chandapura-heelalige'
+      preLoaderRoute: typeof ChandapuraHeelaligeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/chandapura-nh-44': {
+      id: '/chandapura-nh-44'
+      path: '/chandapura-nh-44'
+      fullPath: '/chandapura-nh-44'
+      preLoaderRoute: typeof ChandapuraNh44RouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/channel-partner': {
+      id: '/channel-partner'
+      path: '/channel-partner'
+      fullPath: '/channel-partner'
+      preLoaderRoute: typeof ChannelPartnerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/careers': {
+      id: '/careers'
+      path: '/careers'
+      fullPath: '/careers'
+      preLoaderRoute: typeof CareersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gunjur': {
+      id: '/gunjur'
+      path: '/gunjur'
+      fullPath: '/gunjur'
+      preLoaderRoute: typeof GunjurRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/blogs': {
@@ -290,6 +390,11 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   BlogsRoute: BlogsRouteWithChildren,
   ChandapuraBangaloreRoute: ChandapuraBangaloreRoute,
+  ChandapuraHeelaligeRoute: ChandapuraHeelaligeRoute,
+  ChandapuraNh44Route: ChandapuraNh44Route,
+  ChannelPartnerRoute: ChannelPartnerRoute,
+  CareersRoute: CareersRoute,
+  GunjurRoute: GunjurRoute,
   ContactRoute: ContactRoute,
   MuthanallurOffSarjapuraBangaloreRoute: MuthanallurOffSarjapuraBangaloreRoute,
   PrivacyPolicyRoute: PrivacyPolicyRoute,

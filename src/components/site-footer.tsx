@@ -12,15 +12,16 @@ const footerLinks = [
       { label: "About Us", kind: "route", to: "/about" as const },
       { label: "Projects", kind: "route", to: "/projects" as const },
       { label: "Resources", kind: "route", to: "/blogs" as const },
+      { label: "Careers", kind: "route", to: "/careers" as const },
+      { label: "Channel Partner", kind: "route", to: "/channel-partner" as const },
     ],
   },
   {
     title: "Projects",
     items: [
-      { label: "The Clan", kind: "route", to: "/projects/the-clan" as const },
-      { label: "Orlean", kind: "route", to: "/projects/orlean" as const },
-      { label: "Legacy", kind: "route", to: "/projects" as const },
-      { label: "Completed Portfolio", kind: "route", to: "/projects" as const },
+      { label: "Ongoing projects", kind: "anchor", href: "/projects#ongoing" },
+      { label: "Upcoming projects", kind: "anchor", href: "/projects#upcoming" },
+      { label: "Completed Projects", kind: "anchor", href: "/projects#completed" },
     ],
   },
   {
@@ -37,21 +38,25 @@ const footerLinks = [
 function FooterLinkItem({ item }: { item: (typeof footerLinks)[number]["items"][number] }) {
   if ("to" in item) {
     return (
-      <Link to={item.to} className="transition hover:text-white">
+      <Link to={item.to} className="break-words transition hover:text-white">
         {item.label}
       </Link>
     );
   }
 
   if ("href" in item) {
+    const isEmail = item.href.startsWith("mailto:");
     return (
-      <a href={item.href} className="transition hover:text-white">
+      <a
+        href={item.href}
+        className={`transition hover:text-white ${isEmail ? "break-all" : "break-words"}`}
+      >
         {item.label}
       </a>
     );
   }
 
-  return <span>{item.label}</span>;
+  return <span className="break-words">{item.label}</span>;
 }
 
 export function SiteFooter() {

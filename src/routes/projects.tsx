@@ -1,8 +1,5 @@
 import { useEffect, useState } from "react";
-import { ArrowRight, Menu, X } from "lucide-react";
 import { Link, createFileRoute, Outlet, useMatchRoute } from "@tanstack/react-router";
-import geLogo from "@/assets/shared/ge-logo.png";
-import projectsHero from "@/assets/projects/shared/project-banner.png";
 import projectClan from "@/assets/projects/the-clan/The-clan-project.png";
 import projectLegacy from "@/assets/projects/legacy/project-legacy.jpg";
 import { SiteHeader } from "@/components/site-header";
@@ -23,15 +20,6 @@ export const Route = createFileRoute("/projects")({
 const pageGutterClass = "px-[1.125rem] md:px-[1.8rem]";
 const pageContainerClass = `mx-auto max-w-7xl ${pageGutterClass}`;
 
-const projectNav = [
-  { label: "HOME", kind: "route", to: "/" as const },
-  { label: "ABOUT US", kind: "route", to: "/about" as const },
-  { label: "PROJECTS", kind: "route", to: "/projects" as const },
-  { label: "BLOGS", kind: "route", to: "/blogs" as const },
-  { label: "CONTACT", kind: "anchor", href: "/contact" },
-] as const;
-
-type ProjectNavItem = (typeof projectNav)[number];
 type ProjectStatus = "ongoing" | "upcoming" | "completed";
 
 const projectFilters: Array<{ id: ProjectStatus; label: string }> = [
@@ -40,246 +28,327 @@ const projectFilters: Array<{ id: ProjectStatus; label: string }> = [
   { id: "completed", label: "COMPLETED" },
 ];
 
-const projects: Array<{
+type Project = {
   status: ProjectStatus;
   name: string;
-  statLabel: string;
-  statValue: string;
-  location: string;
-  unitLabel: string;
-  image: string;
+  nameLines: string[];
+  image?: string;
   alt: string;
   detailHref?: string;
-}> = [
-  {
-    status: "ongoing",
-    name: "GLOBAL EDIFICE ORLEAN",
-    statLabel: "Starting From",
-    statValue: "76 LAKHS*",
-    location: "CHANDAPURA, BANGALORE",
-    unitLabel: "1134 - 1590 SQFT",
-    image: "/project-images/orlean-images/orlean-main2.jpg",
-    alt: "Global Edifice Orlean",
-    detailHref: "/projects/orlean",
-  },
+  /** Ongoing: price + specs + config line */
+  price?: string;
+  specs?: string;
+  configLine?: string;
+  /** Upcoming: location right, scale, type label with rule */
+  location?: string;
+  scale?: string;
+  typeLabel?: string;
+  /** Completed: badge + unit description */
+  badge?: "few-remaining" | "sold-out";
+  unitDescription?: string;
+};
+
+const projects: Project[] = [
   {
     status: "ongoing",
     name: "GLOBAL EDIFICE THE CLAN",
-    statLabel: "Starting From",
-    statValue: "70 LAKHS*",
-    location: "BAGALUR - SARJAPURA, BANGALORE",
-    unitLabel: "1131 - 1825 SQFT",
+    nameLines: ["Global Edifice", "The Clan"],
+    price: "₹ 85 LAKHS*",
+    specs: "257 SIGNATURE RESIDENCES | 3.5 ACRES | G+9 FLOORS",
+    configLine: "2&3BHK RESIDENCES | SARJAPUR, BANGALORE",
     image: projectClan,
     alt: "Global Edifice The Clan",
     detailHref: "/projects/the-clan",
   },
   {
     status: "ongoing",
-    name: "GLOBAL EDIFICE LEGACY",
-    statLabel: "Starting From",
-    statValue: "62 LAKHS*",
+    name: "GLOBAL EDIFICE ORLEAN",
+    nameLines: ["Global Edifice", "Orlean"],
+    price: "₹ 76 LAKHS*",
+    specs: "1134 - 1590 SQFT",
+    configLine: "2BHK RESIDENCES | CHANDAPURA, BANGALORE",
+    image: "/project-images/orlean-images/orlean-main2.jpg",
+    alt: "Global Edifice Orlean",
+    detailHref: "/projects/orlean",
+  },
+  {
+    status: "upcoming",
+    name: "CHANDAPURA HEELALIGE",
+    nameLines: ["Chandapura Heelalige"],
     location: "CHANDAPURA, BANGALORE",
-    unitLabel: "2BHK RESIDENCES",
+    scale: "30 STOREYED | 8 ACRES",
+    typeLabel: "PREMIUM HIGH RISE RESIDENCES",
+    alt: "Chandapura Heelalige upcoming project",
+    detailHref: "/chandapura-heelalige",
+  },
+  {
+    status: "upcoming",
+    name: "MUTHANALLUR",
+    nameLines: ["Muthanallur"],
+    location: "BOMMASANDRA, BANGALORE",
+    scale: "16 STOREYED | 1.5 ACRES",
+    typeLabel: "PREMIUM RESIDENCES",
+    alt: "Muthanallur upcoming project",
+    detailHref: "/muthanallur-off-sarjapura-bangalore",
+  },
+  {
+    status: "upcoming",
+    name: "CHANDAPURA NH 44",
+    nameLines: ["Chandapura NH 44"],
+    location: "CHANDAPURA, BANGALORE",
+    scale: "30 STOREYED | 5.5 ACRES",
+    typeLabel: "LUXURY RESIDENCES",
+    alt: "Chandapura NH 44 upcoming project",
+    detailHref: "/chandapura-nh-44",
+  },
+  {
+    status: "upcoming",
+    name: "GUNJUR",
+    nameLines: ["Gunjur"],
+    location: "NEAR VARTHUR, BANGALORE",
+    scale: "12 ACRES | PREMIUM PLOTS",
+    typeLabel: "PREMIUM PLOTS",
+    alt: "Gunjur premium plots upcoming project",
+    detailHref: "/gunjur",
+  },
+  {
+    status: "completed",
+    name: "GLOBAL EDIFICE LEGACY",
+    nameLines: ["Global Edifice", "Legacy"],
+    location: "CHANDAPURA, BANGALORE",
+    badge: "few-remaining",
+    unitDescription: "SPACIOUS 3BHK HOMES",
     image: projectLegacy,
     alt: "Global Edifice Legacy",
     detailHref: "/projects",
   },
   {
-    status: "upcoming",
-    name: "CHANDAPURA, BANGALORE",
-    statLabel: "Phase",
-    statValue: "COMING SOON",
-    location: "CHANDAPURA, BANGALORE",
-    unitLabel: "5.25 ACRE | HIGH RISE APARTMENT",
-    image: "/project-images/upcoming-project-images/Chadapura.jpg",
-    alt: "Chandapura, Bangalore upcoming project",
-    detailHref: "/chandapura-bangalore",
-  },
-  {
-    status: "upcoming",
-    name: "MUTHANALLUR, OFF SARJAPURA",
-    statLabel: "Phase",
-    statValue: "COMING SOON",
-    location: "MUTHANALLUR, OFF SARJAPURA ROAD",
-    unitLabel: "4 ACRE | HIGH RISE APARTMENT",
-    image: "/project-images/upcoming-project-images/Muthanallur.jpg",
-    alt: "Muthanallur, off Sarjapura upcoming project",
-    detailHref: "/muthanallur-off-sarjapura-bangalore",
-  },
-  {
     status: "completed",
     name: "GLOBAL EDIFICE CELESTA",
-    statLabel: "Status",
-    statValue: "SOLD OUT",
-    location: "OFF CHANDAPURA ROAD, BANGALORE",
-    unitLabel: "4 ACRE | 340 UNITS",
+    nameLines: ["Global Edifice", "Celesta"],
+    location: "CHANDAPURA, BANGALORE",
+    badge: "sold-out",
+    unitDescription: "2BHK RESIDENCES",
     image: "/project-images/completed-project-images/celesta-compPorjects-img.webp",
     alt: "Global Edifice Celesta",
   },
   {
     status: "completed",
     name: "GLOBAL EDIFICE CRESENT",
-    statLabel: "Status",
-    statValue: "SOLD OUT",
-    location: "CHANDAPURA MAIN ROAD, BANGALORE",
-    unitLabel: "1 ACRE | 61 UNITS",
+    nameLines: ["Global Edifice", "Cresent"],
+    location: "CHANDAPURA, BANGALORE",
+    badge: "sold-out",
+    unitDescription: "2&3 BHK RESIDENCES",
     image: "/project-images/completed-project-images/cresent-compPorjects-img.webp",
     alt: "Global Edifice Cresent",
   },
   {
     status: "completed",
-    name: "GLOBAL GREEN APPLE HIKES",
-    statLabel: "Status",
-    statValue: "SOLD OUT",
-    location: "CHANDAPURA MAIN ROAD, BANGALORE",
-    unitLabel: "2 ACRE | 80 UNITS",
+    name: "GREEN APPLE HIKES",
+    nameLines: ["Green Apple", "Hikes"],
+    location: "TIRUMAGONDANAHALLI, BANGALORE",
+    badge: "sold-out",
+    unitDescription: "1&2 BHK RESIDENCES",
     image: "/project-images/completed-project-images/green-appleHikes-compPorjects-img.webp",
-    alt: "Global Edifice Green Apple Hikes",
+    alt: "Green Apple Hikes",
   },
   {
     status: "completed",
-    name: "GREEN APPLE VILLAS PHASE 1",
-    statLabel: "Status",
-    statValue: "SOLD OUT",
+    name: "GREEN APPLE VILLAS",
+    nameLines: ["Green Apple", "Villas"],
     location: "CHANDAPURA, BANGALORE",
-    unitLabel: "7 ACRE | 80 VILLAS",
+    badge: "sold-out",
+    unitDescription: "PREMIUM VILLAS",
     image: "/project-images/completed-project-images/greenAppleVillas1-compPorjects-img.webp",
-    alt: "Green Apple Villas Phase 1",
-  },
-  {
-    status: "completed",
-    name: "GREEN APPLE VILLAS PHASE 2",
-    statLabel: "Status",
-    statValue: "SOLD OUT",
-    location: "CHANDAPURA, BANGALORE",
-    unitLabel: "7 ACRE | 80 VILLAS",
-    image: "/project-images/completed-project-images/greenAppleVillas2-compPorjects-img.webp",
-    alt: "Green Apple Villas Phase 2",
+    alt: "Green Apple Villas",
   },
 ];
 
+function UpcomingPlaceholder() {
+  return (
+    <div className="flex h-[11.5rem] items-center justify-center bg-[#dce3ea] md:h-[12.5rem]" aria-hidden>
+      <svg viewBox="0 0 220 118" className="h-[5.4rem] w-auto" fill="none">
+        <ellipse cx="110" cy="102" rx="78" ry="9" fill="#c5ced6" />
+        <rect x="38" y="68" width="42" height="28" fill="#9aafc0" />
+        <rect x="48" y="76" width="22" height="12" fill="#7e96ab" />
+        <rect x="86" y="34" width="52" height="62" fill="#9aafc0" />
+        <rect x="96" y="42" width="10" height="8" fill="#7e96ab" />
+        <rect x="118" y="42" width="10" height="8" fill="#7e96ab" />
+        <rect x="96" y="56" width="10" height="8" fill="#7e96ab" />
+        <rect x="118" y="56" width="10" height="8" fill="#7e96ab" />
+        <rect x="96" y="70" width="10" height="8" fill="#7e96ab" />
+        <rect x="118" y="70" width="10" height="8" fill="#7e96ab" />
+        <rect x="104" y="82" width="16" height="14" fill="#7e96ab" />
+        <rect x="158" y="72" width="3" height="24" fill="#9aafc0" />
+        <circle cx="159.5" cy="64" r="14" fill="#9aafc0" />
+        <rect x="180" y="80" width="2.5" height="16" fill="#9aafc0" />
+        <circle cx="181.2" cy="74" r="9" fill="#9aafc0" />
+      </svg>
+    </div>
+  );
+}
 
-function ProjectsNavigationLink({
-  item,
-  className = "transition hover:text-[#123a4c]",
-  onClick,
+function BookSiteVisitButton() {
+  return (
+    <button
+      type="button"
+      onClick={() => window.dispatchEvent(new CustomEvent("open-enquiry-popup"))}
+      className="inline-flex items-center justify-center rounded-full bg-[#a38b6b] px-4 py-3 text-[0.58rem] font-semibold uppercase tracking-[0.1em] text-white transition hover:bg-[#8a7458]"
+    >
+      Book A Site Visit
+    </button>
+  );
+}
+
+function KnowMoreButton({
+  href,
+  className = "",
 }: {
-  item: ProjectNavItem;
+  href?: string;
   className?: string;
-  onClick?: () => void;
 }) {
-  if (item.kind === "anchor") {
-    return (
-      <a href={item.href} className={className} onClick={onClick}>
-        {item.label}
-      </a>
-    );
-  }
+  if (!href) return null;
 
   return (
-    <Link to={item.to} className={className} onClick={onClick}>
-      {item.label}
+    <Link
+      to={href as any}
+      className={`inline-flex items-center justify-center rounded-full border border-[#d8c7a8] bg-transparent px-4 py-3 text-[0.58rem] font-semibold uppercase tracking-[0.1em] text-[#a38b6b] transition hover:border-[#a38b6b] hover:bg-[#faf7f2] ${className}`}
+    >
+      Know More
     </Link>
   );
 }
 
-function ProjectsNavigation() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
+function ProjectCardBody({ project }: { project: Project }) {
+  if (project.status === "upcoming") {
+    return (
+      <div className="flex h-full flex-col p-6 md:p-7">
+        <div className="flex items-start justify-between gap-3">
+          <h2 className="text-[0.92rem] font-semibold uppercase leading-[1.15] text-[#2a2723] md:text-[1rem]">
+            {project.nameLines.map((line) => (
+              <span key={line} className="block">
+                {line}
+              </span>
+            ))}
+          </h2>
+          <p className="max-w-[7.5rem] shrink-0 pt-0.5 text-right text-[0.5rem] font-semibold uppercase leading-[1.4] tracking-[0.08em] text-[#a38b6b]">
+            {project.location}
+          </p>
+        </div>
 
-  useEffect(() => {
-    const updateScrollState = () => {
-      setIsScrolled(window.scrollY > 48);
-    };
+        <p className="mt-3 text-[0.6rem] font-medium uppercase tracking-[0.04em] text-[#a38b6b]">
+          {project.scale}
+        </p>
 
-    updateScrollState();
-    window.addEventListener("scroll", updateScrollState, { passive: true });
+        <div className="mt-5 flex items-center gap-3">
+          <span className="shrink-0 text-[0.6rem] font-medium uppercase tracking-[0.04em] text-[#2a2723]">
+            {project.typeLabel}
+          </span>
+          <span className="h-px min-w-0 flex-1 bg-[#eadfcc]" />
+        </div>
 
-    return () => {
-      window.removeEventListener("scroll", updateScrollState);
-    };
-  }, []);
+        <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
+          <BookSiteVisitButton />
+          <KnowMoreButton href={project.detailHref} />
+        </div>
+      </div>
+    );
+  }
 
+  if (project.status === "completed") {
+    const isFewRemaining = project.badge === "few-remaining";
+
+    return (
+      <div className="flex h-full flex-col p-5 md:p-6">
+        <div className="flex items-start justify-between gap-3">
+          <div>
+            <h2 className="text-[0.98rem] font-semibold uppercase leading-[1.12] text-[#332d2b] md:text-[1.05rem]">
+              {project.nameLines.map((line) => (
+                <span key={line} className="block">
+                  {line}
+                </span>
+              ))}
+            </h2>
+            <p className="mt-2 text-[0.62rem] font-medium uppercase tracking-[0.04em] text-[#9a9084]">
+              {project.location}
+            </p>
+          </div>
+
+          {isFewRemaining ? (
+            <p className="max-w-[6.5rem] shrink-0 pt-1 text-right text-[0.52rem] font-semibold uppercase leading-[1.35] tracking-[0.08em] text-[#9a7a6a]">
+              Few Remaining Homes
+            </p>
+          ) : (
+            <span className="shrink-0 rounded-[0.2rem] border border-[#d8c7a8] px-2.5 py-1.5 text-[0.52rem] font-semibold uppercase tracking-[0.1em] text-[#6f6558]">
+              Sold Out
+            </span>
+          )}
+        </div>
+
+        <p className="mt-5 text-[0.62rem] font-medium uppercase tracking-[0.04em] text-[#9a9084]">
+          {project.unitDescription}
+        </p>
+
+        <div className="mt-6 h-px w-full bg-[#eadfcc]" />
+
+        {isFewRemaining ? (
+          <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <BookSiteVisitButton />
+            <KnowMoreButton href={project.detailHref} />
+          </div>
+        ) : (
+          <div className="mt-5 flex justify-center">
+            {project.detailHref ? (
+              <KnowMoreButton href={project.detailHref} className="min-w-[10rem]" />
+            ) : (
+              <button
+                type="button"
+                onClick={() => window.dispatchEvent(new CustomEvent("open-enquiry-popup"))}
+                className="inline-flex min-w-[10rem] items-center justify-center rounded-full border border-[#d8c7a8] bg-transparent px-4 py-3 text-[0.58rem] font-semibold uppercase tracking-[0.1em] text-[#332d2b] transition hover:border-[#a38b6b] hover:bg-[#faf7f2]"
+              >
+                Know More
+              </button>
+            )}
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  // Ongoing
   return (
-    <header className="fixed inset-x-0 top-0 z-50">
-      <div
-        className={`mx-auto flex max-w-7xl items-center justify-between gap-4 ${pageGutterClass} transition-all duration-300 md:gap-6 ${
-          isScrolled
-            ? "mt-2 rounded-[1.75rem] border border-white/18 bg-[linear-gradient(180deg,rgba(15,30,26,0.42)_0%,rgba(15,30,26,0.24)_100%)] py-2 shadow-[0_22px_48px_-30px_rgba(7,14,18,0.42)] backdrop-blur-[24px] md:py-2.5"
-            : "py-4 md:py-7"
-        }`}
-      >
-        <Link to="/" className="shrink-0">
-          <img
-            src={geLogo}
-            alt="Global Edifice - The Foundation of Trust"
-            className={`[filter:brightness(0)_invert(1)] transition-all duration-300 ${
-              isScrolled ? "w-[128px] md:w-[180px]" : "w-[148px] md:w-[210px]"
-            }`}
-          />
-        </Link>
+    <div className="flex h-full flex-col p-5 md:p-6">
+      <div className="flex items-start justify-between gap-4">
+        <h2 className="min-w-0 flex-1 text-[0.98rem] font-semibold uppercase leading-[1.12] text-[#332d2b] md:text-[1.05rem]">
+          {project.nameLines.map((line) => (
+            <span key={line} className="block">
+              {line}
+            </span>
+          ))}
+        </h2>
 
-        <div className="hidden items-center md:flex">
-          <nav
-            className={`flex items-center rounded-full font-semibold tracking-[0.14em] text-[#996317] shadow-[0_18px_45px_-28px_rgba(0,0,0,0.45)] backdrop-blur-sm transition-all duration-300 ${
-              isScrolled
-                ? "gap-6 border border-white/70 bg-white/84 px-5 py-2 text-[0.68rem]"
-                : "gap-9 bg-white/96 px-7 py-3 text-[0.72rem] tracking-[0.13em] lg:text-[0.76rem]"
-            }`}
-          >
-            {projectNav.map((item) => (
-              <ProjectsNavigationLink key={item.label} item={item} />
-            ))}
-            <button onClick={() => window.dispatchEvent(new CustomEvent("open-enquiry-popup"))} className="rounded-full bg-[#b49a6c] px-4 py-1.5 text-white transition hover:bg-[#9f8658]"
-            >
-              ENQUIRE</button>
-          </nav>
-        </div>
-
-        <div className="flex items-center gap-2 md:hidden">
-          <button onClick={() => window.dispatchEvent(new CustomEvent("open-enquiry-popup"))} className="rounded-full border border-white/40 bg-white/10 px-3.5 py-2 text-[0.68rem] tracking-[0.16em] text-white backdrop-blur sm:px-4 sm:text-[0.74rem]"
-          >
-            ENQUIRE</button>
-
-          <button
-            type="button"
-            aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
-            aria-controls="projects-mobile-nav"
-            aria-expanded={isMobileMenuOpen}
-            onClick={() => setIsMobileMenuOpen((current) => !current)}
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-white/40 bg-white/10 text-white backdrop-blur"
-          >
-            {isMobileMenuOpen ? <X className="h-4.5 w-4.5" /> : <Menu className="h-4.5 w-4.5" />}
-          </button>
+        <div className="shrink-0 pt-0.5 text-right text-[#a38b6b]">
+          <p className="text-[0.52rem] font-semibold uppercase tracking-[0.14em]">Starting From</p>
+          <p className="mt-1 text-[0.74rem] font-semibold uppercase tracking-[0.02em]">
+            {project.price}
+          </p>
         </div>
       </div>
 
-      <div className={`${pageGutterClass} pb-2 md:hidden`}>
-        <div
-          className={`overflow-hidden rounded-[1.15rem] shadow-[0_18px_40px_-28px_rgba(0,0,0,0.45)] backdrop-blur-sm transition-all duration-300 ${
-            isScrolled
-              ? "border border-white/18 bg-[linear-gradient(180deg,rgba(15,30,26,0.48)_0%,rgba(15,30,26,0.32)_100%)]"
-              : "bg-white/94"
-          } ${isMobileMenuOpen ? "max-h-[34rem] opacity-100" : "pointer-events-none max-h-0 opacity-0"}
-          }`}
-        >
-          <nav id="projects-mobile-nav" className="flex flex-col gap-1 px-2 py-2">
-            {projectNav.map((item) => (
-              <ProjectsNavigationLink
-                key={item.label}
-                item={item}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className={`block rounded-[0.95rem] px-4 py-3 text-[0.8rem] font-medium tracking-[0.16em] transition ${
-                  isScrolled
-                    ? "text-white hover:bg-white/10 hover:text-white"
-                    : "text-[#996317] hover:bg-[#f6f1e8] hover:text-[#123a4c]"
-                }`}
-              />
-            ))}
-          </nav>
-        </div>
+      <p className="mt-4 text-[0.62rem] font-medium uppercase tracking-[0.04em] text-[#6f4e1a]">
+        {project.specs}
+      </p>
+
+      <div className="relative mt-6 text-[0.62rem] font-medium uppercase tracking-[0.04em] text-[#8a7a68]">
+        <span className="absolute inset-x-0 top-1/2 h-px -translate-y-1/2 bg-[#eadfcc]" />
+        <span className="relative inline-block bg-white pr-3">{project.configLine}</span>
       </div>
-    </header>
+
+      <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
+        <BookSiteVisitButton />
+        <KnowMoreButton href={project.detailHref} />
+      </div>
+    </div>
   );
 }
 
@@ -317,152 +386,89 @@ function useProjectsMetadata() {
   }, []);
 }
 
-function ProjectsHero() {
-  return (
-    <section className="relative isolate h-[60svh] min-h-[28rem] overflow-hidden bg-[#101820] text-white sm:min-h-[32rem] md:h-[68svh] md:min-h-[39rem]">
-      <img
-        src={projectsHero}
-        alt="Global Edifice projects overview"
-        className="absolute inset-0 h-full w-full object-cover object-[48%_44%]"
-      />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_14%_26%,rgba(255,255,255,0.06),transparent_26%),linear-gradient(90deg,rgba(7,14,19,0.36)_0%,rgba(7,14,19,0.18)_28%,rgba(7,14,19,0.58)_68%,rgba(7,14,19,0.78)_100%)]" />
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,15,22,0.18)_0%,rgba(8,15,22,0.08)_30%,rgba(8,15,22,0.68)_100%)]" />
-
-      <div
-        className={`relative mx-auto flex h-full max-w-7xl items-center justify-start ${pageGutterClass} pb-10 pt-26 sm:pt-30 md:justify-end md:pb-14 md:pt-30`}
-      >
-        <div className="max-w-[20rem] text-left sm:max-w-[26rem] md:max-w-[34rem] md:text-right">
-          <h1 className="font-display text-[2.2rem] leading-[0.98] tracking-[-0.02em] text-white sm:text-[2.75rem] md:text-[3.5rem] lg:text-[3.9rem]">
-            <span className="block">Places You&apos;ll Be</span>
-            <span className="block">Proud to Call Home.</span>
-          </h1>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 function ProjectPortfolio() {
   const [activeFilter, setActiveFilter] = useState<ProjectStatus>("ongoing");
   const filteredProjects = projects.filter((project) => project.status === activeFilter);
 
+  useEffect(() => {
+    const applyHash = () => {
+      const hash = window.location.hash.replace("#", "") as ProjectStatus;
+      if (hash === "ongoing" || hash === "upcoming" || hash === "completed") {
+        setActiveFilter(hash);
+      }
+    };
+
+    applyHash();
+    window.addEventListener("hashchange", applyHash);
+    return () => window.removeEventListener("hashchange", applyHash);
+  }, []);
+
   return (
-    <section id="portfolio" className="bg-[#f9f6f1] py-18 md:py-22 lg:py-24">
+    <section id="portfolio" className="bg-[#fbf8f4] pb-18 pt-32 md:pb-22 md:pt-36 lg:pb-24">
       <div className={pageContainerClass}>
         <div className="mx-auto max-w-[46rem] text-center">
           <div className="flex items-center justify-center gap-4">
-            <span className="h-px w-10 bg-[#dbc9a7]/80" />
-            <span className="text-[0.72rem] font-semibold uppercase tracking-[0.3em] text-[#a8762b]">
-              Our Projects
+            <span className="h-px w-12 bg-[#dbc9a7]/80" />
+            <span className="text-[0.72rem] font-semibold uppercase tracking-[0.32em] text-[#a38b6b]">
+              Portfolio
             </span>
-            <span className="h-px w-10 bg-[#dbc9a7]/80" />
+            <span className="h-px w-12 bg-[#dbc9a7]/80" />
           </div>
-          <h2 className="mt-4 font-display text-[2.1rem] leading-[1.02] text-[#1f1d1a] sm:text-[2.5rem] md:text-[3.15rem]">
-            Places You&apos;ll Be Proud to Call Home.
-          </h2>
-          <div className="mx-auto mt-6 max-w-[40rem] space-y-4 text-[0.94rem] leading-[1.8] text-[#6b655d] md:mt-7 md:text-[1.02rem] md:leading-[1.85]">
-            <p>Every project begins with an idea.</p>
-            <p>
-              To create homes that feel right—not just on the day you move in, but for years to
-              come.
-            </p>
-            <p>
-              Some are already welcoming families. Others are preparing to shape the next chapter of
-              Bengaluru&apos;s growth. Each one reflects the same philosophy: thoughtful design,
-              honest craftsmanship, and a commitment to building communities that stand the test of
-              time.
-            </p>
-          </div>
+          <h1 className="mt-4 font-display text-[2.1rem] leading-[1.02] text-[#332d2b] sm:text-[2.5rem] md:text-[3.15rem]">
+            Our Projects
+          </h1>
         </div>
 
-        <div className="mx-auto mt-10 max-w-[30rem] border-y border-[#e4d8c4] px-2 py-3 md:max-w-[32rem]">
-          <div className="flex items-center justify-center text-[0.88rem] font-semibold uppercase tracking-[0.24em] text-[#a8762b]">
+        <div className="mx-auto mt-10 max-w-[30rem] overflow-x-auto border-y border-[#e4d8c4] px-1 py-3 md:max-w-[32rem]">
+          <div className="flex min-w-max items-center justify-center text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-[#a38b6b] sm:text-[0.82rem] sm:tracking-[0.24em] md:text-[0.88rem]">
             {projectFilters.map((filter, index) => (
               <div key={filter.id} className="flex items-center">
                 <button
                   type="button"
                   onClick={() => setActiveFilter(filter.id)}
-                  className={`px-5 py-2 transition md:px-6 ${
+                  className={`min-h-11 px-3 py-2.5 transition sm:px-5 md:px-6 ${
                     activeFilter === filter.id
-                      ? "font-bold text-[#8f611d]"
-                      : "text-[#b48b50] hover:text-[#123a4c]"
+                      ? "font-bold text-[#6f4e1a]"
+                      : "font-medium text-[#c4ae86] hover:text-[#8a6324]"
                   }`}
                 >
                   {filter.label}
                 </button>
                 {index < projectFilters.length - 1 ? (
-                  <span className="h-7 w-px bg-[#e4d8c4]" />
+                  <span className="h-5 w-px bg-[#d8c7a8]" />
                 ) : null}
               </div>
             ))}
           </div>
         </div>
 
-        <div className="mt-14 grid gap-8 md:grid-cols-2 xl:grid-cols-3">
+        <div
+          className={`group/projects mt-14 gap-6 ${
+            filteredProjects.length >= 3
+              ? "mx-auto grid max-w-5xl md:grid-cols-2 xl:max-w-6xl xl:grid-cols-3"
+              : "mx-auto flex max-w-4xl flex-wrap justify-center"
+          }`}
+        >
           {filteredProjects.map((project) => (
             <article
               key={project.name}
-              className="overflow-hidden rounded-[1rem] border border-[#e4d8c4] bg-[#fffdfa]"
+              className={`group/card origin-center overflow-hidden rounded-[1.2rem] border border-[#eadfcc] bg-white shadow-[0_22px_40px_-34px_rgba(40,32,23,0.26)] transition-all duration-500 ease-out hover:z-10 hover:scale-[1.02] hover:border-[#d6c3a3] hover:shadow-[0_28px_55px_-28px_rgba(40,32,23,0.38)] group-hover/projects:opacity-45 group-hover/projects:hover:opacity-100 ${
+                filteredProjects.length < 3 ? "w-full max-w-[21rem] sm:w-[21rem]" : ""
+              }`}
             >
-              <img
-                src={project.image}
-                alt={project.alt}
-                className="h-[14rem] w-full object-cover object-center md:h-[15.5rem]"
-              />
-
-              <div className="flex h-full flex-col p-5 md:p-6">
-                <div className="flex items-start justify-between gap-4">
-                  <h3 className="max-w-[12.5rem] text-[1.02rem] font-semibold uppercase leading-[1.15] text-[#1f1d1a] md:text-[1.12rem]">
-                    {project.name}
-                  </h3>
-
-                  <div className="shrink-0 pt-0.5 text-right text-[#a8762b]">
-                    <p className="text-[0.52rem] font-semibold uppercase tracking-[0.14em] text-[#b48b50]">
-                      {project.statLabel}
-                    </p>
-                    <p className="mt-1 text-[0.78rem] font-semibold uppercase tracking-[0.02em]">
-                      {project.statValue}
-                    </p>
-                  </div>
+              {project.image ? (
+                <div className="overflow-hidden">
+                  <img
+                    src={project.image}
+                    alt={project.alt}
+                    className="h-[13rem] w-full object-cover object-center transition-transform duration-700 ease-out md:h-[14.5rem] group-hover/card:scale-105"
+                  />
                 </div>
+              ) : project.status === "upcoming" ? (
+                <UpcomingPlaceholder />
+              ) : null}
 
-                <p className="mt-4 text-[0.62rem] font-medium uppercase tracking-[0.06em] text-[#b48b50]">
-                  {project.location}
-                </p>
-
-                <div className="relative mt-8 text-[0.68rem] font-medium uppercase tracking-[0.06em] text-[#4b4741]">
-                  <span className="absolute inset-x-0 top-1/2 h-px -translate-y-1/2 bg-[#e4d8c4]" />
-                  <span className="relative inline-block bg-[#fffdfa] pr-3">
-                    {project.unitLabel}
-                  </span>
-                </div>
-
-                {project.status === "completed" ? (
-                  <div className="mt-5 rounded-[0.9rem] border border-[#e4d8c4] bg-[#f8f1e6] px-4 py-3 text-center">
-                    <p className="text-[0.58rem] font-semibold uppercase tracking-[0.14em] text-[#b48b50]">
-                      Completed Project
-                    </p>
-                    <p className="mt-1 text-[0.74rem] font-medium uppercase tracking-[0.06em] text-[#4b4741]">
-                      Sold out inventory
-                    </p>
-                  </div>
-                ) : (
-                  <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
-                    <a
-                      href="#contact"
-                      className="inline-flex items-center justify-center gap-2 rounded-full bg-[#b49a6c] px-4 py-3 text-[0.58rem] font-semibold uppercase tracking-[0.08em] text-white transition hover:bg-[#9f8658]"
-                    >
-                      Book A Site Visit
-                    </a>
-                    <Link
-                      to={project.detailHref as any}
-                      className="inline-flex items-center justify-center rounded-full border border-[#d8c7a8] bg-white px-4 py-3 text-[0.58rem] font-semibold uppercase tracking-[0.08em] text-[#1f1d1a] transition hover:border-[#c7b08a] hover:bg-[#faf7f2]"
-                    >
-                      Know More
-                    </Link>
-                  </div>
-                )}
-              </div>
+              <ProjectCardBody project={project} />
             </article>
           ))}
         </div>
@@ -471,23 +477,20 @@ function ProjectPortfolio() {
   );
 }
 
-
-
 function ProjectsPage() {
   useProjectsMetadata();
 
   const matchRoute = useMatchRoute();
-  const isExactProjects = matchRoute({ to: '/projects' });
-  
+  const isExactProjects = matchRoute({ to: "/projects" });
+
   if (!isExactProjects) {
     return <Outlet />;
   }
 
   return (
     <>
-      <main className="bg-[#f7f2eb] text-[#163849]">
-        <SiteHeader />
-        <ProjectsHero />
+      <main className="bg-[#fbf8f4] text-[#163849]">
+        <SiteHeader appearance="solid" />
         <ProjectPortfolio />
         <SiteGetInTouch />
       </main>

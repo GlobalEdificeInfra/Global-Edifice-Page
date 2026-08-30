@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ArrowRight, ChevronLeft, ChevronRight, Download, Menu, X } from "lucide-react";
+import { ArrowDown, ArrowRight, ChevronLeft, ChevronRight, Menu, X } from "lucide-react";
 import { Link, createFileRoute } from "@tanstack/react-router";
 import geContactLounge from "@/assets/shared/ge-contact-lounge.jpg";
 import geLogo from "@/assets/shared/ge-logo.png";
@@ -51,11 +51,11 @@ type PlanMode = "masterplan" | "floorplan";
 
 const heroStats = [
   { label: "Typology", lines: ["2 & 3 Bed", "signature residences"] },
-  { label: "Price", lines: ["Starting"] },
-  { label: "Location", lines: ["Bagalur, Sarjapura,", "Bangalore"] },
+  { label: "Price", lines: ["Starting 85 Lakhs*"] },
+  { label: "Location", lines: ["Sarjapura, Bangalore"] },
   {
     label: "RERA",
-    lines: ["RERA NO.:", "PRM/KA/RERA/1251/308/PR/071224/007275"],
+    lines: ["RERA NO.:", "PRM/KA/RERA/1251/308/PR/071221/007275"],
   },
 ] as const;
 
@@ -202,39 +202,45 @@ const connectivityGroups = [
 const faqItems = [
   {
     id: "faq-1",
-    question: "What is the starting price for homes at The Clan?",
+    question: "What is the starting price for Global Edifice Legacy and Orlean projects?",
     answer:
-      "The Clan starts from 70 lakhs* for its signature residences. Final pricing varies by unit configuration, floor, and current inventory.",
+      "Global Edifice brings you premium residential projects with modern amenities and strategic locations. Our flagship projects Global Edifice Legacy start from INR 73 lakhs*, while our luxury project Orlean offers premium living spaces starting from INR 76 lakhs*.",
   },
   {
     id: "faq-2",
-    question: "What typologies are available at The Clan?",
+    question: "What is Global Edifice's history, mission and vision?",
     answer:
-      "The project is positioned around 2 and 3 bed signature residences with a stronger focus on natural light, usable balconies, and efficient internal planning.",
+      "With over 10 years of excellence in the real estate market, Global Edifice has established itself as one of the top builders in Bangalore. Our mission is to transform dreams into reality for every homebuyer by developing gated communities and affordable flats that offer more than just living spaces. Our vision encompasses creating vibrant hubs that offer comfort, foster relationships, and stand as assets to be proud of, while making Bangalore's real estate market more dynamic for future generations.",
   },
   {
     id: "faq-3",
-    question: "Where is The Clan located in Bangalore?",
+    question: "How is Global Edifice committed to sustainability and innovation?",
     answer:
-      "The Clan is situated in the Bagalur-Sarjapura growth corridor, giving residents a quieter residential setting with improving access to North and East Bangalore destinations.",
+      "At Global Edifice, we believe in creating sustainable communities that harmonize with the environment. Our projects incorporate rainwater harvesting systems, solar panels for common areas, energy-efficient lighting, and extensive green spaces. We use eco-friendly construction materials wherever possible and ensure our developments have a minimal carbon footprint.",
   },
   {
     id: "faq-4",
-    question: "What amenities are planned within the community?",
+    question: "Where are Global Edifice projects located in Bangalore?",
     answer:
-      "The plan includes landscaped greens, a hospitality-led arrival experience, curated leisure spaces, and everyday wellness amenities designed around community living.",
+      "Global Edifice has strategically positioned projects across Bangalore's most promising locations, including Electronic City, South Bangalore, Bommasandra, Thirumagondanahalli, and Sarjapura. Each location is chosen for connectivity, infrastructure potential, and quality of life.",
   },
   {
     id: "faq-5",
-    question: "Can I request a brochure or schedule a site visit?",
+    question: "Can we book a site visit for your projects?",
     answer:
-      "Yes. Use the brochure and enquiry links on the project pages to request current details, pricing, and a guided site visit from the sales team.",
+      "Absolutely. We encourage potential homebuyers to visit our projects before making their decision. You can schedule a site visit by calling our customer care or by filling out the enquiry form on our website. Our representatives will arrange a visit at your convenience.",
   },
   {
     id: "faq-6",
-    question: "Does Global Edifice support buyers after handover?",
+    question: "What is the process for purchasing a home with Global Edifice?",
     answer:
-      "Global Edifice positions its developments around long-term ownership value, which includes support across handover coordination, documentation, and community transition.",
+      "We have simplified the home-buying journey into a seamless process: consultation, property selection, site visit, financial assistance, and legal documentation through to registration—with support that continues after purchase.",
+  },
+  {
+    id: "faq-7",
+    question: "What amenities do Global Edifice projects offer?",
+    answer:
+      "Our residential communities feature clubhouses, swimming pools, gymnasiums, landscaped gardens, children's play areas, indoor games, multipurpose halls, and strong security with 24/7 surveillance—designed for comfortable, self-sufficient living.",
   },
 ] as const;
 
@@ -421,8 +427,8 @@ function HeroSection() {
       >
         <div className="mx-auto mb-2 max-w-[52rem] text-center md:mb-3 md:max-w-[62rem]">
           <h1 className="font-display font-normal uppercase [font-synthesis:none] text-[1.9rem] leading-[1.08] tracking-[0.04em] text-white sm:text-[2.35rem] md:text-[2.8rem] lg:text-[3.15rem]">
-            <span className="block">Step Into A World Where</span>
-            <span className="block">Luxury Feels Like Belonging.</span>
+            <span className="block">Where Life Feels</span>
+            <span className="block">More Connected.</span>
           </h1>
         </div>
       </div>
@@ -468,38 +474,34 @@ function HeroStatStrip() {
 
 function OverviewSection() {
   return (
-    <section className="relative z-0 bg-[#fcfaf7] pb-0 pt-12 md:pt-14">
+    <section className="relative z-0 bg-[#fcfaf7] pt-14 md:pt-18 lg:pt-22">
       <div className="grid lg:grid-cols-2 lg:items-stretch">
-        <div className="min-h-0 overflow-hidden lg:h-auto">
+        <div className="relative h-full min-h-[28rem] overflow-hidden md:min-h-[34rem] lg:min-h-[42rem]">
           <img
             src={theClanHall}
-            alt="The Clan living hall interior"
-            className="h-[22rem] w-full object-cover object-center md:h-[28rem] lg:h-full lg:min-h-[36rem]"
+            alt="The Clan living hall and dining interior"
+            className="absolute inset-0 h-full w-full object-cover object-[42%_58%]"
           />
         </div>
 
         <div
-          className={`flex min-h-0 items-center bg-[#fcfaf7] py-10 ${pageGutterClass} lg:min-h-[36rem] lg:px-12 xl:px-16`}
+          className={`flex items-center bg-[#fcfaf7] py-10 ${pageGutterClass} md:py-14 lg:max-w-none lg:py-16 lg:pl-12 xl:pl-16`}
         >
-          <div className="mx-auto w-full max-w-[32rem] lg:mx-0 lg:max-w-none">
+          <div className="mx-auto w-full max-w-[34rem] lg:mx-0 lg:max-w-[36rem]">
             <ClanWordmark />
 
-            <h2 className="mt-7 max-w-[30rem] font-display text-[1.55rem] leading-[1.18] tracking-[0.02em] text-[#b59a6d] uppercase md:text-[1.9rem] lg:text-[2.05rem]">
-              <span className="block">Where Life Feels</span>
-              <span className="block">More Connected.</span>
+            <h2 className="mt-8 font-display text-[1.45rem] leading-[1.2] tracking-[0.02em] text-[#b59a6d] uppercase md:mt-9 md:text-[1.75rem] lg:text-[1.95rem]">
+              <span className="block whitespace-nowrap">Designed Around People.</span>
+              <span className="block whitespace-nowrap">Inspired by Community.</span>
             </h2>
-            <p className="mt-3 text-[0.92rem] leading-[1.45] text-[#8a7a62] md:text-[1rem]">
-              Designed Around People. Inspired by Community.
-            </p>
 
-            <div className="mt-5 max-w-[32rem] space-y-4 text-[0.94rem] leading-[1.85] text-[#5c564d] md:text-[0.97rem]">
-              <p>Some places impress with architecture.</p>
-              <p>The Clan goes a little further.</p>
-              <p>It creates a neighbourhood where people naturally come together.</p>
+            <div className="mt-6 max-w-[32rem] space-y-5 text-[0.94rem] leading-[1.85] text-[#5c564d] md:text-[0.97rem]">
+              <p>Some places impress with architecture. The Clan goes a little further.</p>
               <p>
-                Surrounded by greenery and thoughtfully planned open spaces, every home is filled
-                with natural light, fresh air, and a sense of openness that&apos;s becoming
-                increasingly rare in city living.
+                It creates a neighbourhood where people naturally come together. Surrounded by
+                greenery and thoughtfully planned open spaces, every home is filled with natural
+                light, fresh air, and a sense of openness that&apos;s becoming increasingly rare in
+                city living.
               </p>
               <p>
                 Located off Sarjapur Road, The Clan brings together contemporary design, lifestyle
@@ -508,14 +510,14 @@ function OverviewSection() {
               </p>
             </div>
 
-            <Link
-              to="/projects/the-clan"
-              hash="contact"
-              className="mt-7 inline-flex w-fit items-center gap-3 rounded-[0.3rem] border border-[#c9b08a] bg-transparent px-6 py-3.5 text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-[#a8762b] transition hover:border-[#a8762b] hover:text-[#123a4c]"
+            <a
+              href={theClanBanner}
+              download="the-clan-brochure.png"
+              className="mt-8 inline-flex w-fit items-center gap-4 border border-[#8a6324] bg-white px-8 py-3.5 text-[0.7rem] font-medium uppercase tracking-[0.2em] text-[#8a6324] transition hover:border-[#6f4e1a] hover:text-[#6f4e1a]"
             >
               Download Brochure
-              <Download className="h-4 w-4" />
-            </Link>
+              <ArrowDown className="h-3.5 w-3.5 stroke-[2.25]" />
+            </a>
           </div>
         </div>
       </div>
@@ -540,20 +542,20 @@ function AmenitiesSection() {
   return (
     <section id="amenities" className={`bg-[#fcfaf7] ${sectionPadClass}`}>
       <div className={pageContainerClass}>
-        <div className={`${sectionInnerClass} grid overflow-hidden rounded-[0.75rem] bg-[#b49a6c] text-white md:grid-cols-3`}>
+        <div className={`${sectionInnerClass} grid overflow-hidden rounded-[0.85rem] bg-[#8a6324] text-white md:grid-cols-3`}>
           {metrics.map((item, index) => (
             <div
               key={item.label}
-              className={`px-5 py-6 text-center md:px-6 md:py-7 ${
+              className={`px-5 py-7 text-center md:px-6 md:py-8 ${
                 index < metrics.length - 1
-                  ? "border-b border-white/30 md:border-b-0 md:border-r"
+                  ? "border-b border-white/35 md:border-b-0 md:border-r"
                   : ""
               }`}
             >
               <p className="text-[1.55rem] font-semibold tracking-[0.06em] md:text-[1.75rem]">
                 {item.value}
               </p>
-              <p className="mt-2 text-[0.6rem] uppercase tracking-[0.26em] text-white/90 md:text-[0.64rem]">
+              <p className="mt-2 text-[0.6rem] uppercase tracking-[0.26em] text-white/92 md:text-[0.64rem]">
                 {item.label}
               </p>
             </div>
@@ -562,10 +564,10 @@ function AmenitiesSection() {
 
         <div className={`${sectionInnerClass} mt-14 md:mt-16`}>
           <div className="flex items-center gap-4">
-            <p className="text-[0.72rem] font-semibold uppercase tracking-[0.28em] text-[#b49a6c]">
+            <p className="text-[0.72rem] font-semibold uppercase tracking-[0.28em] text-[#8a6324]">
               Project Highlights
             </p>
-            <span className="h-px w-10 bg-[#b49a6c]/75" />
+            <span className="h-px w-10 bg-[#8a6324]/75" />
           </div>
           <h2 className="mt-4 max-w-[58rem] font-display text-[2.2rem] leading-[0.98] tracking-[0.01em] text-[#21201d] uppercase md:text-[3.1rem] lg:text-[3.4rem]">
             <span className="block md:whitespace-nowrap">Elevate Your Everyday With</span>
@@ -595,7 +597,7 @@ function AmenitiesSection() {
                 aria-label={`Show ${slide.title}`}
                 onClick={() => setActiveAmenity(index)}
                 className={`h-2.5 w-2.5 rounded-full transition ${
-                  activeAmenity === index ? "bg-[#b79a69]" : "bg-[#d7cab4] hover:bg-[#c6b18a]"
+                  activeAmenity === index ? "bg-[#8a6324]" : "bg-[#d7cab4] hover:bg-[#c6b18a]"
                 }`}
               />
             ))}
@@ -843,56 +845,52 @@ function FaqSection() {
   const [openFaqId, setOpenFaqId] = useState<string | null>(faqItems[0].id);
 
   return (
-    <section id="faq" className={`bg-white ${sectionPadClass}`}>
+    <section id="faq" className="bg-[#fbf7f0] py-18 md:py-22">
       <div className={pageContainerClass}>
-        <div className={sectionInnerClass}>
-          <div className="max-w-[48rem]">
-            <div className="flex items-center gap-4">
-              <p className="text-[0.72rem] font-semibold uppercase tracking-[0.28em] text-[#b49a6c]">
-                Get To Know
-              </p>
-              <span className="h-px w-10 bg-[#b49a6c]/75" />
-            </div>
-            <h2 className="mt-4 font-display text-[2.1rem] leading-[1.02] text-[#2b2621] sm:text-[2.5rem] md:text-[2.9rem]">
-              Frequently Asked Questions
-            </h2>
+        <div className="max-w-[48rem]">
+          <div className="flex items-center gap-4">
+            <p className="text-[0.72rem] font-semibold uppercase tracking-[0.28em] text-[#b49a6c]">
+              Get To Know
+            </p>
+            <span className="h-px w-10 bg-[#b49a6c]/75" />
           </div>
+          <h2 className="mt-4 font-display text-[2.1rem] leading-[1.02] text-[#2b2621] sm:text-[2.5rem] md:text-[2.9rem]">
+            Frequently Asked Questions
+          </h2>
+        </div>
 
-          <div className="mt-10 border-t border-[#eadfce]">
-            {faqItems.map((item) => {
-              const isOpen = openFaqId === item.id;
+        <div className="mt-10 border-t border-[#eadfce]">
+          {faqItems.map((item) => {
+            const isOpen = openFaqId === item.id;
 
-              return (
-                <article key={item.id} className="border-b border-[#eadfce]">
-                  <button
-                    type="button"
-                    aria-expanded={isOpen}
-                    aria-controls={`faq-panel-${item.id}`}
-                    onClick={() =>
-                      setOpenFaqId((current) => (current === item.id ? null : item.id))
-                    }
-                    className="flex w-full items-start justify-between gap-6 py-6 text-left md:py-7"
+            return (
+              <article key={item.id} className="border-b border-[#eadfce]">
+                <button
+                  type="button"
+                  aria-expanded={isOpen}
+                  aria-controls={`faq-panel-${item.id}`}
+                  onClick={() => setOpenFaqId((current) => (current === item.id ? null : item.id))}
+                  className="flex w-full items-start justify-between gap-6 py-6 text-left md:py-7"
+                >
+                  <span className="pr-6 text-[0.98rem] font-medium leading-[1.7] tracking-[0.04em] text-[#c0a57a] md:text-[1.02rem]">
+                    {item.question}
+                  </span>
+                  <span className="mt-0.5 shrink-0 text-[1.8rem] leading-none text-[#b49a6c]">
+                    {isOpen ? "−" : "+"}
+                  </span>
+                </button>
+
+                {isOpen ? (
+                  <div
+                    id={`faq-panel-${item.id}`}
+                    className="max-w-[44rem] pb-7 pr-12 text-[0.95rem] leading-[1.85] text-[#8a7a68] md:pb-8 md:pr-16"
                   >
-                    <span className="pr-6 text-[0.98rem] font-medium leading-[1.65] text-[#5c564d] md:text-[1.02rem]">
-                      {item.question}
-                    </span>
-                    <span className="mt-0.5 shrink-0 text-[1.8rem] leading-none text-[#b49a6c]">
-                      {isOpen ? "−" : "+"}
-                    </span>
-                  </button>
-
-                  {isOpen ? (
-                    <div
-                      id={`faq-panel-${item.id}`}
-                      className="max-w-[48rem] pb-7 pr-12 text-[0.95rem] leading-[1.85] text-[#5f574d] md:pb-8 md:pr-16"
-                    >
-                      {item.answer}
-                    </div>
-                  ) : null}
-                </article>
-              );
-            })}
-          </div>
+                    {item.answer}
+                  </div>
+                ) : null}
+              </article>
+            );
+          })}
         </div>
       </div>
     </section>
