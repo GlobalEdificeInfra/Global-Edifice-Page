@@ -90,7 +90,7 @@ export function SiteFooter() {
         </div>
 
         <div className="mt-12 flex flex-col gap-4 border-t border-white/20 pt-6 text-[0.8rem] font-normal text-white/75 md:flex-row md:items-center md:justify-between md:text-[0.84rem]">
-          <p>© 2025 Global Edifice. All rights reserved. RERA Approved Developer.</p>
+          <p>© 2026 Global Edifice. All rights reserved. RERA Approved Developer.</p>
           <div className="flex flex-wrap gap-6 md:gap-8">
             <Link to="/privacy-policy" className="transition hover:text-[#c4a36b]">
               Privacy Policy
