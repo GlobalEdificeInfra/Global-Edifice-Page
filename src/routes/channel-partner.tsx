@@ -1,10 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-import careerHero from "@/assets/careers/career.jpg";
+import channelPartnerHero from "@/assets/channel-partner/channel-partner-hero.png";
 import geFusionLogo from "@/assets/channel-partner/ge-fusion-logo.png";
-import {
-  ResourcePageHero,
-  ResourcePageShell,
-} from "@/components/careers-channel-layout";
+import { ResourcePageHero, ResourcePageShell } from "@/components/careers-channel-layout";
 import { FormConsentCheckbox } from "@/components/form-consent-checkbox";
 
 export const Route = createFileRoute("/channel-partner")({
@@ -27,6 +24,15 @@ const labelInlineClassName =
   "shrink-0 text-[0.88rem] font-medium text-[#2a2723] md:text-[0.92rem]";
 const sectionTitleClassName =
   "text-[0.95rem] font-bold uppercase tracking-[0.04em] text-[#2a2723]";
+
+function SectionHeading({ children }: { children: string }) {
+  return (
+    <div>
+      <h3 className={sectionTitleClassName}>{children}</h3>
+      <div className="mt-1 h-0.5 w-28 bg-[#c0a56e]" />
+    </div>
+  );
+}
 
 const organisationTypes = [
   "Sole Proprietorship",
@@ -96,11 +102,11 @@ function InlineField({
 
 function FusionBrand() {
   return (
-    <div className="mx-auto max-w-md text-center">
+    <div className="mx-auto max-w-lg text-center">
       <img
         src={geFusionLogo}
         alt="Global Edifice Fusion — Where Assets And Values Multiply Forever"
-        className="mx-auto h-auto w-full max-w-[18rem] sm:max-w-[22rem] md:max-w-[26rem]"
+        className="mx-auto h-auto w-full max-w-[20rem] sm:max-w-[24rem] md:max-w-[28rem]"
       />
     </div>
   );
@@ -108,11 +114,13 @@ function FusionBrand() {
 
 function ChannelPartnerPage() {
   return (
-    <ResourcePageShell>
+    <ResourcePageShell headerOverlay>
       <ResourcePageHero
-        image={careerHero}
+        image={channelPartnerHero}
         imageAlt="Channel partner handshake"
         title="CHANNEL PARTNER"
+        overlay="light"
+        fullScreen
       />
 
       <section className="bg-[#fcf9f2] pb-16 pt-10 md:pb-20 md:pt-14">
@@ -124,12 +132,13 @@ function ChannelPartnerPage() {
           <form className="mt-8 md:mt-10" onSubmit={(event) => event.preventDefault()}>
             <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
               <div>
-                <h2 className="font-display text-[2rem] leading-[1.05] text-[#1f1d1a] sm:text-[2.35rem] md:text-[2.85rem]">
+                <h1 className="font-display text-[2rem] leading-[1.05] text-[#1f1d1a] sm:text-[2.35rem] md:text-[2.85rem]">
                   Channel Partner
-                </h2>
-                <p className="mt-2 inline-block border-b border-[#c2b092] pb-0.5 text-[0.78rem] font-bold uppercase tracking-[0.1em] text-[#1f1d1a]">
+                </h1>
+                <p className="mt-2 text-[0.78rem] font-bold uppercase tracking-[0.1em] text-[#1f1d1a]">
                   Registration Form
                 </p>
+                <div className="mt-1 h-0.5 w-28 bg-[#c0a56e]" />
               </div>
 
               <div className="flex flex-col items-start gap-2 sm:items-end md:pt-1">
@@ -154,9 +163,7 @@ function ChannelPartnerPage() {
             </div>
 
             <div className="mt-10">
-              <h3 className={sectionTitleClassName}>
-                <span className="border-b border-[#cbb89a] pb-0.5">Company Details</span>
-              </h3>
+              <SectionHeading>Company Details</SectionHeading>
 
               <div className="mt-5 space-y-4">
                 <InlineField label="Company Name:" required />
@@ -182,9 +189,7 @@ function ChannelPartnerPage() {
             </div>
 
             <div className="mt-10">
-              <h3 className={sectionTitleClassName}>
-                <span className="border-b border-[#cbb89a] pb-0.5">Address</span>
-              </h3>
+              <SectionHeading>Address</SectionHeading>
               <div className="mt-5 space-y-4">
                 <InlineField label="Registered Address:" required />
                 <div className="grid gap-4 sm:grid-cols-[0.9fr_1.2fr_0.9fr]">
@@ -196,9 +201,7 @@ function ChannelPartnerPage() {
             </div>
 
             <div className="mt-10">
-              <h3 className={sectionTitleClassName}>
-                <span className="border-b border-[#cbb89a] pb-0.5">Organisation Type</span>
-              </h3>
+              <SectionHeading>Organisation Type</SectionHeading>
               <div className="mt-5 flex flex-wrap gap-x-5 gap-y-3">
                 {organisationTypes.map((type) => (
                   <label
@@ -216,9 +219,7 @@ function ChannelPartnerPage() {
             </div>
 
             <div className="mt-10">
-              <h3 className={sectionTitleClassName}>
-                <span className="border-b border-[#cbb89a] pb-0.5">Nature of Business</span>
-              </h3>
+              <SectionHeading>Nature of Business</SectionHeading>
               <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                 {businessNatures.map((nature) => (
                   <label

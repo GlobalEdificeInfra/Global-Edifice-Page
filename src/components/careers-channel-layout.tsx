@@ -7,18 +7,34 @@ export function ResourcePageHero({
   imageAlt,
   title,
   subtitle,
+  overlay = "default",
+  fullScreen = false,
 }: {
   image: string;
   imageAlt: string;
   title: string;
   subtitle?: string;
+  overlay?: "default" | "light";
+  fullScreen?: boolean;
 }) {
+  const heightClass = fullScreen
+    ? "min-h-[100svh]"
+    : "min-h-[28rem] md:min-h-[34rem]";
+
   return (
-    <section className="relative isolate min-h-[28rem] overflow-hidden bg-[#0f4157] text-white md:min-h-[34rem]">
-      <img src={image} alt={imageAlt} className="absolute inset-0 h-full w-full object-cover" />
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(15,65,87,0.28)_0%,rgba(15,65,87,0.72)_100%)]" />
+    <section className={`relative isolate overflow-hidden bg-[#181818] text-white ${heightClass}`}>
+      <img
+        src={image}
+        alt={imageAlt}
+        className="absolute inset-0 h-full w-full object-cover object-center"
+      />
+      {overlay === "light" ? (
+        <div className="absolute inset-0 bg-black/20" />
+      ) : (
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(15,65,87,0.28)_0%,rgba(15,65,87,0.72)_100%)]" />
+      )}
       <div
-        className={`relative mx-auto flex min-h-[28rem] max-w-7xl flex-col items-center justify-center text-center ${pageGutterClass} pb-12 pt-28 md:min-h-[34rem] md:pb-16`}
+        className={`relative mx-auto flex max-w-7xl flex-col items-center justify-center text-center ${pageGutterClass} pb-10 pt-28 sm:pt-32 md:pb-12 md:pt-28 ${heightClass}`}
       >
         <h1 className="px-1 font-display text-[2.25rem] leading-[0.95] tracking-[-0.03em] text-white sm:text-[3rem] md:text-[4.5rem] lg:text-[5.5rem]">
           {title}
@@ -53,11 +69,17 @@ export function CareerChannelTabs({ active }: { active: "career" | "channel-part
   );
 }
 
-export function ResourcePageShell({ children }: { children: React.ReactNode }) {
+export function ResourcePageShell({
+  children,
+  headerOverlay = false,
+}: {
+  children: React.ReactNode;
+  headerOverlay?: boolean;
+}) {
   return (
     <>
       <main className="bg-[#f7f4ef] text-[#163849]">
-        <SiteHeader />
+        <SiteHeader appearance={headerOverlay ? "overlay" : "solid"} />
         {children}
       </main>
       <SiteFooter />
