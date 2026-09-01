@@ -19,16 +19,17 @@ const footerLinks = [
   {
     title: "Projects",
     items: [
-      { label: "Ongoing projects", kind: "anchor", href: "/projects#ongoing" },
-      { label: "Upcoming projects", kind: "anchor", href: "/projects#upcoming" },
-      { label: "Completed Projects", kind: "anchor", href: "/projects#completed" },
+      { label: "Global Heights", kind: "anchor", href: "/projects" },
+      { label: "Edifice Villas", kind: "anchor", href: "/projects" },
+      { label: "Global Residency", kind: "anchor", href: "/projects" },
+      { label: "Completed Portfolio", kind: "anchor", href: "/projects#completed" },
     ],
   },
   {
     title: "Contact",
     items: [
-      { label: "+91 80 4376 0152", kind: "anchor", href: "tel:+918043760152" },
-      { label: "sales@globaledifice.in", kind: "anchor", href: "mailto:sales@globaledifice.in" },
+      { label: "941 161 4444", kind: "anchor", href: "tel:+919411614444" },
+      { label: "sales@globaledifice.com", kind: "anchor", href: "mailto:sales@globaledifice.com" },
       { label: "HSR Layout 1st sector, Bangalore" },
       { label: "Schedule a Visit", kind: "anchor", href: "/#contact" },
     ],

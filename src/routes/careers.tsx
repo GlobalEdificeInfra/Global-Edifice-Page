@@ -6,6 +6,7 @@ import {
   ResourcePageShell,
   pageContainerClass,
 } from "@/components/careers-channel-layout";
+import { FormConsentCheckbox } from "@/components/form-consent-checkbox";
 
 export const Route = createFileRoute("/careers")({
   component: CareersPage,
@@ -93,7 +94,7 @@ function CareersPage() {
                 <input type="text" required placeholder="Your location" className={inputClassName} />
               </label>
               <div>
-                <label className="mt-1 flex min-h-12 cursor-pointer items-center justify-center gap-2 rounded-[0.2rem] border border-[#cfc8be] bg-white px-4 py-3.5 text-[0.88rem] font-medium text-[#5f5448] transition hover:border-[#8a6324]">
+                <label className="mt-1 flex min-h-12 cursor-pointer items-center justify-center gap-2 rounded-[0.2rem] border border-[#cfc8be] bg-white px-4 py-3.5 text-[0.88rem] font-medium text-[#5f5448] transition hover:border-[#c0a56e]">
                   <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.8">
                     <path d="M12 16V4M12 4l-4 4M12 4l4 4" strokeLinecap="round" strokeLinejoin="round" />
                     <path d="M4 16v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" strokeLinecap="round" />
@@ -112,9 +113,11 @@ function CareersPage() {
               </div>
             </div>
 
+            <FormConsentCheckbox className="mt-2" />
+
             <button
               type="submit"
-              className="mt-6 inline-flex items-center justify-center rounded-[0.35rem] border border-[#cfc8be] bg-white px-7 py-3.5 text-[0.74rem] font-semibold uppercase tracking-[0.2em] text-[#2a2723] transition hover:border-[#8a6324]"
+              className="mt-6 inline-flex items-center justify-center rounded-[0.35rem] border border-[#cfc8be] bg-white px-7 py-3.5 text-[0.74rem] font-semibold uppercase tracking-[0.2em] text-[#2a2723] transition hover:border-[#c0a56e]"
             >
               Send Message
             </button>

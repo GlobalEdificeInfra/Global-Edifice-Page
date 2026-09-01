@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { upcomingProjectHeroes } from "@/assets/locations/upcoming";
 import { LocationLandingPage } from "@/components/location-landing-page";
 
 export const Route = createFileRoute("/chandapura-heelalige")({
@@ -20,7 +21,9 @@ function ChandapuraHeelaligePage() {
     <LocationLandingPage
       titleLines={["CHANDAPURA, HEELALIGE"]}
       heroSubtitle="The Future Is Taking Shape."
-      heroVariant="illustration"
+      heroVariant="photo"
+      heroImage={upcomingProjectHeroes.heelalige}
+      heroImageAlt="Chandapura Heelalige residential community courtyard"
       introHeading="A New Community In One Of Bengaluru's Fastest-Growing Neighbourhoods."
       introParagraphs={[
         "Thoughtfully positioned in one of Bangalore’s rapidly evolving residential corridors, this address brings together the perfect balance of connectivity, convenience, and contemporary living. Surrounded by growing infrastructure and key urban developments, it offers a location designed for both present comfort and future value.",

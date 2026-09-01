@@ -1,9 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import careerHero from "@/assets/careers/career.jpg";
+import geFusionLogo from "@/assets/channel-partner/ge-fusion-logo.png";
 import {
   ResourcePageHero,
   ResourcePageShell,
 } from "@/components/careers-channel-layout";
+import { FormConsentCheckbox } from "@/components/form-consent-checkbox";
 
 export const Route = createFileRoute("/channel-partner")({
   component: ChannelPartnerPage,
@@ -20,7 +22,7 @@ export const Route = createFileRoute("/channel-partner")({
 });
 
 const fieldClassName =
-  "h-10 w-full border border-[#cfc8be] bg-white px-3 text-[0.9rem] text-[#2a2723] outline-none transition focus:border-[#8a6324]";
+  "h-10 w-full border border-[#cfc8be] bg-white px-3 text-[0.9rem] text-[#2a2723] outline-none transition focus:border-[#c0a56e]";
 const labelInlineClassName =
   "shrink-0 text-[0.88rem] font-medium text-[#2a2723] md:text-[0.92rem]";
 const sectionTitleClassName =
@@ -56,7 +58,7 @@ function DateBoxes({ id }: { id: string }) {
               type="text"
               maxLength={1}
               inputMode="numeric"
-              className="h-10 w-9 border border-[#d0cbc3] bg-white text-center text-[0.9rem] text-[#2a2723] outline-none focus:border-[#8a6324] sm:h-8 sm:w-7 sm:text-[0.8rem]"
+              className="h-10 w-9 border border-[#d0cbc3] bg-white text-center text-[0.9rem] text-[#2a2723] outline-none focus:border-[#c0a56e] sm:h-8 sm:w-7 sm:text-[0.8rem]"
             />
           ))}
           {groupIndex < 2 ? (
@@ -94,46 +96,12 @@ function InlineField({
 
 function FusionBrand() {
   return (
-    <div className="mx-auto text-center">
-      <p className="text-[0.7rem] font-semibold uppercase tracking-[0.32em] text-[#1f1d1a] md:text-[0.76rem]">
-        Global Edifice
-      </p>
-      <div className="mt-1.5 flex items-center justify-center text-[2.1rem] font-bold leading-none tracking-[0.1em] text-[#1f1d1a] sm:text-[2.8rem] md:text-[3.6rem]">
-        <span>FUSI</span>
-        <span
-          className="mx-[0.04em] inline-flex h-[0.92em] w-[0.92em] shrink-0 items-center justify-center"
-          aria-hidden
-        >
-          {/* O mark: same cap-height as letters; S-gap through orange arcs + teal center */}
-          <svg viewBox="0 0 100 100" className="h-full w-full">
-            {/* Orange ring: two arcs (top + bottom), small gaps on left & right */}
-            <circle
-              cx="50"
-              cy="50"
-              r="36"
-              fill="none"
-              stroke="#e07a5f"
-              strokeWidth="17"
-              strokeDasharray="95 18 95 18"
-              transform="rotate(82 50 50)"
-            />
-            {/* S line connecting through the side gaps */}
-            <path
-              d="M11 55C27 28 41 28 50 50C59 72 73 72 89 45"
-              fill="none"
-              stroke="#fcf9f2"
-              strokeWidth="11"
-              strokeLinecap="round"
-            />
-            {/* Teal / green center — larger solid diot matching reference */}
-            <circle cx="50" cy="50" r="17" fill="#0f5c5e" />
-          </svg>
-        </span>
-        <span>N</span>
-      </div>
-      <p className="mt-3 text-[0.66rem] font-semibold uppercase tracking-[0.2em] text-[#1f1d1a] md:text-[0.72rem]">
-        Where Assets And Values Multiply Forever.
-      </p>
+    <div className="mx-auto max-w-md text-center">
+      <img
+        src={geFusionLogo}
+        alt="Global Edifice Fusion — Where Assets And Values Multiply Forever"
+        className="mx-auto h-auto w-full max-w-[18rem] sm:max-w-[22rem] md:max-w-[26rem]"
+      />
     </div>
   );
 }
@@ -237,7 +205,7 @@ function ChannelPartnerPage() {
                     key={type}
                     className="flex min-h-11 items-center gap-2 text-[0.88rem] text-[#2a2723]"
                   >
-                    <input type="checkbox" className="h-4 w-4 accent-[#8a6324]" />
+                    <input type="checkbox" className="h-4 w-4 accent-[#c0a56e]" />
                     {type}
                     {type === "Others" ? (
                       <span className="ml-1 inline-block w-28 border-b border-[#cfc8be] md:w-40" />
@@ -257,7 +225,7 @@ function ChannelPartnerPage() {
                     key={nature}
                     className="flex min-h-11 items-center gap-2.5 text-[0.86rem] text-[#2a2723]"
                   >
-                    <input type="checkbox" className="h-4 w-4 shrink-0 accent-[#8a6324]" />
+                    <input type="checkbox" className="h-4 w-4 shrink-0 accent-[#c0a56e]" />
                     {nature}
                   </label>
                 ))}
@@ -306,15 +274,17 @@ function ChannelPartnerPage() {
                 subject to Bengaluru jurisdiction.
               </p>
 
-              <label className="mt-5 flex items-center gap-2 text-[0.9rem] font-medium text-[#2a2723]">
-                <input type="checkbox" required className="h-4 w-4 accent-[#8a6324]" />
+              <FormConsentCheckbox className="mt-5 text-[0.82rem] leading-[1.75] text-[#5c564d]" />
+
+              <label className="mt-4 flex items-center gap-2 text-[0.9rem] font-medium text-[#2a2723]">
+                <input type="checkbox" required className="h-4 w-4 accent-[#c0a56e]" />
                 I accept the terms and conditions
               </label>
             </div>
 
             <button
               type="submit"
-              className="mt-8 inline-flex items-center justify-center rounded-[0.2rem] bg-[#8a6324] px-12 py-3.5 text-[0.78rem] font-semibold uppercase tracking-[0.2em] text-white transition hover:bg-[#6f4e1a]"
+              className="mt-8 inline-flex items-center justify-center rounded-[0.2rem] bg-[#c0a56e] px-12 py-3.5 text-[0.78rem] font-semibold uppercase tracking-[0.2em] text-white transition hover:bg-[#a89458]"
             >
               Empanel
             </button>

@@ -1,4 +1,5 @@
 import geContactLounge from "@/assets/shared/ge-contact-lounge.jpg";
+import { FormConsentCheckbox } from "@/components/form-consent-checkbox";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 
@@ -8,8 +9,10 @@ const pageContainerClass = `mx-auto max-w-7xl ${pageGutterClass}`;
 export type LocationLandingPageProps = {
   titleLines: string[];
   heroSubtitle?: string;
-  /** Illustration placeholder hero (upcoming pages) vs photo hero. */
+  /** Map illustration hero (upcoming pages) vs photo hero. */
   heroVariant?: "illustration" | "photo";
+  heroMapImage?: string;
+  heroMapImageAlt?: string;
   heroImage?: string;
   heroImageAlt?: string;
   heroImageClassName?: string;
@@ -18,26 +21,10 @@ export type LocationLandingPageProps = {
   highlightStats: Array<{ value: string; label: string }>;
 };
 
-function UpcomingHeroIllustration() {
+function UpcomingHeroMap({ src, alt }: { src: string; alt: string }) {
   return (
-    <div className="mx-auto flex h-[11rem] w-full max-w-[22rem] items-center justify-center sm:h-[12.5rem] md:h-[14rem]" aria-hidden>
-      <svg viewBox="0 0 220 118" className="h-full w-auto" fill="none">
-        <ellipse cx="110" cy="102" rx="78" ry="9" fill="#c5ced6" />
-        <rect x="38" y="68" width="42" height="28" fill="#9aafc0" />
-        <rect x="48" y="76" width="22" height="12" fill="#7e96ab" />
-        <rect x="86" y="34" width="52" height="62" fill="#9aafc0" />
-        <rect x="96" y="42" width="10" height="8" fill="#7e96ab" />
-        <rect x="118" y="42" width="10" height="8" fill="#7e96ab" />
-        <rect x="96" y="56" width="10" height="8" fill="#7e96ab" />
-        <rect x="118" y="56" width="10" height="8" fill="#7e96ab" />
-        <rect x="96" y="70" width="10" height="8" fill="#7e96ab" />
-        <rect x="118" y="70" width="10" height="8" fill="#7e96ab" />
-        <rect x="104" y="82" width="16" height="14" fill="#7e96ab" />
-        <rect x="158" y="72" width="3" height="24" fill="#9aafc0" />
-        <circle cx="159.5" cy="64" r="14" fill="#9aafc0" />
-        <rect x="180" y="80" width="2.5" height="16" fill="#9aafc0" />
-        <circle cx="181.2" cy="74" r="9" fill="#9aafc0" />
-      </svg>
+    <div className="mx-auto w-full max-w-[22rem] overflow-hidden rounded-[0.85rem] bg-[#dce3ea] shadow-[0_12px_28px_-20px_rgba(18,58,76,0.35)] sm:max-w-[26rem] md:max-w-[30rem]">
+      <img src={src} alt={alt} className="aspect-square w-full object-cover" />
     </div>
   );
 }
@@ -110,19 +97,13 @@ function ContactSection() {
                 />
               </label>
 
-              <label className="flex items-start gap-2 text-[0.72rem] font-medium leading-[1.7] text-[#8a7e70]">
-                <input type="checkbox" className="mt-0.5 h-5 w-5 shrink-0 rounded border-[#dbcdae]" />
-                <span>
-                  By submitting my details, I acknowledge that I am overriding my National Do Not
-                  Call (NDNC) registration and authorize Global Edifice to contact me regarding my
-                  enquiry and project updates via call, SMS, email, or WhatsApp.
-                </span>
-              </label>
+              <FormConsentCheckbox />
+
             </div>
 
             <button
               type="submit"
-              className="mt-6 inline-flex items-center justify-center rounded-[0.35rem] border border-[#d5c4a8] bg-white px-7 py-3.5 text-[0.74rem] font-semibold uppercase tracking-[0.2em] text-[#6f6558] transition hover:border-[#8a6324] hover:text-[#123a4c]"
+              className="mt-6 inline-flex items-center justify-center rounded-[0.35rem] border border-[#d5c4a8] bg-white px-7 py-3.5 text-[0.74rem] font-semibold uppercase tracking-[0.2em] text-[#6f6558] transition hover:border-[#c0a56e] hover:text-[#123a4c]"
             >
               Send Message
             </button>
@@ -137,6 +118,8 @@ export function LocationLandingPage({
   titleLines,
   heroSubtitle,
   heroVariant = "illustration",
+  heroMapImage,
+  heroMapImageAlt = "",
   heroImage,
   heroImageAlt = "",
   heroImageClassName = "object-center",
@@ -152,29 +135,39 @@ export function LocationLandingPage({
         <SiteHeader appearance={isPhotoHero ? "overlay" : "solid"} />
 
         {isPhotoHero ? (
-          <section className="relative isolate min-h-[26rem] overflow-hidden bg-[#181818] text-white sm:min-h-[30rem] md:min-h-[36rem]">
+          <section className="relative isolate min-h-[100svh] overflow-hidden bg-[#181818] text-white">
             <img
               src={heroImage}
               alt={heroImageAlt}
-              className={`absolute inset-0 h-full w-full object-cover ${heroImageClassName}`}
+              className={`absolute inset-0 h-full w-full object-cover object-center ${heroImageClassName}`}
             />
-            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,12,14,0.28)_0%,rgba(10,12,14,0.18)_45%,rgba(10,12,14,0.42)_100%)]" />
+            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,12,14,0.35)_0%,rgba(10,12,14,0.2)_45%,rgba(10,12,14,0.5)_100%)]" />
+            <div className="absolute inset-0 bg-black/20" />
             <div
-              className={`relative mx-auto flex min-h-[26rem] max-w-7xl items-center justify-center ${pageGutterClass} pb-12 pt-28 sm:min-h-[30rem] md:min-h-[36rem] md:pb-14 md:pt-32`}
+              className={`relative mx-auto flex min-h-[100svh] max-w-7xl items-center justify-center ${pageGutterClass} pb-10 pt-28 sm:pt-32 md:pb-12 md:pt-28`}
             >
-              <h1 className="w-full text-center font-display text-[2.4rem] leading-[1.02] tracking-[0.04em] text-white uppercase sm:text-[3.2rem] md:text-[4.2rem] lg:text-[5rem]">
-                {titleLines.map((line) => (
-                  <span key={line} className="block">
-                    {line}
-                  </span>
-                ))}
-              </h1>
+              <div className="w-full text-center">
+                <h1 className="font-display text-[2.4rem] leading-[1.02] tracking-[0.04em] text-white uppercase sm:text-[3.2rem] md:text-[4.2rem] lg:text-[5rem]">
+                  {titleLines.map((line) => (
+                    <span key={line} className="block">
+                      {line}
+                    </span>
+                  ))}
+                </h1>
+                {heroSubtitle ? (
+                  <p className="mt-4 text-[0.78rem] font-semibold uppercase tracking-[0.22em] text-white/90 md:mt-5 md:text-[0.88rem]">
+                    {heroSubtitle}
+                  </p>
+                ) : null}
+              </div>
             </div>
           </section>
         ) : (
           <section className="bg-[#dce3ea] pb-14 pt-32 md:pb-16 md:pt-36">
             <div className={pageContainerClass}>
-              <UpcomingHeroIllustration />
+              {heroMapImage ? (
+                <UpcomingHeroMap src={heroMapImage} alt={heroMapImageAlt} />
+              ) : null}
               <h1 className="mt-8 w-full text-center font-display text-[1.85rem] leading-[1.08] tracking-[0.02em] text-[#123a4c] uppercase sm:text-[2.35rem] md:text-[2.9rem] lg:text-[3.25rem]">
                 {titleLines.map((line) => (
                   <span key={line} className="block">
@@ -194,7 +187,7 @@ export function LocationLandingPage({
         <section id="overview" className="bg-[#fbf8f4] py-16 md:py-20">
           <div className={pageContainerClass}>
             <div className="mx-auto max-w-6xl">
-              <h2 className="text-center font-display text-[1.45rem] leading-[1.2] tracking-[0.02em] text-[#8a6324] uppercase md:text-[1.85rem] lg:text-[2.1rem]">
+              <h2 className="text-center font-display text-[1.45rem] leading-[1.2] tracking-[0.02em] text-[#c0a56e] uppercase md:text-[1.85rem] lg:text-[2.1rem]">
                 {introHeading}
               </h2>
 
@@ -217,7 +210,7 @@ export function LocationLandingPage({
                 })}
               </div>
 
-              <div className="mt-12 grid overflow-hidden rounded-[0.85rem] bg-[#8a6324] text-white md:mt-14 md:grid-cols-3">
+              <div className="mt-12 grid overflow-hidden rounded-[0.85rem] bg-[#c0a56e] text-white md:mt-14 md:grid-cols-3">
                 {highlightStats.map((stat, index) => (
                   <div
                     key={`${stat.value}-${stat.label}`}

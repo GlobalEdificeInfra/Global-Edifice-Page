@@ -3,7 +3,7 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import { BlogSiteHeader, pageContainerClass, pageGutterClass } from "@/components/blog-site-chrome";
 import { SiteFooter } from "@/components/site-footer";
 import { blogPosts } from "@/lib/blog-data";
-import blogsHeroBanner from "@/assets/mission-in-real-etate-img.jpg";
+import blogsHeroBanner from "@/assets/blogs/blogs-hero-banner.jpg";
 
 const BLOGS_TITLE = "Blogs - Global Edifice";
 const BLOGS_DESCRIPTION =
@@ -43,7 +43,7 @@ function BlogsHero() {
       <img
         src={blogsHeroBanner}
         alt="Global Edifice blog hero"
-        className="absolute inset-0 h-full w-full object-cover object-left opacity-90"
+        className="absolute inset-0 h-full w-full object-cover object-center"
       />
       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(15,65,87,0.22)_0%,rgba(15,65,87,0.68)_100%)]" />
       <div

@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { upcomingProjectHeroes } from "@/assets/locations/upcoming";
 import { LocationLandingPage } from "@/components/location-landing-page";
 
 export const Route = createFileRoute("/chandapura-nh-44")({
@@ -19,7 +20,9 @@ function ChandapuraNh44Page() {
   return (
     <LocationLandingPage
       titleLines={["CHANDAPURA NH 44"]}
-      heroVariant="illustration"
+      heroVariant="photo"
+      heroImage={upcomingProjectHeroes.nh44}
+      heroImageAlt="Chandapura NH 44 luxury residences with pool terrace"
       introHeading="Elevated Living. Designed To Rise."
       introParagraphs={[
         "Rising across 5.5 acres in Chandapura, this luxury high-rise development brings together contemporary architecture, expansive views, and thoughtfully designed spaces for a refined urban lifestyle.",

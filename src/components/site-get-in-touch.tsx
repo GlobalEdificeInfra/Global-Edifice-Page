@@ -9,6 +9,7 @@ import {
   Phone,
 } from "lucide-react";
 import geContactLounge from "@/assets/shared/ge-contact-lounge.jpg";
+import { FormConsentCheckbox } from "@/components/form-consent-checkbox";
 
 const pageGutterClass = "px-[1.125rem] md:px-[1.8rem]";
 
@@ -52,9 +53,9 @@ export function SiteGetInTouch({
   const EmailIcon = emailContact.icon;
   const HeadingTag = headingAs;
   const inputLabelClassName =
-    "text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-[#b08a45]";
+    "text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-[#c0a56e]";
   const inputFieldClassName =
-    "mt-2.5 w-full border-b border-white/35 bg-transparent pb-2.5 text-[0.95rem] text-white outline-none transition placeholder:text-white/45 focus:border-[#b08a45]";
+    "mt-2.5 w-full border-b border-white/35 bg-transparent pb-2.5 text-[0.95rem] text-white outline-none transition placeholder:text-white/45 focus:border-[#c0a56e]";
   const contentPadClass = overlayHeader
     ? "pb-12 pt-36 md:pb-14 md:pt-40 lg:pb-16 lg:pt-44"
     : "py-14 md:py-16 lg:py-20";
@@ -74,10 +75,10 @@ export function SiteGetInTouch({
         >
           <div className="flex max-w-[38rem] flex-col text-white lg:pt-1">
             <div className="flex items-center gap-4">
-              <span className="text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-[#b08a45]">
+              <span className="text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-[#c0a56e]">
                 Get In Touch
               </span>
-              <span className="h-px w-10 bg-[#b08a45]/80" />
+              <span className="h-px w-10 bg-[#c0a56e]/80" />
             </div>
             <HeadingTag className="mt-3 font-display text-[2.35rem] leading-[0.96] md:text-[2.75rem] lg:text-[3rem]">
               Start Your Journey
@@ -105,7 +106,7 @@ export function SiteGetInTouch({
 
               <label className="block">
                 <span className={inputLabelClassName}>Project Of Interest</span>
-                <span className="relative mt-2.5 block border-b border-white/35 pb-2.5 transition focus-within:border-[#b08a45]">
+                <span className="relative mt-2.5 block border-b border-white/35 pb-2.5 transition focus-within:border-[#c0a56e]">
                   <select
                     defaultValue={defaultProject}
                     className="w-full appearance-none bg-transparent pr-8 text-[0.95rem] text-white outline-none"
@@ -120,7 +121,7 @@ export function SiteGetInTouch({
                       Global Edifice Legacy
                     </option>
                   </select>
-                  <ChevronDown className="pointer-events-none absolute top-1/2 right-0 h-4 w-4 -translate-y-1/2 text-[#b08a45]" />
+                  <ChevronDown className="pointer-events-none absolute top-1/2 right-0 h-4 w-4 -translate-y-1/2 text-[#c0a56e]" />
                 </span>
               </label>
 
@@ -132,6 +133,8 @@ export function SiteGetInTouch({
                   className={`${inputFieldClassName} resize-none`}
                 />
               </label>
+
+              <FormConsentCheckbox variant="dark" />
 
               <div className="pt-1">
                 <button
@@ -153,11 +156,11 @@ export function SiteGetInTouch({
             </h3>
 
             <div className="mt-8 border-b border-[#ece7df] pb-7">
-              <h4 className="font-display text-[1.35rem] leading-none text-[#8a6324] md:text-[1.5rem]">
+              <h4 className="font-display text-[1.35rem] leading-none text-[#c0a56e] md:text-[1.5rem]">
                 {officeContact.eyebrow}
               </h4>
               <div className="mt-4 flex items-start gap-3.5">
-                <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#8a6324] text-white">
+                <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#c0a56e] text-white">
                   <OfficeIcon className="h-4 w-4 stroke-[2.2]" />
                 </span>
                 <p className="text-[0.95rem] leading-[1.7] text-[#3a3835]">{officeContact.body}</p>
@@ -165,11 +168,11 @@ export function SiteGetInTouch({
             </div>
 
             <div className="flex items-start gap-3.5 border-b border-[#ece7df] py-7">
-              <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#8a6324] text-white">
+              <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#c0a56e] text-white">
                 <PhoneIcon className="h-4 w-4 stroke-[2.2]" />
               </span>
               <div>
-                <p className="text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-[#8a6324]">
+                <p className="text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-[#c0a56e]">
                   {phoneContact.eyebrow}
                 </p>
                 <a
@@ -182,11 +185,11 @@ export function SiteGetInTouch({
             </div>
 
             <div className="flex items-start gap-3.5 border-b border-[#ece7df] py-7">
-              <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#8a6324] text-white">
+              <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#c0a56e] text-white">
                 <EmailIcon className="h-4 w-4 stroke-[2.15]" />
               </span>
               <div>
-                <p className="text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-[#8a6324]">
+                <p className="text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-[#c0a56e]">
                   {emailContact.eyebrow}
                 </p>
                 <a
@@ -199,28 +202,28 @@ export function SiteGetInTouch({
             </div>
 
             <div className="pt-7">
-              <h4 className="font-display text-[1.35rem] leading-none text-[#8a6324] md:text-[1.5rem]">
+              <h4 className="font-display text-[1.35rem] leading-none text-[#c0a56e] md:text-[1.5rem]">
                 Follow Our Journey
               </h4>
               <div className="mt-4 flex items-center gap-3">
                 <a
                   href="#"
                   aria-label="Facebook"
-                  className="flex h-9 w-9 items-center justify-center rounded-full bg-[#8a6324] text-white transition hover:bg-[#0f4157]"
+                  className="flex h-9 w-9 items-center justify-center rounded-full bg-[#c0a56e] text-white transition hover:bg-[#0f4157]"
                 >
                   <Facebook className="h-4 w-4 fill-current stroke-0" />
                 </a>
                 <a
                   href="#"
                   aria-label="Instagram"
-                  className="flex h-9 w-9 items-center justify-center rounded-full bg-[#8a6324] text-white transition hover:bg-[#0f4157]"
+                  className="flex h-9 w-9 items-center justify-center rounded-full bg-[#c0a56e] text-white transition hover:bg-[#0f4157]"
                 >
                   <Instagram className="h-4 w-4 stroke-[2.1]" />
                 </a>
                 <a
                   href="#"
                   aria-label="LinkedIn"
-                  className="flex h-9 w-9 items-center justify-center rounded-full bg-[#8a6324] text-white transition hover:bg-[#0f4157]"
+                  className="flex h-9 w-9 items-center justify-center rounded-full bg-[#c0a56e] text-white transition hover:bg-[#0f4157]"
                 >
                   <Linkedin className="h-4 w-4 fill-current stroke-0" />
                 </a>

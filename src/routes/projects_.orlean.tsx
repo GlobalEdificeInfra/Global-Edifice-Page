@@ -10,6 +10,7 @@ import orleanElevationCutout from "@/assets/projects/orlean/Orlean_Elevation.png
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import geContactLounge from "@/assets/shared/ge-contact-lounge.jpg";
+import { FormConsentCheckbox } from "@/components/form-consent-checkbox";
 
 const ORLEAN_TITLE = "Global Edifice Orlean";
 const ORLEAN_DESCRIPTION =
@@ -40,11 +41,11 @@ type PlanMode = "masterplan" | "floorplan";
 
 const heroStats = [
   { label: "Typology", lines: ["2 & 3 Bed", "spacious residences"] },
-  { label: "Price", lines: ["Starting 76 lakhs*"] },
+  { label: "Price", lines: ["Starting", "76 lakhs*"] },
   { label: "Location", lines: ["Chandapura", "Bangalore"] },
   {
     label: "RERA",
-    lines: ["RERA NO.:", "PRM/KA/RERA/1251/308/", "PR/071224/007275"],
+    lines: ["RERA NO.: PRM/KA/RERA/1251/308/PR/071224/007275"],
   },
 ] as const;
 
@@ -402,11 +403,11 @@ function HeroStatStrip() {
   return (
     <section className="relative z-20 -mt-[3.6rem] bg-transparent md:-mt-[3.75rem]">
       <div className={pageContainerClass}>
-        <div className="mx-auto grid max-w-6xl overflow-hidden rounded-[1.75rem] bg-[#fcfaf7] shadow-[0_22px_44px_-28px_rgba(40,30,16,0.4)] md:grid-cols-[0.95fr_0.9fr_0.95fr_1.35fr]">
+        <div className="mx-auto grid max-w-7xl overflow-hidden rounded-[1.75rem] bg-[#fcfaf7] shadow-[0_22px_44px_-28px_rgba(40,30,16,0.4)] md:grid-cols-[0.82fr_0.78fr_0.9fr_1.7fr]">
           {heroStats.map((item, index) => (
             <div
               key={item.label}
-              className={`flex flex-col items-center justify-center px-3 py-6 text-center md:min-h-[7.5rem] md:px-4 md:py-7 ${
+              className={`flex flex-col items-center justify-center px-3 py-6 text-center md:min-h-[7.5rem] md:px-5 md:py-7 ${
                 index > 0 ? "border-t border-[#ebe4d8] md:border-t-0 md:border-l" : ""
               }`}
             >
@@ -414,17 +415,21 @@ function HeroStatStrip() {
                 {item.label}
               </p>
               <div
-                className={`mt-3 text-[#1a1a1a] ${
+                className={`mt-3 font-display leading-[1.35] text-[#1a1a1a] ${
                   item.label === "RERA"
-                    ? "w-full max-w-none break-words text-[0.78rem] leading-[1.4] font-medium md:text-[0.84rem]"
-                    : "font-display text-[0.92rem] leading-[1.35] md:text-[1.02rem]"
+                    ? "w-full text-[0.82rem] md:text-[0.92rem]"
+                    : "text-[0.92rem] md:text-[1.02rem]"
                 }`}
               >
-                {item.lines.map((line) => (
-                  <span key={line} className="block">
-                    {line}
-                  </span>
-                ))}
+                {item.label === "RERA" ? (
+                  <p className="md:whitespace-nowrap">{item.lines[0]}</p>
+                ) : (
+                  item.lines.map((line) => (
+                    <span key={line} className="block">
+                      {line}
+                    </span>
+                  ))
+                )}
               </div>
             </div>
           ))}
@@ -466,7 +471,7 @@ function OverviewSection() {
             <a
               href={orleanBrochureCover}
               download
-              className="mt-8 inline-flex w-fit items-center gap-4 border border-[#8a6324] bg-white px-8 py-3.5 text-[0.7rem] font-medium uppercase tracking-[0.2em] text-[#8a6324] transition hover:border-[#6f4e1a] hover:text-[#6f4e1a]"
+              className="mt-8 inline-flex w-fit items-center gap-4 border border-[#c0a56e] bg-white px-8 py-3.5 text-[0.7rem] font-medium uppercase tracking-[0.2em] text-[#c0a56e] transition hover:border-[#a89458] hover:text-[#a89458]"
             >
               Download Brochure
               <ArrowDown className="h-3.5 w-3.5 stroke-[2.25]" />
@@ -496,7 +501,7 @@ function AmenitiesSection() {
     <section id="amenities" className={`bg-[#fbf8f3] ${sectionPadClass}`}>
       <div className={pageContainerClass}>
         <div
-          className={`${sectionInnerClass} grid overflow-hidden rounded-[0.85rem] bg-[#8a6324] text-white md:grid-cols-3`}
+          className={`${sectionInnerClass} grid overflow-hidden rounded-[0.85rem] bg-[#c0a56e] text-white md:grid-cols-3`}
         >
           {overviewStats.map((item, index) => (
             <div
@@ -507,10 +512,10 @@ function AmenitiesSection() {
                   : ""
               }`}
             >
-              <p className="text-[1.55rem] font-semibold tracking-[0.06em] md:text-[1.75rem]">
+              <p className="font-sans text-[1.6rem] font-medium normal-case leading-none tracking-normal md:text-[1.85rem]">
                 {item.value}
               </p>
-              <p className="mt-2 text-[0.6rem] uppercase tracking-[0.26em] text-white/90 md:text-[0.64rem]">
+              <p className="mt-2.5 font-sans text-[0.58rem] font-normal uppercase tracking-[0.28em] text-white/95 md:mt-3 md:text-[0.62rem]">
                 {item.label}
               </p>
             </div>
@@ -519,10 +524,10 @@ function AmenitiesSection() {
 
         <div className={`${sectionInnerClass} mt-14 md:mt-16`}>
           <div className="flex items-center gap-4">
-            <p className="text-[0.72rem] font-semibold uppercase tracking-[0.28em] text-[#8a6324]">
+            <p className="text-[0.72rem] font-semibold uppercase tracking-[0.28em] text-[#c0a56e]">
               Project Highlights
             </p>
-            <span className="h-px w-8 bg-[#8a6324]/75" />
+            <span className="h-px w-8 bg-[#c0a56e]/75" />
           </div>
           <h2 className="mt-4 max-w-[58rem] font-display text-[2.35rem] leading-[0.96] text-[#21201d] md:text-[3.5rem] lg:text-[3.7rem]">
             <span className="block md:whitespace-nowrap">Elevate Your Everyday With</span>
@@ -552,7 +557,7 @@ function AmenitiesSection() {
                 aria-label={`Show ${slide.title}`}
                 onClick={() => setActiveAmenity(index)}
                 className={`h-2.5 w-2.5 rounded-full transition ${
-                  activeAmenity === index ? "bg-[#8a6324]" : "bg-[#d7cab4] hover:bg-[#c6b18a]"
+                  activeAmenity === index ? "bg-[#c0a56e]" : "bg-[#d7cab4] hover:bg-[#c6b18a]"
                 }`}
               />
             ))}
@@ -611,7 +616,7 @@ function PlanSection() {
               className="w-full object-cover"
             />
 
-            <div className="flex flex-col gap-4 border-t border-[#ebe0d1] px-5 py-5 text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-[#a8762b] md:flex-row md:items-center md:justify-between md:px-8 md:py-6">
+            <div className="flex flex-col gap-4 border-t border-[#ebe0d1] px-5 py-5 text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-[#c0a56e] md:flex-row md:items-center md:justify-between md:px-8 md:py-6">
               <div className="flex items-center justify-between gap-4 md:gap-8">
                 <span>
                   {planMode === "masterplan"
@@ -890,14 +895,8 @@ function ContactSection() {
                 />
               </label>
 
-              <label className="flex items-start gap-2 text-[0.72rem] font-medium leading-[1.7] text-[#8a7e70]">
-                <input type="checkbox" className="mt-0.5 h-3.5 w-3.5 rounded border-[#dbcdae]" />
-                <span>
-                  By submitting my details, I acknowledge that I am overriding my National Do Not
-                  Call (NDNC) registration and authorize Global Edifice to contact me regarding my
-                  enquiry and project updates via call, SMS, email, or WhatsApp.
-                </span>
-              </label>
+              <FormConsentCheckbox />
+
             </div>
 
             <button

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "@tanstack/react-router";
+import { Link, useRouterState } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
 import geLogo from "@/assets/shared/ge-logo.png";
 import geLogoGold from "@/assets/shared/ge-logo-gold.png";
@@ -21,23 +21,77 @@ const siteNavLinks = [
 
 type SiteNavItem = (typeof siteNavLinks)[number];
 
-function DesktopNavItem({ item }: { item: SiteNavItem }) {
-  const itemClassName = "transition hover:text-[#123a4c]";
+const projectPaths = [
+  "/projects",
+  "/chandapura-bangalore",
+  "/chandapura-heelalige",
+  "/chandapura-nh-44",
+  "/gunjur",
+  "/muthanallur-off-sarjapura-bangalore",
+] as const;
+
+const resourcePaths = ["/blogs", "/careers", "/channel-partner"] as const;
+
+function isProjectsPath(pathname: string) {
+  if (pathname === "/projects" || pathname.startsWith("/projects/")) {
+    return true;
+  }
+
+  return projectPaths.some((path) => path !== "/projects" && pathname === path);
+}
+
+function isResourcesPath(pathname: string) {
+  return resourcePaths.some(
+    (path) => pathname === path || (path === "/blogs" && pathname.startsWith("/blogs/")),
+  );
+}
+
+function isNavItemActive(item: SiteNavItem, pathname: string) {
+  switch (item.label) {
+    case "HOME":
+      return pathname === "/";
+    case "ABOUT US":
+      return pathname === "/about";
+    case "PROJECTS":
+      return isProjectsPath(pathname);
+    case "RESOURCES":
+      return isResourcesPath(pathname);
+    case "CONTACT":
+      return pathname === "/contact";
+    default:
+      return false;
+  }
+}
+
+function getDesktopNavClassName(isActive: boolean) {
+  return isActive
+    ? "font-bold text-[#123a4c] underline decoration-[#c4a36b] decoration-2 underline-offset-[6px]"
+    : "transition hover:text-[#123a4c]";
+}
+
+function getMobileNavClassName(isActive: boolean) {
+  return isActive
+    ? "block rounded-[0.95rem] bg-[#f6f1e8] px-4 py-3 text-[0.8rem] font-bold tracking-[0.16em] text-[#123a4c]"
+    : "block rounded-[0.95rem] px-4 py-3 text-[0.8rem] font-medium tracking-[0.16em] text-[#7a5418] transition hover:bg-[#f6f1e8] hover:text-[#123a4c]";
+}
+
+function DesktopNavItem({ item, isActive }: { item: SiteNavItem; isActive: boolean }) {
+  const itemClassName = getDesktopNavClassName(isActive);
 
   if (item.kind === "resources-menu") {
-    return <SiteResourceMenu className={itemClassName} />;
+    return <SiteResourceMenu className={itemClassName} isActive={isActive} />;
   }
 
   if (item.kind === "route") {
     return (
-      <Link to={item.to} className={itemClassName}>
+      <Link to={item.to} className={itemClassName} aria-current={isActive ? "page" : undefined}>
         {item.label}
       </Link>
     );
   }
 
   return (
-    <a href={item.href} className={itemClassName}>
+    <a href={item.href} className={itemClassName} aria-current={isActive ? "page" : undefined}>
       {item.label}
     </a>
   );
@@ -46,6 +100,7 @@ function DesktopNavItem({ item }: { item: SiteNavItem }) {
 export function SiteHeader({ appearance = "overlay" }: { appearance?: "overlay" | "solid" }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(appearance === "solid");
+  const pathname = useRouterState({ select: (state) => state.location.pathname });
   const showSolid = appearance === "solid" || isScrolled;
 
   useEffect(() => {
@@ -97,12 +152,16 @@ export function SiteHeader({ appearance = "overlay" }: { appearance?: "overlay" 
               }`}
             >
               {siteNavLinks.map((item) => (
-                <DesktopNavItem key={item.label} item={item} />
+                <DesktopNavItem
+                  key={item.label}
+                  item={item}
+                  isActive={isNavItemActive(item, pathname)}
+                />
               ))}
               <button
                 type="button"
                 onClick={() => window.dispatchEvent(new CustomEvent("open-enquiry-popup"))}
-                className="rounded-full bg-[#8a6324] px-5 py-2 text-[0.72rem] text-white transition-colors hover:bg-[#6f4e1a] lg:text-[0.76rem]"
+                className="rounded-full bg-[#c0a56e] px-5 py-2 text-[0.72rem] text-white transition-colors hover:bg-[#a89458] lg:text-[0.76rem]"
               >
                 ENQUIRE
               </button>
@@ -115,7 +174,7 @@ export function SiteHeader({ appearance = "overlay" }: { appearance?: "overlay" 
               onClick={() => window.dispatchEvent(new CustomEvent("open-enquiry-popup"))}
               className={`min-h-10 rounded-full tracking-[0.16em] transition-colors ${
                 showSolid
-                  ? "bg-[#8a6324] px-4 py-2.5 text-[0.68rem] text-white"
+                  ? "bg-[#c0a56e] px-4 py-2.5 text-[0.68rem] text-white"
                   : "border border-white/40 bg-white/10 px-3.5 py-2 text-[0.68rem] text-white backdrop-blur sm:px-4 sm:text-[0.74rem]"
               }`}
             >
@@ -148,10 +207,13 @@ export function SiteHeader({ appearance = "overlay" }: { appearance?: "overlay" 
         >
           <nav id="site-mobile-nav" className="flex flex-col gap-1 px-2 py-2">
             {siteNavLinks.map((item) => {
+              const isActive = isNavItemActive(item, pathname);
+
               if (item.kind === "resources-menu") {
                 return (
                   <MobileSiteResourceLinks
                     key={item.label}
+                    isActive={isActive}
                     onNavigate={() => setIsMobileMenuOpen(false)}
                   />
                 );
@@ -163,7 +225,8 @@ export function SiteHeader({ appearance = "overlay" }: { appearance?: "overlay" 
                     key={item.label}
                     to={item.to}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="block rounded-[0.95rem] px-4 py-3 text-[0.8rem] font-medium tracking-[0.16em] text-[#7a5418] transition hover:bg-[#f6f1e8] hover:text-[#123a4c]"
+                    className={getMobileNavClassName(isActive)}
+                    aria-current={isActive ? "page" : undefined}
                   >
                     {item.label}
                   </Link>
@@ -175,7 +238,8 @@ export function SiteHeader({ appearance = "overlay" }: { appearance?: "overlay" 
                   key={item.label}
                   href={item.href}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="rounded-[0.95rem] px-4 py-3 text-[0.8rem] font-medium tracking-[0.16em] text-[#7a5418] transition hover:bg-[#f6f1e8] hover:text-[#123a4c]"
+                  className={getMobileNavClassName(isActive)}
+                  aria-current={isActive ? "page" : undefined}
                 >
                   {item.label}
                 </a>

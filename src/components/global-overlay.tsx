@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { X } from "lucide-react";
 import geLogoGold from "@/assets/shared/ge-logo-gold.png";
+import { FormConsentCheckbox } from "@/components/form-consent-checkbox";
 
 const ENQUIRY_SESSION_KEY = "ge-enquiry-popup-shown";
 
@@ -154,6 +155,8 @@ export function GlobalOverlay() {
                 className="w-full bg-white/5 border border-white/20 rounded-full px-5 py-3 text-white placeholder:text-white/50 outline-none focus:border-[#daba81] transition-colors text-[0.95rem]"
               />
             </div>
+
+            <FormConsentCheckbox variant="popup" />
 
             <button
               type="button"

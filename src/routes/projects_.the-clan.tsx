@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { ArrowDown, ArrowRight, ChevronLeft, ChevronRight, Menu, X } from "lucide-react";
 import { Link, createFileRoute } from "@tanstack/react-router";
 import geContactLounge from "@/assets/shared/ge-contact-lounge.jpg";
+import { FormConsentCheckbox } from "@/components/form-consent-checkbox";
 import geLogo from "@/assets/shared/ge-logo.png";
 import clanGalleryPergolaWalkway from "@/assets/projects/the-clan/clan-gallery-pergola-walkway.jpg";
 import clanGalleryPoolCourt from "@/assets/projects/the-clan/clan-gallery-pool-court.jpg";
@@ -51,11 +52,11 @@ type PlanMode = "masterplan" | "floorplan";
 
 const heroStats = [
   { label: "Typology", lines: ["2 & 3 Bed", "signature residences"] },
-  { label: "Price", lines: ["Starting 85 Lakhs*"] },
+  { label: "Price", lines: ["Starting", "85 Lakhs*"] },
   { label: "Location", lines: ["Sarjapura, Bangalore"] },
   {
     label: "RERA",
-    lines: ["RERA NO.:", "PRM/KA/RERA/1251/308/PR/071221/007275"],
+    lines: ["RERA NO.: PRM/KA/RERA/1251/308/PR/071221/007275"],
   },
 ] as const;
 
@@ -440,7 +441,7 @@ function HeroStatStrip() {
   return (
     <section className="relative z-20 -mt-[3.6rem] bg-transparent md:-mt-[3.75rem]">
       <div className={pageContainerClass}>
-        <div className="mx-auto grid max-w-6xl overflow-hidden rounded-[1.75rem] bg-[#fcfaf7] shadow-[0_22px_44px_-28px_rgba(40,30,16,0.4)] md:grid-cols-4">
+        <div className="mx-auto grid max-w-7xl overflow-hidden rounded-[1.75rem] bg-[#fcfaf7] shadow-[0_22px_44px_-28px_rgba(40,30,16,0.4)] md:grid-cols-[0.82fr_0.78fr_0.9fr_1.7fr]">
           {heroStats.map((item, index) => (
             <div
               key={item.label}
@@ -452,17 +453,21 @@ function HeroStatStrip() {
                 {item.label}
               </p>
               <div
-                className={`mt-3 text-[#1a1a1a] ${
+                className={`mt-3 font-display leading-[1.35] text-[#1a1a1a] ${
                   item.label === "RERA"
-                    ? "max-w-[17rem] text-[0.9rem] leading-[1.45] font-medium md:text-[0.98rem]"
-                    : "font-display text-[0.95rem] leading-[1.35] md:text-[1.08rem]"
+                    ? "w-full text-[0.82rem] md:text-[0.92rem]"
+                    : "text-[0.95rem] md:text-[1.08rem]"
                 }`}
               >
-                {item.lines.map((line) => (
-                  <span key={line} className="block">
-                    {line}
-                  </span>
-                ))}
+                {item.label === "RERA" ? (
+                  <p className="md:whitespace-nowrap">{item.lines[0]}</p>
+                ) : (
+                  item.lines.map((line) => (
+                    <span key={line} className="block">
+                      {line}
+                    </span>
+                  ))
+                )}
               </div>
             </div>
           ))}
@@ -513,7 +518,7 @@ function OverviewSection() {
             <a
               href={theClanBanner}
               download="the-clan-brochure.png"
-              className="mt-8 inline-flex w-fit items-center gap-4 border border-[#8a6324] bg-white px-8 py-3.5 text-[0.7rem] font-medium uppercase tracking-[0.2em] text-[#8a6324] transition hover:border-[#6f4e1a] hover:text-[#6f4e1a]"
+              className="mt-8 inline-flex w-fit items-center gap-4 border border-[#c0a56e] bg-white px-8 py-3.5 text-[0.7rem] font-medium uppercase tracking-[0.2em] text-[#c0a56e] transition hover:border-[#a89458] hover:text-[#a89458]"
             >
               Download Brochure
               <ArrowDown className="h-3.5 w-3.5 stroke-[2.25]" />
@@ -542,7 +547,7 @@ function AmenitiesSection() {
   return (
     <section id="amenities" className={`bg-[#fcfaf7] ${sectionPadClass}`}>
       <div className={pageContainerClass}>
-        <div className={`${sectionInnerClass} grid overflow-hidden rounded-[0.85rem] bg-[#8a6324] text-white md:grid-cols-3`}>
+        <div className={`${sectionInnerClass} grid overflow-hidden rounded-[0.85rem] bg-[#c0a56e] text-white md:grid-cols-3`}>
           {metrics.map((item, index) => (
             <div
               key={item.label}
@@ -552,10 +557,10 @@ function AmenitiesSection() {
                   : ""
               }`}
             >
-              <p className="text-[1.55rem] font-semibold tracking-[0.06em] md:text-[1.75rem]">
+              <p className="font-sans text-[1.6rem] font-medium normal-case leading-none tracking-normal md:text-[1.85rem]">
                 {item.value}
               </p>
-              <p className="mt-2 text-[0.6rem] uppercase tracking-[0.26em] text-white/92 md:text-[0.64rem]">
+              <p className="mt-2.5 font-sans text-[0.58rem] font-normal uppercase tracking-[0.28em] text-white/95 md:mt-3 md:text-[0.62rem]">
                 {item.label}
               </p>
             </div>
@@ -564,10 +569,10 @@ function AmenitiesSection() {
 
         <div className={`${sectionInnerClass} mt-14 md:mt-16`}>
           <div className="flex items-center gap-4">
-            <p className="text-[0.72rem] font-semibold uppercase tracking-[0.28em] text-[#8a6324]">
+            <p className="text-[0.72rem] font-semibold uppercase tracking-[0.28em] text-[#c0a56e]">
               Project Highlights
             </p>
-            <span className="h-px w-10 bg-[#8a6324]/75" />
+            <span className="h-px w-10 bg-[#c0a56e]/75" />
           </div>
           <h2 className="mt-4 max-w-[58rem] font-display text-[2.2rem] leading-[0.98] tracking-[0.01em] text-[#21201d] uppercase md:text-[3.1rem] lg:text-[3.4rem]">
             <span className="block md:whitespace-nowrap">Elevate Your Everyday With</span>
@@ -597,7 +602,7 @@ function AmenitiesSection() {
                 aria-label={`Show ${slide.title}`}
                 onClick={() => setActiveAmenity(index)}
                 className={`h-2.5 w-2.5 rounded-full transition ${
-                  activeAmenity === index ? "bg-[#8a6324]" : "bg-[#d7cab4] hover:bg-[#c6b18a]"
+                  activeAmenity === index ? "bg-[#c0a56e]" : "bg-[#d7cab4] hover:bg-[#c6b18a]"
                 }`}
               />
             ))}
@@ -665,7 +670,7 @@ function PlanSection() {
                   className={`border-b pb-2 text-[0.72rem] font-medium uppercase tracking-[0.2em] transition ${
                     planMode === tab.id
                       ? "border-[#b49a6c] text-[#b49a6c]"
-                      : "border-transparent text-[#c4aa7d] hover:text-[#a8762b]"
+                      : "border-transparent text-[#c4aa7d] hover:text-[#c0a56e]"
                   }`}
                 >
                   {tab.label}
@@ -965,14 +970,8 @@ function ContactSection() {
                 />
               </label>
 
-              <label className="flex items-start gap-2 text-[0.72rem] font-medium leading-[1.7] text-[#8a7e70]">
-                <input type="checkbox" className="mt-0.5 h-3.5 w-3.5 rounded border-[#dbcdae]" />
-                <span>
-                  By submitting my details, I acknowledge that I am overriding my National Do Not
-                  Call (NDNC) registration and authorize Global Edifice to contact me regarding my
-                  enquiry and project updates via call, SMS, email, or WhatsApp.
-                </span>
-              </label>
+              <FormConsentCheckbox />
+
             </div>
 
             <button

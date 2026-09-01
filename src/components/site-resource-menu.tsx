@@ -1,5 +1,5 @@
 import { ChevronDown } from "lucide-react";
-import { Link, useNavigate } from "@tanstack/react-router";
+import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -66,12 +66,15 @@ function SiteNavMenu({
   label,
   links,
   className = "transition hover:text-[#123a4c]",
+  isActive = false,
 }: {
   label: string;
   links: readonly SiteNavMenuLink[];
   className?: string;
+  isActive?: boolean;
 }) {
   const navigate = useNavigate();
+  const pathname = useRouterState({ select: (state) => state.location.pathname });
 
   return (
     <DropdownMenu>
@@ -80,6 +83,7 @@ function SiteNavMenu({
           type="button"
           className={`flex items-center gap-1 outline-none ${className}`}
           aria-label={`${label} menu`}
+          aria-current={isActive ? "page" : undefined}
         >
           <span>{label}</span>
           <ChevronDown className="h-3.5 w-3.5" />
@@ -91,19 +95,30 @@ function SiteNavMenu({
         sideOffset={12}
         className="w-[18rem] rounded-[1rem] border-[#eadfcd] bg-[#fffdfa] p-2 text-[#173748] shadow-[0_22px_48px_-38px_rgba(40,29,14,0.4)]"
       >
-        {links.map((item) => (
-          <DropdownMenuItem
-            key={item.to}
-            className="rounded-[0.85rem] px-3 py-3 focus:bg-[#f6efe3] focus:text-[#173748] cursor-pointer"
-            onSelect={() => {
-              void navigate({ to: item.to });
-            }}
-          >
-            <span className="block w-full whitespace-normal text-[0.78rem] font-medium uppercase tracking-[0.14em] text-[#173748]">
-              {item.label}
-            </span>
-          </DropdownMenuItem>
-        ))}
+        {links.map((item) => {
+          const isItemActive =
+            pathname === item.to || (item.to === "/blogs" && pathname.startsWith("/blogs/"));
+
+          return (
+            <DropdownMenuItem
+              key={item.to}
+              className={`rounded-[0.85rem] px-3 py-3 focus:bg-[#f6efe3] focus:text-[#173748] cursor-pointer ${
+                isItemActive ? "bg-[#f6efe3]" : ""
+              }`}
+              onSelect={() => {
+                void navigate({ to: item.to });
+              }}
+            >
+              <span
+                className={`block w-full whitespace-normal text-[0.78rem] uppercase tracking-[0.14em] ${
+                  isItemActive ? "font-bold text-[#123a4c]" : "font-medium text-[#173748]"
+                }`}
+              >
+                {item.label}
+              </span>
+            </DropdownMenuItem>
+          );
+        })}
       </DropdownMenuContent>
     </DropdownMenu>
   );
@@ -113,25 +128,48 @@ function MobileSiteNavLinks({
   title,
   links,
   onNavigate,
+  isSectionActive = false,
   itemClassName = "block rounded-[0.95rem] px-4 py-3 text-[0.8rem] font-semibold tracking-[0.16em] text-[#996317] transition hover:bg-[#f6f1e8] hover:text-[#123a4c]",
 }: {
   title: string;
   links: readonly SiteNavMenuLink[];
   onNavigate?: () => void;
+  isSectionActive?: boolean;
   itemClassName?: string;
 }) {
+  const pathname = useRouterState({ select: (state) => state.location.pathname });
+
   return (
     <div>
-      <p className="px-4 pb-1 pt-3 text-[0.64rem] font-semibold uppercase tracking-[0.24em] text-[#996317]/90">
+      <p
+        className={`px-4 pb-1 pt-3 text-[0.64rem] font-semibold uppercase tracking-[0.24em] ${
+          isSectionActive ? "text-[#123a4c]" : "text-[#996317]/90"
+        }`}
+      >
         {title}
       </p>
 
       <div className="flex flex-col gap-1">
-        {links.map((item) => (
-          <Link key={item.to} to={item.to} onClick={onNavigate} className={itemClassName}>
-            <span className="block">{item.label}</span>
-          </Link>
-        ))}
+        {links.map((item) => {
+          const isItemActive =
+            pathname === item.to || (item.to === "/blogs" && pathname.startsWith("/blogs/"));
+
+          return (
+            <Link
+              key={item.to}
+              to={item.to}
+              onClick={onNavigate}
+              className={
+                isItemActive
+                  ? "block rounded-[0.95rem] bg-[#f6f1e8] px-4 py-3 text-[0.8rem] font-bold tracking-[0.16em] text-[#123a4c]"
+                  : itemClassName
+              }
+              aria-current={isItemActive ? "page" : undefined}
+            >
+              <span className="block">{item.label}</span>
+            </Link>
+          );
+        })}
       </div>
     </div>
   );
@@ -141,8 +179,21 @@ export function SiteProjectsMenu({ className }: { className?: string }) {
   return <SiteNavMenu label="PROJECTS" links={projectRedirectLinks} className={className} />;
 }
 
-export function SiteResourceMenu({ className }: { className?: string }) {
-  return <SiteNavMenu label="RESOURCES" links={resourceRedirectLinks} className={className} />;
+export function SiteResourceMenu({
+  className,
+  isActive = false,
+}: {
+  className?: string;
+  isActive?: boolean;
+}) {
+  return (
+    <SiteNavMenu
+      label="RESOURCES"
+      links={resourceRedirectLinks}
+      className={className}
+      isActive={isActive}
+    />
+  );
 }
 
 export function MobileSiteProjectLinks({
@@ -165,15 +216,18 @@ export function MobileSiteProjectLinks({
 export function MobileSiteResourceLinks({
   onNavigate,
   itemClassName,
+  isActive = false,
 }: {
   onNavigate?: () => void;
   itemClassName?: string;
+  isActive?: boolean;
 }) {
   return (
     <MobileSiteNavLinks
       title="Resources"
       links={resourceRedirectLinks}
       onNavigate={onNavigate}
+      isSectionActive={isActive}
       itemClassName={itemClassName}
     />
   );

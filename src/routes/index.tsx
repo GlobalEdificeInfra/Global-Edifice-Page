@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Star } from "lucide-react";
 import geHero from "@/assets/home/ge-hero.png";
@@ -6,9 +5,6 @@ import geStoryBalcony from "@/assets/home/ge-story-balcony.jpg";
 import geAmenityGardens from "@/assets/home/ge-amenity-gardens.jpg";
 import geAmenityJogging from "@/assets/home/ge-amenity-jogging.png";
 import geAmenityYoga from "@/assets/home/ge-amenity-yoga.png";
-import projectOrlean from "@/assets/projects/orlean/project-orlean-layer10.jpg";
-import projectLegacy from "@/assets/projects/legacy/project-legacy.jpg";
-import projectClan from "@/assets/projects/the-clan/The-clan-project.png";
 import iconIntegrity from "@/assets/home/icon-integrity.png";
 import iconDelivery from "@/assets/home/icon-delivery.png";
 import iconRera from "@/assets/home/icon-rera.png";
@@ -33,10 +29,10 @@ export const Route = createFileRoute("/")({
 
 
 const promiseItems = [
-  { icon: iconIntegrity, label: "Architectural Integrity", lines: ["Architectural", "Integrity"] },
-  { icon: iconDelivery, label: "On-Time Delivery", lines: ["On-Time", "Delivery"] },
-  { icon: iconRera, label: "RERA Compliance", lines: ["RERA", "Compliance"] },
-  { icon: iconValue, label: "Long-Term Value", lines: ["Long-Term", "Value"] },
+  { icon: iconIntegrity, label: "Architectural Integrity" },
+  { icon: iconDelivery, label: "On-Time Delivery" },
+  { icon: iconRera, label: "RERA Compliance" },
+  { icon: iconValue, label: "Long-Term Value" },
 ];
 
 const legacyStats = [
@@ -81,45 +77,6 @@ function TenYearsMark() {
     </div>
   );
 }
-
-const portfolioProjects = [
-  {
-    name: "GLOBAL EDIFICE THE CLAN",
-    nameLines: ["Global Edifice", "The Clan"],
-    price: "₹ 85 LAKHS*",
-    specs: "257 SIGNATURE RESIDENCES | 3.5 ACRES | G+9 FLOORS",
-    location: "2&3BHK RESIDENCES | SARJAPUR, BANGALORE",
-    unitLabel: "2&3BHK RESIDENCES | SARJAPUR, BANGALORE",
-    image: projectClan,
-    alt: "Global Edifice The Clan",
-    detailHref: "/projects/the-clan",
-    status: "Ongoing",
-  },
-  {
-    name: "GLOBAL EDIFICE ORLEAN",
-    nameLines: ["Global Edifice", "Orlean"],
-    price: "₹ 76 LAKHS*",
-    specs: "2BHK RESIDENCES",
-    location: "OFF, CHANDAPURA ROAD, BANGALORE",
-    unitLabel: "2BHK RESIDENCES | OFF, CHANDAPURA ROAD, BANGALORE",
-    image: projectOrlean,
-    alt: "Global Edifice Orlean",
-    detailHref: "/projects/orlean",
-    status: "Ongoing",
-  },
-  {
-    name: "GLOBAL EDIFICE LEGACY",
-    nameLines: ["Global Edifice", "Legacy"],
-    price: "₹ 62 LAKHS*",
-    specs: "2BHK RESIDENCES",
-    location: "OFF. CHANDAPURA ROAD, BANGALORE",
-    unitLabel: "2BHK RESIDENCES | OFF. CHANDAPURA ROAD, BANGALORE",
-    image: projectLegacy,
-    alt: "Global Edifice Legacy",
-    detailHref: "/projects",
-    status: "Completed",
-  },
-];
 
 const amenities = [
   {
@@ -182,7 +139,7 @@ function SectionHeading({
   return (
     <div>
       <div className="flex items-center gap-4">
-        <span className="text-[0.72rem] font-semibold uppercase tracking-[0.28em] text-[#8a6324]">
+        <span className="text-[0.72rem] font-semibold uppercase tracking-[0.28em] text-[#c0a56e]">
           {eyebrow}
         </span>
         <span className="h-px w-8 bg-[#dbc9a7]/70" />
@@ -251,9 +208,9 @@ function Hero() {
 
 function Story() {
   return (
-    <section id="about" className="overflow-hidden bg-[#fbf8f4] py-20 md:py-28 lg:py-32">
+    <section id="about" className="overflow-hidden bg-[#f9f7f2] py-20 md:py-28 lg:py-32">
       <div
-        className="grid items-start gap-14 lg:grid-cols-[minmax(0,34rem)_minmax(0,1fr)] lg:gap-12 xl:grid-cols-[minmax(0,36rem)_minmax(0,1fr)] xl:gap-14"
+        className="grid items-center gap-14 lg:grid-cols-[minmax(0,34rem)_minmax(0,1fr)] lg:gap-12 xl:grid-cols-[minmax(0,36rem)_minmax(0,1fr)] xl:gap-14"
         style={{ paddingLeft: "max(1.5rem, calc((100vw - 80rem) / 2 + 1.125rem))" }}
       >
         <div className="pr-6 md:pr-10 lg:pr-0 lg:pt-6 xl:pt-8">
@@ -265,54 +222,56 @@ function Story() {
               <span className="h-px w-11 bg-[#cbb892]" />
             </div>
 
-            <h2 className="mt-5 font-display text-[1.65rem] leading-[1.08] tracking-[-0.018em] text-[#1a1814] sm:whitespace-nowrap sm:text-[2.35rem] md:text-[2.55rem] lg:text-[2.45rem] xl:text-[2.65rem]">
+            <h2 className="mt-5 font-display text-[1.65rem] leading-[1.08] tracking-[-0.018em] text-[#1a1814] sm:text-[2.35rem] md:text-[2.55rem] lg:text-[2.45rem] xl:text-[2.65rem]">
               The Global Edifice Promise
             </h2>
 
-            <h3 className="mt-8 text-[1.05rem] font-medium uppercase leading-[1.35] tracking-[0.1em] text-[#c0a56e] sm:text-[1.18rem] md:mt-10 md:text-[1.4rem] lg:text-[1.5rem]">
-              <span className="block">BUILDING LEGACIES, </span>
-              <span className="block">NOT JUST HOMES</span>
-            </h3>
+            <p className="mt-8 text-[0.95rem] font-medium uppercase leading-[1.35] tracking-[0.1em] text-[#c0a56e] sm:text-[1.05rem] md:mt-9 md:text-[1.15rem] lg:text-[1.25rem]">
+              Building Legacies, Not Just Homes
+            </p>
 
             <div className="mt-8 max-w-[32.5rem] space-y-5 text-[0.95rem] leading-[1.8] text-[#7a756e] md:mt-9 md:text-[1rem] lg:max-w-[33.5rem]">
               <p>
-              Global Edi ce was founded on a singular belief — that a home is the most important investment a family will ever make. Since our inception, we have delivered thoughtfully designed residential communities across Bangalore's most sought-after corridors
+                Global Edifice has been a trusted name in the real estate industry for over ten
+                years, being the forefront of upcoming projects in Bangalore, establishing
+                ourselves among the top builders in Bangalore with some of the finest architects,
+                engineers, sales force in the Silicon Valley of India.
               </p>
               <p>
-              From compact apartments built for young professionals in Chandapura to spacious villas designed for multi-generational families in HSR Layout, every Global Edi ce home reects our uncompromising commitment to structural integrity, aesthetic excellence, and on-time delivery.
+                Our journey was built on the pillars of quality and customer centricity, thus
+                making us one of the most sought-after real estate developers in Bangalore. Our
+                commitment to timely delivery and uncompromising quality has earned us the trust of
+                hundreds of satisfied customers.
               </p>
-              
+              <p>
+                At Global Edifice, we don&apos;t just build homes for you but create lifestyles
+                that reflect elegance, security, and of course a sense of community.
+              </p>
             </div>
 
             <div className="mt-12 grid grid-cols-2 gap-y-8 sm:grid-cols-4 sm:gap-x-0 lg:max-w-[34rem] xl:max-w-[35rem]">
               {promiseItems.map((item, index) => (
                 <div
                   key={item.label}
-                  className="flex flex-col items-center text-center sm:px-3 md:px-4"
+                  className={`flex flex-col items-center text-center sm:px-2 md:px-3 ${
+                    index < promiseItems.length - 1 ? "sm:border-r sm:border-[#ddd5c8]" : ""
+                  }`}
                 >
-                  <img src={item.icon} alt={item.label} className="h-10 w-10 object-contain" />
-
-                  <div
-                    className={`mt-4 flex min-h-[3.75rem] w-full items-start justify-center ${
-                      index < promiseItems.length - 1 ? "sm:border-r sm:border-[#ece1d0]" : ""
-                    }`}
-                  >
-                    <span className="px-4 text-[0.82rem] leading-[1.18] text-[#3f3b35] md:px-5 md:text-[0.88rem]">
-                      <span className="block whitespace-nowrap">{item.lines[0]}</span>
-                      <span className="block whitespace-nowrap">{item.lines[1]}</span>
-                    </span>
-                  </div>
+                  <img src={item.icon} alt={item.label} className="h-11 w-11 object-contain" />
+                  <span className="mt-4 px-2 text-[0.75rem] leading-[1.3] text-[#7a756e] md:text-[0.8rem]">
+                    {item.label}
+                  </span>
                 </div>
               ))}
             </div>
           </div>
         </div>
 
-        <div className="-ml-[1.125rem] w-full overflow-hidden bg-[#e6ddd1] md:-ml-[1.125rem] lg:-my-6 lg:ml-0 lg:justify-self-end xl:-my-7">
+        <div className="-ml-[1.125rem] w-full overflow-hidden md:-ml-[1.125rem] lg:-my-6 lg:ml-0 lg:justify-self-end xl:-my-7">
           <img
             src={geStoryBalcony}
             alt="Curved balcony overlooking the city"
-            className="h-[24rem] w-full object-cover object-center md:h-[38rem] lg:h-[45rem] xl:h-[47rem]"
+            className="h-[24rem] w-full object-cover object-center md:h-[38rem] lg:h-[44rem] xl:h-[46rem]"
           />
         </div>
       </div>
@@ -364,128 +323,6 @@ function LegacyStats() {
   );
 }
 
-function Projects() {
-  const [activeTab, setActiveTab] = useState<"All" | "Ongoing" | "Completed">("Ongoing");
-
-  const filteredProjects = portfolioProjects.filter((project) =>
-    activeTab === "All" ? true : project.status === activeTab,
-  );
-
-  return (
-    <section id="projects" className="bg-[#fffdfa] py-20 md:py-24">
-      <div className={pageContainerClass}>
-        <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,29rem)] lg:items-end">
-          <div>
-            <div className="flex items-center gap-4">
-              <span className="text-[0.72rem] font-semibold uppercase tracking-[0.28em] text-[#8a6324]">
-                Portfolio
-              </span>
-              <span className="h-px w-8 bg-[#dbc9a7]/70" />
-            </div>
-            <h2 className="mt-3 font-display text-[2.55rem] leading-[0.96] text-[#2a2118] md:text-[3.1rem] lg:text-[3.25rem]">
-              Our Projects
-            </h2>
-          </div>
-
-          <div className="border-y border-[#eadfcc] px-3 py-4 md:px-8">
-            <div className="flex flex-wrap items-center justify-start gap-4 text-[0.9rem] font-semibold uppercase tracking-[0.22em] text-[#8a6324] md:justify-center md:gap-7">
-              <button
-                onClick={() => setActiveTab("All")}
-                className={`transition-colors ${activeTab === "All" ? "font-bold text-[#6f4e1a]" : "text-[#c4ae86] hover:text-[#8a6324]"}`}
-              >
-                All
-              </button>
-              <span className="text-[#d8c7a8]">|</span>
-              <button
-                onClick={() => setActiveTab("Ongoing")}
-                className={`transition-colors ${activeTab === "Ongoing" ? "font-bold text-[#6f4e1a]" : "text-[#c4ae86] hover:text-[#8a6324]"}`}
-              >
-                Ongoing
-              </button>
-              <span className="text-[#d8c7a8]">|</span>
-              <button
-                onClick={() => setActiveTab("Completed")}
-                className={`transition-colors ${activeTab === "Completed" ? "font-bold text-[#6f4e1a]" : "text-[#c4ae86] hover:text-[#8a6324]"}`}
-              >
-                Completed
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <div
-          className={`group/projects mt-14 gap-6 lg:items-stretch ${
-            filteredProjects.length >= 3
-              ? "grid md:grid-cols-2 lg:grid-cols-3"
-              : "flex flex-wrap justify-center"
-          }`}
-        >
-          {filteredProjects.map((project) => (
-            <article
-              key={project.name}
-              className={`group/card origin-center overflow-hidden rounded-[1.2rem] border border-[#eadfcc] bg-[#fffdfa] shadow-[0_22px_40px_-34px_rgba(40,32,23,0.26)] transition-all duration-500 ease-out hover:z-10 hover:scale-[1.045] hover:border-[#d6c3a3] hover:shadow-[0_28px_55px_-28px_rgba(40,32,23,0.38)] group-hover/projects:opacity-55 group-hover/projects:hover:opacity-100 ${
-                filteredProjects.length < 3
-                  ? "w-full md:w-[calc(50%-0.75rem)] lg:w-[calc((100%-3rem)/3)]"
-                  : ""
-              }`}
-            >
-              <div className="overflow-hidden">
-                <img
-                  src={project.image}
-                  alt={project.alt}
-                  className="h-[14rem] w-full object-cover object-center transition-transform duration-700 ease-out md:h-[15rem] group-hover/card:scale-110"
-                />
-              </div>
-
-              <div className="flex h-full flex-col p-4 md:p-5">
-                <div className="flex items-start justify-between gap-4">
-                  <h3 className="min-w-0 flex-1 text-[1.02rem] font-semibold uppercase leading-[1.12] text-[#2a2118] md:text-[1.08rem]">
-                    <span className="block">{project.nameLines[0]}</span>
-                    <span className="block">{project.nameLines[1]}</span>
-                  </h3>
-
-                  <div className="pt-0.5 text-right text-[#8a6324]">
-                    <p className="text-[0.52rem] font-semibold uppercase tracking-[0.14em] text-[#8a6324]">
-                      Starting From
-                    </p>
-                    <p className="mt-1 text-[0.72rem] font-semibold uppercase tracking-[0.02em]">
-                      {project.price}
-                    </p>
-                  </div>
-                </div>
-
-                <p className="mt-4 text-[0.62rem] font-medium uppercase tracking-[0.04em] text-[#6f4e1a]">
-                  {project.specs}
-                </p>
-
-                <div className="relative mt-6 text-[0.62rem] font-medium uppercase tracking-[0.04em] text-[#5c5348]">
-                  <span className="absolute inset-x-0 top-1/2 h-px -translate-y-1/2 bg-[#eadfcc]" />
-                  <span className="relative inline-block bg-[#fffdfa] pr-3">{project.unitLabel}</span>
-                </div>
-
-                <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
-                  <a
-                    href="/#contact"
-                    className="inline-flex items-center justify-center rounded-[0.35rem] bg-[#8f7040] px-4 py-3 text-[0.62rem] font-semibold uppercase tracking-[0.08em] text-white transition hover:bg-[#7a5f34]"
-                  >
-                    Book A Site Visit
-                  </a>
-                  <Link
-                    to={project.detailHref as any}
-                    className="inline-flex items-center justify-center rounded-[0.35rem] border border-[#c4ae86] bg-white px-4 py-3 text-[0.62rem] font-semibold uppercase tracking-[0.08em] text-[#2a2118] transition hover:border-[#8a6324] hover:bg-[#faf7f2]"
-                  >
-                    Know More
-                  </Link>
-                </div>
-              </div>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
 function Amenities() {
   return (
     <section
@@ -498,10 +335,10 @@ function Amenities() {
           <SectionHeading
             eyebrow="What We Offer"
             title="Crafted Amenities"
-            titleClassName="font-semibold text-[#b08a45]"
+            titleClassName="font-semibold text-[#c0a56e]"
           />
 
-          <div className="flex flex-wrap items-center gap-4 border-y border-white/16 py-4 text-[0.82rem] font-semibold uppercase tracking-[0.2em] text-[#b08a45] md:gap-6 md:px-5">
+          <div className="flex flex-wrap items-center gap-4 border-y border-white/16 py-4 text-[0.82rem] font-semibold uppercase tracking-[0.2em] text-[#c0a56e] md:gap-6 md:px-5">
             <span>Wellness</span>
             <span className="text-white/18">|</span>
             <span>Recreation</span>
@@ -520,7 +357,7 @@ function Amenities() {
                   className="h-[15.5rem] w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
                 />
               </div>
-              <h3 className="mt-7 text-[1.05rem] font-bold uppercase tracking-[0.18em] text-[#b08a45] md:text-[1.08rem]">
+              <h3 className="mt-7 text-[1.05rem] font-bold uppercase tracking-[0.18em] text-[#c0a56e] md:text-[1.08rem]">
                 {item.title}
               </h3>
               <p className="mt-3 text-[1rem] font-medium leading-[1.65] text-white/92 md:text-[1.02rem]">
@@ -551,7 +388,7 @@ function Testimonials() {
               className="group relative flex h-full flex-col overflow-hidden rounded-[1.25rem] border border-[#e8e0d4] bg-white px-5 py-6 shadow-[0_12px_28px_-26px_rgba(18,58,76,0.2)] transition-all duration-500 ease-out hover:z-10 hover:scale-[1.025] hover:border-[#d6c8b0] hover:shadow-[0_22px_40px_-24px_rgba(18,58,76,0.28)] md:px-6 md:py-7"
             >
               <div className="relative flex min-h-[3.75rem] items-start justify-between gap-3 md:min-h-[4.25rem]">
-                <div className="flex items-center gap-0.5 pt-1 text-[#8a6324]">
+                <div className="flex items-center gap-0.5 pt-1 text-[#c0a56e]">
                   {Array.from({ length: 5 }).map((_, index) => (
                     <Star key={index} className="h-4 w-4 fill-current" />
                   ))}
@@ -570,7 +407,7 @@ function Testimonials() {
               </p>
 
               <div className="mt-auto pt-6">
-                <h3 className="font-display text-[1.08rem] font-semibold leading-[1.2] text-[#8a6324] md:text-[1.15rem]">
+                <h3 className="font-display text-[1.08rem] font-semibold leading-[1.2] text-[#c0a56e] md:text-[1.15rem]">
                   {item.name}
                 </h3>
                 <p className="mt-1.5 text-[0.8rem] font-medium text-[#8a8378]">{item.role}</p>
@@ -588,12 +425,11 @@ function Index() {
     <main className="min-h-screen bg-[#fbf8f4]">
       <SiteHeader />
       <Hero />
-      <Story />
       <LegacyStats />
-      <Projects />
+      <Story />
       <Amenities />
-      <SiteGetInTouch />
       <Testimonials />
+      <SiteGetInTouch />
       <SiteFooter />
     </main>
   );

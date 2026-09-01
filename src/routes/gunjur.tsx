@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import gunjurPlots from "@/assets/locations/gunjur/gunjur-plots.png";
+import { upcomingProjectHeroes } from "@/assets/locations/upcoming";
 import { LocationLandingPage } from "@/components/location-landing-page";
 
 export const Route = createFileRoute("/gunjur")({
@@ -21,9 +21,8 @@ function GunjurPage() {
     <LocationLandingPage
       titleLines={["GUNJUR"]}
       heroVariant="photo"
-      heroImage={gunjurPlots}
+      heroImage={upcomingProjectHeroes.gunjur}
       heroImageAlt="Gunjur premium plotted development at sunset"
-      heroImageClassName="object-[center_45%]"
       introHeading="One Premium Address. Endless Possibilities."
       introParagraphs={[
         {

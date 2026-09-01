@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link, createFileRoute, Outlet, useMatchRoute } from "@tanstack/react-router";
 import projectClan from "@/assets/projects/the-clan/The-clan-project.png";
+import projectsHeroAerial from "@/assets/projects/projects-hero-aerial-night.jpg";
 import projectLegacy from "@/assets/projects/legacy/project-legacy.jpg";
+import { upcomingProjectMaps } from "@/assets/locations/upcoming";
 import { SiteHeader } from "@/components/site-header";
 import { SiteGetInTouch } from "@/components/site-get-in-touch";
 import { SiteFooter } from "@/components/site-footer";
@@ -43,8 +45,8 @@ type Project = {
   location?: string;
   scale?: string;
   typeLabel?: string;
-  /** Completed: badge + unit description */
-  badge?: "few-remaining" | "sold-out";
+  /** Completed: availability + unit description */
+  availability?: "available" | "sold-out";
   unitDescription?: string;
 };
 
@@ -79,6 +81,7 @@ const projects: Project[] = [
     scale: "30 STOREYED | 8 ACRES",
     typeLabel: "PREMIUM HIGH RISE RESIDENCES",
     alt: "Chandapura Heelalige upcoming project",
+    image: upcomingProjectMaps.heelalige,
     detailHref: "/chandapura-heelalige",
   },
   {
@@ -86,9 +89,10 @@ const projects: Project[] = [
     name: "MUTHANALLUR",
     nameLines: ["Muthanallur"],
     location: "BOMMASANDRA, BANGALORE",
-    scale: "16 STOREYED | 1.5 ACRES",
+    scale: "15 STOREYED | 1.5 ACRES",
     typeLabel: "PREMIUM RESIDENCES",
     alt: "Muthanallur upcoming project",
+    image: upcomingProjectMaps.muthanallur,
     detailHref: "/muthanallur-off-sarjapura-bangalore",
   },
   {
@@ -99,6 +103,7 @@ const projects: Project[] = [
     scale: "30 STOREYED | 5.5 ACRES",
     typeLabel: "LUXURY RESIDENCES",
     alt: "Chandapura NH 44 upcoming project",
+    image: upcomingProjectMaps.nh44,
     detailHref: "/chandapura-nh-44",
   },
   {
@@ -109,6 +114,7 @@ const projects: Project[] = [
     scale: "12 ACRES | PREMIUM PLOTS",
     typeLabel: "PREMIUM PLOTS",
     alt: "Gunjur premium plots upcoming project",
+    image: upcomingProjectMaps.gunjur,
     detailHref: "/gunjur",
   },
   {
@@ -116,7 +122,7 @@ const projects: Project[] = [
     name: "GLOBAL EDIFICE LEGACY",
     nameLines: ["Global Edifice", "Legacy"],
     location: "CHANDAPURA, BANGALORE",
-    badge: "few-remaining",
+    availability: "available",
     unitDescription: "SPACIOUS 3BHK HOMES",
     image: projectLegacy,
     alt: "Global Edifice Legacy",
@@ -127,7 +133,7 @@ const projects: Project[] = [
     name: "GLOBAL EDIFICE CELESTA",
     nameLines: ["Global Edifice", "Celesta"],
     location: "CHANDAPURA, BANGALORE",
-    badge: "sold-out",
+    availability: "sold-out",
     unitDescription: "2BHK RESIDENCES",
     image: "/project-images/completed-project-images/celesta-compPorjects-img.webp",
     alt: "Global Edifice Celesta",
@@ -137,7 +143,7 @@ const projects: Project[] = [
     name: "GLOBAL EDIFICE CRESENT",
     nameLines: ["Global Edifice", "Cresent"],
     location: "CHANDAPURA, BANGALORE",
-    badge: "sold-out",
+    availability: "sold-out",
     unitDescription: "2&3 BHK RESIDENCES",
     image: "/project-images/completed-project-images/cresent-compPorjects-img.webp",
     alt: "Global Edifice Cresent",
@@ -147,7 +153,7 @@ const projects: Project[] = [
     name: "GREEN APPLE HIKES",
     nameLines: ["Green Apple", "Hikes"],
     location: "TIRUMAGONDANAHALLI, BANGALORE",
-    badge: "sold-out",
+    availability: "sold-out",
     unitDescription: "1&2 BHK RESIDENCES",
     image: "/project-images/completed-project-images/green-appleHikes-compPorjects-img.webp",
     alt: "Green Apple Hikes",
@@ -157,43 +163,45 @@ const projects: Project[] = [
     name: "GREEN APPLE VILLAS",
     nameLines: ["Green Apple", "Villas"],
     location: "CHANDAPURA, BANGALORE",
-    badge: "sold-out",
+    availability: "sold-out",
     unitDescription: "PREMIUM VILLAS",
     image: "/project-images/completed-project-images/greenAppleVillas1-compPorjects-img.webp",
     alt: "Green Apple Villas",
   },
 ];
 
-function UpcomingPlaceholder() {
+
+function ProjectsHero() {
   return (
-    <div className="flex h-[11.5rem] items-center justify-center bg-[#dce3ea] md:h-[12.5rem]" aria-hidden>
-      <svg viewBox="0 0 220 118" className="h-[5.4rem] w-auto" fill="none">
-        <ellipse cx="110" cy="102" rx="78" ry="9" fill="#c5ced6" />
-        <rect x="38" y="68" width="42" height="28" fill="#9aafc0" />
-        <rect x="48" y="76" width="22" height="12" fill="#7e96ab" />
-        <rect x="86" y="34" width="52" height="62" fill="#9aafc0" />
-        <rect x="96" y="42" width="10" height="8" fill="#7e96ab" />
-        <rect x="118" y="42" width="10" height="8" fill="#7e96ab" />
-        <rect x="96" y="56" width="10" height="8" fill="#7e96ab" />
-        <rect x="118" y="56" width="10" height="8" fill="#7e96ab" />
-        <rect x="96" y="70" width="10" height="8" fill="#7e96ab" />
-        <rect x="118" y="70" width="10" height="8" fill="#7e96ab" />
-        <rect x="104" y="82" width="16" height="14" fill="#7e96ab" />
-        <rect x="158" y="72" width="3" height="24" fill="#9aafc0" />
-        <circle cx="159.5" cy="64" r="14" fill="#9aafc0" />
-        <rect x="180" y="80" width="2.5" height="16" fill="#9aafc0" />
-        <circle cx="181.2" cy="74" r="9" fill="#9aafc0" />
-      </svg>
-    </div>
+    <section className="relative isolate min-h-[100svh] overflow-hidden bg-[#14120f] text-white">
+      <img
+        src={projectsHeroAerial}
+        alt="Global Edifice residential communities at night"
+        className="absolute inset-0 h-full w-full object-cover object-center"
+      />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,12,18,0.35)_0%,rgba(8,12,18,0.2)_40%,rgba(8,12,18,0.55)_100%)]" />
+      <div className="absolute inset-0 bg-black/25" />
+
+      <div
+        className={`relative mx-auto flex min-h-[100svh] max-w-7xl items-center justify-end ${pageGutterClass} pb-10 pt-28 sm:pt-32 md:pb-12 md:pt-28 lg:pt-30`}
+      >
+        <div className="max-w-[20rem] text-right sm:max-w-[32rem] md:max-w-[46rem] lg:max-w-[52rem]">
+          <h1 className="font-display text-[2.05rem] leading-[0.96] tracking-[-0.03em] text-white sm:text-[2.85rem] md:text-[3.85rem] lg:text-[4.45rem]">
+            <span className="block sm:whitespace-nowrap">Places You&apos;ll Be Proud</span>
+            <span className="block sm:whitespace-nowrap">To Call Home.</span>
+          </h1>
+        </div>
+      </div>
+    </section>
   );
 }
 
-function BookSiteVisitButton() {
+function BookSiteVisitButton({ className = "" }: { className?: string }) {
   return (
     <button
       type="button"
       onClick={() => window.dispatchEvent(new CustomEvent("open-enquiry-popup"))}
-      className="inline-flex items-center justify-center rounded-full bg-[#a38b6b] px-4 py-3 text-[0.58rem] font-semibold uppercase tracking-[0.1em] text-white transition hover:bg-[#8a7458]"
+      className={`inline-flex items-center justify-center rounded-full bg-[#c0a56e] px-4 py-3 text-[0.58rem] font-semibold uppercase tracking-[0.1em] text-white transition hover:bg-[#a89458] ${className}`}
     >
       Book A Site Visit
     </button>
@@ -212,7 +220,7 @@ function KnowMoreButton({
   return (
     <Link
       to={href as any}
-      className={`inline-flex items-center justify-center rounded-full border border-[#d8c7a8] bg-transparent px-4 py-3 text-[0.58rem] font-semibold uppercase tracking-[0.1em] text-[#a38b6b] transition hover:border-[#a38b6b] hover:bg-[#faf7f2] ${className}`}
+      className={`inline-flex items-center justify-center rounded-full border border-[#d8c7a8] bg-transparent px-4 py-3 text-[0.58rem] font-semibold uppercase tracking-[0.1em] text-[#c0a56e] transition hover:border-[#c0a56e] hover:bg-[#faf7f2] ${className}`}
     >
       Know More
     </Link>
@@ -222,32 +230,32 @@ function KnowMoreButton({
 function ProjectCardBody({ project }: { project: Project }) {
   if (project.status === "upcoming") {
     return (
-      <div className="flex h-full flex-col p-6 md:p-7">
-        <div className="flex items-start justify-between gap-3">
-          <h2 className="text-[0.92rem] font-semibold uppercase leading-[1.15] text-[#2a2723] md:text-[1rem]">
+      <div className="flex h-full flex-col p-5 md:p-6">
+        <div className="flex items-start justify-between gap-4">
+          <h2 className="text-[0.98rem] font-semibold uppercase leading-[1.12] text-[#2a2723] md:text-[1.05rem]">
             {project.nameLines.map((line) => (
               <span key={line} className="block">
                 {line}
               </span>
             ))}
           </h2>
-          <p className="max-w-[7.5rem] shrink-0 pt-0.5 text-right text-[0.5rem] font-semibold uppercase leading-[1.4] tracking-[0.08em] text-[#a38b6b]">
+          <p className="max-w-[7.5rem] shrink-0 pt-0.5 text-right text-[0.5rem] font-semibold uppercase leading-[1.4] tracking-[0.08em] text-[#c0a56e]">
             {project.location}
           </p>
         </div>
 
-        <p className="mt-3 text-[0.6rem] font-medium uppercase tracking-[0.04em] text-[#a38b6b]">
+        <p className="mt-4 text-[0.62rem] font-medium uppercase tracking-[0.04em] text-[#c0a56e]">
           {project.scale}
         </p>
 
-        <div className="mt-5 flex items-center gap-3">
-          <span className="shrink-0 text-[0.6rem] font-medium uppercase tracking-[0.04em] text-[#2a2723]">
+        <div className="mt-6 flex items-center gap-3">
+          <span className="shrink-0 text-[0.62rem] font-medium uppercase tracking-[0.04em] text-[#2a2723]">
             {project.typeLabel}
           </span>
           <span className="h-px min-w-0 flex-1 bg-[#eadfcc]" />
         </div>
 
-        <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
+        <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
           <BookSiteVisitButton />
           <KnowMoreButton href={project.detailHref} />
         </div>
@@ -256,7 +264,7 @@ function ProjectCardBody({ project }: { project: Project }) {
   }
 
   if (project.status === "completed") {
-    const isFewRemaining = project.badge === "few-remaining";
+    const isAvailable = project.availability === "available";
 
     return (
       <div className="flex h-full flex-col p-5 md:p-6">
@@ -274,7 +282,7 @@ function ProjectCardBody({ project }: { project: Project }) {
             </p>
           </div>
 
-          {isFewRemaining ? (
+          {isAvailable ? (
             <p className="max-w-[6.5rem] shrink-0 pt-1 text-right text-[0.52rem] font-semibold uppercase leading-[1.35] tracking-[0.08em] text-[#9a7a6a]">
               Few Remaining Homes
             </p>
@@ -291,24 +299,16 @@ function ProjectCardBody({ project }: { project: Project }) {
 
         <div className="mt-6 h-px w-full bg-[#eadfcc]" />
 
-        {isFewRemaining ? (
+        {isAvailable ? (
           <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
             <BookSiteVisitButton />
             <KnowMoreButton href={project.detailHref} />
           </div>
         ) : (
           <div className="mt-5 flex justify-center">
-            {project.detailHref ? (
-              <KnowMoreButton href={project.detailHref} className="min-w-[10rem]" />
-            ) : (
-              <button
-                type="button"
-                onClick={() => window.dispatchEvent(new CustomEvent("open-enquiry-popup"))}
-                className="inline-flex min-w-[10rem] items-center justify-center rounded-full border border-[#d8c7a8] bg-transparent px-4 py-3 text-[0.58rem] font-semibold uppercase tracking-[0.1em] text-[#332d2b] transition hover:border-[#a38b6b] hover:bg-[#faf7f2]"
-              >
-                Know More
-              </button>
-            )}
+            <span className="inline-flex min-w-[10rem] items-center justify-center rounded-full border border-[#d8c7a8] bg-transparent px-4 py-3 text-[0.58rem] font-semibold uppercase tracking-[0.1em] text-[#6f6558]">
+              Sold Out
+            </span>
           </div>
         )}
       </div>
@@ -327,7 +327,7 @@ function ProjectCardBody({ project }: { project: Project }) {
           ))}
         </h2>
 
-        <div className="shrink-0 pt-0.5 text-right text-[#a38b6b]">
+        <div className="shrink-0 pt-0.5 text-right text-[#c0a56e]">
           <p className="text-[0.52rem] font-semibold uppercase tracking-[0.14em]">Starting From</p>
           <p className="mt-1 text-[0.74rem] font-semibold uppercase tracking-[0.02em]">
             {project.price}
@@ -335,7 +335,7 @@ function ProjectCardBody({ project }: { project: Project }) {
         </div>
       </div>
 
-      <p className="mt-4 text-[0.62rem] font-medium uppercase tracking-[0.04em] text-[#6f4e1a]">
+      <p className="mt-4 text-[0.62rem] font-medium uppercase tracking-[0.04em] text-[#a89458]">
         {project.specs}
       </p>
 
@@ -404,23 +404,29 @@ function ProjectPortfolio() {
   }, []);
 
   return (
-    <section id="portfolio" className="bg-[#fbf8f4] pb-18 pt-32 md:pb-22 md:pt-36 lg:pb-24">
+    <section id="portfolio" className="bg-[#fbf8f4] pb-18 pt-16 md:pb-22 md:pt-20 lg:pb-24 lg:pt-24">
       <div className={pageContainerClass}>
-        <div className="mx-auto max-w-[46rem] text-center">
-          <div className="flex items-center justify-center gap-4">
-            <span className="h-px w-12 bg-[#dbc9a7]/80" />
-            <span className="text-[0.72rem] font-semibold uppercase tracking-[0.32em] text-[#a38b6b]">
-              Portfolio
-            </span>
-            <span className="h-px w-12 bg-[#dbc9a7]/80" />
+        <div className="mx-auto max-w-[60rem] text-center">
+          <h2 className="font-display text-[2rem] leading-[1.08] text-[#c0a56e] sm:text-[2.35rem] md:text-[2.85rem] lg:text-[3.25rem]">
+            Places You&apos;ll Be Proud to Call Home.
+          </h2>
+
+          <div className="mx-auto mt-10 max-w-[52rem] space-y-6 text-[0.95rem] font-normal leading-[1.9] text-[#5c574f] md:mt-12 md:text-[1.05rem] md:leading-[1.95]">
+            <p>
+              Every project begins with an idea. To create homes that feel right—not just on the day
+              you move in, but for years to come.
+            </p>
+            <p>
+              Some are already welcoming families. Others are preparing to shape the next chapter of
+              Bengaluru&apos;s growth. Each one reflects the same philosophy: thoughtful design,
+              honest craftsmanship, and a commitment to building communities that stand the test of
+              time.
+            </p>
           </div>
-          <h1 className="mt-4 font-display text-[2.1rem] leading-[1.02] text-[#332d2b] sm:text-[2.5rem] md:text-[3.15rem]">
-            Our Projects
-          </h1>
         </div>
 
-        <div className="mx-auto mt-10 max-w-[30rem] overflow-x-auto border-y border-[#e4d8c4] px-1 py-3 md:max-w-[32rem]">
-          <div className="flex min-w-max items-center justify-center text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-[#a38b6b] sm:text-[0.82rem] sm:tracking-[0.24em] md:text-[0.88rem]">
+        <div className="mx-auto mt-12 max-w-[36rem] overflow-x-auto border-y border-[#e4d8c4] px-1 py-3 md:mt-14 md:max-w-[40rem] lg:max-w-[44rem]">
+          <div className="flex min-w-max items-center justify-center text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-[#c0a56e] sm:text-[0.82rem] sm:tracking-[0.24em] md:text-[0.88rem]">
             {projectFilters.map((filter, index) => (
               <div key={filter.id} className="flex items-center">
                 <button
@@ -428,8 +434,8 @@ function ProjectPortfolio() {
                   onClick={() => setActiveFilter(filter.id)}
                   className={`min-h-11 px-3 py-2.5 transition sm:px-5 md:px-6 ${
                     activeFilter === filter.id
-                      ? "font-bold text-[#6f4e1a]"
-                      : "font-medium text-[#c4ae86] hover:text-[#8a6324]"
+                      ? "font-bold text-[#a89458]"
+                      : "font-medium text-[#c4ae86] hover:text-[#c0a56e]"
                   }`}
                 >
                   {filter.label}
@@ -457,15 +463,13 @@ function ProjectPortfolio() {
               }`}
             >
               {project.image ? (
-                <div className="overflow-hidden">
+                <div className="overflow-hidden bg-[#dce3ea]">
                   <img
                     src={project.image}
                     alt={project.alt}
-                    className="h-[13rem] w-full object-cover object-center transition-transform duration-700 ease-out md:h-[14.5rem] group-hover/card:scale-105"
+                    className="h-[13rem] w-full object-cover object-center transition-transform duration-700 ease-out group-hover/card:scale-105 md:h-[14.5rem]"
                   />
                 </div>
-              ) : project.status === "upcoming" ? (
-                <UpcomingPlaceholder />
               ) : null}
 
               <ProjectCardBody project={project} />
@@ -490,7 +494,8 @@ function ProjectsPage() {
   return (
     <>
       <main className="bg-[#fbf8f4] text-[#163849]">
-        <SiteHeader appearance="solid" />
+        <SiteHeader />
+        <ProjectsHero />
         <ProjectPortfolio />
         <SiteGetInTouch />
       </main>

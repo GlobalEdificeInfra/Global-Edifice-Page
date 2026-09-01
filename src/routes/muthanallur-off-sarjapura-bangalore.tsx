@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { upcomingProjectHeroes } from "@/assets/locations/upcoming";
 import { LocationLandingPage } from "@/components/location-landing-page";
 
 export const Route = createFileRoute("/muthanallur-off-sarjapura-bangalore")({
@@ -19,7 +20,9 @@ function MuthanallurSarjapuraPage() {
   return (
     <LocationLandingPage
       titleLines={["MUTHANALLUR, OFF SARJAPURA", "BANGALORE"]}
-      heroVariant="illustration"
+      heroVariant="photo"
+      heroImage={upcomingProjectHeroes.muthanallur}
+      heroImageAlt="Muthanallur rooftop terrace with city views"
       introHeading="Experience Modern Living In A Thriving Destination"
       introParagraphs={[
         "Strategically located in one of Bangalore’s rapidly developing corridors, this address offers the perfect blend of connectivity, convenience, and modern urban living. Surrounded by evolving infrastructure and key growth zones, it creates an environment designed for both present comfort and future value.",
