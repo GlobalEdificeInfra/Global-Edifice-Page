@@ -40,6 +40,8 @@ const leaderCards = [
     role: "Managing Director",
     image: directorRakesh,
     alt: "Portrait of Mr. Rakesh Reddy",
+    /** Crop toward the face so framing matches the tighter headshot beside it. */
+    imageClassName: "object-[center_12%] scale-[1.08]",
     quote:
       "Every home begins with a dream, but trust turns that dream into reality. At Global Edifice, we build that trust through quality and lasting value.",
   },
@@ -48,6 +50,7 @@ const leaderCards = [
     role: "Managing Director",
     image: directorJyothish,
     alt: "Portrait of Mr. Jyothish Reddy",
+    imageClassName: "object-[center_22%]",
     quote:
       "Building a home is a responsibility that extends far beyond construction. It is about creating places where families can build their future with confidence.",
   },
@@ -484,23 +487,25 @@ function AboutPage() {
               </div>
             </div>
 
-            <div className="mx-auto mt-12 grid max-w-[64rem] gap-8 sm:mt-14 md:mt-16 md:grid-cols-2 md:gap-8 lg:gap-10">
+            <div className="mx-auto mt-12 grid max-w-[64rem] items-stretch gap-8 sm:mt-14 md:mt-16 md:grid-cols-2 md:gap-8 lg:gap-10">
               {leaderCards.map((leader) => (
                 <article
                   key={leader.name}
-                  className="overflow-hidden border border-[#e8e2d8] bg-white text-left"
+                  className="flex h-full flex-col overflow-hidden border border-[#e8e2d8] bg-white text-left"
                 >
-                  <img
-                    src={leader.image}
-                    alt={leader.alt}
-                    className="h-[22rem] w-full object-cover object-[center_18%] sm:h-[24rem] md:h-[26rem]"
-                    loading="lazy"
-                  />
-                  <div className="px-6 py-7 md:px-8 md:py-8">
-                    <p className="text-[0.92rem] italic leading-[1.75] text-[#5c574f] md:text-[0.98rem] md:leading-[1.8]">
+                  <div className="relative aspect-[4/5] w-full shrink-0 overflow-hidden bg-[#ebe6df]">
+                    <img
+                      src={leader.image}
+                      alt={leader.alt}
+                      className={`absolute inset-0 h-full w-full object-cover ${leader.imageClassName}`}
+                      loading="lazy"
+                    />
+                  </div>
+                  <div className="flex flex-1 flex-col px-6 py-7 md:px-8 md:py-8">
+                    <p className="min-h-[6.5rem] text-[0.92rem] italic leading-[1.75] text-[#5c574f] md:min-h-[7.25rem] md:text-[0.98rem] md:leading-[1.8]">
                       &ldquo;{leader.quote}&rdquo;
                     </p>
-                    <h3 className="mt-6 font-display text-[1.45rem] leading-[1.05] text-[#c0a56e] sm:text-[1.6rem] md:text-[1.75rem]">
+                    <h3 className="mt-auto pt-6 font-display text-[1.45rem] leading-[1.05] text-[#c0a56e] sm:text-[1.6rem] md:text-[1.75rem]">
                       {leader.name}
                     </h3>
                     <p className="mt-2 text-[0.68rem] font-medium uppercase tracking-[0.16em] text-[#5c574f]">

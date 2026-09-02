@@ -102,57 +102,56 @@ export function GlobalOverlay() {
         onClick={closePopup}
       >
         <div
-          className={`relative modal-container max-h-[90vh] w-[calc(100%-1.5rem)] max-w-[420px] overflow-y-auto rounded-2xl bg-[#0f4157] p-6 shadow-2xl transition-transform duration-300 sm:w-[90%] md:p-9 ${
+          className={`relative modal-container max-h-[90vh] w-[calc(100%-1.5rem)] max-w-[420px] overflow-y-auto overscroll-contain rounded-2xl bg-[#0f4157] p-6 shadow-2xl transition-transform duration-300 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden sm:w-[90%] md:p-8 ${
             isOpen ? "scale-100 translate-y-0" : "scale-95 translate-y-8"
           }`}
           onClick={(e) => e.stopPropagation()}
         >
           <button
             onClick={closePopup}
-            className="absolute top-4 right-4 p-2 text-white/60 hover:text-white transition"
+            className="absolute top-4 right-4 p-2 text-white/60 transition hover:text-white"
           >
             <X className="h-5 w-5" />
           </button>
 
-          <div className="flex flex-col items-center mb-6 text-center">
-            {/* Logo representation */}
-            <div className="flex flex-col items-center mb-5">
+          <div className="mb-5 flex flex-col items-center text-center">
+            <div className="mb-4 flex flex-col items-center">
               <img src={geLogoGold} alt="Global Edifice" className="w-[140px] md:w-[160px]" />
             </div>
 
-            <h2 className="font-serif text-[1.6rem] text-[#daba81] font-semibold mb-2 shadow-text text-shadow-sm">
+            <h2 className="font-serif text-[1.6rem] font-semibold text-[#daba81] shadow-text text-shadow-sm mb-2">
               ENQUIRE NOW
             </h2>
-            <p className="text-white text-[0.95rem]">
+            <p className="text-[0.95rem] text-white">
               Share your details and we'll get back to you shortly
             </p>
           </div>
 
-          <form className="grid gap-4">
+          <form className="grid gap-3.5">
             <div className="flex flex-col gap-1.5">
-              <label className="text-white font-medium text-[0.85rem]">Full Name *</label>
+              <label className="text-[0.85rem] font-medium text-white">Full Name *</label>
               <input
                 type="text"
                 placeholder="Enter your full name"
-                className="w-full bg-white/5 border border-white/20 rounded-full px-5 py-3 text-white placeholder:text-white/50 outline-none focus:border-[#daba81] transition-colors text-[0.95rem]"
+                className="w-full rounded-full border border-white/20 bg-white/5 px-5 py-3 text-[0.95rem] text-white outline-none transition-colors placeholder:text-white/50 focus:border-[#daba81]"
               />
             </div>
 
             <div className="flex flex-col gap-1.5">
-              <label className="text-white font-medium text-[0.85rem]">Email Address *</label>
+              <label className="text-[0.85rem] font-medium text-white">Email Address *</label>
               <input
                 type="email"
                 placeholder="your.email@example.com"
-                className="w-full bg-white/5 border border-white/20 rounded-full px-5 py-3 text-white placeholder:text-white/50 outline-none focus:border-[#daba81] transition-colors text-[0.95rem]"
+                className="w-full rounded-full border border-white/20 bg-white/5 px-5 py-3 text-[0.95rem] text-white outline-none transition-colors placeholder:text-white/50 focus:border-[#daba81]"
               />
             </div>
 
             <div className="flex flex-col gap-1.5">
-              <label className="text-white font-medium text-[0.85rem]">Phone Number *</label>
+              <label className="text-[0.85rem] font-medium text-white">Phone Number *</label>
               <input
                 type="tel"
                 placeholder="+919876543210"
-                className="w-full bg-white/5 border border-white/20 rounded-full px-5 py-3 text-white placeholder:text-white/50 outline-none focus:border-[#daba81] transition-colors text-[0.95rem]"
+                className="w-full rounded-full border border-white/20 bg-white/5 px-5 py-3 text-[0.95rem] text-white outline-none transition-colors placeholder:text-white/50 focus:border-[#daba81]"
               />
             </div>
 
@@ -161,7 +160,7 @@ export function GlobalOverlay() {
             <button
               type="button"
               onClick={closePopup}
-              className="mt-2 w-full rounded-full bg-[#dbb877] py-3.5 text-[0.95rem] font-bold text-[#0f4157] transition hover:bg-[#e4c995] shadow-lg"
+              className="mt-1 w-full rounded-full bg-[#dbb877] py-3.5 text-[0.95rem] font-bold text-[#0f4157] shadow-lg transition hover:bg-[#e4c995]"
             >
               SUBMIT ENQUIRY
             </button>

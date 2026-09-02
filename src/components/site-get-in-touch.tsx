@@ -22,12 +22,12 @@ const contactDetails = [
   {
     icon: Phone,
     eyebrow: "Give Us A Call",
-    body: "+91 80 4376 0152",
+    body: "+91 94116 14444",
   },
   {
     icon: Mail,
     eyebrow: "Send An Email",
-    body: "sales@globaledifice.in",
+    body: "sales@globaledifice.com",
   },
 ] as const;
 

@@ -46,33 +46,52 @@ const legacyStats = [
 
 function TenYearsMark() {
   const stroke = "#c4a06a";
+  const digitHeight =
+    "h-[5.1rem] w-auto shrink-0 sm:h-[5.8rem] md:h-[6.55rem] lg:h-[7.2rem]";
 
   return (
-    <div className="flex max-w-full items-start justify-center gap-1 sm:gap-1.5">
+    <div className="flex max-w-full shrink-0 items-start justify-center gap-0.5 sm:gap-1">
+      {/* Digit 1 — top/bottom flush with outer ring of the 0 */}
       <svg
-        viewBox="0 0 132 84"
-        className="h-[4.7rem] w-auto sm:h-[5.35rem] md:h-[6.1rem] lg:h-[6.7rem]"
+        viewBox="0 0 44 92"
+        className={digitHeight}
         fill="none"
+        preserveAspectRatio="xMidYMid meet"
         aria-hidden
       >
-        <g stroke={stroke} strokeWidth="2.2" strokeLinejoin="miter" strokeLinecap="butt">
-          <polyline points="6,10 42,10 42,78" />
-          <polyline points="13.5,17.5 35,17.5 35,78" />
-          <polyline points="21,25 28,25 28,78" />
-        </g>
-        <g stroke={stroke} strokeWidth="2.2">
-          <circle cx="90" cy="44" r="32" />
-          <circle cx="90" cy="44" r="22.5" />
-          <circle cx="90" cy="44" r="13" />
+        <g stroke={stroke} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" fill="none">
+          {/* Outer — top flush with 0; shorter flag */}
+          <path d="M18 8 H38 V84" />
+          {/* Middle — longest flag; 1% up */}
+          <path d="M8 14 H32 V84" />
+          {/* Inner — 2% down; same flag length as outer */}
+          <path d="M18 20 H26 V84" />
         </g>
       </svg>
-      <div className="mt-[0.12rem] flex shrink-0 flex-col items-center leading-none sm:mt-[0.2rem]">
-        <span className="text-[12.48px] font-light leading-none text-[#c4a06a]">
-          +
-        </span>
-        <span className="mt-[0.18rem] text-[12.48px] font-medium uppercase tracking-[0.18em] text-[#c4a06a]">
-          YEARS
-        </span>
+
+      {/* Digit 0 + YEARS aligned to the top of the zero */}
+      <div className="-ml-1 flex items-start gap-0 sm:gap-0.5">
+        <svg
+          viewBox="0 0 68 92"
+          className={digitHeight}
+          fill="none"
+          preserveAspectRatio="xMidYMid meet"
+          aria-hidden
+        >
+          <g stroke={stroke} strokeWidth="2.2">
+            <ellipse cx="34" cy="46" rx="26" ry="38" />
+            <ellipse cx="34" cy="46" rx="18" ry="27" />
+            <ellipse cx="34" cy="46" rx="10" ry="16" />
+          </g>
+        </svg>
+        <div className="-ml-0.5 mt-[0.1rem] flex shrink-0 flex-col items-center leading-none">
+          <span className="text-[1.05rem] font-light leading-none text-[#c4a06a] sm:text-[1.15rem]">
+            +
+          </span>
+          <span className="mt-[0.12rem] text-[12.48px] font-normal uppercase tracking-[0.18em] text-[#c4a06a]">
+            YEARS
+          </span>
+        </div>
       </div>
     </div>
   );
@@ -335,7 +354,7 @@ function Amenities() {
           <SectionHeading
             eyebrow="What We Offer"
             title="Crafted Amenities"
-            titleClassName="font-semibold text-[#c0a56e]"
+            titleClassName="font-normal text-[#c0a56e]"
           />
 
           <div className="flex flex-wrap items-center gap-4 border-y border-white/16 py-4 text-[0.82rem] font-semibold uppercase tracking-[0.2em] text-[#c0a56e] md:gap-6 md:px-5">

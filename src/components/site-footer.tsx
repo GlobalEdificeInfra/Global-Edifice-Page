@@ -28,7 +28,7 @@ const footerLinks = [
   {
     title: "Contact",
     items: [
-      { label: "941 161 4444", kind: "anchor", href: "tel:+919411614444" },
+      { label: "+91 94116 14444", kind: "anchor", href: "tel:+919411614444" },
       { label: "sales@globaledifice.com", kind: "anchor", href: "mailto:sales@globaledifice.com" },
       { label: "HSR Layout 1st sector, Bangalore" },
       { label: "Schedule a Visit", kind: "anchor", href: "/#contact" },

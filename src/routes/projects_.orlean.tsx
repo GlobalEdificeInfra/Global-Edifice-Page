@@ -185,7 +185,7 @@ const faqItems = [
     id: "faq-4",
     question: "Where are Global Edifice projects located in Bangalore?",
     answer:
-      "Global Edifice has strategically positioned projects across Bangalore's most promising locations. Our developments can be found in high-growth areas such as Electronic City, South Bangalore, Bommasandra, Thirumagondanahalli, and Sarjapura. Each location is chosen based on connectivity, infrastructure development potential, and quality of life factors. Contact us at (+91 806 548 0222) or email (info@globaledifice.in) to learn more about our project locations.",
+      "Global Edifice has strategically positioned projects across Bangalore's most promising locations. Our developments can be found in high-growth areas such as Electronic City, South Bangalore, Bommasandra, Thirumagondanahalli, and Sarjapura. Each location is chosen based on connectivity, infrastructure development potential, and quality of life factors. Contact us at (+91 94116 14444) or email (info@globaledifice.com) to learn more about our project locations.",
   },
   {
     id: "faq-5",
