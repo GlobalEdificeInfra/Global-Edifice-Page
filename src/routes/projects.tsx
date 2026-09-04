@@ -7,6 +7,7 @@ import { upcomingProjectMaps } from "@/assets/locations/upcoming";
 import { SiteHeader } from "@/components/site-header";
 import { SiteGetInTouch } from "@/components/site-get-in-touch";
 import { SiteFooter } from "@/components/site-footer";
+import { projectMicrosites } from "@/lib/company";
 
 const PROJECTS_TITLE = "Our Projects - Global Edifice";
 const PROJECTS_DESCRIPTION =
@@ -60,7 +61,7 @@ const projects: Project[] = [
     configLine: "2&3BHK RESIDENCES | SARJAPUR, BANGALORE",
     image: projectClan,
     alt: "Global Edifice The Clan",
-    detailHref: "/projects/the-clan",
+    detailHref: projectMicrosites.theClan,
   },
   {
     status: "ongoing",
@@ -71,7 +72,7 @@ const projects: Project[] = [
     configLine: "2BHK RESIDENCES | CHANDAPURA, BANGALORE",
     image: "/project-images/orlean-images/orlean-main2.jpg",
     alt: "Global Edifice Orlean",
-    detailHref: "/projects/orlean",
+    detailHref: projectMicrosites.orlean,
   },
   {
     status: "upcoming",
@@ -217,11 +218,19 @@ function KnowMoreButton({
 }) {
   if (!href) return null;
 
+  const classNames = `inline-flex items-center justify-center rounded-full border border-[#d8c7a8] bg-transparent px-4 py-3 text-[0.58rem] font-semibold uppercase tracking-[0.1em] text-[#c0a56e] transition hover:border-[#c0a56e] hover:bg-[#faf7f2] ${className}`;
+  const isExternal = href.startsWith("http://") || href.startsWith("https://");
+
+  if (isExternal) {
+    return (
+      <a href={href} target="_blank" rel="noopener noreferrer" className={classNames}>
+        Know More
+      </a>
+    );
+  }
+
   return (
-    <Link
-      to={href as any}
-      className={`inline-flex items-center justify-center rounded-full border border-[#d8c7a8] bg-transparent px-4 py-3 text-[0.58rem] font-semibold uppercase tracking-[0.1em] text-[#c0a56e] transition hover:border-[#c0a56e] hover:bg-[#faf7f2] ${className}`}
-    >
+    <Link to={href as any} className={classNames}>
       Know More
     </Link>
   );

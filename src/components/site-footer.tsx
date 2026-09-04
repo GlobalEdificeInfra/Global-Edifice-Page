@@ -1,5 +1,13 @@
+import { Facebook, Instagram, Linkedin, Youtube } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import geLogoGold from "@/assets/shared/ge-logo-gold.png";
+import {
+  companyAddress,
+  companyEmail,
+  companyPhone,
+  companySocial,
+  projectMicrosites,
+} from "@/lib/company";
 
 const pageGutterClass = "px-[1.125rem] md:px-[1.8rem]";
 const pageContainerClass = `mx-auto max-w-7xl ${pageGutterClass}`;
@@ -8,36 +16,38 @@ const footerLinks = [
   {
     title: "Navigation",
     items: [
-      { label: "Home", kind: "route", to: "/" as const },
-      { label: "About Us", kind: "route", to: "/about" as const },
-      { label: "Projects", kind: "route", to: "/projects" as const },
-      { label: "Resources", kind: "route", to: "/blogs" as const },
-      { label: "Careers", kind: "route", to: "/careers" as const },
-      { label: "Channel Partner", kind: "route", to: "/channel-partner" as const },
+      { label: "Home", kind: "route" as const, to: "/" as const },
+      { label: "About Us", kind: "route" as const, to: "/about" as const },
+      { label: "Projects", kind: "route" as const, to: "/projects" as const },
+      { label: "Resources", kind: "route" as const, to: "/blogs" as const },
+      { label: "Careers", kind: "route" as const, to: "/careers" as const },
+      { label: "Channel Partner", kind: "route" as const, to: "/channel-partner" as const },
     ],
   },
   {
     title: "Projects",
     items: [
-      { label: "Global Heights", kind: "anchor", href: "/projects" },
-      { label: "Edifice Villas", kind: "anchor", href: "/projects" },
-      { label: "Global Residency", kind: "anchor", href: "/projects" },
-      { label: "Completed Portfolio", kind: "anchor", href: "/projects#completed" },
+      { label: "The Clan", kind: "external" as const, href: projectMicrosites.theClan },
+      { label: "Orlean", kind: "external" as const, href: projectMicrosites.orlean },
+      { label: "Upcoming Projects", kind: "anchor" as const, href: "/projects#upcoming" },
+      { label: "Completed Portfolio", kind: "anchor" as const, href: "/projects#completed" },
     ],
   },
   {
     title: "Contact",
     items: [
-      { label: "+91 94116 14444", kind: "anchor", href: "tel:+919411614444" },
-      { label: "sales@globaledifice.com", kind: "anchor", href: "mailto:sales@globaledifice.com" },
-      { label: "HSR Layout 1st sector, Bangalore" },
-      { label: "Schedule a Visit", kind: "anchor", href: "/#contact" },
+      { label: companyPhone.display, kind: "anchor" as const, href: companyPhone.tel },
+      { label: companyEmail.display, kind: "anchor" as const, href: companyEmail.mailto },
+      { label: companyAddress, kind: "text" as const },
+      { label: "Schedule a Visit", kind: "anchor" as const, href: "/#contact" },
     ],
   },
-] as const;
+];
 
-function FooterLinkItem({ item }: { item: (typeof footerLinks)[number]["items"][number] }) {
-  if ("to" in item) {
+type FooterItem = (typeof footerLinks)[number]["items"][number];
+
+function FooterLinkItem({ item }: { item: FooterItem }) {
+  if (item.kind === "route") {
     return (
       <Link to={item.to} className="break-words transition hover:text-white">
         {item.label}
@@ -45,7 +55,20 @@ function FooterLinkItem({ item }: { item: (typeof footerLinks)[number]["items"][
     );
   }
 
-  if ("href" in item) {
+  if (item.kind === "external") {
+    return (
+      <a
+        href={item.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="break-words transition hover:text-white"
+      >
+        {item.label}
+      </a>
+    );
+  }
+
+  if (item.kind === "anchor") {
     const isEmail = item.href.startsWith("mailto:");
     return (
       <a
@@ -60,6 +83,13 @@ function FooterLinkItem({ item }: { item: (typeof footerLinks)[number]["items"][
   return <span className="break-words">{item.label}</span>;
 }
 
+const socialLinks = [
+  { label: "Facebook", href: companySocial.facebook, Icon: Facebook },
+  { label: "Instagram", href: companySocial.instagram, Icon: Instagram },
+  { label: "LinkedIn", href: companySocial.linkedin, Icon: Linkedin },
+  { label: "YouTube", href: companySocial.youtube, Icon: Youtube },
+] as const;
+
 export function SiteFooter() {
   return (
     <footer className="overflow-hidden bg-[#0f4157] text-white">
@@ -71,6 +101,20 @@ export function SiteFooter() {
               Leaders in luxury residential development. Shifting the paradigm of modern living with
               innovation and integrity.
             </p>
+            <div className="mt-6 flex items-center gap-3">
+              {socialLinks.map(({ label, href, Icon }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-[#c4a36b]"
+                >
+                  <Icon className="h-4 w-4" />
+                </a>
+              ))}
+            </div>
           </div>
 
           {footerLinks.map((column) => (

@@ -7,9 +7,16 @@ import {
   Mail,
   MapPin,
   Phone,
+  Youtube,
 } from "lucide-react";
 import geContactLounge from "@/assets/shared/ge-contact-lounge.jpg";
 import { FormConsentCheckbox } from "@/components/form-consent-checkbox";
+import {
+  companyAddress,
+  companyEmail,
+  companyPhone,
+  companySocial,
+} from "@/lib/company";
 
 const pageGutterClass = "px-[1.125rem] md:px-[1.8rem]";
 
@@ -17,18 +24,25 @@ const contactDetails = [
   {
     icon: MapPin,
     eyebrow: "Corporate Office",
-    body: "966, 3rd Floor, 27th Main, 8th Cross Rd, 1st Sector, HSR Layout, Bangalore, Karnataka 560102",
+    body: companyAddress,
   },
   {
     icon: Phone,
     eyebrow: "Give Us A Call",
-    body: "+91 94116 14444",
+    body: companyPhone.display,
   },
   {
     icon: Mail,
     eyebrow: "Send An Email",
-    body: "sales@globaledifice.com",
+    body: companyEmail.display,
   },
+] as const;
+
+const socialLinks = [
+  { label: "Facebook", href: companySocial.facebook, Icon: Facebook },
+  { label: "Instagram", href: companySocial.instagram, Icon: Instagram },
+  { label: "LinkedIn", href: companySocial.linkedin, Icon: Linkedin },
+  { label: "YouTube", href: companySocial.youtube, Icon: Youtube },
 ] as const;
 
 type SiteGetInTouchProps = {
@@ -206,27 +220,26 @@ export function SiteGetInTouch({
                 Follow Our Journey
               </h4>
               <div className="mt-4 flex items-center gap-3">
-                <a
-                  href="#"
-                  aria-label="Facebook"
-                  className="flex h-9 w-9 items-center justify-center rounded-full bg-[#c0a56e] text-white transition hover:bg-[#0f4157]"
-                >
-                  <Facebook className="h-4 w-4 fill-current stroke-0" />
-                </a>
-                <a
-                  href="#"
-                  aria-label="Instagram"
-                  className="flex h-9 w-9 items-center justify-center rounded-full bg-[#c0a56e] text-white transition hover:bg-[#0f4157]"
-                >
-                  <Instagram className="h-4 w-4 stroke-[2.1]" />
-                </a>
-                <a
-                  href="#"
-                  aria-label="LinkedIn"
-                  className="flex h-9 w-9 items-center justify-center rounded-full bg-[#c0a56e] text-white transition hover:bg-[#0f4157]"
-                >
-                  <Linkedin className="h-4 w-4 fill-current stroke-0" />
-                </a>
+                {socialLinks.map(({ label, href, Icon }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={label}
+                    className="flex h-9 w-9 items-center justify-center rounded-full bg-[#c0a56e] text-white transition hover:bg-[#0f4157]"
+                  >
+                    <Icon
+                      className={
+                        label === "Instagram"
+                          ? "h-4 w-4 stroke-[2.1]"
+                          : label === "YouTube"
+                            ? "h-4 w-4"
+                            : "h-4 w-4 fill-current stroke-0"
+                      }
+                    />
+                  </a>
+                ))}
               </div>
             </div>
           </aside>
