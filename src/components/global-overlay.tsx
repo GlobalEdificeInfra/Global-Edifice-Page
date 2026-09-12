@@ -174,7 +174,7 @@ export function GlobalOverlay() {
             <h2 className="font-serif text-[1.6rem] font-semibold text-[#daba81] shadow-text text-shadow-sm mb-2">
               ENQUIRE NOW
             </h2>
-            <p className="text-[0.95rem] text-white">
+            <p className="text-base font-normal text-white">
               Share your details and we'll get back to you shortly
             </p>
           </div>
@@ -182,7 +182,7 @@ export function GlobalOverlay() {
           {status === "success" ? (
             <div className="rounded-2xl bg-white/10 px-5 py-8 text-center">
               <p className="text-[1.05rem] font-semibold text-[#daba81]">Thank you!</p>
-              <p className="mt-2 text-[0.9rem] text-white/85">
+              <p className="mt-2 text-base font-normal text-white/85">
                 We&apos;ve received your enquiry and will get back to you shortly.
               </p>
               <button

@@ -233,7 +233,7 @@ function Hero() {
               <span className="block sm:whitespace-nowrap">We Redefine</span>
               <span className="block sm:whitespace-nowrap">Living</span>
             </h1>
-            <p className="mt-6 text-[0.88rem] font-bold leading-[1.65] text-white/92 [text-shadow:0_1px_16px_rgba(0,0,0,0.35)] sm:text-[0.96rem] md:text-[1rem] md:leading-[1.7]">
+            <p className="mt-6 text-base font-normal leading-[1.65] text-white/92 [text-shadow:0_1px_16px_rgba(0,0,0,0.35)] md:leading-[1.7]">
               A boutique studio of architects and craftsmen, sculpting premium mid-rise residences
               where every detail is deliberate, and every home endures.
             </p>
@@ -253,7 +253,7 @@ function Story() {
       >
         <div className="pr-6 md:pr-10 lg:pr-0 lg:pt-6 xl:pt-8">
           <div className="mx-auto max-w-[34rem] lg:mx-0 xl:max-w-[35rem]">
-            <span className="block text-[0.85rem] font-bold uppercase tracking-[0.22em] text-[#1a1814] sm:text-[0.95rem] md:text-[1rem]">
+            <span className="block text-[0.85rem] font-bold uppercase tracking-[0.22em] text-[#7a756e] sm:text-[0.95rem] md:text-[1rem]">
               The Global Edifice Promise
             </span>
 
@@ -262,7 +262,7 @@ function Story() {
               <span className="block">Not Just Homes</span>
             </h2>
 
-            <div className="mt-8 max-w-[32.5rem] space-y-5 text-[1.05rem] leading-[1.8] text-[#7a756e] md:mt-9 md:text-[1.15rem] lg:max-w-[33.5rem] lg:text-[1.2rem]">
+            <div className="mt-8 max-w-[32.5rem] space-y-5 text-base font-normal leading-[1.8] text-[#7a756e] md:mt-9 lg:max-w-[33.5rem]">
               <p>
                 Global Edifice has been a trusted name in the real estate industry for over ten
                 years, being the forefront of upcoming projects in Bangalore, establishing
@@ -384,7 +384,7 @@ function Amenities() {
                 <h3 className="text-[0.85rem] font-bold uppercase tracking-[0.14em] text-[#c0a56e] sm:text-[0.92rem]">
                   {item.title}
                 </h3>
-                <p className="mt-2.5 text-[0.85rem] leading-[1.65] text-white/85 sm:text-[0.9rem]">
+                <p className="mt-2.5 text-base font-normal leading-[1.65] text-white/85">
                   {item.description}
                 </p>
               </div>
@@ -427,7 +427,7 @@ function Testimonials() {
                 </span>
               </div>
 
-              <p className="relative mt-4 text-[0.92rem] font-normal italic leading-[1.7] text-[#4f4b45] md:mt-5 md:text-[0.98rem] md:leading-[1.75]">
+              <p className="relative mt-4 text-base font-normal italic leading-[1.7] text-[#7a756e] md:mt-5 md:leading-[1.75]">
                 {item.quote}
               </p>
 

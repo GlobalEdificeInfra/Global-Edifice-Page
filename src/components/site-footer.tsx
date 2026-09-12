@@ -3,6 +3,14 @@ import { Link } from "@tanstack/react-router";
 import geLogoGold from "@/assets/shared/ge-logo-gold.png";
 import { companyAddress, companyEmail, companyPhone, companySocial } from "@/lib/company";
 
+function XIcon({ className = "" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 1200 1227" className={className} fill="currentColor" aria-hidden>
+      <path d="M714.163 519.284L1160.89 0H1055.03L667.137 450.887L357.328 0H0L468.492 681.821L0 1226.37H105.866L515.491 750.218L842.672 1226.37H1200L714.137 519.284H714.163ZM569.165 687.828L521.697 619.934L144.011 79.6944H306.615L611.412 515.685L658.88 583.579L1055.08 1150.3H892.476L569.165 687.854V687.828Z" />
+    </svg>
+  );
+}
+
 const pageGutterClass = "px-[1.125rem] md:px-[1.8rem]";
 const pageContainerClass = `mx-auto max-w-7xl ${pageGutterClass}`;
 
@@ -67,6 +75,7 @@ function FooterLinkItem({ item }: { item: FooterItem }) {
 const socialLinks = [
   { label: "Facebook", href: companySocial.facebook, Icon: Facebook },
   { label: "Instagram", href: companySocial.instagram, Icon: Instagram },
+  { label: "X", href: companySocial.x, Icon: XIcon },
   { label: "LinkedIn", href: companySocial.linkedin, Icon: Linkedin },
   { label: "YouTube", href: companySocial.youtube, Icon: Youtube },
 ] as const;
@@ -77,11 +86,7 @@ export function SiteFooter() {
       <div className={`${pageContainerClass} py-14 md:py-16`}>
         <div className="grid gap-10 md:grid-cols-[1.35fr_0.75fr_0.85fr_1fr] md:gap-8 lg:gap-10">
           <div className="max-w-[22rem]">
-            <img src={geLogoGold} alt="Global Edifice" className="w-[140px] md:w-[160px]" />
-            <p className="mt-6 text-[0.92rem] font-normal leading-[1.75] text-white/85 md:text-[0.95rem]">
-              Leaders in luxury residential development. Shifting the paradigm of modern living with
-              innovation and integrity.
-            </p>
+            <img src={geLogoGold} alt="Global Edifice" className="-mt-5 w-[190px] md:w-[230px]" />
             <div className="mt-6 flex items-center gap-3">
               {socialLinks.map(({ label, href, Icon }) => (
                 <a

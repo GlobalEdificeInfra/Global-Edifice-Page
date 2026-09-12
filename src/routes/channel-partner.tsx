@@ -19,11 +19,11 @@ export const Route = createFileRoute("/channel-partner")({
 });
 
 const fieldClassName =
-  "h-10 w-full border border-[#cfc8be] bg-white px-3 text-[0.9rem] text-[#2a2723] outline-none transition focus:border-[#c0a56e]";
+  "h-10 w-full border border-[#cfc8be] bg-white px-3 text-[0.9rem] text-[#7a756e] outline-none transition focus:border-[#c0a56e]";
 const labelInlineClassName =
-  "shrink-0 text-[0.88rem] font-medium text-[#2a2723] md:text-[0.92rem]";
+  "shrink-0 text-[0.88rem] font-medium text-[#7a756e] md:text-[0.92rem]";
 const sectionTitleClassName =
-  "text-[0.95rem] font-bold uppercase tracking-[0.04em] text-[#2a2723]";
+  "text-[0.95rem] font-bold uppercase tracking-[0.04em] text-[#7a756e]";
 
 function SectionHeading({ children }: { children: string }) {
   return (
@@ -64,7 +64,7 @@ function DateBoxes({ id }: { id: string }) {
               type="text"
               maxLength={1}
               inputMode="numeric"
-              className="h-10 w-9 border border-[#d0cbc3] bg-white text-center text-[0.9rem] text-[#2a2723] outline-none focus:border-[#c0a56e] sm:h-8 sm:w-7 sm:text-[0.8rem]"
+              className="h-10 w-9 border border-[#d0cbc3] bg-white text-center text-[0.9rem] text-[#7a756e] outline-none focus:border-[#c0a56e] sm:h-8 sm:w-7 sm:text-[0.8rem]"
             />
           ))}
           {groupIndex < 2 ? (
@@ -150,7 +150,7 @@ function ChannelPartnerPage() {
             </div>
 
             <div className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] lg:items-start">
-              <ol className="list-decimal space-y-1.5 pl-5 text-[0.82rem] leading-[1.7] text-[#4a463f]">
+              <ol className="list-decimal space-y-1.5 pl-5 text-base font-normal leading-[1.7] text-[#4a463f]">
                 <li>Please be sure you understand all the terms & conditions.</li>
                 <li>Incomplete forms will lead to a delay in processing your request.</li>
                 <li>All details requested for in this registration form is mandatory.</li>
@@ -206,7 +206,7 @@ function ChannelPartnerPage() {
                 {organisationTypes.map((type) => (
                   <label
                     key={type}
-                    className="flex min-h-11 items-center gap-2 text-[0.88rem] text-[#2a2723]"
+                    className="flex min-h-11 items-center gap-2 text-[0.88rem] text-[#7a756e]"
                   >
                     <input type="checkbox" className="h-4 w-4 accent-[#c0a56e]" />
                     {type}
@@ -224,7 +224,7 @@ function ChannelPartnerPage() {
                 {businessNatures.map((nature) => (
                   <label
                     key={nature}
-                    className="flex min-h-11 items-center gap-2.5 text-[0.86rem] text-[#2a2723]"
+                    className="flex min-h-11 items-center gap-2.5 text-[0.86rem] text-[#7a756e]"
                   >
                     <input type="checkbox" className="h-4 w-4 shrink-0 accent-[#c0a56e]" />
                     {nature}
@@ -257,8 +257,8 @@ function ChannelPartnerPage() {
             </div>
 
             <div className="mt-10">
-              <h3 className="text-[1.05rem] font-bold text-[#2a2723]">Terms and Conditions</h3>
-              <p className="mt-3 max-w-5xl text-[0.82rem] leading-[1.85] text-[#5c564d]">
+              <h3 className="text-[1.05rem] font-bold text-[#7a756e]">Terms and Conditions</h3>
+              <p className="mt-3 max-w-5xl text-base font-normal leading-[1.85] text-[#5c564d]">
                 The Channel Partner is appointed on a non-exclusive basis to market and facilitate
                 sales of Global Edifice Infra projects and must maintain valid Karnataka RERA
                 registration and comply with all applicable laws. A commission of 2% + applicable GST
@@ -275,9 +275,9 @@ function ChannelPartnerPage() {
                 subject to Bengaluru jurisdiction.
               </p>
 
-              <FormConsentCheckbox className="mt-5 text-[0.82rem] leading-[1.75] text-[#5c564d]" />
+              <FormConsentCheckbox className="mt-5 text-base font-normal leading-[1.75] text-[#5c564d]" />
 
-              <label className="mt-4 flex items-center gap-2 text-[0.9rem] font-medium text-[#2a2723]">
+              <label className="mt-4 flex items-center gap-2 text-[0.9rem] font-medium text-[#7a756e]">
                 <input type="checkbox" required className="h-4 w-4 accent-[#c0a56e]" />
                 I accept the terms and conditions
               </label>

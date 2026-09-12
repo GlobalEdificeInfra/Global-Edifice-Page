@@ -20,6 +20,14 @@ import {
 } from "@/lib/company";
 import { submitContactForm } from "@/lib/enquiry-api";
 
+function XIcon({ className = "" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 1200 1227" className={className} fill="currentColor" aria-hidden>
+      <path d="M714.163 519.284L1160.89 0H1055.03L667.137 450.887L357.328 0H0L468.492 681.821L0 1226.37H105.866L515.491 750.218L842.672 1226.37H1200L714.137 519.284H714.163ZM569.165 687.828L521.697 619.934L144.011 79.6944H306.615L611.412 515.685L658.88 583.579L1055.08 1150.3H892.476L569.165 687.854V687.828Z" />
+    </svg>
+  );
+}
+
 const pageGutterClass = "px-[1.125rem] md:px-[1.8rem]";
 
 const contactDetails = [
@@ -43,6 +51,7 @@ const contactDetails = [
 const socialLinks = [
   { label: "Facebook", href: companySocial.facebook, Icon: Facebook },
   { label: "Instagram", href: companySocial.instagram, Icon: Instagram },
+  { label: "X", href: companySocial.x, Icon: XIcon },
   { label: "LinkedIn", href: companySocial.linkedin, Icon: Linkedin },
   { label: "YouTube", href: companySocial.youtube, Icon: Youtube },
 ] as const;
@@ -146,7 +155,7 @@ export function SiteGetInTouch({
             {status === "success" ? (
               <div className="mt-8 rounded-md bg-white/10 px-6 py-10 text-center">
                 <p className="text-[1.15rem] font-semibold text-[#c0a56e]">Thank you!</p>
-                <p className="mt-2 text-[0.92rem] text-white/85">
+                <p className="mt-2 text-base font-normal text-white/85">
                   We&apos;ve received your enquiry and will get back to you shortly.
                 </p>
                 <button
@@ -264,7 +273,7 @@ export function SiteGetInTouch({
                 <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#c0a56e] text-white">
                   <OfficeIcon className="h-4 w-4 stroke-[2.2]" />
                 </span>
-                <p className="text-[0.95rem] leading-[1.7] text-[#3a3835]">{officeContact.body}</p>
+                <p className="text-base font-normal leading-[1.7] text-[#7a756e]">{officeContact.body}</p>
               </div>
             </div>
 
@@ -278,7 +287,7 @@ export function SiteGetInTouch({
                 </p>
                 <a
                   href={`tel:${phoneContact.body.replace(/\s+/g, "")}`}
-                  className="mt-2 block text-[1.02rem] font-medium leading-[1.55] text-[#1f1d1b] transition hover:text-[#0f4157]"
+                  className="mt-2 block text-base font-normal leading-[1.55] text-[#7a756e] transition hover:text-[#0f4157]"
                 >
                   {phoneContact.body}
                 </a>
@@ -295,7 +304,7 @@ export function SiteGetInTouch({
                 </p>
                 <a
                   href={`mailto:${emailContact.body}`}
-                  className="mt-2 block text-[1.02rem] font-medium leading-[1.55] text-[#1f1d1b] transition hover:text-[#0f4157]"
+                  className="mt-2 block text-base font-normal leading-[1.55] text-[#7a756e] transition hover:text-[#0f4157]"
                 >
                   {emailContact.body}
                 </a>

@@ -29,7 +29,7 @@ export function LegalPageLayout({ title, children }: { title: string; children: 
               <h3 className="text-[1rem] font-semibold text-[#111111] md:text-[1.05rem]">
                 About Us
               </h3>
-              <p className="mt-2 text-[0.82rem] font-medium leading-[1.8] text-[#111111] md:text-[0.88rem]">
+              <p className="mt-2 text-base font-normal leading-[1.8] text-[#111111]">
                 <Link to="/" className="text-[#1056c0] hover:underline">
                   www.globaledifice.com
                 </Link>{" "}

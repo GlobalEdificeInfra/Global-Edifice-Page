@@ -463,7 +463,7 @@ function OverviewSection() {
               <span className="block whitespace-nowrap">Naturally Comfortable.</span>
             </h2>
 
-            <div className="mt-6 max-w-[32rem] space-y-5 text-[0.94rem] leading-[1.85] text-[#5c564d] md:text-[0.97rem]">
+            <div className="mt-6 max-w-[32rem] space-y-5 text-base font-normal leading-[1.85] text-[#5c564d]">
               {overviewCopy.map((paragraph) => (
                 <p key={paragraph}>{paragraph}</p>
               ))}
@@ -812,7 +812,7 @@ function FaqSection() {
                 {isOpen ? (
                   <div
                     id={`faq-panel-${item.id}`}
-                    className="max-w-[44rem] pb-7 pr-12 text-[0.95rem] leading-[1.85] text-[#5f574d] md:pb-8 md:pr-16"
+                    className="max-w-[44rem] pb-7 pr-12 text-base font-normal leading-[1.85] text-[#5f574d] md:pb-8 md:pr-16"
                   >
                     {item.answer}
                   </div>
@@ -887,7 +887,7 @@ function ContactSection() {
             <h2 className="font-display text-[2.4rem] leading-[1.02] uppercase md:text-[3rem]">
               Get In Touch
             </h2>
-            <p className="mt-3 text-[0.98rem] leading-[1.8] text-white/76">
+            <p className="mt-3 text-base font-normal leading-[1.8] text-white/76">
               We would love to hear from you
             </p>
           </div>
@@ -897,7 +897,7 @@ function ContactSection() {
               <h3 className="font-display text-[2.35rem] leading-none text-[#1f1d1a] md:text-[2.5rem]">
                 Thank you!
               </h3>
-              <p className="mt-3 text-[0.98rem] font-medium text-[#7b7369]">
+              <p className="mt-3 text-base font-normal text-[#7b7369]">
                 We&apos;ve received your enquiry and will get back to you shortly.
               </p>
               <button
@@ -916,7 +916,7 @@ function ContactSection() {
               <h3 className="font-display text-[2.35rem] leading-none text-[#1f1d1a] md:text-[2.5rem]">
                 Contact Us
               </h3>
-              <p className="mt-2 text-[0.98rem] font-medium text-[#7b7369]">
+              <p className="mt-2 text-base font-normal text-[#7b7369]">
                 We would love to hear from you
               </p>
 

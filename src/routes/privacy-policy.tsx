@@ -99,7 +99,7 @@ function PrivacyDocument() {
           <h3 className="text-[1rem] font-semibold text-[#111111] md:text-[1.05rem]">
             {section.title}
           </h3>
-          <div className="mt-2 space-y-4 text-[0.82rem] font-medium leading-[1.8] text-[#111111] md:text-[0.88rem]">
+          <div className="mt-2 space-y-4 text-base font-normal leading-[1.8] text-[#111111]">
             {section.paragraphs.map((paragraph) => (
               <p key={paragraph}>{paragraph}</p>
             ))}
@@ -109,14 +109,14 @@ function PrivacyDocument() {
 
       <section className="border-t border-dashed border-[#cccccc] pt-5">
         <h3 className="text-[1rem] font-semibold text-[#111111] md:text-[1.05rem]">Contact Us</h3>
-        <p className="mt-2 text-[0.82rem] font-medium leading-[1.8] text-[#111111] md:text-[0.88rem]">
+        <p className="mt-2 text-base font-normal leading-[1.8] text-[#111111]">
           If you have any queries regarding our Terms of Use, the practices of this site, or your
           dealings with this site, please email your queries at{" "}
           <a href="mailto:info@globaledifice.com" className="text-[#1056c0] hover:underline">
             info@globaledifice.com
           </a>
         </p>
-        <p className="mt-4 text-[0.82rem] font-medium leading-[1.8] text-[#111111] md:text-[0.88rem]">
+        <p className="mt-4 text-base font-normal leading-[1.8] text-[#111111]">
           Thank you for visiting our websites.
         </p>
       </section>

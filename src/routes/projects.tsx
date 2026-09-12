@@ -240,7 +240,7 @@ function ProjectCardBody({ project }: { project: Project }) {
     return (
       <div className="flex h-full flex-col p-5 md:p-6">
         <div className="flex items-start justify-between gap-4">
-          <h2 className="text-[0.98rem] font-semibold uppercase leading-[1.12] text-[#2a2723] md:text-[1.05rem]">
+          <h2 className="text-[0.98rem] font-semibold uppercase leading-[1.12] text-[#7a756e] md:text-[1.05rem]">
             {project.nameLines.map((line) => (
               <span key={line} className="block">
                 {line}
@@ -257,7 +257,7 @@ function ProjectCardBody({ project }: { project: Project }) {
         </p>
 
         <div className="mt-6 flex items-center gap-3">
-          <span className="shrink-0 text-[0.62rem] font-medium uppercase tracking-[0.04em] text-[#2a2723]">
+          <span className="shrink-0 text-[0.62rem] font-medium uppercase tracking-[0.04em] text-[#7a756e]">
             {project.typeLabel}
           </span>
           <span className="h-px min-w-0 flex-1 bg-[#eadfcc]" />
@@ -419,7 +419,7 @@ function ProjectPortfolio() {
             Places You&apos;ll Be Proud to Call Home.
           </h2>
 
-          <div className="mx-auto mt-10 max-w-[52rem] space-y-6 text-[0.95rem] font-normal leading-[1.9] text-[#5c574f] md:mt-12 md:text-[1.05rem] md:leading-[1.95]">
+          <div className="mx-auto mt-10 max-w-[52rem] space-y-6 text-base font-normal leading-[1.9] text-[#7a756e] md:mt-12">
             <p>
               Every project begins with an idea. To create homes that feel right—not just on the day
               you move in, but for years to come.

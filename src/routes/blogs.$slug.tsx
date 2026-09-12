@@ -33,7 +33,7 @@ function BlogNotFound() {
         <h1 className="mt-5 font-display text-[2.8rem] leading-[0.96] text-[#1f1d1a]">
           Article not found
         </h1>
-        <p className="mx-auto mt-5 max-w-[30rem] text-[1rem] leading-[1.9] text-[#696056]">
+        <p className="mx-auto mt-5 max-w-[30rem] text-base font-normal leading-[1.9] text-[#7a756e]">
           The requested blog article does not exist in the current content set.
         </p>
         <div className="mt-8">
@@ -81,7 +81,7 @@ function RecentBlogCard({ slug }: { slug: string }) {
           {truncateText(post.title, 54)}
         </h2>
         <p className="mt-3 text-[0.94rem] text-[#777777]">{post.publishedAt}</p>
-        <p className="mt-3 max-w-[19rem] text-[0.97rem] leading-[1.8] text-[#8a8a8a]">
+        <p className="mt-3 max-w-[19rem] text-base font-normal leading-[1.8] text-[#7a756e]">
           {truncateText(post.excerpt, 185)}
         </p>
 
@@ -178,7 +178,7 @@ function BlogDetailPage() {
               <h1 className="mt-5 max-w-[52rem] text-[2rem] font-semibold leading-[1.15] text-white md:text-[3.15rem] lg:text-[4.2rem]">
                 {post.title}
               </h1>
-              <p className="mt-4 text-[0.98rem] text-white/80 md:text-[1.02rem]">
+              <p className="mt-4 text-base font-normal text-white/80">
                 Written by {post.author}
               </p>
             </div>
@@ -190,7 +190,7 @@ function BlogDetailPage() {
             <div className="h-px w-full bg-[#e6dac8]" />
 
             <div
-              className="mt-8 text-[#5d554a] [&_a]:text-[#0f4157] [&_a]:underline-offset-4 [&_a:hover]:underline [&_h1]:mt-8 [&_h1]:text-[2rem] [&_h1]:font-semibold [&_h1]:text-[#2f2b28] [&_h2]:mt-8 [&_h2]:text-[1.9rem] [&_h2]:font-semibold [&_h2]:text-[#2f2b28] [&_h3]:mt-7 [&_h3]:text-[1.6rem] [&_h3]:font-semibold [&_h3]:text-[#2f2b28] [&_h4]:mt-7 [&_h4]:text-[1.35rem] [&_h4]:font-semibold [&_h4]:text-[#2f2b28] [&_h5]:mt-7 [&_h5]:text-[1.2rem] [&_h5]:font-semibold [&_h5]:text-[#2f2b28] [&_h6]:mt-6 [&_h6]:text-[1.08rem] [&_h6]:font-semibold [&_h6]:text-[#2f2b28] [&_li]:ml-5 [&_li]:list-disc [&_li]:pl-1 [&_li]:leading-[1.95] [&_ol]:space-y-2 [&_ol]:pl-5 [&_ol]:pt-2 [&_p]:mt-5 [&_p]:text-[1.03rem] [&_p]:leading-[1.95] [&_strong]:font-semibold [&_ul]:space-y-2 [&_ul]:pl-5 [&_ul]:pt-2 md:[&_h1]:text-[2.3rem] md:[&_h2]:text-[2.15rem] md:[&_p]:text-[1.08rem]"
+              className="mt-8 text-[#7a756e] [&_a]:text-[#0f4157] [&_a]:underline-offset-4 [&_a:hover]:underline [&_h1]:mt-8 [&_h1]:text-[2rem] [&_h1]:font-semibold [&_h1]:text-[#2f2b28] [&_h2]:mt-8 [&_h2]:text-[1.9rem] [&_h2]:font-semibold [&_h2]:text-[#2f2b28] [&_h3]:mt-7 [&_h3]:text-[1.6rem] [&_h3]:font-semibold [&_h3]:text-[#2f2b28] [&_h4]:mt-7 [&_h4]:text-[1.35rem] [&_h4]:font-semibold [&_h4]:text-[#2f2b28] [&_h5]:mt-7 [&_h5]:text-[1.2rem] [&_h5]:font-semibold [&_h5]:text-[#2f2b28] [&_h6]:mt-6 [&_h6]:text-[1.08rem] [&_h6]:font-semibold [&_h6]:text-[#2f2b28] [&_li]:ml-5 [&_li]:list-disc [&_li]:pl-1 [&_li]:text-base [&_li]:font-normal [&_li]:leading-[1.95] [&_ol]:space-y-2 [&_ol]:pl-5 [&_ol]:pt-2 [&_p]:mt-5 [&_p]:text-base [&_p]:font-normal [&_p]:leading-[1.95] [&_strong]:font-semibold [&_ul]:space-y-2 [&_ul]:pl-5 [&_ul]:pt-2 md:[&_h1]:text-[2.3rem] md:[&_h2]:text-[2.15rem]"
               dangerouslySetInnerHTML={{ __html: post.htmlContent }}
             />
           </article>

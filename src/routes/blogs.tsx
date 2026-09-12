@@ -93,7 +93,7 @@ function BlogCardGrid({ page }: { page: number }) {
                   {post.title}
                 </h3>
                 <p className="mt-2 text-[0.85rem] text-[#9ca3af]">{post.publishedAt}</p>
-                <p className="mt-3 line-clamp-4 flex-1 text-[0.9rem] leading-[1.65] text-[#6b7280]">
+                <p className="mt-3 line-clamp-4 flex-1 text-base font-normal leading-[1.65] text-[#7a756e]">
                   {post.excerpt}
                 </p>
 

@@ -39,7 +39,7 @@ function CareersPage() {
             <h2 className="font-display text-[1.85rem] leading-[1.15] text-[#1f1d1a] md:text-[2.45rem]">
               Build Your Career. Build Something That Lasts.
             </h2>
-            <div className="mt-6 space-y-4 text-[0.96rem] leading-[1.9] text-[#6b655d] md:text-[1.02rem]">
+            <div className="mt-6 space-y-4 text-base font-normal leading-[1.9] text-[#6b655d]">
               <p>
                 At Global Edifice, we believe great homes begin with great people. People who take
                 ownership, ask better questions, care about the details, and take pride in seeing an
@@ -117,7 +117,7 @@ function CareersPage() {
 
             <button
               type="submit"
-              className="mt-6 inline-flex items-center justify-center rounded-[0.35rem] border border-[#cfc8be] bg-white px-7 py-3.5 text-[0.74rem] font-semibold uppercase tracking-[0.2em] text-[#2a2723] transition hover:border-[#c0a56e]"
+              className="mt-6 inline-flex items-center justify-center rounded-[0.35rem] border border-[#cfc8be] bg-white px-7 py-3.5 text-[0.74rem] font-semibold uppercase tracking-[0.2em] text-[#7a756e] transition hover:border-[#c0a56e]"
             >
               Send Message
             </button>

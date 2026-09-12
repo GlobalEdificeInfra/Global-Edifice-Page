@@ -92,7 +92,7 @@ function ContactSection({ projectName }: { projectName: string }) {
             <h2 className="font-display text-[2.4rem] leading-[1.02] uppercase md:text-[3rem]">
               Get In Touch
             </h2>
-            <p className="mt-3 text-[0.98rem] leading-[1.8] text-white/76">
+            <p className="mt-3 text-base font-normal leading-[1.8] text-white/76">
               We would love to hear from you
             </p>
           </div>
@@ -102,7 +102,7 @@ function ContactSection({ projectName }: { projectName: string }) {
               <h3 className="font-display text-[1.85rem] leading-none text-[#1f1d1a] md:text-[2.5rem]">
                 Thank you!
               </h3>
-              <p className="mt-3 text-[0.98rem] font-medium text-[#7b7369]">
+              <p className="mt-3 text-base font-normal text-[#7b7369]">
                 We&apos;ve received your enquiry and will get back to you shortly.
               </p>
               <button
@@ -121,7 +121,7 @@ function ContactSection({ projectName }: { projectName: string }) {
               <h3 className="font-display text-[1.85rem] leading-none text-[#1f1d1a] md:text-[2.5rem]">
                 Contact Us
               </h3>
-              <p className="mt-2 text-[0.98rem] font-medium text-[#7b7369]">
+              <p className="mt-2 text-base font-normal text-[#7b7369]">
                 We would love to hear from you
               </p>
 
@@ -274,7 +274,7 @@ export function LocationLandingPage({
                 {introHeading}
               </h2>
 
-              <div className="mt-10 space-y-6 text-[0.94rem] leading-[1.9] text-[#5c564d] md:mt-12 md:text-[1rem] md:leading-[2]">
+              <div className="mt-10 space-y-6 text-base font-normal leading-[1.9] text-[#5c564d] md:mt-12">
                 {introParagraphs.map((paragraph) => {
                   if (typeof paragraph === "string") {
                     return <p key={paragraph}>{paragraph}</p>;
@@ -283,7 +283,7 @@ export function LocationLandingPage({
                   return (
                     <div key={`${paragraph.title ?? ""}-${paragraph.body}`}>
                       {paragraph.title ? (
-                        <p className="mb-2 text-[0.92rem] font-semibold text-[#2a2723] md:text-[1rem]">
+                        <p className="mb-2 text-[0.92rem] font-semibold text-[#7a756e] md:text-[1rem]">
                           {paragraph.title}
                         </p>
                       ) : null}
