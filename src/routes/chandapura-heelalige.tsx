@@ -20,6 +20,7 @@ function ChandapuraHeelaligePage() {
   return (
     <LocationLandingPage
       titleLines={["CHANDAPURA, HEELALIGE"]}
+      projectName="Global Edifice Chandapura Heelalige"
       heroSubtitle="The Future Is Taking Shape."
       heroVariant="photo"
       heroImage={upcomingProjectHeroes.heelalige}

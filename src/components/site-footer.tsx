@@ -1,13 +1,7 @@
 import { Facebook, Instagram, Linkedin, Youtube } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import geLogoGold from "@/assets/shared/ge-logo-gold.png";
-import {
-  companyAddress,
-  companyEmail,
-  companyPhone,
-  companySocial,
-  projectMicrosites,
-} from "@/lib/company";
+import { companyAddress, companyEmail, companyPhone, companySocial } from "@/lib/company";
 
 const pageGutterClass = "px-[1.125rem] md:px-[1.8rem]";
 const pageContainerClass = `mx-auto max-w-7xl ${pageGutterClass}`;
@@ -27,8 +21,8 @@ const footerLinks = [
   {
     title: "Projects",
     items: [
-      { label: "The Clan", kind: "external" as const, href: projectMicrosites.theClan },
-      { label: "Orlean", kind: "external" as const, href: projectMicrosites.orlean },
+      { label: "The Clan", kind: "route" as const, to: "/projects/the-clan" as const },
+      { label: "Orlean", kind: "route" as const, to: "/projects/orlean" as const },
       { label: "Upcoming Projects", kind: "anchor" as const, href: "/projects#upcoming" },
       { label: "Completed Portfolio", kind: "anchor" as const, href: "/projects#completed" },
     ],
@@ -52,19 +46,6 @@ function FooterLinkItem({ item }: { item: FooterItem }) {
       <Link to={item.to} className="break-words transition hover:text-white">
         {item.label}
       </Link>
-    );
-  }
-
-  if (item.kind === "external") {
-    return (
-      <a
-        href={item.href}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="break-words transition hover:text-white"
-      >
-        {item.label}
-      </a>
     );
   }
 

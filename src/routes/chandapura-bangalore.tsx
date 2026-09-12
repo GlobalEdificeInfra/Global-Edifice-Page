@@ -19,6 +19,7 @@ function ChandapuraBangalorePage() {
   return (
     <LocationLandingPage
       titleLines={["CHANDAPURA, BANGALORE"]}
+      projectName="Global Edifice Chandapura, Bangalore"
       heroSubtitle="The Future Is Taking Shape."
       heroVariant="illustration"
       introHeading="A New Community In One Of Bengaluru's Fastest-Growing Neighbourhoods."

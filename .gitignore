@@ -20,6 +20,11 @@ dist-ssr
 .wrangler/
 .dev.vars
 
+# Environment variables / secrets
+.env
+.env.*
+!.env.example
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
@@ -30,3 +35,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Design source files / reference assets (large binaries, not needed to build the site)
+GE-Website-Design-Figma_Folder/
+GE-Website-Design-FigmaV5.pdf
+*.psd
+*.ai
+.tmp-pdf-preview/

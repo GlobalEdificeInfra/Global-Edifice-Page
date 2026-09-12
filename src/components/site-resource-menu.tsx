@@ -6,7 +6,6 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { projectMicrosites } from "@/lib/company";
 
 type SiteNavMenuLink =
   | {
@@ -27,11 +26,11 @@ const projectRedirectLinks: readonly SiteNavMenuLink[] = [
   },
   {
     label: "THE CLAN",
-    href: projectMicrosites.theClan,
+    to: "/projects/the-clan",
   },
   {
     label: "ORLEAN",
-    href: projectMicrosites.orlean,
+    to: "/projects/orlean",
   },
   {
     label: "CHANDAPURA, BANGALORE",

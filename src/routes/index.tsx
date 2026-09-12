@@ -2,13 +2,15 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Star } from "lucide-react";
 import geHero from "@/assets/home/ge-hero.png";
 import geStoryBalcony from "@/assets/home/ge-story-balcony.jpg";
-import geAmenityGardens from "@/assets/home/ge-amenity-gardens.jpg";
-import geAmenityJogging from "@/assets/home/ge-amenity-jogging.png";
-import geAmenityYoga from "@/assets/home/ge-amenity-yoga.png";
 import iconIntegrity from "@/assets/home/icon-integrity.png";
 import iconDelivery from "@/assets/home/icon-delivery.png";
 import iconRera from "@/assets/home/icon-rera.png";
 import iconValue from "@/assets/home/icon-value.png";
+import offerPrimeLocation from "@/assets/home/offer/prime-location.jpg";
+import offerCraftedAmenities from "@/assets/home/offer/crafted-amenities.jpg";
+import offerSmartDesign from "@/assets/home/offer/smart-design.jpg";
+import offerHighQuality from "@/assets/home/offer/high-quality.jpg";
+import offerOnTimeDelivery from "@/assets/home/offer/on-time-delivery.jpg";
 import { SiteGetInTouch } from "@/components/site-get-in-touch";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
@@ -47,7 +49,7 @@ const legacyStats = [
 function TenYearsMark() {
   const stroke = "#c4a06a";
   const digitHeight =
-    "h-[5.1rem] w-auto shrink-0 sm:h-[5.8rem] md:h-[6.55rem] lg:h-[7.2rem]";
+    "h-[6.1rem] w-auto shrink-0 sm:h-[6.9rem] md:h-[7.75rem] lg:h-[8.5rem]";
 
   return (
     <div className="flex max-w-full shrink-0 items-start justify-center gap-0.5 sm:gap-1">
@@ -85,10 +87,10 @@ function TenYearsMark() {
           </g>
         </svg>
         <div className="-ml-0.5 mt-[0.1rem] flex shrink-0 flex-col items-center leading-none">
-          <span className="text-[1.05rem] font-light leading-none text-[#c4a06a] sm:text-[1.15rem]">
+          <span className="text-[1.25rem] font-light leading-none text-[#c4a06a] sm:text-[1.4rem]">
             +
           </span>
-          <span className="mt-[0.12rem] text-[12.48px] font-normal uppercase tracking-[0.18em] text-[#c4a06a]">
+          <span className="mt-[0.12rem] text-[14px] font-normal uppercase tracking-[0.18em] text-[#c4a06a] sm:text-[15px]">
             YEARS
           </span>
         </div>
@@ -97,24 +99,41 @@ function TenYearsMark() {
   );
 }
 
-const amenities = [
+const offerItems = [
   {
-    title: "LANDSCAPED GARDENS",
+    title: "Prime Location",
     description:
-      "Curated green spaces with walking paths, seating areas, and native plantings for daily wellness and quiet community time.",
-    image: geAmenityGardens,
+      "We choose locations that matter, where lifestyle, convenience, and connectivity come together seamlessly.",
+    image: offerPrimeLocation,
+    alt: "Aerial view of a city with a location pin marking a Global Edifice neighbourhood",
   },
   {
-    title: "JOGGING TRACK",
+    title: "Crafted Amenities",
     description:
-      "An 800m anti-skid running loop designed for early starts, evening cooldowns, and everyday movement within the community.",
-    image: geAmenityJogging,
+      "At Global Edifice, every amenity is thoughtfully crafted to elevate everyday living, bringing together wellness, recreation, relaxation, and connection. Because exceptional living is in the details.",
+    image: offerCraftedAmenities,
+    alt: "Landscaped swimming pool and clubhouse amenity deck",
   },
   {
-    title: "YOGA & MEDITATION DECK",
+    title: "Smart Design",
     description:
-      "Open-air deck space framed by planting and warm light, built for morning practice and slower restorative routines.",
-    image: geAmenityYoga,
+      "Our designs are driven by creativity and functionality, ensuring every space is thoughtfully planned and future ready. We value your time and deliver projects that create lasting memories.",
+    image: offerSmartDesign,
+    alt: "Global Edifice residence elevation at dusk",
+  },
+  {
+    title: "High Quality",
+    description:
+      "Every project is a reflection of our commitment to superior quality. With meticulous attention to detail and an uncompromising approach, we turn visions into enduring landmarks.",
+    image: offerHighQuality,
+    alt: "A quality assurance badge held in an open hand",
+  },
+  {
+    title: "On-Time Delivery",
+    description:
+      "We respect timelines because we know they shape memories. With a sharp eye for detail and a steadfast commitment to quality, we ensure every project is delivered as promised, on time and flawless.",
+    image: offerOnTimeDelivery,
+    alt: "Landscaped pathway leading through a Global Edifice development",
   },
 ];
 
@@ -194,13 +213,13 @@ function Hero() {
           <div className="order-2 flex flex-wrap items-center gap-3 sm:gap-4 md:order-1">
             <Link
               to="/projects"
-              className="inline-flex items-center justify-center rounded-full bg-[#0f1319]/90 px-6 py-3.5 text-[0.82rem] font-medium text-white backdrop-blur-[2px] transition hover:bg-black sm:px-7 sm:text-[0.88rem]"
+              className="inline-flex items-center justify-center rounded-full bg-[#0f1319]/90 px-6 py-3.5 text-[0.82rem] font-bold text-white backdrop-blur-[2px] transition hover:bg-black sm:px-7 sm:text-[0.88rem]"
             >
               Explore residences
             </Link>
             <Link
               to="/contact"
-              className="inline-flex items-center justify-center rounded-full border border-white/85 bg-transparent px-6 py-3.5 text-[0.82rem] font-medium text-white transition hover:bg-white/10 sm:px-7 sm:text-[0.88rem]"
+              className="inline-flex items-center justify-center rounded-full border border-white/85 bg-transparent px-6 py-3.5 text-[0.82rem] font-bold text-white transition hover:bg-white/10 sm:px-7 sm:text-[0.88rem]"
             >
               Schedule a site visit
             </Link>
@@ -208,13 +227,13 @@ function Hero() {
 
           {/* Right: 4-line title + 3-line subtitle */}
           <div className="order-1 text-right md:order-2">
-            <h1 className="font-display text-[1.75rem] font-normal uppercase leading-[1] tracking-[-0.02em] text-white [font-synthesis:none] [text-shadow:0_2px_28px_rgba(0,0,0,0.45)] sm:text-[2.15rem] md:text-[3.55rem] lg:text-[4rem] xl:text-[4.35rem]">
+            <h1 className="font-display text-[1.75rem] font-normal uppercase leading-[1] tracking-[-0.02em] text-white [text-shadow:0_2px_28px_rgba(0,0,0,0.45)] sm:text-[2.15rem] md:text-[3.55rem] lg:text-[4rem] xl:text-[4.35rem]">
               <span className="block sm:whitespace-nowrap">We Don&apos;t</span>
               <span className="block sm:whitespace-nowrap">Just Build,</span>
               <span className="block sm:whitespace-nowrap">We Redefine</span>
               <span className="block sm:whitespace-nowrap">Living</span>
             </h1>
-            <p className="mt-6 text-[0.88rem] leading-[1.65] text-white/92 [text-shadow:0_1px_16px_rgba(0,0,0,0.35)] sm:text-[0.96rem] md:text-[1rem] md:leading-[1.7]">
+            <p className="mt-6 text-[0.88rem] font-bold leading-[1.65] text-white/92 [text-shadow:0_1px_16px_rgba(0,0,0,0.35)] sm:text-[0.96rem] md:text-[1rem] md:leading-[1.7]">
               A boutique studio of architects and craftsmen, sculpting premium mid-rise residences
               where every detail is deliberate, and every home endures.
             </p>
@@ -234,22 +253,16 @@ function Story() {
       >
         <div className="pr-6 md:pr-10 lg:pr-0 lg:pt-6 xl:pt-8">
           <div className="mx-auto max-w-[34rem] lg:mx-0 xl:max-w-[35rem]">
-            <div className="flex items-center gap-4">
-              <span className="text-[0.72rem] font-medium uppercase tracking-[0.34em] text-[#8a6a38]">
-                Our Story
-              </span>
-              <span className="h-px w-11 bg-[#cbb892]" />
-            </div>
-
-            <h2 className="mt-5 font-display text-[1.65rem] leading-[1.08] tracking-[-0.018em] text-[#1a1814] sm:text-[2.35rem] md:text-[2.55rem] lg:text-[2.45rem] xl:text-[2.65rem]">
+            <span className="block text-[0.85rem] font-bold uppercase tracking-[0.22em] text-[#1a1814] sm:text-[0.95rem] md:text-[1rem]">
               The Global Edifice Promise
+            </span>
+
+            <h2 className="mt-4 font-display text-[2.1rem] leading-[1.08] tracking-[-0.018em] text-[#c0a56e] sm:text-[2.75rem] md:text-[3rem] lg:text-[3.1rem] xl:text-[3.3rem]">
+              <span className="block">Building Legacies,</span>
+              <span className="block">Not Just Homes</span>
             </h2>
 
-            <p className="mt-8 text-[0.95rem] font-medium uppercase leading-[1.35] tracking-[0.1em] text-[#c0a56e] sm:text-[1.05rem] md:mt-9 md:text-[1.15rem] lg:text-[1.25rem]">
-              Building Legacies, Not Just Homes
-            </p>
-
-            <div className="mt-8 max-w-[32.5rem] space-y-5 text-[0.95rem] leading-[1.8] text-[#7a756e] md:mt-9 md:text-[1rem] lg:max-w-[33.5rem]">
+            <div className="mt-8 max-w-[32.5rem] space-y-5 text-[1.05rem] leading-[1.8] text-[#7a756e] md:mt-9 md:text-[1.15rem] lg:max-w-[33.5rem] lg:text-[1.2rem]">
               <p>
                 Global Edifice has been a trusted name in the real estate industry for over ten
                 years, being the forefront of upcoming projects in Bangalore, establishing
@@ -277,7 +290,7 @@ function Story() {
                   }`}
                 >
                   <img src={item.icon} alt={item.label} className="h-11 w-11 object-contain" />
-                  <span className="mt-4 px-2 text-[0.75rem] leading-[1.3] text-[#7a756e] md:text-[0.8rem]">
+                  <span className="mt-4 px-2 text-[0.8rem] leading-[1.3] text-[#7a756e] md:text-[0.88rem]">
                     {item.label}
                   </span>
                 </div>
@@ -305,7 +318,7 @@ function LegacyStats() {
       className="relative overflow-hidden bg-[#0c3648]"
       style={tealContourBackgroundStyle}
     >
-      <div className="mx-auto max-w-7xl px-1 sm:px-3 md:px-6">
+      <div className="w-full">
         <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-[1fr_1fr_1fr_1.35fr_1fr_1fr]">
           {legacyStats.map((stat, index) => (
             <li
@@ -325,10 +338,10 @@ function LegacyStats() {
                 </>
               ) : (
                 <>
-                  <p className="font-display text-[1.55rem] leading-none tracking-[-0.01em] text-[#c4a06a] sm:text-[2.15rem] md:text-[2.55rem] lg:text-[2.75rem] xl:text-[2.9rem]">
+                  <p className="font-display text-[1.85rem] font-normal leading-none tracking-[-0.01em] text-[#c4a06a] sm:text-[2.5rem] md:text-[2.95rem] lg:text-[3.2rem] xl:text-[3.4rem]">
                     {stat.value}
                   </p>
-                  <p className="mt-3 text-[0.62rem] font-medium uppercase leading-[1.25] tracking-[0.1em] text-[#c4a06a] sm:mt-3.5 sm:text-[0.68rem] sm:tracking-[0.14em] md:text-[0.78rem] md:tracking-[0.16em]">
+                  <p className="mt-3 text-[0.75rem] font-medium uppercase leading-[1.25] tracking-[0.1em] text-[#c4a06a] sm:mt-3.5 sm:text-[0.82rem] sm:tracking-[0.14em] md:text-[0.92rem] md:tracking-[0.16em]">
                     <span className="block">{stat.lines[0]}</span>
                     <span className="block">{stat.lines[1]}</span>
                   </p>
@@ -350,39 +363,32 @@ function Amenities() {
       style={tealContourBackgroundStyle}
     >
       <div className={pageContainerClass}>
-        <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
-          <SectionHeading
-            eyebrow="What We Offer"
-            title="Crafted Amenities"
-            titleClassName="font-normal text-[#c0a56e]"
-          />
+        <SectionHeading
+          eyebrow="Our Core Values"
+          title="What We Offer"
+          titleClassName="font-normal text-[#c0a56e]"
+        />
 
-          <div className="flex flex-wrap items-center gap-4 border-y border-white/16 py-4 text-[0.82rem] font-semibold uppercase tracking-[0.2em] text-[#c0a56e] md:gap-6 md:px-5">
-            <span>Wellness</span>
-            <span className="text-white/18">|</span>
-            <span>Recreation</span>
-            <span className="text-white/18">|</span>
-            <span>Convenience</span>
-          </div>
-        </div>
-
-        <div className="mt-14 grid gap-10 md:grid-cols-3 md:gap-8">
-          {amenities.map((item) => (
-            <article key={item.title} className="group max-w-[22rem]">
-              <div className="overflow-hidden rounded-[1.5rem] bg-white/5 shadow-[0_20px_50px_-38px_rgba(0,0,0,0.55)]">
+        <div className="mt-14 grid gap-x-14 gap-y-12 md:mt-16 lg:grid-cols-2 lg:gap-x-20 lg:gap-y-14">
+          {offerItems.map((item) => (
+            <div key={item.title} className="flex items-start gap-5 sm:gap-6">
+              <div className="h-[8rem] w-[8rem] shrink-0 overflow-hidden rounded-2xl shadow-[0_14px_30px_-16px_rgba(0,0,0,0.6)] sm:h-[9.5rem] sm:w-[9.5rem]">
                 <img
                   src={item.image}
-                  alt={item.title}
-                  className="h-[15.5rem] w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                  alt={item.alt}
+                  className="h-full w-full object-cover"
+                  loading="lazy"
                 />
               </div>
-              <h3 className="mt-7 text-[1.05rem] font-bold uppercase tracking-[0.18em] text-[#c0a56e] md:text-[1.08rem]">
-                {item.title}
-              </h3>
-              <p className="mt-3 text-[1rem] font-medium leading-[1.65] text-white/92 md:text-[1.02rem]">
-                {item.description}
-              </p>
-            </article>
+              <div>
+                <h3 className="text-[0.85rem] font-bold uppercase tracking-[0.14em] text-[#c0a56e] sm:text-[0.92rem]">
+                  {item.title}
+                </h3>
+                <p className="mt-2.5 text-[0.85rem] leading-[1.65] text-white/85 sm:text-[0.9rem]">
+                  {item.description}
+                </p>
+              </div>
+            </div>
           ))}
         </div>
       </div>

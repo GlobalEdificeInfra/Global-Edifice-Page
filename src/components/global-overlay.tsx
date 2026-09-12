@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { X } from "lucide-react";
 import geLogoGold from "@/assets/shared/ge-logo-gold.png";
 import { FormConsentCheckbox } from "@/components/form-consent-checkbox";
 import { companyWhatsApp } from "@/lib/company";
+import { submitEnquiry } from "@/lib/enquiry-api";
 
 const ENQUIRY_SESSION_KEY = "ge-enquiry-popup-shown";
 
@@ -41,6 +42,11 @@ function WhatsAppIcon({ className = "" }: { className?: string }) {
 export function GlobalOverlay() {
   const [isOpen, setIsOpen] = useState(false);
   const [hasAutoOpened, setHasAutoOpened] = useState(() => hasSeenEnquiryPopup());
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const openPopup = () => {
     markEnquiryPopupSeen();
@@ -51,6 +57,34 @@ export function GlobalOverlay() {
   const closePopup = () => {
     markEnquiryPopupSeen();
     setIsOpen(false);
+    setStatus("idle");
+    setErrorMessage("");
+  };
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setStatus("submitting");
+    setErrorMessage("");
+
+    const [firstName, ...rest] = fullName.trim().split(/\s+/);
+    const result = await submitEnquiry({
+      firstName: firstName || fullName.trim(),
+      lastName: rest.join(" "),
+      email,
+      phone,
+      channelId: "Enquiry_form",
+      subject: "Lead from Website - Popup",
+    });
+
+    if (result.ok) {
+      setStatus("success");
+      setFullName("");
+      setEmail("");
+      setPhone("");
+    } else {
+      setStatus("error");
+      setErrorMessage(result.error);
+    }
   };
 
   useEffect(() => {
@@ -145,44 +179,73 @@ export function GlobalOverlay() {
             </p>
           </div>
 
-          <form className="grid gap-3.5">
-            <div className="flex flex-col gap-1.5">
-              <label className="text-[0.85rem] font-medium text-white">Full Name *</label>
-              <input
-                type="text"
-                placeholder="Enter your full name"
-                className="w-full rounded-full border border-white/20 bg-white/5 px-5 py-3 text-[0.95rem] text-white outline-none transition-colors placeholder:text-white/50 focus:border-[#daba81]"
-              />
+          {status === "success" ? (
+            <div className="rounded-2xl bg-white/10 px-5 py-8 text-center">
+              <p className="text-[1.05rem] font-semibold text-[#daba81]">Thank you!</p>
+              <p className="mt-2 text-[0.9rem] text-white/85">
+                We&apos;ve received your enquiry and will get back to you shortly.
+              </p>
+              <button
+                type="button"
+                onClick={closePopup}
+                className="mt-5 w-full rounded-full bg-[#dbb877] py-3 text-[0.9rem] font-bold text-[#0f4157] transition hover:bg-[#e4c995]"
+              >
+                Close
+              </button>
             </div>
+          ) : (
+            <form className="grid gap-3.5" onSubmit={handleSubmit}>
+              <div className="flex flex-col gap-1.5">
+                <label className="text-[0.85rem] font-medium text-white">Full Name *</label>
+                <input
+                  type="text"
+                  required
+                  value={fullName}
+                  onChange={(event) => setFullName(event.target.value)}
+                  placeholder="Enter your full name"
+                  className="w-full rounded-full border border-white/20 bg-white/5 px-5 py-3 text-[0.95rem] text-white outline-none transition-colors placeholder:text-white/50 focus:border-[#daba81]"
+                />
+              </div>
 
-            <div className="flex flex-col gap-1.5">
-              <label className="text-[0.85rem] font-medium text-white">Email Address *</label>
-              <input
-                type="email"
-                placeholder="your.email@example.com"
-                className="w-full rounded-full border border-white/20 bg-white/5 px-5 py-3 text-[0.95rem] text-white outline-none transition-colors placeholder:text-white/50 focus:border-[#daba81]"
-              />
-            </div>
+              <div className="flex flex-col gap-1.5">
+                <label className="text-[0.85rem] font-medium text-white">Email Address *</label>
+                <input
+                  type="email"
+                  required
+                  value={email}
+                  onChange={(event) => setEmail(event.target.value)}
+                  placeholder="your.email@example.com"
+                  className="w-full rounded-full border border-white/20 bg-white/5 px-5 py-3 text-[0.95rem] text-white outline-none transition-colors placeholder:text-white/50 focus:border-[#daba81]"
+                />
+              </div>
 
-            <div className="flex flex-col gap-1.5">
-              <label className="text-[0.85rem] font-medium text-white">Phone Number *</label>
-              <input
-                type="tel"
-                placeholder="+919876543210"
-                className="w-full rounded-full border border-white/20 bg-white/5 px-5 py-3 text-[0.95rem] text-white outline-none transition-colors placeholder:text-white/50 focus:border-[#daba81]"
-              />
-            </div>
+              <div className="flex flex-col gap-1.5">
+                <label className="text-[0.85rem] font-medium text-white">Phone Number *</label>
+                <input
+                  type="tel"
+                  required
+                  value={phone}
+                  onChange={(event) => setPhone(event.target.value)}
+                  placeholder="+919876543210"
+                  className="w-full rounded-full border border-white/20 bg-white/5 px-5 py-3 text-[0.95rem] text-white outline-none transition-colors placeholder:text-white/50 focus:border-[#daba81]"
+                />
+              </div>
 
-            <FormConsentCheckbox variant="popup" />
+              <FormConsentCheckbox variant="popup" />
 
-            <button
-              type="button"
-              onClick={closePopup}
-              className="mt-1 w-full rounded-full bg-[#dbb877] py-3.5 text-[0.95rem] font-bold text-[#0f4157] shadow-lg transition hover:bg-[#e4c995]"
-            >
-              SUBMIT ENQUIRY
-            </button>
-          </form>
+              {status === "error" ? (
+                <p className="text-[0.8rem] text-[#f3a4a4]">{errorMessage}</p>
+              ) : null}
+
+              <button
+                type="submit"
+                disabled={status === "submitting"}
+                className="mt-1 w-full rounded-full bg-[#dbb877] py-3.5 text-[0.95rem] font-bold text-[#0f4157] shadow-lg transition hover:bg-[#e4c995] disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                {status === "submitting" ? "SUBMITTING..." : "SUBMIT ENQUIRY"}
+              </button>
+            </form>
+          )}
         </div>
       </div>
     </>

@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { ArrowDown, ArrowRight, ChevronLeft, ChevronRight, Menu, X } from "lucide-react";
 import { Link, createFileRoute } from "@tanstack/react-router";
 import geContactLounge from "@/assets/shared/ge-contact-lounge.jpg";
 import { FormConsentCheckbox } from "@/components/form-consent-checkbox";
+import { submitContactForm } from "@/lib/enquiry-api";
 import geLogo from "@/assets/shared/ge-logo.png";
 import clanGalleryPergolaWalkway from "@/assets/projects/the-clan/clan-gallery-pergola-walkway.jpg";
 import clanGalleryPoolCourt from "@/assets/projects/the-clan/clan-gallery-pool-court.jpg";
@@ -908,6 +909,42 @@ function ContactSection() {
   const labelClassName =
     "text-[0.78rem] font-semibold tracking-[0.02em] text-[#5f5448] md:text-[0.82rem]";
 
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [message, setMessage] = useState("");
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setStatus("submitting");
+    setErrorMessage("");
+
+    const [firstName, ...rest] = fullName.trim().split(/\s+/);
+    const result = await submitContactForm({
+      firstName: firstName || fullName.trim(),
+      lastName: rest.join(" "),
+      email,
+      phone,
+      message,
+      project: "Global Edifice The Clan",
+      channelId: "Contact_us",
+      subject: "Lead from Website - Contact Form",
+    });
+
+    if (result.ok) {
+      setStatus("success");
+      setFullName("");
+      setEmail("");
+      setPhone("");
+      setMessage("");
+    } else {
+      setStatus("error");
+      setErrorMessage(result.error);
+    }
+  };
+
   return (
     <section id="contact" className="bg-[#171717]">
       <div className="relative overflow-hidden">
@@ -930,57 +967,99 @@ function ContactSection() {
             </p>
           </div>
 
-          <form
-            className="rounded-[1.45rem] bg-[#fffdfa] p-7 text-[#1f1d1a] shadow-[0_28px_60px_-42px_rgba(0,0,0,0.55)] md:p-8"
-            onSubmit={(event) => event.preventDefault()}
-          >
-            <h3 className="font-display text-[2.35rem] leading-none text-[#1f1d1a] md:text-[2.5rem]">
-              Contact Us
-            </h3>
-            <p className="mt-2 text-[0.98rem] font-medium text-[#7b7369]">
-              We would love to hear from you
-            </p>
-
-            <div className="mt-8 space-y-4">
-              <label className="block">
-                <span className={labelClassName}>Full name*</span>
-                <input type="text" placeholder="Enter your full name" className={inputClassName} />
-              </label>
-
-              <label className="block">
-                <span className={labelClassName}>Email address*</span>
-                <input
-                  type="email"
-                  placeholder="you.email@example.com"
-                  className={inputClassName}
-                />
-              </label>
-
-              <label className="block">
-                <span className={labelClassName}>Phone number*</span>
-                <input type="tel" placeholder="Your number" className={inputClassName} />
-              </label>
-
-              <label className="block">
-                <span className={labelClassName}>Message*</span>
-                <textarea
-                  rows={4}
-                  placeholder="Your message"
-                  className={`${inputClassName} resize-none`}
-                />
-              </label>
-
-              <FormConsentCheckbox />
-
+          {status === "success" ? (
+            <div className="rounded-[1.45rem] bg-[#fffdfa] p-7 text-center text-[#1f1d1a] shadow-[0_28px_60px_-42px_rgba(0,0,0,0.55)] md:p-8">
+              <h3 className="font-display text-[2.35rem] leading-none text-[#1f1d1a] md:text-[2.5rem]">
+                Thank you!
+              </h3>
+              <p className="mt-3 text-[0.98rem] font-medium text-[#7b7369]">
+                We&apos;ve received your enquiry and will get back to you shortly.
+              </p>
+              <button
+                type="button"
+                onClick={() => setStatus("idle")}
+                className="mt-6 inline-flex items-center justify-center rounded-[0.35rem] border border-[#d5c4a8] bg-white px-7 py-3.5 text-[0.74rem] font-semibold uppercase tracking-[0.2em] text-[#6f6558] transition hover:border-[#b49a6c] hover:text-[#123a4c]"
+              >
+                Send another message
+              </button>
             </div>
-
-            <button
-              type="submit"
-              className="mt-6 inline-flex items-center justify-center rounded-[0.35rem] border border-[#d5c4a8] bg-white px-7 py-3.5 text-[0.74rem] font-semibold uppercase tracking-[0.2em] text-[#6f6558] transition hover:border-[#b49a6c] hover:text-[#123a4c]"
+          ) : (
+            <form
+              className="rounded-[1.45rem] bg-[#fffdfa] p-7 text-[#1f1d1a] shadow-[0_28px_60px_-42px_rgba(0,0,0,0.55)] md:p-8"
+              onSubmit={handleSubmit}
             >
-              Send Message
-            </button>
-          </form>
+              <h3 className="font-display text-[2.35rem] leading-none text-[#1f1d1a] md:text-[2.5rem]">
+                Contact Us
+              </h3>
+              <p className="mt-2 text-[0.98rem] font-medium text-[#7b7369]">
+                We would love to hear from you
+              </p>
+
+              <div className="mt-8 space-y-4">
+                <label className="block">
+                  <span className={labelClassName}>Full name*</span>
+                  <input
+                    type="text"
+                    required
+                    value={fullName}
+                    onChange={(event) => setFullName(event.target.value)}
+                    placeholder="Enter your full name"
+                    className={inputClassName}
+                  />
+                </label>
+
+                <label className="block">
+                  <span className={labelClassName}>Email address*</span>
+                  <input
+                    type="email"
+                    required
+                    value={email}
+                    onChange={(event) => setEmail(event.target.value)}
+                    placeholder="you.email@example.com"
+                    className={inputClassName}
+                  />
+                </label>
+
+                <label className="block">
+                  <span className={labelClassName}>Phone number*</span>
+                  <input
+                    type="tel"
+                    required
+                    value={phone}
+                    onChange={(event) => setPhone(event.target.value)}
+                    placeholder="Your number"
+                    className={inputClassName}
+                  />
+                </label>
+
+                <label className="block">
+                  <span className={labelClassName}>Message*</span>
+                  <textarea
+                    rows={4}
+                    required
+                    value={message}
+                    onChange={(event) => setMessage(event.target.value)}
+                    placeholder="Your message"
+                    className={`${inputClassName} resize-none`}
+                  />
+                </label>
+
+                <FormConsentCheckbox />
+
+                {status === "error" ? (
+                  <p className="text-[0.8rem] text-[#c0392b]">{errorMessage}</p>
+                ) : null}
+              </div>
+
+              <button
+                type="submit"
+                disabled={status === "submitting"}
+                className="mt-6 inline-flex items-center justify-center rounded-[0.35rem] border border-[#d5c4a8] bg-white px-7 py-3.5 text-[0.74rem] font-semibold uppercase tracking-[0.2em] text-[#6f6558] transition hover:border-[#b49a6c] hover:text-[#123a4c] disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                {status === "submitting" ? "Sending..." : "Send Message"}
+              </button>
+            </form>
+          )}
         </div>
       </div>
     </section>

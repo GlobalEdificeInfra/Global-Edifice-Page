@@ -20,6 +20,7 @@ function ChandapuraNh44Page() {
   return (
     <LocationLandingPage
       titleLines={["CHANDAPURA NH 44"]}
+      projectName="Global Edifice Chandapura NH 44"
       heroVariant="photo"
       heroImage={upcomingProjectHeroes.nh44}
       heroImageAlt="Chandapura NH 44 luxury residences with pool terrace"

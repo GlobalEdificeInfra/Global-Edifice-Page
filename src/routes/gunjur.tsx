@@ -20,6 +20,7 @@ function GunjurPage() {
   return (
     <LocationLandingPage
       titleLines={["GUNJUR"]}
+      projectName="Global Edifice Gunjur"
       heroVariant="photo"
       heroImage={upcomingProjectHeroes.gunjur}
       heroImageAlt="Gunjur premium plotted development at sunset"

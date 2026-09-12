@@ -20,6 +20,7 @@ function MuthanallurSarjapuraPage() {
   return (
     <LocationLandingPage
       titleLines={["MUTHANALLUR, OFF SARJAPURA", "BANGALORE"]}
+      projectName="Global Edifice Muthanallur"
       heroVariant="photo"
       heroImage={upcomingProjectHeroes.muthanallur}
       heroImageAlt="Muthanallur rooftop terrace with city views"

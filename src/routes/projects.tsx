@@ -7,7 +7,6 @@ import { upcomingProjectMaps } from "@/assets/locations/upcoming";
 import { SiteHeader } from "@/components/site-header";
 import { SiteGetInTouch } from "@/components/site-get-in-touch";
 import { SiteFooter } from "@/components/site-footer";
-import { projectMicrosites } from "@/lib/company";
 
 const PROJECTS_TITLE = "Our Projects - Global Edifice";
 const PROJECTS_DESCRIPTION =
@@ -61,7 +60,7 @@ const projects: Project[] = [
     configLine: "2&3BHK RESIDENCES | SARJAPUR, BANGALORE",
     image: projectClan,
     alt: "Global Edifice The Clan",
-    detailHref: projectMicrosites.theClan,
+    detailHref: "/projects/the-clan",
   },
   {
     status: "ongoing",
@@ -72,7 +71,7 @@ const projects: Project[] = [
     configLine: "2BHK RESIDENCES | CHANDAPURA, BANGALORE",
     image: "/project-images/orlean-images/orlean-main2.jpg",
     alt: "Global Edifice Orlean",
-    detailHref: projectMicrosites.orlean,
+    detailHref: "/projects/orlean",
   },
   {
     status: "upcoming",
@@ -458,7 +457,7 @@ function ProjectPortfolio() {
         </div>
 
         <div
-          className={`group/projects mt-14 gap-6 ${
+          className={`mt-14 gap-6 ${
             filteredProjects.length >= 3
               ? "mx-auto grid max-w-5xl md:grid-cols-2 xl:max-w-6xl xl:grid-cols-3"
               : "mx-auto flex max-w-4xl flex-wrap justify-center"
@@ -467,7 +466,7 @@ function ProjectPortfolio() {
           {filteredProjects.map((project) => (
             <article
               key={project.name}
-              className={`group/card origin-center overflow-hidden rounded-[1.2rem] border border-[#eadfcc] bg-white shadow-[0_22px_40px_-34px_rgba(40,32,23,0.26)] transition-all duration-500 ease-out hover:z-10 hover:scale-[1.02] hover:border-[#d6c3a3] hover:shadow-[0_28px_55px_-28px_rgba(40,32,23,0.38)] group-hover/projects:opacity-45 group-hover/projects:hover:opacity-100 ${
+              className={`group/card origin-center overflow-hidden rounded-[1.2rem] border border-[#eadfcc] bg-white shadow-[0_22px_40px_-34px_rgba(40,32,23,0.26)] transition-all duration-500 ease-out hover:z-10 hover:scale-[1.02] hover:border-[#d6c3a3] hover:shadow-[0_28px_55px_-28px_rgba(40,32,23,0.38)] ${
                 filteredProjects.length < 3 ? "w-full max-w-[21rem] sm:w-[21rem]" : ""
               }`}
             >

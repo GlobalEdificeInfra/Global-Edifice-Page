@@ -1,3 +1,4 @@
+import { useState, type FormEvent } from "react";
 import {
   ArrowRight,
   ChevronDown,
@@ -17,6 +18,7 @@ import {
   companyPhone,
   companySocial,
 } from "@/lib/company";
+import { submitContactForm } from "@/lib/enquiry-api";
 
 const pageGutterClass = "px-[1.125rem] md:px-[1.8rem]";
 
@@ -55,6 +57,12 @@ type SiteGetInTouchProps = {
   overlayHeader?: boolean;
 };
 
+const projectLabels: Record<string, string> = {
+  orlean: "Global Edifice Orlean",
+  clan: "Global Edifice The Clan",
+  legacy: "Global Edifice Legacy",
+};
+
 export function SiteGetInTouch({
   className = "",
   headingAs = "h2",
@@ -66,6 +74,43 @@ export function SiteGetInTouch({
   const PhoneIcon = phoneContact.icon;
   const EmailIcon = emailContact.icon;
   const HeadingTag = headingAs;
+
+  const [fullName, setFullName] = useState("");
+  const [mobile, setMobile] = useState("");
+  const [email, setEmail] = useState("");
+  const [project, setProject] = useState<string>(defaultProject);
+  const [message, setMessage] = useState("");
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setStatus("submitting");
+    setErrorMessage("");
+
+    const [firstName, ...rest] = fullName.trim().split(/\s+/);
+    const result = await submitContactForm({
+      firstName: firstName || fullName.trim(),
+      lastName: rest.join(" "),
+      email,
+      phone: mobile,
+      message,
+      project: projectLabels[project] || project,
+      channelId: "Contact_us",
+      subject: "Lead from Website - Contact Form",
+    });
+
+    if (result.ok) {
+      setStatus("success");
+      setFullName("");
+      setMobile("");
+      setEmail("");
+      setMessage("");
+    } else {
+      setStatus("error");
+      setErrorMessage(result.error);
+    }
+  };
   const inputLabelClassName =
     "text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-[#c0a56e]";
   const inputFieldClassName =
@@ -98,70 +143,112 @@ export function SiteGetInTouch({
               Start Your Journey
             </HeadingTag>
 
-            <form
-              className="mt-8 grid gap-5"
-              onSubmit={(event) => event.preventDefault()}
-            >
-              <div className="grid gap-5 sm:grid-cols-2">
-                <label className="block">
-                  <span className={inputLabelClassName}>Full Name</span>
-                  <input type="text" placeholder="John Doe" className={inputFieldClassName} />
-                </label>
-                <label className="block">
-                  <span className={inputLabelClassName}>Mobile Number</span>
-                  <input type="tel" placeholder="+91 9797979797" className={inputFieldClassName} />
-                </label>
-              </div>
-
-              <label className="block">
-                <span className={inputLabelClassName}>Email Address</span>
-                <input type="email" placeholder="Email Address" className={inputFieldClassName} />
-              </label>
-
-              <label className="block">
-                <span className={inputLabelClassName}>Project Of Interest</span>
-                <span className="relative mt-2.5 block border-b border-white/35 pb-2.5 transition focus-within:border-[#c0a56e]">
-                  <select
-                    defaultValue={defaultProject}
-                    className="w-full appearance-none bg-transparent pr-8 text-[0.95rem] text-white outline-none"
-                  >
-                    <option value="orlean" className="bg-[#123a4c] text-white">
-                      Global Edifice Orlean
-                    </option>
-                    <option value="clan" className="bg-[#123a4c] text-white">
-                      Global Edifice The Clan
-                    </option>
-                    <option value="legacy" className="bg-[#123a4c] text-white">
-                      Global Edifice Legacy
-                    </option>
-                  </select>
-                  <ChevronDown className="pointer-events-none absolute top-1/2 right-0 h-4 w-4 -translate-y-1/2 text-[#c0a56e]" />
-                </span>
-              </label>
-
-              <label className="block">
-                <span className={inputLabelClassName}>Your Message</span>
-                <textarea
-                  rows={3}
-                  placeholder="Tell us about your dream home"
-                  className={`${inputFieldClassName} resize-none`}
-                />
-              </label>
-
-              <FormConsentCheckbox variant="dark" />
-
-              <div className="pt-1">
+            {status === "success" ? (
+              <div className="mt-8 rounded-md bg-white/10 px-6 py-10 text-center">
+                <p className="text-[1.15rem] font-semibold text-[#c0a56e]">Thank you!</p>
+                <p className="mt-2 text-[0.92rem] text-white/85">
+                  We&apos;ve received your enquiry and will get back to you shortly.
+                </p>
                 <button
-                  type="submit"
-                  className="inline-flex items-center gap-3 rounded-md bg-[#0f4157] px-7 py-3.5 text-[0.74rem] font-semibold uppercase tracking-[0.2em] text-white transition hover:bg-[#164f69]"
+                  type="button"
+                  onClick={() => setStatus("idle")}
+                  className="mt-5 inline-flex items-center justify-center rounded-md bg-[#0f4157] px-6 py-3 text-[0.74rem] font-semibold uppercase tracking-[0.2em] text-white transition hover:bg-[#164f69]"
                 >
-                  Submit Enquiry
-                  <span className="flex h-6 w-6 items-center justify-center rounded-full border border-white/55">
-                    <ArrowRight className="h-3.5 w-3.5" />
-                  </span>
+                  Submit another enquiry
                 </button>
               </div>
-            </form>
+            ) : (
+              <form className="mt-8 grid gap-5" onSubmit={handleSubmit}>
+                <div className="grid gap-5 sm:grid-cols-2">
+                  <label className="block">
+                    <span className={inputLabelClassName}>Full Name</span>
+                    <input
+                      type="text"
+                      required
+                      value={fullName}
+                      onChange={(event) => setFullName(event.target.value)}
+                      placeholder="John Doe"
+                      className={inputFieldClassName}
+                    />
+                  </label>
+                  <label className="block">
+                    <span className={inputLabelClassName}>Mobile Number</span>
+                    <input
+                      type="tel"
+                      required
+                      value={mobile}
+                      onChange={(event) => setMobile(event.target.value)}
+                      placeholder="+91 9797979797"
+                      className={inputFieldClassName}
+                    />
+                  </label>
+                </div>
+
+                <label className="block">
+                  <span className={inputLabelClassName}>Email Address</span>
+                  <input
+                    type="email"
+                    required
+                    value={email}
+                    onChange={(event) => setEmail(event.target.value)}
+                    placeholder="Email Address"
+                    className={inputFieldClassName}
+                  />
+                </label>
+
+                <label className="block">
+                  <span className={inputLabelClassName}>Project Of Interest</span>
+                  <span className="relative mt-2.5 block border-b border-white/35 pb-2.5 transition focus-within:border-[#c0a56e]">
+                    <select
+                      value={project}
+                      onChange={(event) => setProject(event.target.value)}
+                      className="w-full appearance-none bg-transparent pr-8 text-[0.95rem] text-white outline-none"
+                    >
+                      <option value="orlean" className="bg-[#123a4c] text-white">
+                        Global Edifice Orlean
+                      </option>
+                      <option value="clan" className="bg-[#123a4c] text-white">
+                        Global Edifice The Clan
+                      </option>
+                      <option value="legacy" className="bg-[#123a4c] text-white">
+                        Global Edifice Legacy
+                      </option>
+                    </select>
+                    <ChevronDown className="pointer-events-none absolute top-1/2 right-0 h-4 w-4 -translate-y-1/2 text-[#c0a56e]" />
+                  </span>
+                </label>
+
+                <label className="block">
+                  <span className={inputLabelClassName}>Your Message</span>
+                  <textarea
+                    rows={3}
+                    value={message}
+                    onChange={(event) => setMessage(event.target.value)}
+                    placeholder="Tell us about your dream home"
+                    className={`${inputFieldClassName} resize-none`}
+                  />
+                </label>
+
+                <FormConsentCheckbox variant="dark" />
+
+                {status === "error" ? (
+                  <p className="text-[0.8rem] text-[#f3a4a4]">{errorMessage}</p>
+                ) : null}
+
+                <div className="pt-1">
+                  <button
+                    type="submit"
+                    disabled={status === "submitting"}
+                    className="inline-flex items-center gap-3 rounded-md bg-[#0f4157] px-7 py-3.5 text-[0.74rem] font-semibold uppercase tracking-[0.2em] text-white transition hover:bg-[#164f69] disabled:cursor-not-allowed disabled:opacity-60"
+                  >
+                    {status === "submitting" ? "Submitting..." : "Submit Enquiry"}
+                    <span className="flex h-6 w-6 items-center justify-center rounded-full border border-white/55">
+                      <ArrowRight className="h-3.5 w-3.5" />
+                    </span>
+                  </button>
+                </div>
+              </form>
+            )}
           </div>
 
           <aside className="flex w-full flex-col justify-between rounded-[1.75rem] bg-[#fbf8f4] px-7 py-9 text-[#1f1d1b] shadow-[0_28px_60px_-36px_rgba(0,0,0,0.55)] md:px-10 md:py-10 lg:min-h-full lg:px-11 lg:py-12 lg:justify-self-end">
