@@ -506,8 +506,8 @@ function AboutPage() {
         </section>
 
         <section id="timeline" className="bg-[#123f54]">
-          <div className="grid overflow-hidden text-white lg:grid-cols-2 lg:items-stretch">
-            <div className="relative flex flex-col justify-start py-10 pr-5 pl-[1.125rem] sm:pr-6 md:py-12 md:pr-12 md:pl-[1.8rem] lg:py-14 lg:pr-14 lg:pl-[max(1.8rem,calc((100vw-80rem)/2+1.8rem))]">
+          <div className="grid grid-cols-[minmax(0,1fr)] overflow-hidden text-white lg:grid-cols-2 lg:items-stretch">
+            <div className="relative flex min-w-0 flex-col justify-start py-10 pr-5 pl-[1.125rem] sm:pr-6 md:py-12 md:pr-12 md:pl-[1.8rem] lg:py-14 lg:pr-14 lg:pl-[max(1.8rem,calc((100vw-80rem)/2+1.8rem))]">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_0%_0%,rgba(190,165,120,0.12),transparent_30%),repeating-radial-gradient(circle_at_-10%_50%,rgba(255,255,255,0.045)_0,rgba(255,255,255,0.045)_1px,transparent_1px,transparent_24px)] opacity-45" />
 
               <div className="relative max-w-[46rem]">
@@ -535,7 +535,7 @@ function AboutPage() {
 
                 <div className="mt-8 md:mt-10">
                   <div className="relative">
-                    <div className="flex items-end justify-between gap-1 overflow-x-auto pb-5 pr-4 snap-x [-ms-overflow-style:none] [scrollbar-width:none] sm:gap-2 [&::-webkit-scrollbar]:hidden">
+                    <div className="flex items-end justify-between gap-0 overflow-x-auto pb-5 snap-x [-ms-overflow-style:none] [scrollbar-width:none] sm:gap-2 sm:pr-4 [&::-webkit-scrollbar]:hidden">
                       {[...milestoneTimeline].reverse().map((milestone) => {
                         const isActive = milestone.year === activeMilestoneYear;
 
@@ -544,7 +544,7 @@ function AboutPage() {
                             key={milestone.year}
                             type="button"
                             onClick={() => setActiveMilestoneYear(milestone.year)}
-                            className={`relative min-h-11 min-w-[3.5rem] flex-1 snap-start px-1 py-2 text-center text-[0.88rem] transition sm:min-w-0 sm:text-[1rem] md:text-[1.12rem] ${
+                            className={`relative min-h-11 min-w-0 flex-1 snap-start px-0 py-2 text-center text-[0.8rem] transition min-[375px]:text-[0.88rem] sm:px-1 sm:text-[1rem] md:text-[1.12rem] ${
                               isActive
                                 ? "font-semibold text-white"
                                 : "text-white/55 hover:text-white/80"

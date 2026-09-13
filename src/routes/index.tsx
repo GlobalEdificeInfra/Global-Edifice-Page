@@ -49,7 +49,7 @@ const legacyStats = [
 function TenYearsMark() {
   const stroke = "#c4a06a";
   const digitHeight =
-    "h-[6.1rem] w-auto shrink-0 sm:h-[6.9rem] md:h-[7.75rem] lg:h-[8.5rem]";
+    "h-[5.1rem] w-auto shrink-0 min-[375px]:h-[6.1rem] sm:h-[6.9rem] md:h-[7.75rem] lg:h-[8.5rem]";
 
   return (
     <div className="flex max-w-full shrink-0 items-start justify-center gap-0.5 sm:gap-1">
@@ -90,7 +90,7 @@ function TenYearsMark() {
           <span className="text-[1.25rem] font-light leading-none text-[#c4a06a] sm:text-[1.4rem]">
             +
           </span>
-          <span className="mt-[0.12rem] text-[14px] font-normal uppercase tracking-[0.18em] text-[#c4a06a] sm:text-[15px]">
+          <span className="mt-[0.12rem] text-[12px] font-normal uppercase tracking-[0.12em] text-[#c4a06a] min-[375px]:text-[14px] min-[375px]:tracking-[0.18em] sm:text-[15px]">
             YEARS
           </span>
         </div>

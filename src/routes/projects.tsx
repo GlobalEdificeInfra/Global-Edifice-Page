@@ -277,7 +277,7 @@ function ProjectCardBody({ project }: { project: Project }) {
     return (
       <div className="flex h-full flex-col p-5 md:p-6">
         <div className="flex items-start justify-between gap-3">
-          <div>
+          <div className="min-w-0">
             <h2 className="text-[0.98rem] font-semibold uppercase leading-[1.12] text-[#332d2b] md:text-[1.05rem]">
               {project.nameLines.map((line) => (
                 <span key={line} className="block">
@@ -294,11 +294,7 @@ function ProjectCardBody({ project }: { project: Project }) {
             <p className="max-w-[6.5rem] shrink-0 pt-1 text-right text-[0.52rem] font-semibold uppercase leading-[1.35] tracking-[0.08em] text-[#9a7a6a]">
               Few Remaining Homes
             </p>
-          ) : (
-            <span className="shrink-0 rounded-[0.2rem] border border-[#d8c7a8] px-2.5 py-1.5 text-[0.52rem] font-semibold uppercase tracking-[0.1em] text-[#6f6558]">
-              Sold Out
-            </span>
-          )}
+          ) : null}
         </div>
 
         <p className="mt-5 text-[0.62rem] font-medium uppercase tracking-[0.04em] text-[#9a9084]">

@@ -258,7 +258,7 @@ function OrleanDetailNav() {
   return (
     <header className="fixed inset-x-0 top-0 z-50">
       <div
-        className={`mx-auto flex max-w-7xl items-center justify-between gap-4 ${pageGutterClass} transition-all duration-300 md:gap-6 ${
+        className={`mx-auto flex max-w-7xl items-center justify-between gap-2 sm:gap-4 ${pageGutterClass} transition-all duration-300 md:gap-6 ${
           isScrolled
             ? "mt-2 rounded-[1.75rem] border border-white/18 bg-[linear-gradient(180deg,rgba(15,30,26,0.42)_0%,rgba(15,30,26,0.24)_100%)] py-2 shadow-[0_22px_48px_-30px_rgba(7,14,18,0.42)] backdrop-blur-[24px] md:py-2.5"
             : "py-4 md:py-7"
@@ -423,7 +423,7 @@ function HeroStatStrip() {
                 }`}
               >
                 {item.label === "RERA" ? (
-                  <p className="md:whitespace-nowrap">{item.lines[0]}</p>
+                  <p className="break-words xl:whitespace-nowrap">{item.lines[0]}</p>
                 ) : (
                   item.lines.map((line) => (
                     <span key={line} className="block">
@@ -443,7 +443,7 @@ function HeroStatStrip() {
 function OverviewSection() {
   return (
     <section className="relative z-0 bg-[#fbf7f0] pt-14 md:pt-18 lg:pt-22">
-      <div className="grid lg:grid-cols-2 lg:items-stretch">
+      <div className="grid grid-cols-[minmax(0,1fr)] lg:grid-cols-2 lg:items-stretch">
         <div className="relative h-full min-h-[22rem] overflow-hidden md:min-h-[26rem] lg:min-h-[30rem]">
           <img
             src={orleanAboutImage}
@@ -459,8 +459,8 @@ function OverviewSection() {
             <img src={orleanBrandLogo} alt="Orlean" className="w-[12rem] md:w-[14rem]" />
 
             <h2 className="mt-8 font-display text-[1.45rem] leading-[1.2] tracking-[0.02em] text-[#b59a6d] uppercase md:mt-9 md:text-[1.75rem] lg:text-[1.95rem]">
-              <span className="block whitespace-nowrap">Thoughtfully Designed.</span>
-              <span className="block whitespace-nowrap">Naturally Comfortable.</span>
+              <span className="block sm:whitespace-nowrap lg:whitespace-normal xl:whitespace-nowrap">Thoughtfully Designed.</span>
+              <span className="block sm:whitespace-nowrap lg:whitespace-normal xl:whitespace-nowrap">Naturally Comfortable.</span>
             </h2>
 
             <div className="mt-6 max-w-[32rem] space-y-5 text-base font-normal leading-[1.85] text-[#5c564d]">
@@ -531,8 +531,8 @@ function AmenitiesSection() {
             <span className="h-px w-8 bg-[#c0a56e]/75" />
           </div>
           <h2 className="mt-4 max-w-[58rem] font-display text-[2.35rem] leading-[0.96] text-[#21201d] md:text-[3.5rem] lg:text-[3.7rem]">
-            <span className="block md:whitespace-nowrap">Elevate Your Everyday With</span>
-            <span className="block md:whitespace-nowrap">World-Class Amenities</span>
+            <span className="block lg:whitespace-nowrap">Elevate Your Everyday With</span>
+            <span className="block lg:whitespace-nowrap">World-Class Amenities</span>
           </h2>
         </div>
 
@@ -577,8 +577,8 @@ function PlanSection() {
     <section className="bg-[#fbf7f0] pb-18 pt-4 md:pb-22 md:pt-6">
       <div className={pageContainerClass}>
         <div className={sectionInnerClass}>
-          <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between md:gap-8">
-            <div className="max-w-[46rem]">
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between lg:gap-8">
+            <div className="min-w-0 max-w-[46rem]">
               <div className="flex items-center gap-4">
                 <p className="eyebrow">Architectural plans</p>
                 <span className="hidden h-px w-10 bg-[#dccdb3] md:block" />
@@ -589,7 +589,7 @@ function PlanSection() {
               </h2>
             </div>
 
-            <div className="flex items-center gap-6 md:shrink-0 md:gap-8">
+            <div className="flex items-center gap-6 lg:shrink-0 lg:gap-8">
               {[
                 { id: "masterplan", label: "Master Plan" },
                 { id: "floorplan", label: "Floor Plan" },
