@@ -234,8 +234,8 @@ function Hero() {
               <span className="block sm:whitespace-nowrap">Living</span>
             </h1>
             <p className="mt-6 text-base font-normal leading-[1.65] text-white/92 [text-shadow:0_1px_16px_rgba(0,0,0,0.35)] md:leading-[1.7]">
-              A boutique studio of architects and craftsmen, sculpting premium mid-rise residences
-              where every detail is deliberate, and every home endures.
+              A boutique studio of architects and craftsmen, crafting premium mid-rise residences
+              where every detail has purpose and every home is crafted to endure.
             </p>
           </div>
         </div>
