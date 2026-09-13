@@ -21,8 +21,7 @@ export const companyWhatsApp = {
 export const companySocial = {
   facebook: "https://www.facebook.com/Globaledifce/",
   instagram: "https://www.instagram.com/global.edifice/",
-  // TODO: replace with the real X (Twitter) profile URL.
-  x: "#",
+  x: "https://x.com/globaledifice",
   linkedin:
     "https://www.linkedin.com/company/global-edifice-top-construction-company-in-bangalore/?viewAsMember=true",
   youtube: "https://www.youtube.com/@Globaledifice",
