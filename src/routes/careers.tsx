@@ -7,6 +7,7 @@ import {
   pageContainerClass,
 } from "@/components/careers-channel-layout";
 import { FormConsentCheckbox } from "@/components/form-consent-checkbox";
+import { IndianPhoneInput } from "@/components/indian-phone-input";
 
 export const Route = createFileRoute("/careers")({
   component: CareersPage,
@@ -28,6 +29,7 @@ const labelClassName = "text-[0.78rem] font-semibold tracking-[0.02em] text-[#5f
 
 function CareersPage() {
   const [resumeName, setResumeName] = useState("");
+  const [phone, setPhone] = useState("");
 
   return (
     <ResourcePageShell>
@@ -41,24 +43,10 @@ function CareersPage() {
             </h2>
             <div className="mt-6 space-y-4 text-base font-normal leading-[1.9] text-[#6b655d]">
               <p>
-                At Global Edifice, we believe great homes begin with great people. People who take
-                ownership, ask better questions, care about the details, and take pride in seeing an
-                idea become a place that people can call home.
-              </p>
-              <p>
-                We’re building a culture where people can work with trust, openness, and a shared
-                sense of responsibility. Whether you work in design, construction, sales, marketing,
-                finance, customer experience, or project management, your contribution matters to
-                the bigger picture.
-              </p>
-              <p>
-                As we grow, so will you. We encourage learning, new ideas, and the freedom to take
-                on meaningful responsibilities. There is always something new to build, solve,
-                improve, or learn.
-              </p>
-              <p>
-                If you want to be part of a team that is shaping homes and communities across
-                Bengaluru, we’d like to hear from you.
+                At Global Edifice, we believe great communities are built by great people. We bring
+                together diverse talent, ideas and expertise to create meaningful spaces and lasting
+                value. Join us to grow with a team that values ownership, collaboration, learning
+                and excellence.
               </p>
             </div>
           </div>
@@ -87,7 +75,7 @@ function CareersPage() {
               </label>
               <label className="block">
                 <span className={labelClassName}>Phone number*</span>
-                <input type="tel" required placeholder="Your number" className={inputClassName} />
+                <IndianPhoneInput value={phone} onChange={setPhone} className="mt-2" />
               </label>
               <label className="block">
                 <span className={labelClassName}>Location*</span>

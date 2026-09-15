@@ -45,8 +45,8 @@ const leaderCards = [
     role: "Managing Director",
     image: directorRakesh,
     alt: "Portrait of Mr. Rakesh Reddy",
-    /** Crop toward the face so framing matches the tighter headshot beside it. */
-    imageClassName: "object-[center_18%] scale-[1.08]",
+    /** Landscape source: frame from the chair back to just past his clasped hands. */
+    imageClassName: "inset-0 h-full w-full object-[31%_center]",
     quote:
       "Every home begins with a dream, but trust turns that dream into reality. At Global Edifice, we build that trust through quality and lasting value.",
   },
@@ -55,7 +55,9 @@ const leaderCards = [
     role: "Managing Director",
     image: directorJyothish,
     alt: "Portrait of Mr. Jyothish Reddy",
-    imageClassName: "object-[center_100%] scale-[1.5]",
+    /** Portrait source: anchor to the desk so both directors sit at the same height and scale. */
+    /** Portrait source: anchor near the bottom so his head, hands, desk and chair all stay in frame. */
+    imageClassName: "inset-0 h-full w-full object-[center_93%]",
     quote:
       "Building a home is a responsibility that extends far beyond construction. It is about creating places where families can build their future with confidence.",
   },
@@ -464,12 +466,12 @@ function AboutPage() {
               <div className="mx-auto mt-7 max-w-[54rem] space-y-5 text-base font-normal leading-[1.85] text-[#7a756e] md:mt-8">
                 <p>
                   Behind every Global Edifice project is a leadership team driven by integrity,
-                  responsibility, and a long-term vision for creating exceptional communities.
+                  responsibility and a long-term vision for creating exceptional communities.
                 </p>
                 <p>
-                  Together, they continue to shape Global Edifice with a commitment to thoughtful
-                  development, transparent practices, and delivering lasting value to every
-                  homeowner.
+                  Their collective experience and commitment continue to shape Global Edifice
+                  &mdash; with a focus on thoughtful development, transparent practices and lasting
+                  value for every homeowner.
                 </p>
               </div>
             </div>
@@ -480,11 +482,11 @@ function AboutPage() {
                   key={leader.name}
                   className="flex h-full flex-col overflow-hidden border border-[#e8e2d8] bg-white text-left"
                 >
-                  <div className="relative aspect-[4/5] w-full shrink-0 overflow-hidden bg-[#ebe6df]">
+                  <div className="relative aspect-[24/25] w-full shrink-0 overflow-hidden bg-[#ebe6df]">
                     <img
                       src={leader.image}
                       alt={leader.alt}
-                      className={`absolute inset-0 h-full w-full object-cover ${leader.imageClassName}`}
+                      className={`absolute object-cover ${leader.imageClassName}`}
                       loading="lazy"
                     />
                   </div>
@@ -524,13 +526,12 @@ function AboutPage() {
                   Every milestone reflects a promise fulfilled.
                 </p>
                 <p className="mt-5 text-base font-normal leading-[1.85] text-white/82">
-                  Over the past decade, Global Edifice has grown through consistent delivery,
-                  responsible development, and the confidence of hundreds of homeowners who chose us
-                  to be part of their journey.
+                  Since 2015, our journey has been shaped by thoughtful development, consistent
+                  delivery and the trust of the homeowners who chose Global Edifice.
                 </p>
                 <p className="mt-4 text-base font-normal leading-[1.85] text-white/82">
-                  As Bangalore continues to evolve, so do we—building communities that are designed
-                  for today&apos;s lifestyle while creating value for generations to come.
+                  As Bengaluru evolves, our journey continues &mdash; with communities designed for
+                  the way people live today and the value they seek for tomorrow.
                 </p>
 
                 <div className="mt-8 md:mt-10">

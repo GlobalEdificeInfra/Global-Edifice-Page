@@ -128,9 +128,6 @@ export function SiteFooter() {
             <Link to="/termsandconditions" className="transition hover:text-[#c4a36b]">
               Terms of Use
             </Link>
-            <a href="#" className="transition hover:text-[#c4a36b]">
-              RERA Disclosures
-            </a>
           </div>
         </div>
       </div>

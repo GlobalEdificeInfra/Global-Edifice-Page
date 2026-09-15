@@ -123,9 +123,9 @@ export function SiteHeader({ appearance = "overlay" }: { appearance?: "overlay" 
 
   return (
     <header className="fixed inset-x-0 top-0 z-50">
-      <div className={`${pageGutterClass} pt-4 md:pt-7`}>
+      <div className={`${pageGutterClass} pt-2.5 md:pt-3.5`}>
         <div
-          className={`mx-auto flex max-w-7xl items-center justify-between gap-2 sm:gap-4 transition-[background-color,box-shadow,border-color,padding] duration-300 md:gap-6 ${
+          className={`mx-auto flex max-w-[84rem] items-center justify-between gap-2 sm:gap-4 transition-[background-color,box-shadow,border-color,padding] duration-300 md:gap-6 ${
             showSolid
               ? "rounded-full border border-[#eadfce]/80 bg-white px-3.5 py-1.5 shadow-[0_14px_32px_-20px_rgba(18,58,76,0.28)] md:px-4 md:py-2"
               : "bg-transparent px-0 py-0"

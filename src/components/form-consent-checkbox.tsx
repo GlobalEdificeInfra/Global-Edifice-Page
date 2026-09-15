@@ -1,5 +1,5 @@
 export const FORM_CONSENT_TEXT =
-  "By submitting my details, I acknowledge that I am overriding my National Do Not Call (NDNC) registration and authorize Global Edifice to contact me regarding my enquiry and project updates via call, SMS, email, or WhatsApp.";
+  "By submitting my details, I consent to Global Edifice contacting me regarding my enquiry and providing project-related updates through calls, SMS, email, or WhatsApp. I acknowledge that this consent overrides my registration under the National Do Not Call (NDNC) / Do Not Disturb (DND) service.";
 
 const variantStyles = {
   light: {

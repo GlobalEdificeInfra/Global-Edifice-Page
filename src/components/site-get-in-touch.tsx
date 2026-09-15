@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import geContactLounge from "@/assets/shared/ge-contact-lounge.jpg";
 import { FormConsentCheckbox } from "@/components/form-consent-checkbox";
+import { IndianPhoneInput, withIndiaDialCode } from "@/components/indian-phone-input";
 import {
   companyAddress,
   companyEmail,
@@ -102,7 +103,7 @@ export function SiteGetInTouch({
       firstName: firstName || fullName.trim(),
       lastName: rest.join(" "),
       email,
-      phone: mobile,
+      phone: withIndiaDialCode(mobile),
       message,
       project: projectLabels[project] || project,
       channelId: "Contact_us",
@@ -176,19 +177,16 @@ export function SiteGetInTouch({
                       required
                       value={fullName}
                       onChange={(event) => setFullName(event.target.value)}
-                      placeholder="John Doe"
                       className={inputFieldClassName}
                     />
                   </label>
                   <label className="block">
                     <span className={inputLabelClassName}>Mobile Number</span>
-                    <input
-                      type="tel"
-                      required
+                    <IndianPhoneInput
+                      variant="underline"
                       value={mobile}
-                      onChange={(event) => setMobile(event.target.value)}
-                      placeholder="+91 9797979797"
-                      className={inputFieldClassName}
+                      onChange={setMobile}
+                      className="mt-2.5"
                     />
                   </label>
                 </div>

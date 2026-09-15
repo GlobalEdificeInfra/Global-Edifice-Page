@@ -264,20 +264,20 @@ function Story() {
 
             <div className="mt-8 max-w-[32.5rem] space-y-5 text-base font-normal leading-[1.8] text-[#7a756e] md:mt-9 lg:max-w-[33.5rem]">
               <p>
-                Global Edifice has been a trusted name in the real estate industry for over ten
-                years, being the forefront of upcoming projects in Bangalore, establishing
-                ourselves among the top builders in Bangalore with some of the finest architects,
-                engineers, sales force in the Silicon Valley of India.
+                For more than a decade, Global Edifice has been shaping residential spaces in
+                Bengaluru with a simple commitment&mdash;to create homes that combine thoughtful
+                design, quality construction and lasting value.
               </p>
               <p>
-                Our journey was built on the pillars of quality and customer centricity, thus
-                making us one of the most sought-after real estate developers in Bangalore. Our
-                commitment to timely delivery and uncompromising quality has earned us the trust of
-                hundreds of satisfied customers.
+                From the right location and intelligent planning to considered spaces and quality
+                craftsmanship, every element is brought together with purpose to enhance everyday
+                living.
               </p>
               <p>
-                At Global Edifice, we don&apos;t just build homes for you but create lifestyles
-                that reflect elegance, security, and of course a sense of community.
+                Our commitment to quality, transparency and timely delivery has earned the trust of
+                our customers and partners. As we continue to grow, our focus remains unchanged
+                &mdash; to create homes and communities that enrich lives and stand the test of
+                time.
               </p>
             </div>
 

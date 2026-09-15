@@ -3,6 +3,7 @@ import { ArrowDown, ArrowRight, ChevronLeft, ChevronRight, Menu, X } from "lucid
 import { Link, createFileRoute } from "@tanstack/react-router";
 import geContactLounge from "@/assets/shared/ge-contact-lounge.jpg";
 import { FormConsentCheckbox } from "@/components/form-consent-checkbox";
+import { IndianPhoneInput, withIndiaDialCode } from "@/components/indian-phone-input";
 import { submitContactForm } from "@/lib/enquiry-api";
 import geLogo from "@/assets/shared/ge-logo.png";
 import clanGalleryPergolaWalkway from "@/assets/projects/the-clan/clan-gallery-pergola-walkway.jpg";
@@ -52,7 +53,7 @@ type DetailNavItem = (typeof detailNav)[number];
 type PlanMode = "masterplan" | "floorplan";
 
 const heroStats = [
-  { label: "Typology", lines: ["2 & 3 Bed", "signature residences"] },
+  { label: "Typology", lines: ["2 & 3 Bed", "spacious residences"] },
   { label: "Price", lines: ["Starting", "85 Lakhs*"] },
   { label: "Location", lines: ["Sarjapura, Bangalore"] },
   {
@@ -62,9 +63,9 @@ const heroStats = [
 ] as const;
 
 const metrics = [
-  { value: "257", label: "Signature Residences" },
+  { value: "257", label: "Spacious Residences" },
   { value: "3.5 Acres", label: "Land Area" },
-  { value: "G+9 Floor", label: "Structure" },
+  { value: "G+9 Floors", label: "Structure" },
 ] as const;
 
 const amenitySlides = [
@@ -926,7 +927,7 @@ function ContactSection() {
       firstName: firstName || fullName.trim(),
       lastName: rest.join(" "),
       email,
-      phone,
+      phone: withIndiaDialCode(phone),
       message,
       project: "Global Edifice The Clan",
       channelId: "Contact_us",
@@ -1022,14 +1023,7 @@ function ContactSection() {
 
                 <label className="block">
                   <span className={labelClassName}>Phone number*</span>
-                  <input
-                    type="tel"
-                    required
-                    value={phone}
-                    onChange={(event) => setPhone(event.target.value)}
-                    placeholder="Your number"
-                    className={inputClassName}
-                  />
+                  <IndianPhoneInput value={phone} onChange={setPhone} className="mt-2" />
                 </label>
 
                 <label className="block">

@@ -2,6 +2,7 @@ import { useEffect, useState, type FormEvent } from "react";
 import { X } from "lucide-react";
 import geLogoGold from "@/assets/shared/ge-logo-gold.png";
 import { FormConsentCheckbox } from "@/components/form-consent-checkbox";
+import { IndianPhoneInput, withIndiaDialCode } from "@/components/indian-phone-input";
 import { companyWhatsApp } from "@/lib/company";
 import { submitEnquiry } from "@/lib/enquiry-api";
 
@@ -71,7 +72,7 @@ export function GlobalOverlay() {
       firstName: firstName || fullName.trim(),
       lastName: rest.join(" "),
       email,
-      phone,
+      phone: withIndiaDialCode(phone),
       channelId: "Enquiry_form",
       subject: "Lead from Website - Popup",
     });
@@ -221,14 +222,7 @@ export function GlobalOverlay() {
 
               <div className="flex flex-col gap-1.5">
                 <label className="text-[0.85rem] font-medium text-white">Phone Number *</label>
-                <input
-                  type="tel"
-                  required
-                  value={phone}
-                  onChange={(event) => setPhone(event.target.value)}
-                  placeholder="+919876543210"
-                  className="w-full rounded-full border border-white/20 bg-white/5 px-5 py-3 text-[0.95rem] text-white outline-none transition-colors placeholder:text-white/50 focus:border-[#daba81]"
-                />
+                <IndianPhoneInput variant="popup" value={phone} onChange={setPhone} />
               </div>
 
               <FormConsentCheckbox variant="popup" />

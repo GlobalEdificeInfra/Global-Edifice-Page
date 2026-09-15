@@ -11,6 +11,7 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import geContactLounge from "@/assets/shared/ge-contact-lounge.jpg";
 import { FormConsentCheckbox } from "@/components/form-consent-checkbox";
+import { IndianPhoneInput, withIndiaDialCode } from "@/components/indian-phone-input";
 import { submitContactForm } from "@/lib/enquiry-api";
 
 const ORLEAN_TITLE = "Global Edifice Orlean";
@@ -53,14 +54,14 @@ const heroStats = [
 const overviewStats = [
   {
     value: "91",
-    label: "Signature Residences",
+    label: "Spacious Residences",
   },
   {
     value: "1.5 Acres",
     label: "Land Area",
   },
   {
-    value: "G+7 Floor",
+    value: "G+6 Floors",
     label: "Structure",
   },
 ] as const;
@@ -851,7 +852,7 @@ function ContactSection() {
       firstName: firstName || fullName.trim(),
       lastName: rest.join(" "),
       email,
-      phone,
+      phone: withIndiaDialCode(phone),
       message,
       project: ORLEAN_TITLE,
       channelId: "Contact_us",
@@ -947,14 +948,7 @@ function ContactSection() {
 
                 <label className="block">
                   <span className={labelClassName}>Phone number*</span>
-                  <input
-                    type="tel"
-                    required
-                    value={phone}
-                    onChange={(event) => setPhone(event.target.value)}
-                    placeholder="Your number"
-                    className={inputClassName}
-                  />
+                  <IndianPhoneInput value={phone} onChange={setPhone} className="mt-2" />
                 </label>
 
                 <label className="block">

@@ -56,7 +56,7 @@ const projects: Project[] = [
     name: "GLOBAL EDIFICE THE CLAN",
     nameLines: ["Global Edifice", "The Clan"],
     price: "₹ 85 LAKHS*",
-    specs: "257 SIGNATURE RESIDENCES | 3.5 ACRES | G+9 FLOORS",
+    specs: "257 SPACIOUS RESIDENCES | 3.5 ACRES | G+9 FLOORS",
     configLine: "2&3BHK RESIDENCES | SARJAPUR, BANGALORE",
     image: projectClan,
     alt: "Global Edifice The Clan",
@@ -67,7 +67,7 @@ const projects: Project[] = [
     name: "GLOBAL EDIFICE ORLEAN",
     nameLines: ["Global Edifice", "Orlean"],
     price: "₹ 76 LAKHS*",
-    specs: "1134 - 1590 SQFT",
+    specs: "91 SPACIOUS RESIDENCES | 1.5 ACRES | G+6 FLOORS",
     configLine: "2BHK RESIDENCES | CHANDAPURA, BANGALORE",
     image: "/project-images/orlean-images/orlean-main2.jpg",
     alt: "Global Edifice Orlean",
@@ -247,17 +247,17 @@ function ProjectCardBody({ project }: { project: Project }) {
               </span>
             ))}
           </h2>
-          <p className="max-w-[7.5rem] shrink-0 pt-0.5 text-right text-[0.5rem] font-semibold uppercase leading-[1.4] tracking-[0.08em] text-[#c0a56e]">
+          <p className="max-w-[7.5rem] shrink-0 pt-0.5 text-right text-[0.625rem] font-semibold uppercase leading-[1.4] tracking-[0.08em] text-[#c0a56e]">
             {project.location}
           </p>
         </div>
 
-        <p className="mt-4 text-[0.62rem] font-medium uppercase tracking-[0.04em] text-[#c0a56e]">
+        <p className="mt-4 text-[0.75rem] font-medium uppercase tracking-[0.04em] text-[#c0a56e]">
           {project.scale}
         </p>
 
         <div className="mt-6 flex items-center gap-3">
-          <span className="shrink-0 text-[0.62rem] font-medium uppercase tracking-[0.04em] text-[#7a756e]">
+          <span className="shrink-0 text-[0.75rem] font-medium uppercase tracking-[0.04em] text-[#7a756e]">
             {project.typeLabel}
           </span>
           <span className="h-px min-w-0 flex-1 bg-[#eadfcc]" />
@@ -285,7 +285,7 @@ function ProjectCardBody({ project }: { project: Project }) {
                 </span>
               ))}
             </h2>
-            <p className="mt-2 text-[0.62rem] font-medium uppercase tracking-[0.04em] text-[#9a9084]">
+            <p className="mt-2 text-[0.75rem] font-medium uppercase tracking-[0.04em] text-[#9a9084]">
               {project.location}
             </p>
           </div>
@@ -297,7 +297,7 @@ function ProjectCardBody({ project }: { project: Project }) {
           ) : null}
         </div>
 
-        <p className="mt-5 text-[0.62rem] font-medium uppercase tracking-[0.04em] text-[#9a9084]">
+        <p className="mt-5 text-[0.75rem] font-medium uppercase tracking-[0.04em] text-[#9a9084]">
           {project.unitDescription}
         </p>
 
@@ -339,11 +339,11 @@ function ProjectCardBody({ project }: { project: Project }) {
         </div>
       </div>
 
-      <p className="mt-4 text-[0.62rem] font-medium uppercase tracking-[0.04em] text-[#a89458]">
+      <p className="mt-4 text-[0.75rem] font-medium uppercase tracking-[0.04em] text-[#a89458]">
         {project.specs}
       </p>
 
-      <div className="relative mt-6 text-[0.62rem] font-medium uppercase tracking-[0.04em] text-[#8a7a68]">
+      <div className="relative mt-6 text-[0.75rem] font-medium uppercase tracking-[0.04em] text-[#8a7a68]">
         <span className="absolute inset-x-0 top-1/2 h-px -translate-y-1/2 bg-[#eadfcc]" />
         <span className="relative inline-block bg-white pr-3">{project.configLine}</span>
       </div>
@@ -412,19 +412,22 @@ function ProjectPortfolio() {
       <div className={pageContainerClass}>
         <div className="mx-auto max-w-[60rem] text-center">
           <h2 className="font-display text-[2rem] leading-[1.08] text-[#c0a56e] sm:text-[2.35rem] md:text-[2.85rem] lg:text-[3.25rem]">
-            Places You&apos;ll Be Proud to Call Home.
+            Designed for Living. Built to Last.
           </h2>
 
           <div className="mx-auto mt-10 max-w-[52rem] space-y-6 text-base font-normal leading-[1.9] text-[#7a756e] md:mt-12">
             <p>
-              Every project begins with an idea. To create homes that feel right—not just on the day
-              you move in, but for years to come.
+              Every project begins with an idea &mdash; to create homes that feel right not just on
+              the day you move in, but for years to come.
             </p>
             <p>
-              Some are already welcoming families. Others are preparing to shape the next chapter of
-              Bengaluru&apos;s growth. Each one reflects the same philosophy: thoughtful design,
-              honest craftsmanship, and a commitment to building communities that stand the test of
-              time.
+              From completed communities welcoming families to upcoming developments shaping
+              Bengaluru&apos;s future, each project reflects our commitment to thoughtful design,
+              quality craftsmanship and building communities that stand the test of time.
+            </p>
+            <p>
+              Explore the places we have created &mdash; and the communities we are building for
+              tomorrow.
             </p>
           </div>
         </div>

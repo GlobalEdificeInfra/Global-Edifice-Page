@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from "react";
 import geContactLounge from "@/assets/shared/ge-contact-lounge.jpg";
 import { FormConsentCheckbox } from "@/components/form-consent-checkbox";
+import { IndianPhoneInput, withIndiaDialCode } from "@/components/indian-phone-input";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { submitContactForm } from "@/lib/enquiry-api";
@@ -56,7 +57,7 @@ function ContactSection({ projectName }: { projectName: string }) {
       firstName: firstName || fullName.trim(),
       lastName: rest.join(" "),
       email,
-      phone,
+      phone: withIndiaDialCode(phone),
       message,
       project: projectName,
       channelId: "Contact_us",
@@ -152,14 +153,7 @@ function ContactSection({ projectName }: { projectName: string }) {
 
                 <label className="block">
                   <span className={labelClassName}>Phone number*</span>
-                  <input
-                    type="tel"
-                    required
-                    value={phone}
-                    onChange={(event) => setPhone(event.target.value)}
-                    placeholder="Your number"
-                    className={inputClassName}
-                  />
+                  <IndianPhoneInput value={phone} onChange={setPhone} className="mt-2" />
                 </label>
 
                 <label className="block">
