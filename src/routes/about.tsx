@@ -45,8 +45,7 @@ const leaderCards = [
     role: "Managing Director",
     image: directorRakesh,
     alt: "Portrait of Mr. Rakesh Reddy",
-    /** Landscape source: frame from the chair back to just past his clasped hands. */
-    imageClassName: "inset-0 h-full w-full object-[31%_center]",
+    imageClassName: "inset-0 h-full w-full object-center",
     quote:
       "Every home begins with a dream, but trust turns that dream into reality. At Global Edifice, we build that trust through quality and lasting value.",
   },
@@ -56,8 +55,7 @@ const leaderCards = [
     image: directorJyothish,
     alt: "Portrait of Mr. Jyothish Reddy",
     /** Portrait source: anchor to the desk so both directors sit at the same height and scale. */
-    /** Portrait source: anchor near the bottom so his head, hands, desk and chair all stay in frame. */
-    imageClassName: "inset-0 h-full w-full object-[center_93%]",
+    imageClassName: "inset-0 h-full w-full object-center",
     quote:
       "Building a home is a responsibility that extends far beyond construction. It is about creating places where families can build their future with confidence.",
   },
@@ -482,7 +480,8 @@ function AboutPage() {
                   key={leader.name}
                   className="flex h-full flex-col overflow-hidden border border-[#e8e2d8] bg-white text-left"
                 >
-                  <div className="relative aspect-[24/25] w-full shrink-0 overflow-hidden bg-[#ebe6df]">
+                  {/* 6:5 matches the studio portraits exactly, so neither photo is cropped. */}
+                  <div className="relative aspect-[6/5] w-full shrink-0 overflow-hidden bg-[#ebe6df]">
                     <img
                       src={leader.image}
                       alt={leader.alt}

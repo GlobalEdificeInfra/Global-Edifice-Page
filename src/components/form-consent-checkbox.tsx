@@ -16,18 +16,28 @@ const variantStyles = {
   },
 } as const;
 
+/** Job applications are recruitment, not marketing, so they need their own consent wording. */
+export const CAREERS_CONSENT_TEXT =
+  "By submitting this form, I consent to Global Edifice collecting and processing my personal details and resume for recruitment purposes, and to being contacted about my application through calls, SMS, email, or WhatsApp.";
+
 type FormConsentCheckboxProps = {
   variant?: keyof typeof variantStyles;
   className?: string;
+  /** Overrides the default enquiry consent wording (for example on the careers form). */
+  text?: string;
 };
 
-export function FormConsentCheckbox({ variant = "light", className = "" }: FormConsentCheckboxProps) {
+export function FormConsentCheckbox({
+  variant = "light",
+  className = "",
+  text = FORM_CONSENT_TEXT,
+}: FormConsentCheckboxProps) {
   const styles = variantStyles[variant];
 
   return (
     <label className={`${styles.label} ${className}`.trim()}>
       <input type="checkbox" required className={styles.checkbox} />
-      <span>{FORM_CONSENT_TEXT}</span>
+      <span>{text}</span>
     </label>
   );
 }

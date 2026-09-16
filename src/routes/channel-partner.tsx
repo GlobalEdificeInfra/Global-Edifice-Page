@@ -1,8 +1,10 @@
+import { useState, type FormEvent } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import channelPartnerHero from "@/assets/channel-partner/channel-partner-hero.png";
 import geFusionLogo from "@/assets/channel-partner/ge-fusion-logo.png";
 import { ResourcePageHero, ResourcePageShell } from "@/components/careers-channel-layout";
 import { FormConsentCheckbox } from "@/components/form-consent-checkbox";
+import { saveToSheet } from "@/lib/sheets-api";
 
 export const Route = createFileRoute("/channel-partner")({
   component: ChannelPartnerPage,
@@ -61,6 +63,7 @@ function DateBoxes({ id }: { id: string }) {
           {Array.from({ length: count }).map((_, boxIndex) => (
             <input
               key={`${id}-${groupIndex}-${boxIndex}`}
+              name={`__date__${id}-${groupIndex}-${boxIndex}`}
               type="text"
               maxLength={1}
               inputMode="numeric"
@@ -76,6 +79,19 @@ function DateBoxes({ id }: { id: string }) {
       ))}
     </div>
   );
+}
+
+/** "Company Name:" -> "companyName", so submissions arrive with readable keys. */
+function toFieldName(label: string) {
+  const words = label.replace(/[^a-zA-Z0-9 ]/g, " ").trim().split(/\s+/);
+
+  return words
+    .map((word, index) =>
+      index === 0
+        ? word.toLowerCase()
+        : word.charAt(0).toUpperCase() + word.slice(1).toLowerCase(),
+    )
+    .join("");
 }
 
 function InlineField({
@@ -95,7 +111,12 @@ function InlineField({
         {label}
         {required ? <span className="text-[#c45a1a]">*</span> : null}
       </span>
-      <input type={type} required={required} className={fieldClassName} />
+      <input
+        type={type}
+        name={toFieldName(label)}
+        required={required}
+        className={fieldClassName}
+      />
     </label>
   );
 }
@@ -112,7 +133,54 @@ function FusionBrand() {
   );
 }
 
+/** The date-of-… fields are single-digit boxes; stitch them back into dd/mm/yyyy. */
+function readDate(formData: FormData, id: string) {
+  const parts = [2, 2, 4].map((count, groupIndex) =>
+    Array.from({ length: count }, (_, boxIndex) =>
+      String(formData.get(`__date__${id}-${groupIndex}-${boxIndex}`) ?? "").trim(),
+    ).join(""),
+  );
+
+  return parts.some((part) => part) ? parts.join("/") : "";
+}
+
 function ChannelPartnerPage() {
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setStatus("submitting");
+    setErrorMessage("");
+
+    const formData = new FormData(event.currentTarget);
+    const multiValueFields = ["organisationType", "businessNature"];
+    const data: Record<string, unknown> = {
+      dateOfRegistration: readDate(formData, "registration"),
+      dateOfIncorporation: readDate(formData, "incorporation"),
+    };
+
+    for (const key of new Set(formData.keys())) {
+      if (key.startsWith("__date__")) continue;
+
+      const values = formData.getAll(key).map(String);
+      data[key] = multiValueFields.includes(key) ? values : values.join(" ");
+    }
+
+    const result = await saveToSheet("channel-partner", data);
+
+    if (result.ok) {
+      setStatus("success");
+      event.currentTarget.reset();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      setStatus("error");
+      setErrorMessage(
+        "We could not submit your registration just now. Please try again in a moment.",
+      );
+    }
+  };
+
   return (
     <ResourcePageShell headerOverlay>
       <ResourcePageHero
@@ -129,7 +197,7 @@ function ChannelPartnerPage() {
 
           <div className="mt-8 h-px w-full bg-[#e8a89a]/90 md:mt-10" />
 
-          <form className="mt-8 md:mt-10" onSubmit={(event) => event.preventDefault()}>
+          <form className="mt-8 md:mt-10" onSubmit={handleSubmit}>
             <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
               <div>
                 <h1 className="font-display text-[2rem] leading-[1.05] text-[#1f1d1a] sm:text-[2.35rem] md:text-[2.85rem]">
@@ -208,7 +276,12 @@ function ChannelPartnerPage() {
                     key={type}
                     className="flex min-h-11 items-center gap-2 text-[0.88rem] text-[#7a756e]"
                   >
-                    <input type="checkbox" className="h-4 w-4 accent-[#c0a56e]" />
+                    <input
+                      type="checkbox"
+                      name="organisationType"
+                      value={type}
+                      className="h-4 w-4 accent-[#c0a56e]"
+                    />
                     {type}
                     {type === "Others" ? (
                       <span className="ml-1 inline-block w-28 border-b border-[#cfc8be] md:w-40" />
@@ -226,7 +299,12 @@ function ChannelPartnerPage() {
                     key={nature}
                     className="flex min-h-11 items-center gap-2.5 text-[0.86rem] text-[#7a756e]"
                   >
-                    <input type="checkbox" className="h-4 w-4 shrink-0 accent-[#c0a56e]" />
+                    <input
+                      type="checkbox"
+                      name="businessNature"
+                      value={nature}
+                      className="h-4 w-4 shrink-0 accent-[#c0a56e]"
+                    />
                     {nature}
                   </label>
                 ))}
@@ -238,6 +316,7 @@ function ChannelPartnerPage() {
                   <span className="h-px min-w-0 flex-1 border-b border-[#cfc8be]">
                     <input
                       type="text"
+                      name="memberOfAnyAssociation"
                       className="h-8 w-full bg-transparent outline-none"
                       aria-label="Member of any association"
                     />
@@ -248,6 +327,7 @@ function ChannelPartnerPage() {
                   <span className="h-px min-w-0 flex-1 border-b border-[#cfc8be]">
                     <input
                       type="text"
+                      name="membershipNo"
                       className="h-8 w-full bg-transparent outline-none"
                       aria-label="Membership No if any"
                     />
@@ -283,11 +363,22 @@ function ChannelPartnerPage() {
               </label>
             </div>
 
+            {status === "success" ? (
+              <p className="mt-6 rounded-[0.35rem] bg-white px-5 py-4 text-base font-normal text-[#4a463f]">
+                Thank you. We&apos;ve received your registration and our team will be in touch.
+              </p>
+            ) : null}
+
+            {status === "error" ? (
+              <p className="mt-6 text-[0.85rem] text-[#c0392b]">{errorMessage}</p>
+            ) : null}
+
             <button
               type="submit"
-              className="mt-8 inline-flex items-center justify-center rounded-[0.2rem] bg-[#c0a56e] px-12 py-3.5 text-[0.78rem] font-semibold uppercase tracking-[0.2em] text-white transition hover:bg-[#a89458]"
+              disabled={status === "submitting"}
+              className="mt-8 inline-flex items-center justify-center rounded-[0.2rem] bg-[#c0a56e] px-12 py-3.5 text-[0.78rem] font-semibold uppercase tracking-[0.2em] text-white transition hover:bg-[#a89458] disabled:cursor-not-allowed disabled:opacity-60"
             >
-              Empanel
+              {status === "submitting" ? "Submitting..." : "Empanel"}
             </button>
           </form>
         </div>

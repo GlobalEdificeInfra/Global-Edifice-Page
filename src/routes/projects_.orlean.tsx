@@ -12,6 +12,7 @@ import { SiteFooter } from "@/components/site-footer";
 import geContactLounge from "@/assets/shared/ge-contact-lounge.jpg";
 import { FormConsentCheckbox } from "@/components/form-consent-checkbox";
 import { IndianPhoneInput, withIndiaDialCode } from "@/components/indian-phone-input";
+import { saveToSheet } from "@/lib/sheets-api";
 import { submitContactForm } from "@/lib/enquiry-api";
 
 const ORLEAN_TITLE = "Global Edifice Orlean";
@@ -846,6 +847,15 @@ function ContactSection() {
     event.preventDefault();
     setStatus("submitting");
     setErrorMessage("");
+
+    void saveToSheet("contact", {
+      fullName: fullName.trim(),
+      email: email.trim(),
+      phone: withIndiaDialCode(phone),
+      project: "Global Edifice Orlean",
+      message: message.trim(),
+      source: "Project page contact form",
+    });
 
     const [firstName, ...rest] = fullName.trim().split(/\s+/);
     const result = await submitContactForm({

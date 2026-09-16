@@ -3,6 +3,7 @@ import { X } from "lucide-react";
 import geLogoGold from "@/assets/shared/ge-logo-gold.png";
 import { FormConsentCheckbox } from "@/components/form-consent-checkbox";
 import { IndianPhoneInput, withIndiaDialCode } from "@/components/indian-phone-input";
+import { saveToSheet } from "@/lib/sheets-api";
 import { companyWhatsApp } from "@/lib/company";
 import { submitEnquiry } from "@/lib/enquiry-api";
 
@@ -66,6 +67,13 @@ export function GlobalOverlay() {
     event.preventDefault();
     setStatus("submitting");
     setErrorMessage("");
+
+    void saveToSheet("enquiry", {
+      fullName: fullName.trim(),
+      email: email.trim(),
+      phone: withIndiaDialCode(phone),
+      source: "Enquire Now popup",
+    });
 
     const [firstName, ...rest] = fullName.trim().split(/\s+/);
     const result = await submitEnquiry({

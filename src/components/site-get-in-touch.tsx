@@ -13,6 +13,7 @@ import {
 import geContactLounge from "@/assets/shared/ge-contact-lounge.jpg";
 import { FormConsentCheckbox } from "@/components/form-consent-checkbox";
 import { IndianPhoneInput, withIndiaDialCode } from "@/components/indian-phone-input";
+import { saveToSheet } from "@/lib/sheets-api";
 import {
   companyAddress,
   companyEmail,
@@ -97,6 +98,15 @@ export function SiteGetInTouch({
     event.preventDefault();
     setStatus("submitting");
     setErrorMessage("");
+
+    void saveToSheet("contact", {
+      fullName: fullName.trim(),
+      email: email.trim(),
+      mobile: withIndiaDialCode(mobile),
+      project: projectLabels[project] || project,
+      message: message.trim(),
+      source: "Start Your Journey form",
+    });
 
     const [firstName, ...rest] = fullName.trim().split(/\s+/);
     const result = await submitContactForm({

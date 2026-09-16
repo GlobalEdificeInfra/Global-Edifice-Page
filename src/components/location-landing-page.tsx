@@ -2,6 +2,7 @@ import { useState, type FormEvent } from "react";
 import geContactLounge from "@/assets/shared/ge-contact-lounge.jpg";
 import { FormConsentCheckbox } from "@/components/form-consent-checkbox";
 import { IndianPhoneInput, withIndiaDialCode } from "@/components/indian-phone-input";
+import { saveToSheet } from "@/lib/sheets-api";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { submitContactForm } from "@/lib/enquiry-api";
@@ -51,6 +52,15 @@ function ContactSection({ projectName }: { projectName: string }) {
     event.preventDefault();
     setStatus("submitting");
     setErrorMessage("");
+
+    void saveToSheet("contact", {
+      fullName: fullName.trim(),
+      email: email.trim(),
+      phone: withIndiaDialCode(phone),
+      project: projectName,
+      message: message.trim(),
+      source: "Project page contact form",
+    });
 
     const [firstName, ...rest] = fullName.trim().split(/\s+/);
     const result = await submitContactForm({
