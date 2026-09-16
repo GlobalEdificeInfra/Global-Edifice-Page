@@ -151,6 +151,12 @@ function toHeading(key) {
   });
 }
 
+function jsonResponse(data) {
+  return ContentService.createTextOutput(JSON.stringify(data)).setMimeType(
+    ContentService.MimeType.JSON,
+  );
+}
+
 /** Checkbox groups arrive as arrays; keep them readable in one cell. */
 function formatValue(value) {
   if (Array.isArray(value)) {
