@@ -30,6 +30,8 @@ export function createParamantraHandler({
   apiKeyEnvVar,
   defaultChannelId,
   defaultSubject = "Lead from Website",
+  appNameEnvVar = "PARAMANTRA_APP_NAME",
+  defaultAppName = "rpECF",
 }) {
   return async function handler(req, res) {
     if (req.method !== "POST") {
@@ -39,7 +41,7 @@ export function createParamantraHandler({
     }
 
     const apiKey = process.env[apiKeyEnvVar];
-    const appName = process.env.PARAMANTRA_APP_NAME || "rpECF";
+    const appName = process.env[appNameEnvVar] || defaultAppName;
     const repId = process.env.PARAMANTRA_REP_ID || "vinod@globaledifice.in";
 
     if (!apiKey) {
