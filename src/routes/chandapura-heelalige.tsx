@@ -33,7 +33,7 @@ function ChandapuraHeelaligePage() {
       ]}
       highlightStats={[
         { value: "30", label: "Storeyed Premium High Rise" },
-        { value: "8 Acres", label: "Land Area" },
+        { value: "12 Acres", label: "Land Area" },
         { value: "Phase I", label: "Coming Soon" },
       ]}
     />

@@ -78,7 +78,7 @@ const projects: Project[] = [
     name: "CHANDAPURA HEELALIGE",
     nameLines: ["Chandapura Heelalige"],
     location: "CHANDAPURA, BANGALORE",
-    scale: "30 STOREYED | 8 ACRES",
+    scale: "30 STOREYED | 12 ACRES",
     typeLabel: "PREMIUM HIGH RISE RESIDENCES",
     alt: "Chandapura Heelalige upcoming project",
     image: upcomingProjectMaps.heelalige,
@@ -89,7 +89,7 @@ const projects: Project[] = [
     name: "MUTHANALLUR",
     nameLines: ["Muthanallur"],
     location: "BOMMASANDRA, BANGALORE",
-    scale: "15 STOREYED | 1.5 ACRES",
+    scale: "15 STOREYED | 2 ACRES",
     typeLabel: "PREMIUM RESIDENCES",
     alt: "Muthanallur upcoming project",
     image: upcomingProjectMaps.muthanallur,
@@ -123,7 +123,7 @@ const projects: Project[] = [
     nameLines: ["Global Edifice", "Legacy"],
     location: "CHANDAPURA, BANGALORE",
     availability: "available",
-    unitDescription: "SPACIOUS 3BHK HOMES",
+    unitDescription: "2&3 BHK RESIDENCES",
     image: projectLegacy,
     alt: "Global Edifice Legacy",
     detailHref: "/projects",
@@ -134,7 +134,7 @@ const projects: Project[] = [
     nameLines: ["Global Edifice", "Celesta"],
     location: "CHANDAPURA, BANGALORE",
     availability: "sold-out",
-    unitDescription: "2BHK RESIDENCES",
+    unitDescription: "1,2&3 BHK RESIDENCES",
     image: "/project-images/completed-project-images/celesta-compPorjects-img.webp",
     alt: "Global Edifice Celesta",
   },
@@ -154,7 +154,7 @@ const projects: Project[] = [
     nameLines: ["Green Apple", "Hikes"],
     location: "TIRUMAGONDANAHALLI, BANGALORE",
     availability: "sold-out",
-    unitDescription: "1&2 BHK RESIDENCES",
+    unitDescription: "2&3 BHK RESIDENCES",
     image: "/project-images/completed-project-images/green-appleHikes-compPorjects-img.webp",
     alt: "Green Apple Hikes",
   },
@@ -294,12 +294,18 @@ function ProjectCardBody({ project }: { project: Project }) {
             <p className="max-w-[6.5rem] shrink-0 pt-1 text-right text-[0.52rem] font-semibold uppercase leading-[1.35] tracking-[0.08em] text-[#9a7a6a]">
               Few Remaining Homes
             </p>
-          ) : null}
+          ) : (
+            <p className="max-w-[8.5rem] shrink-0 pt-1 text-right text-[0.7rem] font-medium uppercase leading-[1.35] tracking-[0.04em] text-[#9a9084]">
+              {project.unitDescription}
+            </p>
+          )}
         </div>
 
-        <p className="mt-5 text-[0.75rem] font-medium uppercase tracking-[0.04em] text-[#9a9084]">
-          {project.unitDescription}
-        </p>
+        {isAvailable ? (
+          <p className="mt-5 text-[0.75rem] font-medium uppercase tracking-[0.04em] text-[#9a9084]">
+            {project.unitDescription}
+          </p>
+        ) : null}
 
         <div className="mt-6 h-px w-full bg-[#eadfcc]" />
 

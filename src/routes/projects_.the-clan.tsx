@@ -13,8 +13,7 @@ import clanGallerySculptureCourt from "@/assets/projects/the-clan/clan-gallery-s
 import theClanLogoGreen from "@/assets/projects/the-clan/Clan-Logo-Green.png";
 import theClanBanner from "@/assets/projects/the-clan/The-clan-project.png";
 import clanFloorplan205Image from "@/assets/projects/the-clan/clan-floorplan-205.png";
-import connectivityMapImage from "@/assets/projects/the-clan/map.png";
-import greenBackgroundImage from "@/assets/projects/the-clan/Green BG.jpg";
+import connectivityMapImage from "@/assets/projects/the-clan/clan-connectivity-map.png";
 import masterPlanImage from "@/assets/projects/the-clan/master-plan.png";
 import theClanHall from "@/assets/projects/the-clan/the-clan-hall.png";
 import { SiteHeader } from "@/components/site-header";
@@ -774,7 +773,7 @@ function ConnectivityMap() {
       <img
         src={connectivityMapImage}
         alt="The Clan connectivity map"
-        className="w-full mix-blend-screen opacity-95 drop-shadow-[0_16px_26px_rgba(0,0,0,0.12)]"
+        className="w-full drop-shadow-[0_16px_26px_rgba(0,0,0,0.08)]"
       />
     </div>
   );
@@ -782,24 +781,17 @@ function ConnectivityMap() {
 
 function ConnectivitySection() {
   return (
-    <section
-      className={`overflow-hidden bg-[#0e6a44] text-white ${sectionPadClass}`}
-      style={{
-        backgroundImage: `linear-gradient(180deg, rgba(5, 65, 47, 0.2), rgba(5, 65, 47, 0.24)), url(${greenBackgroundImage})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
-    >
+    <section className={`overflow-hidden bg-white text-[#3d3832] ${sectionPadClass}`}>
       <div className={pageContainerClass}>
         <div className="mx-auto grid max-w-[78rem] gap-x-12 gap-y-5 lg:grid-cols-[minmax(0,1.06fr)_minmax(22rem,0.72fr)] lg:grid-rows-[auto_auto] lg:items-start">
           <div className="max-w-[34rem] lg:col-start-1 lg:row-start-1">
             <div className="flex items-center gap-4">
-              <p className="text-[0.72rem] font-semibold uppercase tracking-[0.28em] text-[#efcf8d]">
+              <p className="text-[0.72rem] font-semibold uppercase tracking-[0.28em] text-[#b49a6c]">
                 Connectivity
               </p>
-              <span className="h-px w-10 bg-[#efcf8d]/75" />
+              <span className="h-px w-10 bg-[#b49a6c]/75" />
             </div>
-            <h2 className="mt-3 max-w-[32rem] font-display text-[2.35rem] leading-[0.9] text-[#efcf8d] uppercase md:text-[3rem] lg:text-[3.15rem]">
+            <h2 className="mt-3 max-w-[32rem] font-display text-[2.35rem] leading-[0.9] text-[#a1865a] uppercase md:text-[3rem] lg:text-[3.15rem]">
               <span className="block md:whitespace-nowrap">At the crossroads of</span>
               <span className="block md:whitespace-nowrap">growth and convenience.</span>
             </h2>
@@ -819,21 +811,21 @@ function ConnectivitySection() {
                 <AccordionItem
                   key={group.id}
                   value={group.id}
-                  className="border-0 border-b border-white/16 pb-5 last:pb-0"
+                  className="border-0 border-b border-[#e4d8c4] pb-5 last:pb-0"
                 >
                   <AccordionTrigger className="py-0 hover:no-underline [&>svg]:hidden [&[data-state=open]_.accordion-minus]:inline [&[data-state=open]_.accordion-plus]:hidden [&[data-state=closed]_.accordion-minus]:hidden [&[data-state=closed]_.accordion-plus]:inline">
                     <span className="flex w-full items-center justify-between gap-4">
-                      <span className="font-display text-[1.65rem] leading-none text-[#efcf8d] md:text-[1.45rem]">
+                      <span className="font-display text-[1.65rem] leading-none text-[#a1865a] md:text-[1.45rem]">
                         {group.label}
                       </span>
-                      <span className="text-[1.7rem] font-semibold leading-none text-white md:text-[1.45rem]">
+                      <span className="text-[1.7rem] font-semibold leading-none text-[#5c564d] md:text-[1.45rem]">
                         <span className="accordion-plus hidden">+</span>
                         <span className="accordion-minus hidden">×</span>
                       </span>
                     </span>
                   </AccordionTrigger>
-                  <AccordionContent className="pb-0 pt-5 text-white/86">
-                    <ul className="space-y-3 text-[1.02rem] font-medium leading-[1.5] tracking-[-0.01em] text-white/92 md:text-[0.98rem] md:leading-[1.45]">
+                  <AccordionContent className="pb-0 pt-5 text-[#5c564d]">
+                    <ul className="space-y-3 text-[1.02rem] font-medium leading-[1.5] tracking-[-0.01em] text-[#5c564d] md:text-[0.98rem] md:leading-[1.45]">
                       {group.items.map((item) => (
                         <li key={item}>{item}</li>
                       ))}

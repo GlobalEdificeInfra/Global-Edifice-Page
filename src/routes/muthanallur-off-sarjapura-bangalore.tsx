@@ -32,7 +32,7 @@ function MuthanallurSarjapuraPage() {
       ]}
       highlightStats={[
         { value: "15", label: "Storeyed Premium Residences" },
-        { value: "1.5 Acres", label: "Land Area" },
+        { value: "2 Acres", label: "Land Area" },
         { value: "Coming Soon", label: "" },
       ]}
     />

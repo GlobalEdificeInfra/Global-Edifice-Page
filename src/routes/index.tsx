@@ -1,5 +1,6 @@
+import { useEffect, useRef, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Star } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight, Star } from "lucide-react";
 import geHero from "@/assets/home/ge-hero.png";
 import geStoryBalcony from "@/assets/home/ge-story-balcony.jpg";
 import iconIntegrity from "@/assets/home/icon-integrity.png";
@@ -137,24 +138,44 @@ const offerItems = [
   },
 ];
 
+const TESTIMONIAL_ROLE = "Global Edifice - Happy Customer";
+
 const testimonials = [
   {
     name: "Arun & Priya Narayan",
-    role: "Home Owner Orlean",
+    role: TESTIMONIAL_ROLE,
     quote:
-      "From the moment we visited Orlean, we knew this was home. The attention to detail and thoughtful planning make it a standout choice for anyone looking for a premium lifestyle.",
+      "From the moment we visited Global Edifice, we knew this was home. The attention to detail and thoughtful planning make it a standout choice for anyone looking for a premium lifestyle.",
   },
   {
     name: "Rajendra Swami",
-    role: "Home Owner Orlean",
+    role: TESTIMONIAL_ROLE,
     quote:
-      "My very first real estate investment, my first home was at Global Edifice Green Apple Hikes. I believe that I have made the right choice as they had helped me understand about the location and its value clearly.",
+      "My very first real estate investment, my first home was at Global Edifice. I believe that I have made the right choice as they had helped me understand about the location and it's excellence.",
   },
   {
     name: "Haridas Nair",
-    role: "Home Owner Orlean",
+    role: TESTIMONIAL_ROLE,
     quote:
-      "Legacy truly lives up to its name. The sophisticated architecture, spacious layouts, and top-tier amenities make it a dream home for us.",
+      "Legacy truly lives up to its name! The sophisticated architecture, spacious layouts, and top-tier amenities make it a dream home for us.",
+  },
+  {
+    name: "Vikram & Ananya Rao",
+    role: TESTIMONIAL_ROLE,
+    quote:
+      "Choosing Global Edifice was one of the best decisions we made. The quality, attention to detail, and overall experience have been exceptional. It truly feels like a home designed with care.",
+  },
+  {
+    name: "Rahul & Sneha Menon",
+    role: TESTIMONIAL_ROLE,
+    quote:
+      "From the first interaction to the final handover, the entire experience was smooth and reassuring. Global Edifice combines thoughtful design with quality construction, making every space feel truly special.",
+  },
+  {
+    name: "Karan & Meera Iyer",
+    role: TESTIMONIAL_ROLE,
+    quote:
+      "We were impressed by the planning, craftsmanship, and attention given to every little detail. Global Edifice has created more than just a beautiful residence—it feels like a place we can proudly call home.",
   },
 ];
 
@@ -397,6 +418,103 @@ function Amenities() {
 }
 
 function Testimonials() {
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [page, setPage] = useState(0);
+  const [cardsPerView, setCardsPerView] = useState(1);
+  const [isPaused, setIsPaused] = useState(false);
+
+  const pageCount = Math.max(1, Math.ceil(testimonials.length / cardsPerView));
+
+  /** How many cards fit is set by CSS breakpoints, so measure rather than assume. */
+  const measure = () => {
+    const track = trackRef.current;
+    const card = track?.firstElementChild as HTMLElement | undefined;
+
+    if (!track || !card) {
+      return;
+    }
+
+    setCardsPerView(Math.max(1, Math.round(track.clientWidth / card.offsetWidth)));
+  };
+
+  useEffect(() => {
+    measure();
+    window.addEventListener("resize", measure);
+
+    return () => window.removeEventListener("resize", measure);
+  }, []);
+
+  const scrollToPage = (nextPage: number) => {
+    const track = trackRef.current;
+
+    if (!track) {
+      return;
+    }
+
+    const cardIndex = Math.min(testimonials.length - 1, nextPage * cardsPerView);
+    const card = track.children[cardIndex] as HTMLElement | undefined;
+
+    if (!card) {
+      return;
+    }
+
+    const isLastPage = nextPage >= pageCount - 1;
+    const left = isLastPage
+      ? track.scrollWidth - track.clientWidth
+      : card.offsetLeft - track.offsetLeft;
+
+    track.scrollTo({ left, behavior: "smooth" });
+  };
+
+  /** Keeps the dots in step with swipes, and marks the last page once fully scrolled. */
+  const handleScroll = () => {
+    const track = trackRef.current;
+
+    if (!track) {
+      return;
+    }
+
+    const reachedEnd = track.scrollLeft + track.clientWidth >= track.scrollWidth - 2;
+    const current = reachedEnd
+      ? pageCount - 1
+      : Math.round(track.scrollLeft / Math.max(1, track.clientWidth));
+
+    setPage(Math.min(pageCount - 1, Math.max(0, current)));
+  };
+
+  /** Advance one card every few seconds, looping back to the start at the end. */
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (isPaused || prefersReducedMotion) {
+      return;
+    }
+
+    const timer = window.setInterval(() => {
+      const track = trackRef.current;
+
+      if (!track) {
+        return;
+      }
+
+      const reachedEnd = track.scrollLeft + track.clientWidth >= track.scrollWidth - 2;
+
+      if (reachedEnd) {
+        track.scrollTo({ left: 0, behavior: "smooth" });
+        return;
+      }
+
+      const cards = Array.from(track.children) as HTMLElement[];
+      const nextCard = cards.find((card) => card.offsetLeft - track.offsetLeft > track.scrollLeft + 4);
+
+      if (nextCard) {
+        track.scrollTo({ left: nextCard.offsetLeft - track.offsetLeft, behavior: "smooth" });
+      }
+    }, 4000);
+
+    return () => window.clearInterval(timer);
+  }, [isPaused]);
+
   return (
     <section className="bg-white py-20 md:py-24">
       <div className={pageContainerClass}>
@@ -406,11 +524,22 @@ function Testimonials() {
           titleClassName="text-[#123a4c] text-[2.1rem] md:text-[2.65rem]"
         />
 
-        <div className="mt-10 grid gap-5 md:gap-6 lg:grid-cols-3 lg:gap-7">
+        {/* Padding keeps the card borders and shadows from being clipped by the scroll area. */}
+        <div
+          ref={trackRef}
+          onScroll={handleScroll}
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+          onFocusCapture={() => setIsPaused(true)}
+          onBlurCapture={() => setIsPaused(false)}
+          onTouchStart={() => setIsPaused(true)}
+          onTouchEnd={() => setIsPaused(false)}
+          className="-mx-2 mt-10 flex snap-x snap-mandatory gap-5 overflow-x-auto px-2 py-2 [-ms-overflow-style:none] [scrollbar-width:none] md:gap-6 lg:gap-7 [&::-webkit-scrollbar]:hidden"
+        >
           {testimonials.map((item) => (
             <article
               key={item.name}
-              className="group relative flex h-full flex-col overflow-hidden rounded-[1.25rem] border border-[#e8e0d4] bg-white px-5 py-6 shadow-[0_12px_28px_-26px_rgba(18,58,76,0.2)] transition-all duration-500 ease-out hover:z-10 hover:scale-[1.025] hover:border-[#d6c8b0] hover:shadow-[0_22px_40px_-24px_rgba(18,58,76,0.28)] md:px-6 md:py-7"
+              className="group relative flex h-auto shrink-0 basis-[86%] snap-start flex-col overflow-hidden rounded-[1.25rem] border border-[#e8e0d4] bg-white px-5 py-6 shadow-[0_12px_28px_-26px_rgba(18,58,76,0.2)] transition-all duration-500 ease-out hover:border-[#d6c8b0] hover:shadow-[0_22px_40px_-24px_rgba(18,58,76,0.28)] sm:basis-[60%] md:basis-[47%] md:px-6 md:py-7 lg:basis-[calc((100%-3.5rem)/3)]"
             >
               <div className="relative flex min-h-[3.75rem] items-start justify-between gap-3 md:min-h-[4.25rem]">
                 <div className="flex items-center gap-0.5 pt-1 text-[#c0a56e]">
@@ -423,7 +552,7 @@ function Testimonials() {
                   aria-hidden
                   className="pointer-events-none absolute -right-1 -top-3 select-none font-display text-[8.5rem] leading-none text-transparent [-webkit-text-stroke:1.6px_#d2c7b6] md:-right-2 md:-top-4 md:text-[9.5rem] md:[-webkit-text-stroke:1.75px_#d2c7b6]"
                 >
-                  ”
+                  &rdquo;
                 </span>
               </div>
 
@@ -440,6 +569,45 @@ function Testimonials() {
             </article>
           ))}
         </div>
+
+        {pageCount > 1 ? (
+          <div className="mt-7 flex items-center justify-center gap-5">
+            <button
+              type="button"
+              onClick={() => scrollToPage(Math.max(0, page - 1))}
+              disabled={page === 0}
+              aria-label="Show previous testimonials"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-[#e0d4c0] bg-white text-[#c0a56e] transition hover:border-[#c0a56e] hover:text-[#a89458] disabled:cursor-not-allowed disabled:opacity-40"
+            >
+              <ChevronLeft className="h-5 w-5" />
+            </button>
+
+            <div className="flex items-center gap-2">
+              {Array.from({ length: pageCount }).map((_, index) => (
+                <button
+                  key={index}
+                  type="button"
+                  onClick={() => scrollToPage(index)}
+                  aria-label={`Show testimonials page ${index + 1}`}
+                  aria-current={index === page}
+                  className={`h-2 rounded-full transition-all ${
+                    index === page ? "w-6 bg-[#c0a56e]" : "w-2 bg-[#e0d4c0] hover:bg-[#d0bfa0]"
+                  }`}
+                />
+              ))}
+            </div>
+
+            <button
+              type="button"
+              onClick={() => scrollToPage(Math.min(pageCount - 1, page + 1))}
+              disabled={page >= pageCount - 1}
+              aria-label="Show next testimonials"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-[#e0d4c0] bg-white text-[#c0a56e] transition hover:border-[#c0a56e] hover:text-[#a89458] disabled:cursor-not-allowed disabled:opacity-40"
+            >
+              <ChevronRight className="h-5 w-5" />
+            </button>
+          </div>
+        ) : null}
       </div>
     </section>
   );

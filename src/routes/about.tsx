@@ -5,8 +5,6 @@ import aboutHero from "@/assets/about/about-hero.png";
 import geContactInterior from "@/assets/about/ge-contact-interior.jpg";
 import geLogo from "@/assets/shared/ge-logo.png";
 import projectLifestyle from "@/assets/about/ge-project-lifestyle.png";
-import directorJyothish from "@/assets/about/director-jyothish.jpg";
-import directorRakesh from "@/assets/about/director-rakesh.jpg";
 import timeline2026 from "@/assets/about/timeline/2026-looking-ahead.jpg";
 import timeline2025 from "@/assets/about/timeline/2025-a-decade-of-trust.jpg";
 import timeline2023 from "@/assets/about/timeline/2023-expanding-horizons.jpg";
@@ -43,19 +41,12 @@ const leaderCards = [
   {
     name: "Mr. Rakesh Reddy",
     role: "Managing Director",
-    image: directorRakesh,
-    alt: "Portrait of Mr. Rakesh Reddy",
-    imageClassName: "inset-0 h-full w-full object-center",
     quote:
       "Every home begins with a dream, but trust turns that dream into reality. At Global Edifice, we build that trust through quality and lasting value.",
   },
   {
     name: "Mr. Jyothish Reddy",
     role: "Managing Director",
-    image: directorJyothish,
-    alt: "Portrait of Mr. Jyothish Reddy",
-    /** Portrait source: anchor to the desk so both directors sit at the same height and scale. */
-    imageClassName: "inset-0 h-full w-full object-center",
     quote:
       "Building a home is a responsibility that extends far beyond construction. It is about creating places where families can build their future with confidence.",
   },
@@ -480,23 +471,14 @@ function AboutPage() {
                   key={leader.name}
                   className="flex h-full flex-col overflow-hidden border border-[#e8e2d8] bg-white text-left"
                 >
-                  {/* 6:5 matches the studio portraits exactly, so neither photo is cropped. */}
-                  <div className="relative aspect-[6/5] w-full shrink-0 overflow-hidden bg-[#ebe6df]">
-                    <img
-                      src={leader.image}
-                      alt={leader.alt}
-                      className={`absolute object-cover ${leader.imageClassName}`}
-                      loading="lazy"
-                    />
-                  </div>
                   <div className="flex flex-1 flex-col px-6 py-7 md:px-8 md:py-8">
                     <p className="min-h-[6.5rem] text-base font-normal italic leading-[1.75] text-[#7a756e] md:min-h-[7.25rem] md:leading-[1.8]">
                       &ldquo;{leader.quote}&rdquo;
                     </p>
-                    <h3 className="mt-auto pt-6 font-display text-[1.45rem] leading-[1.05] text-[#c0a56e] sm:text-[1.6rem] md:text-[1.75rem]">
+                    <h3 className="mt-auto pt-6 text-center font-display text-[1.45rem] leading-[1.05] text-[#c0a56e] sm:text-[1.6rem] md:text-[1.75rem]">
                       {leader.name}
                     </h3>
-                    <p className="mt-2 text-[0.68rem] font-medium uppercase tracking-[0.16em] text-[#7a756e]">
+                    <p className="mt-2 text-center text-[0.68rem] font-medium uppercase tracking-[0.16em] text-[#7a756e]">
                       {leader.role}
                     </p>
                   </div>
