@@ -583,9 +583,9 @@ function AmenitiesSection() {
             </p>
             <span className="h-px w-10 bg-[#c0a56e]/75" />
           </div>
-          <h2 className="mt-4 max-w-[58rem] font-display text-[2.2rem] leading-[0.98] tracking-[0.01em] text-[#21201d] uppercase md:text-[3.1rem] lg:text-[3.4rem]">
-            <span className="block lg:whitespace-nowrap">Luxury Amenities Designed</span>
-            <span className="block lg:whitespace-nowrap">Around Everyday Comfort</span>
+          <h2 className="mt-4 max-w-[58rem] font-display text-[2.2rem] leading-[0.98] tracking-[0.01em] text-[#21201d] md:text-[3.1rem] lg:text-[3.4rem]">
+            <span className="block lg:whitespace-nowrap">Elevate Your Everyday With</span>
+            <span className="block lg:whitespace-nowrap">World-Class Amenities</span>
           </h2>
         </div>
 
