@@ -392,7 +392,7 @@ function HeroSection() {
         className={`relative mx-auto flex min-h-[44rem] max-w-7xl items-end justify-center ${pageGutterClass} pb-[7.5rem] pt-24 md:min-h-screen md:pb-[8.5rem] md:pt-32 lg:pb-[9rem]`}
       >
         <div className="max-w-[36rem] text-center drop-shadow-[0_18px_28px_rgba(0,0,0,0.42)] md:max-w-[44rem]">
-          <h1 className="font-display text-[1.55rem] leading-[1.02] tracking-[0.01em] text-white uppercase [text-shadow:0_4px_12px_rgba(0,0,0,0.34)] sm:text-[1.9rem] md:text-[2.35rem] lg:text-[2.7rem]">
+          <h1 className="font-display text-[1.55rem] leading-[1.02] tracking-[0.01em] text-white [text-shadow:0_4px_12px_rgba(0,0,0,0.34)] sm:text-[1.9rem] md:text-[2.35rem] lg:text-[2.7rem]">
             <span className="block whitespace-nowrap">Step Into A New Era</span>
             <span className="block whitespace-nowrap">Of Living.</span>
           </h1>
@@ -460,7 +460,7 @@ function OverviewSection() {
           <div className="mx-auto w-full max-w-[34rem] lg:mx-0 lg:max-w-[36rem]">
             <img src={orleanBrandLogo} alt="Orlean" className="w-[12rem] md:w-[14rem]" />
 
-            <h2 className="mt-8 font-display text-[1.45rem] leading-[1.2] tracking-[0.02em] text-[#b59a6d] uppercase md:mt-9 md:text-[1.75rem] lg:text-[1.95rem]">
+            <h2 className="mt-8 font-display text-[1.45rem] leading-[1.2] tracking-[0.02em] text-[#b59a6d] md:mt-9 md:text-[1.75rem] lg:text-[1.95rem]">
               <span className="block sm:whitespace-nowrap lg:whitespace-normal xl:whitespace-nowrap">Thoughtfully Designed.</span>
               <span className="block sm:whitespace-nowrap lg:whitespace-normal xl:whitespace-nowrap">Naturally Comfortable.</span>
             </h2>
@@ -592,8 +592,8 @@ function PlanSection() {
                 <span className="hidden h-px w-10 bg-[#dccdb3] md:block" />
               </div>
               <h2 className="mt-4 max-w-[38rem] font-display text-[2rem] leading-[0.96] tracking-[-0.015em] text-[#21201d] md:text-[2.45rem] lg:text-[2.8rem]">
-                <span className="block md:whitespace-nowrap">Masterfully planned for</span>
-                <span className="block md:whitespace-nowrap">elevated everyday living</span>
+                <span className="block md:whitespace-nowrap">Masterfully Planned For</span>
+                <span className="block md:whitespace-nowrap">Elevated Everyday Living</span>
               </h2>
             </div>
 
@@ -673,7 +673,7 @@ function GallerySection() {
             <p className="eyebrow">Gallery</p>
             <span className="h-px w-10 bg-[#dccdb3]/80" />
           </div>
-          <h2 className="mt-4 max-w-[42rem] font-display text-[2rem] leading-[0.98] tracking-[0.01em] text-[#21201d] uppercase md:text-[2.5rem] lg:text-[2.9rem]">
+          <h2 className="mt-4 max-w-[42rem] font-display text-[2rem] leading-[0.98] tracking-[0.01em] text-[#21201d] md:text-[2.5rem] lg:text-[2.9rem]">
             <span className="block">Where Leisure Wellness</span>
             <span className="block">&amp; Community Connect</span>
           </h2>
@@ -727,9 +727,9 @@ function LocationSection() {
             <p className="eyebrow">Connectivity</p>
             <span className="hidden h-px w-10 bg-[#dccdb3] md:block" />
           </div>
-          <h2 className="mt-4 max-w-[44rem] font-display text-[1.9rem] uppercase leading-[0.97] tracking-[-0.02em] text-[#b49a6c] sm:text-[2.2rem] md:text-[2.45rem] lg:text-[2.7rem]">
-            <span className="block md:whitespace-nowrap">Ease of access &</span>
-            <span className="block md:whitespace-nowrap">prime landmarks</span>
+          <h2 className="mt-4 max-w-[44rem] font-display text-[1.9rem] leading-[0.97] tracking-[-0.02em] text-[#b49a6c] sm:text-[2.2rem] md:text-[2.45rem] lg:text-[2.7rem]">
+            <span className="block md:whitespace-nowrap">Ease Of Access &</span>
+            <span className="block md:whitespace-nowrap">Prime Landmarks</span>
           </h2>
 
           <div className="mt-10 grid gap-10 lg:grid-cols-[minmax(0,1.18fr)_minmax(19rem,0.82fr)] lg:items-start lg:gap-16 xl:gap-20">
@@ -902,7 +902,7 @@ function ContactSection() {
           className={`relative mx-auto grid max-w-7xl items-center gap-10 ${pageGutterClass} py-18 md:py-24 lg:grid-cols-[minmax(0,1fr)_31rem] lg:gap-16`}
         >
           <div className="max-w-[30rem] text-white lg:pl-6">
-            <h2 className="font-display text-[2.4rem] leading-[1.02] uppercase md:text-[3rem]">
+            <h2 className="font-display text-[2.4rem] leading-[1.02] md:text-[3rem]">
               Get In Touch
             </h2>
             <p className="mt-3 text-base font-normal leading-[1.8] text-white/76">

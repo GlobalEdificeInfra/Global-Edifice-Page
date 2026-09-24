@@ -430,7 +430,7 @@ function HeroSection() {
         className={`relative mx-auto flex min-h-[40rem] max-w-7xl items-end justify-center ${pageGutterClass} pb-[7.5rem] pt-28 md:min-h-[48rem] md:pb-[8.5rem] md:pt-32 lg:min-h-[54rem] lg:pb-[9rem]`}
       >
         <div className="mx-auto mb-2 max-w-[52rem] text-center md:mb-3 md:max-w-[62rem]">
-          <h1 className="font-display font-normal uppercase [font-synthesis:none] text-[1.9rem] leading-[1.08] tracking-[0.04em] text-white sm:text-[2.35rem] md:text-[2.8rem] lg:text-[3.15rem]">
+          <h1 className="font-display font-normal [font-synthesis:none] text-[1.9rem] leading-[1.08] tracking-[0.04em] text-white sm:text-[2.35rem] md:text-[2.8rem] lg:text-[3.15rem]">
             <span className="block">Where Life Feels</span>
             <span className="block">More Connected.</span>
           </h1>
@@ -498,9 +498,9 @@ function OverviewSection() {
           <div className="mx-auto w-full max-w-[34rem] lg:mx-0 lg:max-w-[36rem]">
             <ClanWordmark />
 
-            <h2 className="mt-8 font-display text-[1.45rem] leading-[1.2] tracking-[0.02em] text-[#b59a6d] uppercase md:mt-9 md:text-[1.75rem] lg:text-[1.95rem]">
+            <h2 className="mt-8 font-display text-[1.45rem] leading-[1.2] tracking-[0.02em] text-[#b59a6d] md:mt-9 md:text-[1.75rem] lg:text-[1.95rem]">
               <span className="block sm:whitespace-nowrap lg:whitespace-normal xl:whitespace-nowrap">Designed Around People.</span>
-              <span className="block sm:whitespace-nowrap lg:whitespace-normal xl:whitespace-nowrap">Inspired by Community.</span>
+              <span className="block sm:whitespace-nowrap lg:whitespace-normal xl:whitespace-nowrap">Inspired By Community.</span>
             </h2>
 
             <div className="mt-6 max-w-[32rem] space-y-5 text-base font-normal leading-[1.85] text-[#5c564d]">
@@ -661,7 +661,7 @@ function PlanSection() {
                 </p>
                 <span className="h-px w-10 bg-[#b49a6c]/75" />
               </div>
-              <h2 className="mt-4 max-w-[40rem] font-display text-[2rem] leading-[0.98] tracking-[0.01em] text-[#21201d] uppercase md:text-[2.5rem] lg:text-[2.9rem]">
+              <h2 className="mt-4 max-w-[40rem] font-display text-[2rem] leading-[0.98] tracking-[0.01em] text-[#21201d] md:text-[2.5rem] lg:text-[2.9rem]">
                 <span className="block md:whitespace-nowrap">Beyond Brick And Beam,</span>
                 <span className="block md:whitespace-nowrap">Lies Intention</span>
               </h2>
@@ -733,7 +733,7 @@ function GallerySection() {
             <span className="h-px w-10 bg-[#b49a6c]/75" />
           </div>
 
-          <h2 className="mt-4 max-w-[42rem] font-display text-[2rem] leading-[0.98] tracking-[0.01em] text-[#21201d] uppercase md:text-[2.5rem] lg:text-[2.9rem]">
+          <h2 className="mt-4 max-w-[42rem] font-display text-[2rem] leading-[0.98] tracking-[0.01em] text-[#21201d] md:text-[2.5rem] lg:text-[2.9rem]">
             <span className="block">The Heartbeat</span>
             <span className="block">Of Community Living</span>
           </h2>
@@ -798,9 +798,9 @@ function ConnectivitySection() {
               </p>
               <span className="h-px w-10 bg-[#b49a6c]/75" />
             </div>
-            <h2 className="mt-3 max-w-[32rem] font-display text-[2.35rem] leading-[0.9] text-[#a1865a] uppercase md:text-[3rem] lg:text-[3.15rem]">
-              <span className="block md:whitespace-nowrap">At the crossroads of</span>
-              <span className="block md:whitespace-nowrap">growth and convenience.</span>
+            <h2 className="mt-3 max-w-[32rem] font-display text-[2.35rem] leading-[0.9] text-[#a1865a] md:text-[3rem] lg:text-[3.15rem]">
+              <span className="block md:whitespace-nowrap">At The Crossroads Of</span>
+              <span className="block md:whitespace-nowrap">Growth And Convenience.</span>
             </h2>
           </div>
 
@@ -969,7 +969,7 @@ function ContactSection() {
           className={`relative mx-auto grid max-w-7xl items-center gap-10 ${pageGutterClass} py-18 md:py-24 lg:grid-cols-[minmax(0,1fr)_31rem] lg:gap-16`}
         >
           <div className="max-w-[30rem] text-white lg:pl-6">
-            <h2 className="font-display text-[2.4rem] leading-[1.02] uppercase md:text-[3rem]">
+            <h2 className="font-display text-[2.4rem] leading-[1.02] md:text-[3rem]">
               Get In Touch
             </h2>
             <p className="mt-3 text-base font-normal leading-[1.8] text-white/76">
