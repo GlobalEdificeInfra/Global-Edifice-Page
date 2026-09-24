@@ -25,6 +25,26 @@ function markEnquiryPopupSeen() {
   window.sessionStorage.setItem(ENQUIRY_SESSION_KEY, "true");
 }
 
+export type BrochureRequest = {
+  url: string;
+  fileName: string;
+  project: string;
+};
+
+/** Opens the enquiry popup; the brochure downloads only after the enquiry is submitted. */
+export function requestBrochureDownload(brochure: BrochureRequest) {
+  window.dispatchEvent(new CustomEvent<BrochureRequest>("open-enquiry-popup", { detail: brochure }));
+}
+
+function startDownload({ url, fileName }: BrochureRequest) {
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = fileName;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+}
+
 // Use a simple custom hook for pub/sub to open the popup from anywhere
 export const useEnquiryPopup = () => {
   const openPopup = () => {
@@ -49,8 +69,10 @@ export function GlobalOverlay() {
   const [phone, setPhone] = useState("");
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
+  const [brochure, setBrochure] = useState<BrochureRequest | null>(null);
 
-  const openPopup = () => {
+  const openPopup = (requestedBrochure: BrochureRequest | null = null) => {
+    setBrochure(requestedBrochure);
     markEnquiryPopupSeen();
     setHasAutoOpened(true);
     setIsOpen(true);
@@ -61,6 +83,7 @@ export function GlobalOverlay() {
     setIsOpen(false);
     setStatus("idle");
     setErrorMessage("");
+    setBrochure(null);
   };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -72,7 +95,8 @@ export function GlobalOverlay() {
       fullName: fullName.trim(),
       email: email.trim(),
       phone: withIndiaDialCode(phone),
-      source: "Enquire Now popup",
+      project: brochure?.project ?? "",
+      source: brochure ? "Brochure download popup" : "Enquire Now popup",
     });
 
     const [firstName, ...rest] = fullName.trim().split(/\s+/);
@@ -81,11 +105,15 @@ export function GlobalOverlay() {
       lastName: rest.join(" "),
       email,
       phone: withIndiaDialCode(phone),
+      project: brochure?.project,
       channelId: "Enquiry_form",
-      subject: "Lead from Website - Popup",
+      subject: brochure ? "Lead from Website - Brochure Download" : "Lead from Website - Popup",
     });
 
     if (result.ok) {
+      if (brochure) {
+        startDownload(brochure);
+      }
       setStatus("success");
       setFullName("");
       setEmail("");
@@ -97,7 +125,8 @@ export function GlobalOverlay() {
   };
 
   useEffect(() => {
-    const handleOpen = () => openPopup();
+    const handleOpen = (event: Event) =>
+      openPopup((event as CustomEvent<BrochureRequest | undefined>).detail ?? null);
     window.addEventListener("open-enquiry-popup", handleOpen);
 
     // Global listener to catch generic ENQUIRE links/buttons that do not wire the popup directly.
@@ -139,7 +168,7 @@ export function GlobalOverlay() {
   return (
     <>
       <button
-        onClick={openPopup}
+        onClick={() => openPopup()}
         className="fixed right-0 top-1/2 z-40 hidden -translate-y-1/2 translate-x-[calc(50%-1.15rem)] -rotate-90 origin-center rounded-t-md bg-[#123a4c] px-5 py-2.5 text-[0.75rem] font-semibold uppercase tracking-[0.25em] text-white shadow-lg transition hover:bg-[#0c2836] lg:block"
         style={{ right: "-1px" }}
       >
@@ -181,10 +210,12 @@ export function GlobalOverlay() {
             </div>
 
             <h2 className="font-serif text-[1.6rem] font-semibold text-[#daba81] shadow-text text-shadow-sm mb-2">
-              ENQUIRE NOW
+              {brochure ? "DOWNLOAD BROCHURE" : "ENQUIRE NOW"}
             </h2>
             <p className="text-base font-normal text-white">
-              Share your details and we'll get back to you shortly
+              {brochure
+                ? `Share your details to download the ${brochure.project} brochure`
+                : "Share your details and we'll get back to you shortly"}
             </p>
           </div>
 
@@ -192,8 +223,19 @@ export function GlobalOverlay() {
             <div className="rounded-2xl bg-white/10 px-5 py-8 text-center">
               <p className="text-[1.05rem] font-semibold text-[#daba81]">Thank you!</p>
               <p className="mt-2 text-base font-normal text-white/85">
-                We&apos;ve received your enquiry and will get back to you shortly.
+                {brochure
+                  ? "Your brochure download has started. Our team will get in touch with you shortly."
+                  : "We\u2019ve received your enquiry and will get back to you shortly."}
               </p>
+              {brochure ? (
+                <a
+                  href={brochure.url}
+                  download={brochure.fileName}
+                  className="mt-3 inline-block text-[0.85rem] font-medium text-[#daba81] underline underline-offset-4"
+                >
+                  Download didn&apos;t start? Click here
+                </a>
+              ) : null}
               <button
                 type="button"
                 onClick={closePopup}
@@ -244,7 +286,11 @@ export function GlobalOverlay() {
                 disabled={status === "submitting"}
                 className="mt-1 w-full rounded-full bg-[#dbb877] py-3.5 text-[0.95rem] font-bold text-[#0f4157] shadow-lg transition hover:bg-[#e4c995] disabled:cursor-not-allowed disabled:opacity-60"
               >
-                {status === "submitting" ? "SUBMITTING..." : "SUBMIT ENQUIRY"}
+                {status === "submitting"
+                  ? "SUBMITTING..."
+                  : brochure
+                    ? "SUBMIT & DOWNLOAD"
+                    : "SUBMIT ENQUIRY"}
               </button>
             </form>
           )}

@@ -11,13 +11,14 @@ import clanGalleryPergolaWalkway from "@/assets/projects/the-clan/clan-gallery-p
 import clanGalleryPoolCourt from "@/assets/projects/the-clan/clan-gallery-pool-court.jpg";
 import clanGallerySculptureCourt from "@/assets/projects/the-clan/clan-gallery-sculpture-court.jpg";
 import theClanLogoGreen from "@/assets/projects/the-clan/Clan-Logo-Green.png";
-import theClanBanner from "@/assets/projects/the-clan/The-clan-project.png";
+import theClanHeroAerial from "@/assets/projects/the-clan/clan-hero-aerial.jpg";
 import clanFloorplan205Image from "@/assets/projects/the-clan/clan-floorplan-205.png";
-import connectivityMapImage from "@/assets/projects/the-clan/clan-connectivity-map.png";
+import connectivityMapImage from "@/assets/projects/the-clan/clan-connectivity-map-v3.png";
 import masterPlanImage from "@/assets/projects/the-clan/master-plan.png";
 import theClanHall from "@/assets/projects/the-clan/the-clan-hall.png";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { requestBrochureDownload } from "@/components/global-overlay";
 import {
   Accordion,
   AccordionContent,
@@ -419,9 +420,9 @@ function HeroSection() {
   return (
     <section className="relative isolate min-h-[40rem] overflow-hidden bg-[#1b2530] text-white md:min-h-[48rem] lg:min-h-[54rem]">
       <img
-        src={theClanBanner}
-        alt="The Clan hero residence"
-        className="absolute inset-0 h-full w-full object-cover object-[48%_34%]"
+        src={theClanHeroAerial}
+        alt="Aerial view of Global Edifice The Clan at dusk"
+        className="absolute inset-0 h-full w-full object-cover object-center"
       />
       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(9,15,22,0.16)_0%,rgba(9,15,22,0.22)_36%,rgba(9,15,22,0.72)_100%)]" />
 
@@ -517,14 +518,20 @@ function OverviewSection() {
               </p>
             </div>
 
-            <a
-              href={theClanBanner}
-              download="the-clan-brochure.png"
+            <button
+              type="button"
+              onClick={() =>
+                requestBrochureDownload({
+                  url: "/brochures/the-clan-brochure.pdf",
+                  fileName: "Global-Edifice-The-Clan-Brochure.pdf",
+                  project: "Global Edifice The Clan",
+                })
+              }
               className="mt-8 inline-flex w-fit items-center gap-4 border border-[#c0a56e] bg-white px-8 py-3.5 text-[0.7rem] font-medium uppercase tracking-[0.2em] text-[#c0a56e] transition hover:border-[#a89458] hover:text-[#a89458]"
             >
               Download Brochure
               <ArrowDown className="h-3.5 w-3.5 stroke-[2.25]" />
-            </a>
+            </button>
           </div>
         </div>
       </div>
@@ -577,8 +584,8 @@ function AmenitiesSection() {
             <span className="h-px w-10 bg-[#c0a56e]/75" />
           </div>
           <h2 className="mt-4 max-w-[58rem] font-display text-[2.2rem] leading-[0.98] tracking-[0.01em] text-[#21201d] uppercase md:text-[3.1rem] lg:text-[3.4rem]">
-            <span className="block lg:whitespace-nowrap">Elevate Your Everyday With</span>
-            <span className="block lg:whitespace-nowrap">World-Class Amenities</span>
+            <span className="block lg:whitespace-nowrap">Luxury Amenities Designed</span>
+            <span className="block lg:whitespace-nowrap">Around Everyday Comfort</span>
           </h2>
         </div>
 
@@ -685,16 +692,16 @@ function PlanSection() {
             {planMode === "masterplan" ? <MasterplanDiagram /> : <FloorplanDiagram />}
 
             <div className="flex justify-end border-t border-[#ebe0d1] px-5 py-3 md:px-8 md:py-3.5">
-              <Link
-                to="/projects/the-clan"
-                hash="contact"
+              <button
+                type="button"
+                onClick={() => window.dispatchEvent(new CustomEvent("open-enquiry-popup"))}
                 className="inline-flex items-center gap-3 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-[#4e4b44] transition hover:text-[#123a4c]"
               >
                 <span>Request Plan</span>
                 <span className="flex h-9 w-9 items-center justify-center rounded-full border border-current">
                   <ArrowRight className="h-4 w-4" />
                 </span>
-              </Link>
+              </button>
             </div>
           </div>
         </div>
@@ -811,7 +818,7 @@ function ConnectivitySection() {
                 <AccordionItem
                   key={group.id}
                   value={group.id}
-                  className="border-0 border-b border-[#e4d8c4] pb-5 last:pb-0"
+                  className="border-0 border-b border-[#e4d8c4] pb-5"
                 >
                   <AccordionTrigger className="py-0 hover:no-underline [&>svg]:hidden [&[data-state=open]_.accordion-minus]:inline [&[data-state=open]_.accordion-plus]:hidden [&[data-state=closed]_.accordion-minus]:hidden [&[data-state=closed]_.accordion-plus]:inline">
                     <span className="flex w-full items-center justify-between gap-4">

@@ -3,6 +3,113 @@
   "framework": "vite",
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
+  "redirects": [
+    {
+      "source": "/ongoing-project-details/orlean-in-chandapura-bangalore",
+      "destination": "/projects/orlean",
+      "permanent": true
+    },
+    {
+      "source": "/orlean-in-chandapura-bangalore",
+      "destination": "/projects/orlean",
+      "permanent": true
+    },
+    {
+      "source": "/ongoing-project-details/:slug*",
+      "destination": "/projects#ongoing",
+      "permanent": true
+    },
+    {
+      "source": "/legacy-in-chandapura-bangalore",
+      "destination": "/projects#completed",
+      "permanent": true
+    },
+    {
+      "source": "/completed-projects-in-bangalore",
+      "destination": "/projects#completed",
+      "permanent": true
+    },
+    {
+      "source": "/under-construction-projects-in-bangalore",
+      "destination": "/projects#ongoing",
+      "permanent": true
+    },
+    {
+      "source": "/new-projects-in-bangalore",
+      "destination": "/projects#upcoming",
+      "permanent": true
+    },
+    {
+      "source": "/Green Apple.html",
+      "destination": "/projects#completed",
+      "permanent": true
+    },
+    {
+      "source": "/Green%20Apple.html",
+      "destination": "/projects#completed",
+      "permanent": true
+    },
+    {
+      "source": "/2-and-3bhk-flats-in-chandapura",
+      "destination": "/chandapura-bangalore",
+      "permanent": true
+    },
+    {
+      "source": "/about-us",
+      "destination": "/about",
+      "permanent": true
+    },
+    {
+      "source": "/about_us.html",
+      "destination": "/about",
+      "permanent": true
+    },
+    {
+      "source": "/contact-us",
+      "destination": "/contact",
+      "permanent": true
+    },
+    {
+      "source": "/contactus.html",
+      "destination": "/contact",
+      "permanent": true
+    },
+    {
+      "source": "/index.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/:slug",
+      "destination": "/blogs/:slug",
+      "permanent": true
+    },
+    {
+      "source": "/blog",
+      "destination": "/blogs",
+      "permanent": true
+    },
+    {
+      "source": "/bommasandra-investment-hub-bangalore",
+      "destination": "/blogs/bommasandra-investment-hub-bangalore",
+      "permanent": true
+    },
+    {
+      "source": "/south-bangalore-upcoming-infrastructural-developments",
+      "destination": "/blogs/south-bangalore-upcoming-infrastructural-developments",
+      "permanent": true
+    },
+    {
+      "source": "/electronic-city-infrastructural-developments",
+      "destination": "/blogs/electronic-city-infrastructural-developments",
+      "permanent": true
+    },
+    {
+      "source": "/investing-in-apartments-in-chandapura",
+      "destination": "/blogs",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/(.*)",

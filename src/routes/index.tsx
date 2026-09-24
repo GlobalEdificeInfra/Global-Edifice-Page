@@ -157,7 +157,7 @@ const testimonials = [
     name: "Haridas Nair",
     role: TESTIMONIAL_ROLE,
     quote:
-      "Legacy truly lives up to its name! The sophisticated architecture, spacious layouts, and top-tier amenities make it a dream home for us.",
+      "Global Edifice truly lives up to its promise! The sophisticated architecture, spacious layouts, and top-tier amenities make it a dream home for us.",
   },
   {
     name: "Vikram & Ananya Rao",

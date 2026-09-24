@@ -4,11 +4,11 @@ import { Link, createFileRoute } from "@tanstack/react-router";
 import geLogo from "@/assets/shared/ge-logo.png";
 import orleanAboutImage from "@/assets/projects/orlean/orlean-about.jpg";
 import orleanBrandLogo from "@/assets/projects/orlean/orlean-brand-logo.png";
-import orleanBrochureCover from "@/assets/projects/orlean/orlean-brochure-cover.jpg";
 import orleanLocationMapLight from "@/assets/projects/orlean/orlean-location-map-light.jpg";
 import orleanElevationCutout from "@/assets/projects/orlean/Orlean_Elevation.png";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { requestBrochureDownload } from "@/components/global-overlay";
 import geContactLounge from "@/assets/shared/ge-contact-lounge.jpg";
 import { FormConsentCheckbox } from "@/components/form-consent-checkbox";
 import { IndianPhoneInput, withIndiaDialCode } from "@/components/indian-phone-input";
@@ -17,7 +17,7 @@ import { submitContactForm } from "@/lib/enquiry-api";
 
 const ORLEAN_TITLE = "Global Edifice Orlean";
 const ORLEAN_DESCRIPTION =
-  "Explore Global Edifice Orlean, a landscape-led residential address off Chandapura Road with 2 BHK homes, wellness amenities, and strong South Bangalore connectivity.";
+  "Explore Global Edifice Orlean, a landscape-led residential address off Chandapura Road with 2 & 3 BHK homes, wellness amenities, and strong South Bangalore connectivity.";
 
 export const Route = createFileRoute("/projects_/orlean")({
   component: OrleanPage,
@@ -58,7 +58,7 @@ const overviewStats = [
     label: "Spacious Residences",
   },
   {
-    value: "1.5 Acres",
+    value: "2 Acres",
     label: "Land Area",
   },
   {
@@ -471,14 +471,20 @@ function OverviewSection() {
               ))}
             </div>
 
-            <a
-              href={orleanBrochureCover}
-              download
+            <button
+              type="button"
+              onClick={() =>
+                requestBrochureDownload({
+                  url: "/brochures/orlean-brochure.pdf",
+                  fileName: "Global-Edifice-Orlean-Brochure.pdf",
+                  project: "Global Edifice Orlean",
+                })
+              }
               className="mt-8 inline-flex w-fit items-center gap-4 border border-[#c0a56e] bg-white px-8 py-3.5 text-[0.7rem] font-medium uppercase tracking-[0.2em] text-[#c0a56e] transition hover:border-[#a89458] hover:text-[#a89458]"
             >
               Download Brochure
               <ArrowDown className="h-3.5 w-3.5 stroke-[2.25]" />
-            </a>
+            </button>
           </div>
         </div>
       </div>
@@ -533,8 +539,8 @@ function AmenitiesSection() {
             <span className="h-px w-8 bg-[#c0a56e]/75" />
           </div>
           <h2 className="mt-4 max-w-[58rem] font-display text-[2.35rem] leading-[0.96] text-[#21201d] md:text-[3.5rem] lg:text-[3.7rem]">
-            <span className="block lg:whitespace-nowrap">Elevate Your Everyday With</span>
-            <span className="block lg:whitespace-nowrap">World-Class Amenities</span>
+            <span className="block lg:whitespace-nowrap">Luxury Amenities Designed</span>
+            <span className="block lg:whitespace-nowrap">Around Everyday Comfort</span>
           </h2>
         </div>
 
@@ -629,15 +635,16 @@ function PlanSection() {
                 <span>{activePlanAsset.label}</span>
               </div>
 
-              <a
-                href="#contact"
-                className="inline-flex items-center gap-3 self-start text-[#4e4b44] transition hover:text-[#123a4c] md:self-auto"
+              <button
+                type="button"
+                onClick={() => window.dispatchEvent(new CustomEvent("open-enquiry-popup"))}
+                className="inline-flex items-center gap-3 self-start text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-[#4e4b44] transition hover:text-[#123a4c] md:self-auto"
               >
                 <span>Request Plan</span>
                 <span className="flex h-9 w-9 items-center justify-center rounded-full border border-current">
                   <ArrowRight className="h-4 w-4" />
                 </span>
-              </a>
+              </button>
             </div>
           </div>
         </div>
