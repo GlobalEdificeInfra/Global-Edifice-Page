@@ -142,7 +142,7 @@ function MobileSiteNavLinks({
   links,
   onNavigate,
   isSectionActive = false,
-  itemClassName = "block rounded-[0.95rem] px-4 py-3 text-[0.8rem] font-semibold tracking-[0.16em] text-[#996317] transition hover:bg-[#f6f1e8] hover:text-[#123a4c]",
+  itemClassName = "block rounded-[0.95rem] px-4 py-2.5 text-[0.76rem] font-medium tracking-[0.16em] text-[#7a5418] transition hover:bg-[#f6f1e8] hover:text-[#123a4c]",
 }: {
   title: string;
   links: readonly SiteNavMenuLink[];
@@ -153,16 +153,16 @@ function MobileSiteNavLinks({
   const pathname = useRouterState({ select: (state) => state.location.pathname });
 
   return (
-    <div>
+    <div className="border-y border-[#f0e7d8] py-1">
       <p
-        className={`px-4 pb-1 pt-3 text-[0.64rem] font-semibold uppercase tracking-[0.24em] ${
-          isSectionActive ? "text-[#123a4c]" : "text-[#996317]/90"
+        className={`px-4 pb-1.5 pt-2.5 text-[0.8rem] font-medium uppercase tracking-[0.16em] ${
+          isSectionActive ? "text-[#123a4c]" : "text-[#7a5418]"
         }`}
       >
         {title}
       </p>
 
-      <div className="flex flex-col gap-1">
+      <div className="mb-1 ml-5 flex flex-col gap-0.5 border-l border-[#eadfcc] pl-1.5">
         {links.map((item) => {
           const key = item.href ?? item.to;
 
@@ -191,7 +191,7 @@ function MobileSiteNavLinks({
               onClick={onNavigate}
               className={
                 isItemActive
-                  ? "block rounded-[0.95rem] bg-[#f6f1e8] px-4 py-3 text-[0.8rem] font-bold tracking-[0.16em] text-[#123a4c]"
+                  ? "block rounded-[0.95rem] bg-[#f6f1e8] px-4 py-2.5 text-[0.76rem] font-bold tracking-[0.16em] text-[#123a4c]"
                   : itemClassName
               }
               aria-current={isItemActive ? "page" : undefined}
