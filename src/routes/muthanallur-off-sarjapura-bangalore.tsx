@@ -19,7 +19,7 @@ export const Route = createFileRoute("/muthanallur-off-sarjapura-bangalore")({
 function MuthanallurSarjapuraPage() {
   return (
     <LocationLandingPage
-      titleLines={["MUTHANALLUR, OFF SARJAPURA", "BANGALORE"]}
+      titleLines={["Muthanallur, Off Sarjapura", "Bangalore"]}
       projectName="Global Edifice Muthanallur"
       heroVariant="photo"
       heroImage={upcomingProjectHeroes.muthanallur}

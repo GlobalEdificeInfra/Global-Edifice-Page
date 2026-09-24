@@ -100,7 +100,7 @@ function ContactSection({ projectName }: { projectName: string }) {
           className={`relative mx-auto grid max-w-7xl items-center gap-10 ${pageGutterClass} py-16 md:py-24 lg:grid-cols-[minmax(0,1fr)_minmax(0,31rem)] lg:gap-16`}
         >
           <div className="max-w-[30rem] text-white lg:pl-6">
-            <h2 className="font-display text-[2.4rem] leading-[1.02] uppercase md:text-[3rem]">
+            <h2 className="font-display text-[2.4rem] leading-[1.02] md:text-[3rem]">
               Get In Touch
             </h2>
             <p className="mt-3 text-base font-normal leading-[1.8] text-white/76">
@@ -234,7 +234,7 @@ export function LocationLandingPage({
               className={`relative mx-auto flex min-h-[100svh] max-w-7xl items-center justify-center ${pageGutterClass} pb-10 pt-28 sm:pt-32 md:pb-12 md:pt-28`}
             >
               <div className="w-full text-center">
-                <h1 className="font-display text-[2.4rem] leading-[1.02] tracking-[0.04em] text-white uppercase sm:text-[3.2rem] md:text-[4.2rem] lg:text-[5rem]">
+                <h1 className="font-display text-[2.4rem] leading-[1.02] tracking-[0.04em] text-white sm:text-[3.2rem] md:text-[4.2rem] lg:text-[5rem]">
                   {titleLines.map((line) => (
                     <span key={line} className="block">
                       {line}
@@ -255,7 +255,7 @@ export function LocationLandingPage({
               {heroMapImage ? (
                 <UpcomingHeroMap src={heroMapImage} alt={heroMapImageAlt} />
               ) : null}
-              <h1 className="mt-8 w-full text-center font-display text-[1.85rem] leading-[1.08] tracking-[0.02em] text-[#123a4c] uppercase sm:text-[2.35rem] md:text-[2.9rem] lg:text-[3.25rem]">
+              <h1 className="mt-8 w-full text-center font-display text-[1.85rem] leading-[1.08] tracking-[0.02em] text-[#123a4c] sm:text-[2.35rem] md:text-[2.9rem] lg:text-[3.25rem]">
                 {titleLines.map((line) => (
                   <span key={line} className="block">
                     {line}
@@ -274,7 +274,7 @@ export function LocationLandingPage({
         <section id="overview" className="bg-[#fbf8f4] py-16 md:py-20">
           <div className={pageContainerClass}>
             <div className="mx-auto max-w-6xl">
-              <h2 className="text-center font-display text-[1.45rem] leading-[1.2] tracking-[0.02em] text-[#c0a56e] uppercase md:text-[1.85rem] lg:text-[2.1rem]">
+              <h2 className="text-center font-display text-[1.45rem] leading-[1.2] tracking-[0.02em] text-[#c0a56e] md:text-[1.85rem] lg:text-[2.1rem]">
                 {introHeading}
               </h2>
 

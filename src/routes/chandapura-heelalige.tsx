@@ -19,7 +19,7 @@ export const Route = createFileRoute("/chandapura-heelalige")({
 function ChandapuraHeelaligePage() {
   return (
     <LocationLandingPage
-      titleLines={["CHANDAPURA, HEELALIGE"]}
+      titleLines={["Chandapura, Heelalige"]}
       projectName="Global Edifice Chandapura Heelalige"
       heroSubtitle="The Future Is Taking Shape."
       heroVariant="photo"

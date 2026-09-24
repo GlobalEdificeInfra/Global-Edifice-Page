@@ -19,7 +19,7 @@ export const Route = createFileRoute("/gunjur")({
 function GunjurPage() {
   return (
     <LocationLandingPage
-      titleLines={["GUNJUR"]}
+      titleLines={["Gunjur"]}
       projectName="Global Edifice Gunjur"
       heroVariant="photo"
       heroImage={upcomingProjectHeroes.gunjur}
