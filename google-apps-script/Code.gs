@@ -52,11 +52,19 @@ function doPost(e) {
     }
 
     var fields = payload.data && typeof payload.data === 'object' ? payload.data : {};
+    var isCareer = String(payload.form).toLowerCase() === 'career';
+    var resume = null;
+
+    // The uploaded PDF arrives base64-encoded; store it in Drive and keep only its link.
+    if (isCareer && fields.resumeFile) {
+      resume = saveResumeToDrive(fields.resumeFile, fields.fullName);
+      fields.resumeFile = resume.url;
+    }
 
     appendRow(sheetName, fields, payload);
 
-    if (String(payload.form).toLowerCase() === 'career') {
-      return jsonResponse({ ok: true, email: emailCareerApplication(fields) });
+    if (isCareer) {
+      return jsonResponse({ ok: true, email: emailCareerApplication(fields, resume) });
     }
 
     return jsonResponse({ ok: true });
@@ -92,21 +100,36 @@ var CAREERS_EMAIL = CAREERS_EMAILS[MODE];
  * Google for permission to send email and sends a test to CAREERS_EMAIL.
  */
 function testCareerEmail() {
-  var result = emailCareerApplication({
+  // A minimal one-page PDF, so the test needs no conversion service.
+  var pdf = Utilities.newBlob(
+    '%PDF-1.4\n1 0 obj<</Type/Catalog/Pages 2 0 R>>endobj\n' +
+      '2 0 obj<</Type/Pages/Kids[3 0 R]/Count 1>>endobj\n' +
+      '3 0 obj<</Type/Page/Parent 2 0 R/MediaBox[0 0 300 100]/Contents 4 0 R' +
+      '/Resources<</Font<</F1<</Type/Font/Subtype/Type1/BaseFont/Helvetica>>>>>>>>endobj\n' +
+      '4 0 obj<</Length 44>>stream\nBT /F1 18 Tf 20 50 Td (Test resume) Tj ET\nendstream endobj\n' +
+      'trailer<</Root 1 0 R>>\n%%EOF',
+    'application/pdf',
+    'test-resume.pdf',
+  );
+  var fields = {
     fullName: 'TEST - ignore',
     email: '',
     phone: '',
     location: '',
-    resumeLink: 'https://example.com/test-resume',
-  });
-  Logger.log(result);
+    resumeLink: '',
+  };
+  var resume = saveResumeToDrive(
+    { name: 'test-resume.pdf', base64: Utilities.base64Encode(pdf.getBytes()) },
+    fields.fullName,
+  );
+  Logger.log(emailCareerApplication(fields, resume));
 }
 
 /**
- * Emails each careers application (with the resume link) to the HR inbox.
+ * Emails each careers application to the HR inbox, with the resume PDF attached.
  * Returns "sent" or the error, so failures show up in the web app response.
  */
-function emailCareerApplication(fields) {
+function emailCareerApplication(fields, resume) {
   try {
     var lines = [
       'A new careers application was submitted on the website.',
@@ -115,9 +138,14 @@ function emailCareerApplication(fields) {
       'Email: ' + (fields.email || ''),
       'Phone: ' + (fields.phone || ''),
       'Location: ' + (fields.location || ''),
-      'Resume / CV: ' + (fields.resumeLink || ''),
+      'Resume link: ' + (fields.resumeLink || '-'),
+      'Resume file (Drive): ' + (resume ? resume.url : '-'),
     ];
     var options = { name: 'Global Edifice Website' };
+
+    if (resume) {
+      options.attachments = [resume.blob];
+    }
 
     if (fields.email) {
       options.replyTo = String(fields.email);
@@ -135,6 +163,35 @@ function emailCareerApplication(fields) {
     // The row is already saved in the sheet; never fail the submission over email.
     return 'error: ' + String(error);
   }
+}
+
+/** Drive folder (in the script owner's Drive) where uploaded resumes are kept. */
+var RESUME_FOLDER_NAME = 'Global Edifice - Careers Resumes';
+var MAX_RESUME_BYTES = 5 * 1024 * 1024;
+
+function getResumeFolder() {
+  var folders = DriveApp.getFoldersByName(RESUME_FOLDER_NAME);
+  return folders.hasNext() ? folders.next() : DriveApp.createFolder(RESUME_FOLDER_NAME);
+}
+
+/** Saves an uploaded PDF ({ name, base64 }) to Drive. Returns { url, blob }. */
+function saveResumeToDrive(file, applicantName) {
+  var bytes = Utilities.base64Decode(String(file.base64 || ''));
+
+  if (!bytes.length) {
+    throw new Error('Resume file is empty');
+  }
+  if (bytes.length > MAX_RESUME_BYTES) {
+    throw new Error('Resume file is larger than 5 MB');
+  }
+
+  var stamp = Utilities.formatDate(new Date(), 'Asia/Kolkata', 'yyyy-MM-dd HHmm');
+  var safeName = String(applicantName || 'Applicant').replace(/[^\w .-]+/g, '').trim() || 'Applicant';
+  var name = safeName + ' - ' + stamp + ' - ' + String(file.name || 'resume.pdf');
+  var blob = Utilities.newBlob(bytes, 'application/pdf', name);
+  var saved = getResumeFolder().createFile(blob);
+
+  return { url: saved.getUrl(), blob: blob };
 }
 
 function parseBody(e) {

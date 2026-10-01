@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from "react";
+import { useRef, useState, type ChangeEvent, type FormEvent } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import careerHero from "@/assets/careers/career.jpg";
 import {
@@ -26,6 +26,18 @@ export const Route = createFileRoute("/careers")({
 
 const inputClassName =
   "mt-2 w-full rounded-[0.2rem] border border-[#e0d1b8] bg-white px-4 py-3.5 text-[1rem] font-medium text-[#3d3832] outline-none placeholder:text-[#b2a594]";
+const MAX_RESUME_BYTES = 5 * 1024 * 1024;
+
+/** Reads a file as base64 (without the data: URL prefix) for the JSON payload. */
+function readFileAsBase64(file: File) {
+  return new Promise<string>((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(String(reader.result).split(",")[1] ?? "");
+    reader.onerror = () => reject(reader.error);
+    reader.readAsDataURL(file);
+  });
+}
+
 const labelClassName = "text-[0.78rem] font-semibold tracking-[0.02em] text-[#5f5448]";
 
 function CareersPage() {
@@ -34,13 +46,52 @@ function CareersPage() {
   const [phone, setPhone] = useState("");
   const [location, setLocation] = useState("");
   const [resumeLink, setResumeLink] = useState("");
+  const [resumeFile, setResumeFile] = useState<File | null>(null);
+  const [fileError, setFileError] = useState("");
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
 
+  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0] ?? null;
+    setFileError("");
+
+    if (file && file.type !== "application/pdf" && !file.name.toLowerCase().endsWith(".pdf")) {
+      setFileError("Please upload your resume as a PDF file.");
+      event.target.value = "";
+      setResumeFile(null);
+      return;
+    }
+
+    if (file && file.size > MAX_RESUME_BYTES) {
+      setFileError("Your resume must be 5 MB or smaller.");
+      event.target.value = "";
+      setResumeFile(null);
+      return;
+    }
+
+    setResumeFile(file);
+  };
+
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    if (!resumeFile) {
+      setFileError("Please upload your resume as a PDF file.");
+      return;
+    }
+
     setStatus("submitting");
     setErrorMessage("");
+
+    let resumeBase64 = "";
+    try {
+      resumeBase64 = await readFileAsBase64(resumeFile);
+    } catch {
+      setStatus("error");
+      setErrorMessage("We could not read your resume file. Please choose it again.");
+      return;
+    }
 
     const result = await saveToSheet("career", {
       fullName: fullName.trim(),
@@ -48,6 +99,7 @@ function CareersPage() {
       phone: withIndiaDialCode(phone),
       location: location.trim(),
       resumeLink: resumeLink.trim(),
+      resumeFile: { name: resumeFile.name, base64: resumeBase64 },
     });
 
     if (result.ok) {
@@ -57,6 +109,8 @@ function CareersPage() {
       setPhone("");
       setLocation("");
       setResumeLink("");
+      setResumeFile(null);
+      if (fileInputRef.current) fileInputRef.current.value = "";
     } else {
       setStatus("error");
       setErrorMessage(
@@ -149,18 +203,29 @@ function CareersPage() {
                     />
                   </label>
                   <label className="block">
-                    <span className={labelClassName}>Resume link*</span>
+                    <span className={labelClassName}>Upload resume (PDF, max 5 MB)*</span>
+                    <input
+                      ref={fileInputRef}
+                      type="file"
+                      accept="application/pdf,.pdf"
+                      onChange={handleFileChange}
+                      className={`${inputClassName} cursor-pointer file:mr-4 file:rounded-[0.2rem] file:border-0 file:bg-[#f7f4ef] file:px-4 file:py-2 file:text-[0.78rem] file:font-semibold file:text-[#5f5448]`}
+                    />
+                    {fileError ? (
+                      <span className="mt-2 block text-[0.78rem] text-[#c0392b]">{fileError}</span>
+                    ) : null}
+                  </label>
+                  <label className="block">
+                    <span className={labelClassName}>Resume link (optional)</span>
                     <input
                       type="url"
-                      required
                       value={resumeLink}
                       onChange={(event) => setResumeLink(event.target.value)}
                       placeholder="https://drive.google.com/..."
                       className={inputClassName}
                     />
                     <span className="mt-2 block text-[0.78rem] font-normal leading-[1.6] text-[#8a7e70]">
-                      Share a link to your resume on Google Drive, Dropbox, OneDrive or LinkedIn.
-                      Please make sure the link is viewable by anyone with it.
+                      You can also share a link to your resume or LinkedIn profile.
                     </span>
                   </label>
                 </div>
