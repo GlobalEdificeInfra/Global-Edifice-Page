@@ -81,7 +81,19 @@ function doPost(e) {
 
 /** Lets you open the web app URL in a browser to check it is deployed. */
 function doGet() {
-  return jsonResponse({ ok: true, status: 'Global Edifice form endpoint is running' });
+  var resumeFolder = 'ok';
+
+  try {
+    getResumeFolder();
+  } catch (error) {
+    resumeFolder = 'error: ' + String(error);
+  }
+
+  return jsonResponse({
+    ok: true,
+    status: 'Global Edifice form endpoint is running',
+    resumeFolder: resumeFolder,
+  });
 }
 
 /**
@@ -171,7 +183,26 @@ var MAX_RESUME_BYTES = 5 * 1024 * 1024;
 
 function getResumeFolder() {
   var folders = DriveApp.getFoldersByName(RESUME_FOLDER_NAME);
-  return folders.hasNext() ? folders.next() : DriveApp.createFolder(RESUME_FOLDER_NAME);
+  var folder = folders.hasNext() ? folders.next() : DriveApp.createFolder(RESUME_FOLDER_NAME);
+
+  shareResumeFolder(folder);
+  return folder;
+}
+
+/**
+ * Gives the careers inbox view access to the resume folder (and so to every
+ * resume in it), so the Drive links in the emails open for them.
+ */
+function shareResumeFolder(folder) {
+  var email = CAREERS_EMAILS.prod.toLowerCase();
+  var people = folder.getViewers().concat(folder.getEditors());
+  var hasAccess = people.some(function (user) {
+    return user.getEmail().toLowerCase() === email;
+  });
+
+  if (!hasAccess) {
+    folder.addViewer(email);
+  }
 }
 
 /** Saves an uploaded PDF ({ name, base64 }) to Drive. Returns { url, blob }. */
