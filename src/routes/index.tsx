@@ -20,7 +20,7 @@ export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "The Global Edifice Promise" },
+      { title: "Global Edifice – Premium 2 & 3 BHK Apartments in Bangalore" },
       {
         name: "description",
         content:

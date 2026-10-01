@@ -1,4 +1,5 @@
 import { Facebook, Instagram, Linkedin, Youtube } from "lucide-react";
+import type { MouseEvent } from "react";
 import { Link } from "@tanstack/react-router";
 import geLogoGold from "@/assets/shared/ge-logo-gold.png";
 import { companyAddress, companyEmail, companyPhone, companySocial } from "@/lib/company";
@@ -48,10 +49,35 @@ const footerLinks = [
 
 type FooterItem = (typeof footerLinks)[number]["items"][number];
 
+/** Clicking a link to the page you are already on should scroll back to the top. */
+function scrollTopIfSamePage(event: MouseEvent<HTMLAnchorElement>, to: string) {
+  if (window.location.pathname === to && !window.location.hash) {
+    event.preventDefault();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+}
+
 function FooterLinkItem({ item }: { item: FooterItem }) {
   if (item.kind === "route") {
     return (
-      <Link to={item.to} className="break-words transition hover:text-white">
+      <Link
+        to={item.to}
+        onClick={(event) => scrollTopIfSamePage(event, item.to)}
+        className="break-words transition hover:text-white"
+      >
+        {item.label}
+      </Link>
+    );
+  }
+
+  if (item.kind === "anchor" && item.href.includes("#") && item.href.startsWith("/")) {
+    const [path, hash] = item.href.split("#");
+    return (
+      <Link
+        to={path as "/"}
+        hash={hash}
+        className="break-words transition hover:text-white"
+      >
         {item.label}
       </Link>
     );
@@ -122,10 +148,16 @@ export function SiteFooter() {
         <div className="mt-12 flex flex-col gap-4 border-t border-white/20 pt-6 text-[0.8rem] font-normal text-white/75 md:flex-row md:items-center md:justify-between md:text-[0.84rem]">
           <p>© 2026 Global Edifice. All rights reserved. RERA Approved Developer.</p>
           <div className="flex flex-wrap gap-6 md:gap-8">
-            <Link to="/privacy-policy" className="transition hover:text-[#c4a36b]">
+            <Link
+              to="/privacy-policy"
+              onClick={(event) => scrollTopIfSamePage(event, "/privacy-policy")}
+              className="transition hover:text-[#c4a36b]">
               Privacy Policy
             </Link>
-            <Link to="/termsandconditions" className="transition hover:text-[#c4a36b]">
+            <Link
+              to="/termsandconditions"
+              onClick={(event) => scrollTopIfSamePage(event, "/termsandconditions")}
+              className="transition hover:text-[#c4a36b]">
               Terms of Use
             </Link>
           </div>

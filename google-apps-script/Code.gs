@@ -55,6 +55,10 @@ function doPost(e) {
 
     appendRow(sheetName, fields, payload);
 
+    if (String(payload.form).toLowerCase() === 'career') {
+      return jsonResponse({ ok: true, email: emailCareerApplication(fields) });
+    }
+
     return jsonResponse({ ok: true });
   } catch (error) {
     return jsonResponse({ ok: false, error: String(error) });
@@ -70,6 +74,67 @@ function doPost(e) {
 /** Lets you open the web app URL in a browser to check it is deployed. */
 function doGet() {
   return jsonResponse({ ok: true, status: 'Global Edifice form endpoint is running' });
+}
+
+/**
+ * Where careers applications are emailed.
+ * Set MODE to 'test' while testing, and to 'prod' when going live.
+ */
+var MODE = 'test';
+var CAREERS_EMAILS = {
+  test: 'seetharamugn@gmail.com',
+  prod: 'careers@globaledifice.com',
+};
+var CAREERS_EMAIL = CAREERS_EMAILS[MODE];
+
+/**
+ * Run this once from the Apps Script editor (select it, then click Run). It asks
+ * Google for permission to send email and sends a test to CAREERS_EMAIL.
+ */
+function testCareerEmail() {
+  var result = emailCareerApplication({
+    fullName: 'TEST - ignore',
+    email: '',
+    phone: '',
+    location: '',
+    resumeLink: 'https://example.com/test-resume',
+  });
+  Logger.log(result);
+}
+
+/**
+ * Emails each careers application (with the resume link) to the HR inbox.
+ * Returns "sent" or the error, so failures show up in the web app response.
+ */
+function emailCareerApplication(fields) {
+  try {
+    var lines = [
+      'A new careers application was submitted on the website.',
+      '',
+      'Name: ' + (fields.fullName || ''),
+      'Email: ' + (fields.email || ''),
+      'Phone: ' + (fields.phone || ''),
+      'Location: ' + (fields.location || ''),
+      'Resume / CV: ' + (fields.resumeLink || ''),
+    ];
+    var options = { name: 'Global Edifice Website' };
+
+    if (fields.email) {
+      options.replyTo = String(fields.email);
+    }
+
+    MailApp.sendEmail(
+      CAREERS_EMAIL,
+      (MODE === 'test' ? '[TEST] ' : '') +
+        'New careers application: ' + (fields.fullName || 'Applicant'),
+      lines.join('\n'),
+      options,
+    );
+    return 'sent';
+  } catch (error) {
+    // The row is already saved in the sheet; never fail the submission over email.
+    return 'error: ' + String(error);
+  }
 }
 
 function parseBody(e) {

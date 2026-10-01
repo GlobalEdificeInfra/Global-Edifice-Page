@@ -15,7 +15,7 @@ import { IndianPhoneInput, withIndiaDialCode } from "@/components/indian-phone-i
 import { saveToSheet } from "@/lib/sheets-api";
 import { submitContactForm } from "@/lib/enquiry-api";
 
-const ORLEAN_TITLE = "Global Edifice Orlean";
+const ORLEAN_TITLE = "Global Edifice Orlean – 2 & 3 BHK Apartments in Chandapura, Bangalore | From ₹76 L";
 const ORLEAN_DESCRIPTION =
   "Explore Global Edifice Orlean, a landscape-led residential address off Chandapura Road with 2 & 3 BHK homes, wellness amenities, and strong South Bangalore connectivity.";
 
