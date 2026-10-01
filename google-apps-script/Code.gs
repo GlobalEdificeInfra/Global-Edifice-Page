@@ -80,7 +80,7 @@ function doGet() {
  * Where careers applications are emailed.
  * Set MODE to 'test' while testing, and to 'prod' when going live.
  */
-var MODE = 'test';
+var MODE = 'prod';
 var CAREERS_EMAILS = {
   test: 'seetharamugn@gmail.com',
   prod: 'careers@globaledifice.com',
