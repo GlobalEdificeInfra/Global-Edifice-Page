@@ -871,7 +871,7 @@ function ContactSection() {
       email,
       phone: withIndiaDialCode(phone),
       message,
-      project: ORLEAN_TITLE,
+      project: "Global Edifice Orlean",
       channelId: "Contact_us",
       subject: "Lead from Website - Contact Form",
     });
